@@ -55,7 +55,8 @@ export default function Projects() {
   }
 
   return (
-    <div className="skills" id="projects">
+    <div className="projects" id="projects">
+      <div className="header">Projects</div>
       <div className="slider" style = {{transform: `translateX(-${Currentslide*100}vw)`}}>
         {Data.map((d) => (
           <div className="container">

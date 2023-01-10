@@ -10,9 +10,9 @@ export default function Skills() {
 
   return (
     <div className="skills" id="skills">
-      <div className="headsection">
+      {/* <div className="headsection"> */}
         <div className="head">Skills</div>
-      </div>
+      {/* </div> */}
       <div className="sections">
         <div className="section">
           <div className="header">Frontend</div>

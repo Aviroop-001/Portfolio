@@ -1,11 +1,21 @@
 @import '../../global.scss';
 
-.skills{
+.projects{
     background-color: $darkest;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    color: $lighter;
+    .header {
+      font-size: 4rem;
+      font-family: "Fredericka the Great", cursive;
+      font-weight: lighter;
+      letter-spacing: 5px;
+      position: absolute;
+      top: 10px;
+      text-align: center;
+    }
     .slider{
         // border: 1px red solid;
         height: 370px;
