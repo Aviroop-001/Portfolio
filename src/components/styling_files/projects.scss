@@ -18,7 +18,7 @@
     }
     .slider{
         // border: 1px red solid;
-        height: 370px;
+        height: 50vh;
         display: flex;
         position: absolute;
         left: 0;
@@ -34,11 +34,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: $lighter;
             .item{
                 // border: rgb(10, 19, 1) 1px solid;
-                border-radius: 1.5rem;
-                background-color: $lightest;
-                width: 53rem;
+                background-color: $darker;
+                width: 50rem;
                 height: 100%;
                 display: flex;
                 justify-content: center;
@@ -54,10 +54,19 @@
                     flex: 4;
                     height: 80%;
                     display: flex;
-                    // justify-content: center;
+                    justify-content: center;
                     align-items: center;
                     flex-direction: column;
                     overflow: hidden;
+                    .icons{
+                        width: 50%;
+                        display: flex;
+                        justify-content: space-evenly;
+                        .icon{
+                            color: $light;
+                            font-size: 2rem;
+                        }
+                    }
                     img{
                         height: 20%;
                         width: 22%;
@@ -68,17 +77,21 @@
                         }
                     }
                     h2{
+                        font-family: Roboto;
+                        letter-spacing: 4px;
+                        font-weight: bold;
                         font-size: 1.7rem;
-                        color: $darkest;
+                        color: $lighter;
                         margin: 0 0 1rem 0;
                         text-shadow: $dark 2px 2px 3px;
                         overflow: hidden;
                     }
                     p{
-                        color: $darkest;
+                        color: $lighter;
                         text-align: center;
                         margin: 0 0 0.5rem 0.5rem;
                         overflow: hidden;
+                        margin: 5px 10px;
                         @include mobile{
                             display: none;
                         }
@@ -93,14 +106,12 @@
                 }
                 .right{
                     // border: darkgreen 2px dotted;
-                    flex: 8;
-                    height: 95%;
+                    flex: 7;
+                    height: 100%;
                     overflow: hidden;
-                    padding: 0.5rem;
                     img{
                         height: 100%;
                         width: 100%;
-                        border-radius: 1.5rem;
                         box-shadow: $darker 3px 3px 7px;
                     }
                     @include mobile {
@@ -116,10 +127,10 @@
         position: absolute;
         cursor: pointer;
         &.left{
-            left: 6rem;
+            left: 7rem;
         }
         &.right{
-            right: 6rem;
+            right: 7rem;
         }
         &:hover{
             height: 3.3rem;

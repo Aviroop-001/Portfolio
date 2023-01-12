@@ -1,71 +1,47 @@
 import "../styling_files/projects.scss";
 import { useState } from "react";
+import {BsCodeSlash} from 'react-icons/bs'
+import {AiOutlineLink} from 'react-icons/ai'
+import { projectsData } from "./Data";
 
 export default function Projects() {
 
   const [Currentslide, setCurrentslide] = useState(0);
-  const Data = [
-    {
-      id: "1",
-      icon: "myAssets/www.png",
-      title: "React Js",
-      description:
-        "Describes my expertise in a particular field, associated with the skill. Eg React, Node, Web Dev, Ai Ml etc.",
-      image: "myAssets/project_img1.jpg"
-    },
-    {
-      id: "2",
-      icon: "myAssets/www.png",
-      title: "Node Js",
-      description:
-        "Describes my expertise in a particular field, associated with the skill. Eg React, Node, Web Dev, Ai Ml etc.",
-      image: "myAssets/project_img1.jpg"
-    },
-    {
-      id: "3",
-      icon: "myAssets/www.png",
-      title: "Skill3",
-      description:
-        "Describes my expertise in a particular field, associated with the skill. Eg React, Node, Web Dev, Ai Ml etc.",
-      image: "myAssets/project_img1.jpg"
-    },
-    {
-      id: "4",
-      icon: "myAssets/www.png",
-      title: "Skill4",
-      description: "Describes my expertise in a particular field, associated with the skill. Eg React, Node, Web Dev, Ai Ml etc.",
-      image: "myAssets/project_img1.jpg"
-    },
-    {
-      id: "5",
-      icon: "myAssets/www.png",
-      title: "Skill5",
-      description: "Describes my expertise in a particular field, associated with the skill. Eg React, Node, Web Dev, Ai Ml etc.",
-      image: "myAssets/project_img1.jpg"
-    }
-  ];
 
   const handleclick = (direction) =>{
     if(direction === 'left'){
-      setCurrentslide(Currentslide > 0 ? Currentslide-1 : Data.length-1)
+      setCurrentslide(
+        Currentslide > 0 ? Currentslide - 1 : projectsData.length - 1
+      );
     }
     else{
-      setCurrentslide(Currentslide < Data.length-1 ? Currentslide+1 : 0)
+      setCurrentslide(
+        Currentslide < projectsData.length - 1 ? Currentslide + 1 : 0
+      );
     }
   }
 
   return (
     <div className="projects" id="projects">
       <div className="header">Projects</div>
-      <div className="slider" style = {{transform: `translateX(-${Currentslide*100}vw)`}}>
-        {Data.map((d) => (
+      <div
+        className="slider"
+        style={{ transform: `translateX(-${Currentslide * 100}vw)` }}
+      >
+        {projectsData.map((d) => (
           <div className="container">
             <div className="item">
               <div className="left">
-                <img src={d.icon} alt="" />
+                <div className="icons">
+                  <a href={d.repo} target="_blank">
+                    <BsCodeSlash className="icon" />
+                  </a>
+                  <a href={d.liveLink} target="_blank">
+                    <AiOutlineLink className="icon" />
+                  </a>
+                </div>
                 <h2>{d.title}</h2>
                 <p>{d.description}</p>
-                <span>Projects</span>
               </div>
               <div className="right">
                 <img src={d.image} alt="" />
@@ -74,8 +50,18 @@ export default function Projects() {
           </div>
         ))}
       </div>
-      <img src="myAssets/leftarrow.png" alt="" className="arrow left" onClick={()=> handleclick('left')}/>
-      <img src="myAssets/rightarrow.png" alt="" className="arrow right" onClick={()=> handleclick('right')}/>
+      <img
+        src="myAssets/leftarrow.png"
+        alt=""
+        className="arrow left"
+        onClick={() => handleclick("left")}
+      />
+      <img
+        src="myAssets/rightarrow.png"
+        alt=""
+        className="arrow right"
+        onClick={() => handleclick("right")}
+      />
     </div>
   );
 }
