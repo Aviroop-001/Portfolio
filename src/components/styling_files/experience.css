@@ -132,7 +132,7 @@
 }
 
 .timeline-item-content .circle {
-    background-color: #fff;
+    /* background-color: #fff; */
     border: 3px solid #e17b77;
     border-radius: 50%;
     position: absolute;
