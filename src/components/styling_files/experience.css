@@ -8,6 +8,7 @@
   }
   .header{
     /* border: 1px solid red; */
+    color: rgb(216, 185, 195);;
     display: flex;
     justify-content: center;
     align-items: center;
