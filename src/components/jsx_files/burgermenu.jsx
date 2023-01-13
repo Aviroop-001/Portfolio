@@ -17,8 +17,8 @@ export default function burgermenu({menuactive, setmenuactive}) {
           <li onClick={() => setmenuactive(false)}>
             <a href="#experience">Experience</a>
           </li>
-          {/* <li onClick={()=>setmenuactive(false)}><a href="#recommendations">Testimonials</a></li>
-                <li onClick={()=>setmenuactive(false)}><a href="#contact">Contact Me</a></li> */}
+          {/* <li onClick={()=>setmenuactive(false)}><a href="#recommendations">Testimonials</a></li> */}
+          <li onClick={()=>setmenuactive(false)}><a href="#contact">Contact Me</a></li>
         </ul>
       </div>
     );

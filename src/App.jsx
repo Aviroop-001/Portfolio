@@ -4,7 +4,7 @@ import Burgermenu from "./components/jsx_files/burgermenu";
 import Intro from "./components/jsx_files/intro";
 import Projects from "./components/jsx_files/Projects";
 // import Recommendation from "./components/jsx_files/recommendation";
-// import Contact from "./components/jsx_files/contact-me";
+import Contact from "./components/jsx_files/Contact";
 import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import "./App.scss";
@@ -20,8 +20,7 @@ function App() {
         <Skills />
         <Projects />
         <Experience />
-        {/* <Recommendation/>
-        <Contact/> */}
+        <Contact/>
       </div>
     </div>
   );

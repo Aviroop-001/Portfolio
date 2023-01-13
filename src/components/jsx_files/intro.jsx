@@ -34,6 +34,7 @@ export default function Intro() {
             <h3>
               I'm a <span ref={textRef}></span>
             </h3>
+            <button className="btn">Resume</button>
           </div>
           <a href="#skills">
             <AiOutlineDown className="downarrow" />
@@ -69,7 +70,7 @@ export default function Intro() {
             >
               <SiLeetcode color="white" />
             </a>
-            <button className="btn">Resume</button>
+            {/* <button className="btn">Resume</button> */}
           </div>
         </div>
       </div>
