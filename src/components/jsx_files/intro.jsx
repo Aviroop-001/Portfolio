@@ -34,7 +34,12 @@ export default function Intro() {
             <h3>
               I'm a <span ref={textRef}></span>
             </h3>
-            <button className="btn">Resume</button>
+            <a
+              href="https://drive.google.com/file/d/1QecV9DlMONn6N34gqOr0M4nvRa20k6Gq/view?usp=share_link"
+              target="_blank"
+            >
+              <button className="btn">Resume</button>
+            </a>
           </div>
           <a href="#skills">
             <AiOutlineDown className="downarrow" />
