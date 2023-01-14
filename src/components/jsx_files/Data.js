@@ -6,7 +6,8 @@ export const projectsData = [
       "A Fullstack Blog app, frontend built on ReactJS, backend REST API Node.js and Express.js, and MongoDB as a Database with CRUD operations and user Authentication",
     liveLink: "https://aviroop-blog-client-aviroop-001.vercel.app/",
     repo: "https://github.com/Aviroop-001/Blogetra",
-    image: "myAssets/project_img1.jpg",
+    image:
+      "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
     id: "2",
@@ -15,7 +16,8 @@ export const projectsData = [
       "A Realtime Chat app, frontend built on ReactJS, backend REST API Node.js and Express.js, MongoDB as a Database, and Socket.io for bi-directional server-client communication",
     liveLink: "https://radius-seven.vercel.app/",
     repo: "https://github.com/Aviroop-001/Radius",
-    image: "myAssets/project_img1.jpg",
+    image:
+      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
     id: "3",
@@ -25,7 +27,8 @@ export const projectsData = [
     liveLink:
       "https://expo.dev/@aviroop/socialApp?serviceType=classic&distribution=expo-go",
     repo: "https://github.com/Aviroop-001/Intelligram",
-    image: "myAssets/project_img1.jpg",
+    image:
+      "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
     id: "4",
@@ -34,7 +37,8 @@ export const projectsData = [
       "A realtime User Dashboard for tracking Employees built on React JS, React Query, JSON-server and Tailwind CSS, with features like CRUD, sorting employees etc.",
     liveLink: "https://user-dashboard-phi.vercel.app/",
     repo: "https://github.com/Aviroop-001/User_Dashboard",
-    image: "myAssets/project_img1.jpg",
+    image:
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80",
   },
 ];
 
@@ -80,118 +84,4 @@ export const timelineData = [
     },
   },
 ];
-
-
-export const React_projects=[
-    {
-        id : "1",
-        title : "Weather App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "2",
-        title : "TO-DO App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "3",
-        title : "Location App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "4",
-        title : "Social Media",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "5",
-        title : "Shopping App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "6",
-        title : "Chat App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-]
-
-export const Node_projects=[
-    {
-        id : "1",
-        title : "Chat App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "2",
-        title : "Messaging App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "3",
-        title : "Video Streaming App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "4",
-        title : "Social Media",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "5",
-        title : "Shopping App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "6",
-        title : "Covid Tracking App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-]
-
-export const Mern_projects=[
-    {
-        id : "1",
-        title : "Chat App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "2",
-        title : "Shopping App",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "3",
-        title : "Social Media",
-        image : "myAssets/weather_app_image.jpg",
-    },
-]
-
-export const Aiml_projects=[
-    {
-        id : "1",
-        title : "Voice Detection",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "2",
-        title : "Image Processing",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "3",
-        title : "Spam Classifier",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "4",
-        title : "Market Predictor",
-        image : "myAssets/weather_app_image.jpg",
-    },
-    {
-        id : "5",
-        title : "Tick-Tack-Toe",
-        image : "myAssets/weather_app_image.jpg",
-    },
-]
-
 

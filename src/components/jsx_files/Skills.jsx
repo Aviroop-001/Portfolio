@@ -31,7 +31,7 @@ export default function Skills() {
           </div>
         </div>
         <div className="section">
-          <div className="header">Miscellaneous</div>
+          <div className="header">Others</div>
           <div className="content">
             {misc.map((f) => (
               <button className="btn">{f}</button>
