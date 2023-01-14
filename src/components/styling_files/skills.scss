@@ -9,7 +9,7 @@
   justify-content: flex-start;
   align-items: center;
   .head {
-    border: 1px solid yellow;
+    // border: 1px solid yellow;
     font-size: 4rem;
     font-family: "Fredericka the Great", cursive;
     font-weight: lighter;
@@ -83,7 +83,7 @@
       }
     }
     @include mobile{
-      border: 1px solid red;
+      // border: 1px solid red;
       // min-height: 75vh;
       margin-bottom: 3rem;
       flex: 19;
