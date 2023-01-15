@@ -6,8 +6,16 @@
   // border: 1px dotted red;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
+  position: relative;
+  padding: 2rem 5px;
+  @include mobile {
+    // border: 1px solid green;
+    min-height: 120vh;
+    justify-content: flex-start;
+    padding: 5px;
+  }
   .head {
     // border: 1px solid yellow;
     font-size: 4rem;
@@ -15,44 +23,49 @@
     font-weight: lighter;
     letter-spacing: 5px;
     text-align: center;
-    height: 25vh;
-    width: 40%;
     @include mobile {
-      font-size: 3rem;
-      width: 60%;
-      height: 10vh;
-      flex: 2;
+      margin-bottom: 1rem;
     }
   }
-  .sections {
-    // border: 1px yellow solid;
-    // max-height: 60vh;
+  .skillsections {
+    // border: 1px red solid;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 8rem;
+    @include mobile {
+      // flex: 19;
+    }
     .section {
       // border: 1px red solid;
       display: flex;
       flex-direction: row;
-      // min-height: 20vh;
       width: 90%;
-      // justify-content: flex-start;
       align-items: center;
+      border-bottom: 1px solid rgb(235, 140, 140);
+      @include mobile {
+        max-height: 35vh;
+        // border: 1px solid blue;
+      }
       .header {
         flex: 2;
         font-size: 2rem;
         @include mobile {
-      }
+          flex: 1;
+          letter-spacing: 1px;
+          writing-mode: vertical-lr;
+          text-orientation: upright;
+          font-size: 1.3rem;
+          height: 100%;
+        }
       }
       .content {
-        // border: 1px green solid;
-        // min-height: 80%;
         flex: 6;
         display: flex;
         flex-wrap: wrap;
-        height: fit-content;
+        @include mobile {
+          flex: 8;
+        }
         .btn {
           height: 2.4rem;
           background-color: $darkest;
@@ -69,27 +82,10 @@
             box-shadow: 0px 0px 5px rgb(245, 165, 165);
           }
           @include mobile {
-            font-size: 1rem;
-            height: 1.6rem;
-            padding: 2px 4px;
-          margin: 3px 6px;
+            font-size: 1.1rem;
           }
         }
       }
-      @include mobile {
-          flex-direction: column;
-          min-height: 25vh;
-          // justify-content: space-evenly;
-      }
     }
-    @include mobile{
-      // border: 1px solid red;
-      // min-height: 75vh;
-      margin-bottom: 3rem;
-      flex: 19;
-    }
-  }
-  @include mobile{
-    justify-content: center;
   }
 }

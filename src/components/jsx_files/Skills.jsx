@@ -13,7 +13,7 @@ export default function Skills() {
       {/* <div className="headsection"> */}
         <div className="head">Skills</div>
       {/* </div> */}
-      <div className="sections">
+      <div className="skillsections">
         <div className="section">
           <div className="header">Frontend</div>
           <div className="content">
