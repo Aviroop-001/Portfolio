@@ -2,19 +2,26 @@
 
 .projects{
     background-color: $darkest;
+    height: calc(100vh - 70px);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     color: $lighter;
     .header {
+        // border: 1px yellow solid;
       font-size: 4rem;
       font-family: "Fredericka the Great", cursive;
       font-weight: lighter;
       letter-spacing: 5px;
       position: absolute;
-      top: 10px;
+      top: 0;
       text-align: center;
+      @include mobile{
+        font-size: 3rem;
+        flex: 3;
+        height: 5rem;
+      }
     }
     .slider{
         // border: 1px red solid;
@@ -22,11 +29,12 @@
         display: flex;
         position: absolute;
         left: 0;
+        top: 10rem;
         transition: all 1s ease-in-out;
         @include mobile{
-            height: 100vh;
-            flex-direction: column;
+            height: 75vh;
             justify-content: center;
+            top: 5rem;
         }
         .container{
             // border: 2px blueviolet solid;
@@ -45,9 +53,10 @@
                 align-items: center;
                 overflow: hidden;
                 @include mobile{
-                    height: 125px;
+                    height: 80%;
                     width: 90%;
                     margin: 5px;
+                    flex-direction: column;
                 }
                 .left{
                     // border: darkblue 2px dotted;
@@ -58,6 +67,8 @@
                     align-items: center;
                     flex-direction: column;
                     overflow: hidden;
+                    @include mobile{
+                    }
                     .icons{
                         width: 50%;
                         display: flex;
@@ -85,6 +96,9 @@
                         margin: 0 0 1rem 0;
                         text-shadow: $dark 2px 2px 3px;
                         overflow: hidden;
+                        @include mobile{
+                            margin: 0 0 10px 0;
+                        }
                     }
                     p{
                         color: $lighter;
@@ -93,7 +107,7 @@
                         overflow: hidden;
                         margin: 5px 10px;
                         @include mobile{
-                            display: none;
+                            margin: 0 0 0.1rem 0.1rem;
                         }
                     }
                     span{
@@ -115,7 +129,8 @@
                         box-shadow: $darker 3px 3px 7px;
                     }
                     @include mobile {
-                        flex: 6;
+                        flex: 4;
+                        width: 100%;
                     }
                 }
             }
@@ -128,16 +143,28 @@
         cursor: pointer;
         &.left{
             left: 7rem;
+            bottom: 2rem;
         }
         &.right{
             right: 7rem;
+            bottom: 2rem;
         }
         &:hover{
             height: 3.3rem;
             width: 3.3rem;
         }
         @include mobile{
-            display: none;
+            &.left{
+                bottom: 2rem;
+                left: 3rem;
+            }
+            &.right{
+                bottom: 2rem;
+                right: 3rem;
+            }
         }
     }
+    @include mobile{
+            justify-content: flex-end;
+        }
 }
