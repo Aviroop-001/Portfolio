@@ -1,5 +1,5 @@
 import "../styling_files/navbar.scss";
-import {FaEnvelope, FaUser, FaAt} from "react-icons/fa";
+import {FaEnvelope, FaUser} from "react-icons/fa";
 
 const navbar= ({ menuactive, setmenuactive }) => {
     return (
