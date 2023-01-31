@@ -44,40 +44,62 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Web Development LEAD @ Google Developer's Student Club",
+    text: "Worked in a team of UI/UX Developers to develop fast & responsive websites",
+    date: "Dec 2022 - Jan 2023",
+    position: "Frontend Developer",
+    org: "Winsple",
+    skills: "HTML, CSS, JavaScript, ReactJS",
+    category: {
+      tag: "Internship",
+      color: "#2d0eb5",
+    },
+  },
+  {
+    text: "Taught Web Dev. to 50+ students, organized 10+ workshops, hackathons for everyone",
     date: "Aug 2022 - Present",
+    position: "Web Development LEAD",
+    org: "Google Developer's Student Club",
+    skills: "ReactJS, Node.js, Express.js, MongoDB, Microservices",
     category: {
       tag: "Volunteer",
       color: "#c93e38",
     },
   },
   {
-    text: "Problem Setter @ Codechef",
+    text: "Organized 10+ contests, including International contests with 200+ attendees.",
     date: "Oct 2021 - Aug 2022",
+    position: "Problem Setter",
+    org: "Codechef",
     category: {
       tag: "Volunteer",
       color: "#c93e38",
     },
   },
   {
-    text: "Currently in pre-final year of B.Tech in Computer Science and Engineering",
+    text: "Currently in pre-final year, with CGPA of 9.34",
     date: "Nov 2020 - Feb 2024",
+    position: "B.Tech in CSE",
+    org: "Government College of Engineering & Ceramic Technology",
     category: {
       tag: "University",
       color: "#017354",
     },
   },
   {
-    text: "Passed AISSCE at Aditya Academy Sr. Secondary with 9.2 CGPA",
+    text: "Graduated school with 9.2 CGPA",
     date: "April 2018 - April 2020",
+    position: "AISSCE",
+    org: "Aditya Academy Sr. Secondary",
     category: {
       tag: "High School",
       color: "#017354",
     },
   },
   {
-    text: "Passed AISSE at Aditya Academy Secondary with 9.1 CGPA",
+    text: "Graduated school with 9.1 CGPA",
     date: "- March 2018",
+    position: "AISSE",
+    org: "Aditya Academy Secondary",
     category: {
       tag: "School",
       color: "#017354",

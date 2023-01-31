@@ -31,6 +31,7 @@
     }
     @include mobile {
       flex: 1;
+      margin-bottom: 4rem;
     }
   }
   .left {
@@ -120,6 +121,7 @@
       animation: arrowBlink 1.3s infinite;
       @include mobile{
         left: 44vw;
+        margin-bottom: 3rem;
       }
     }
     @include mobile {

@@ -17,8 +17,8 @@ export default function Intro() {
           backDelay: 1000,
           backSpeed: 30,
           strings: [
-            "Backend Web Developer",
-            "Frontend Web Developer",
+            "Backend Developer",
+            "Frontend Developer",
             "MERN Fullstack Developer",
             "Problem Solver",
           ],

@@ -42,7 +42,6 @@
       flex-direction: row;
       width: 90%;
       align-items: center;
-      border-bottom: 1px solid rgb(235, 140, 140);
       @include mobile {
         max-height: 35vh;
         // border: 1px solid blue;
@@ -83,6 +82,7 @@
           }
           @include mobile {
             font-size: 1.1rem;
+            margin: 2px 6px;
           }
         }
       }

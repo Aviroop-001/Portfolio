@@ -10,7 +10,22 @@ const TimelineItem = ({ data }) => (
         {data.category.tag}
       </span>
       <time>{data.date}</time>
-      <p>{data.text}</p>
+      <div className="position">
+        <span style={{ fontWeight: "bolder", fontSize: "1.1rem" }}>
+          {data.position}
+        </span>
+        ,
+        <span style={{ fontStyle: "italic", fontSize: "1.1rem" }}>
+          {" "}
+          {data.org}
+        </span>
+      </div>
+      <div style={{ marginTop: "10px" }}>{data.text}</div>
+      {data.skills && (
+        <div style={{ marginTop: '5px',fontWeight: "bold", fontFamily: "Roboto" }}>
+          &#x22C6; {data.skills}
+        </div>
+      )}
       <span className="circle" />
     </div>
   </div>

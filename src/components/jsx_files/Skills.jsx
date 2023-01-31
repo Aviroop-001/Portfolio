@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Skills() {
 
   const frontend = ["ReactJS" , "React Native","Redux","React-Query","HTML/CSS","SASS","jQuery","Tailwind CSS","Bootstrap","Material UI"]
-  const backend = ["Node.js","Express.js","MongoDB","REST API","CRUD Ops","Mongoose","MySQL","JSON Web Tokens"];
+  const backend = ["Node.js","Express.js","MongoDB","REST API","CRUD Ops","Mongoose","MySQL","JSON Web Tokens", "Docker", "Kubernetes"];
   const misc = ["JavaScript","C++/C","Git","Github","Shell script","jQuery","Axios","Bootstrap","Material UI"
   ];
 

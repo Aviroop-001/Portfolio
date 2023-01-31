@@ -34,7 +34,7 @@
         @include mobile{
             height: 75vh;
             justify-content: center;
-            top: 5rem;
+            top: 6.5rem;
         }
         .container{
             // border: 2px blueviolet solid;
@@ -142,12 +142,12 @@
         position: absolute;
         cursor: pointer;
         &.left{
-            left: 7rem;
-            bottom: 2rem;
+            left: 2rem;
+            bottom: 15rem;
         }
         &.right{
-            right: 7rem;
-            bottom: 2rem;
+            right: 2rem;
+            bottom: 15rem;
         }
         &:hover{
             height: 3.3rem;
@@ -155,12 +155,12 @@
         }
         @include mobile{
             &.left{
-                bottom: 2rem;
-                left: 3rem;
+                top: 6rem;
+                left: 2rem;
             }
             &.right{
-                bottom: 2rem;
-                right: 3rem;
+                top: 6rem;
+                right: 2rem;
             }
         }
     }
