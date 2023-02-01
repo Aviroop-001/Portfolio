@@ -44,6 +44,17 @@ export const projectsData = [
 
 export const timelineData = [
   {
+    text: "Bulding. Breaking. Learning.",
+    date: "Feb 2022 - Present",
+    position: "SDE Intern",
+    org: "Fi Ellements",
+    skills: "ReactJS, Redux, JavaScript",
+    category: {
+      tag: "Internship",
+      color: "#2d0eb5",
+    },
+  },
+  {
     text: "Worked in a team of UI/UX Developers to develop fast & responsive websites",
     date: "Dec 2022 - Jan 2023",
     position: "Frontend Developer",
