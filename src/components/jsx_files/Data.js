@@ -90,7 +90,7 @@ export const timelineData = [
     text: "Currently in pre-final year, with CGPA of 9.34",
     date: "Nov 2020 - Feb 2024",
     position: "B.Tech in CSE",
-    org: "Government College of Engineering & Ceramic Technology",
+    org: "MAULANA ABUL KALAM AZAD UNIVERSITY OF TECHNOLOGY",
     category: {
       tag: "University",
       color: "#017354",
