@@ -33,9 +33,9 @@ export default function Projects() {
             <div className="item">
               <div className="left">
                 <div className="icons">
-                  <a href={d.repo} target="_blank">
+                  {/* <a href={d.repo} target="_blank">
                     <BsCodeSlash className="icon" />
-                  </a>
+                  </a> */}
                   <a href={d.liveLink} target="_blank">
                     <AiOutlineLink className="icon" />
                   </a>
