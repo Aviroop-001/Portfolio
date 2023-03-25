@@ -6,6 +6,13 @@ import { timelineData } from "./Data";
 const TimelineItem = ({ data }) => (
   <div className="timeline-item">
     <div className="timeline-item-content">
+      <div>
+        <img
+          className="iconImage"
+          src={data.icon}
+          alt=""
+        />
+      </div>
       <span className="tag" style={{ background: data.category.color }}>
         {data.category.tag}
       </span>
@@ -22,7 +29,9 @@ const TimelineItem = ({ data }) => (
       </div>
       <div style={{ marginTop: "10px" }}>{data.text}</div>
       {data.skills && (
-        <div style={{ marginTop: '5px',fontWeight: "bold", fontFamily: "Roboto" }}>
+        <div
+          style={{ marginTop: "5px", fontWeight: "bold", fontFamily: "Roboto" }}
+        >
           &#x22C6; {data.skills}
         </div>
       )}

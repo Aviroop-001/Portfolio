@@ -44,10 +44,23 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Bulding. Breaking. Learning.",
-    date: "Feb 2022 - Present",
+    text: "Building for Creators",
+    date: "March 2022 - Present",
+    position: "Juior Backend Developer",
+    org: "Listed",
+    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
+    skills: "Node.js, Express.js, SQL, JavaScript",
+    category: {
+      tag: "Internship",
+      color: "#2d0eb5",
+    },
+  },
+  {
+    text: "Developed multiple frontend features for the flagship product",
+    date: "Feb 2022 - March 2022",
     position: "SDE Intern",
     org: "Fi Ellements",
+    icon: "https://media.licdn.com/dms/image/C510BAQELrF4Lb0OOpg/company-logo_200_200/0/1546436333837?e=1687996800&v=beta&t=jD4dowgank25ny5a9M5e4FaWAyO8S-kdjU-rNy0vQrQ",
     skills: "ReactJS, Redux, JavaScript",
     category: {
       tag: "Internship",
@@ -59,6 +72,7 @@ export const timelineData = [
     date: "Dec 2022 - Jan 2023",
     position: "Frontend Developer",
     org: "Winsple",
+    icon: "https://media.licdn.com/dms/image/C560BAQFM0ickEenjXA/company-logo_200_200/0/1648554433632?e=1687996800&v=beta&t=cB6t1M1oVtRmzzipkKtzn-U_xe7T12ReZ4996WFI6bM",
     skills: "HTML, CSS, JavaScript, ReactJS",
     category: {
       tag: "Internship",
@@ -70,6 +84,7 @@ export const timelineData = [
     date: "Aug 2022 - Present",
     position: "Web Development LEAD",
     org: "Google Developer's Student Club",
+    icon: "https://media.licdn.com/dms/image/C4D0BAQHgWZO4CpYT6w/company-logo_200_200/0/1629032109185?e=1687996800&v=beta&t=4nRawtisfkbaF9i8MFkKFnEHBAENP91pR6jKLsrQ7Pg",
     skills: "ReactJS, Node.js, Express.js, MongoDB, Microservices",
     category: {
       tag: "Volunteer",
@@ -81,6 +96,7 @@ export const timelineData = [
     date: "Oct 2021 - Aug 2022",
     position: "Problem Setter",
     org: "Codechef",
+    icon: "https://media.licdn.com/dms/image/C560BAQGqbQqGLrllzQ/company-logo_200_200/0/1641201041884?e=1687996800&v=beta&t=2oyq76Q-LwG5IpijX7rEe_L0cRSpOy1hEv2DKb0UVn4",
     category: {
       tag: "Volunteer",
       color: "#c93e38",
@@ -91,6 +107,7 @@ export const timelineData = [
     date: "Nov 2020 - Feb 2024",
     position: "B.Tech in CSE",
     org: "MAULANA ABUL KALAM AZAD UNIVERSITY OF TECHNOLOGY",
+    icon: "https://media.licdn.com/dms/image/C510BAQF0ldUOAHOqSQ/company-logo_200_200/0/1532854671740?e=1687996800&v=beta&t=HuOXwOMSOSL8bWqr467_SV7FGa18zRC2syXrYswpYnQ",
     category: {
       tag: "University",
       color: "#017354",
@@ -101,6 +118,7 @@ export const timelineData = [
     date: "April 2018 - April 2020",
     position: "AISSCE",
     org: "Aditya Academy Sr. Secondary",
+    icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
     category: {
       tag: "High School",
       color: "#017354",
@@ -111,6 +129,7 @@ export const timelineData = [
     date: "- March 2018",
     position: "AISSE",
     org: "Aditya Academy Secondary",
+    icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
     category: {
       tag: "School",
       color: "#017354",

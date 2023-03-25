@@ -1,5 +1,10 @@
 @import "../../global.scss";
 
+.iconImage{
+    height: 3rem;
+    width: 3rem;
+    object-fit: cover;
+}
 .exp {
     height: calc(100vh - 70px);
     width: 100vw;
@@ -162,7 +167,9 @@
         text-align: center;
         align-items: center;
     }
-
+    .iconImage{
+        margin-top: 1.5rem;
+    }
     .timeline-item-content .tag {
         width: calc(100% - 10px);
         text-align: center;
