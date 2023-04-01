@@ -17,9 +17,9 @@ function App() {
       <Burgermenu menuactive={menuactive} setmenuactive={setmenuactive} />
       <div className="sections">
         <Intro />
+        <Experience />
         <Skills />
         <Projects />
-        <Experience />
         <Contact/>
       </div>
     </div>

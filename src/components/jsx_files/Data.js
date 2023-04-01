@@ -52,7 +52,7 @@ export const timelineData = [
     skills: "Node.js, Express.js, SQL, JavaScript",
     category: {
       tag: "Internship",
-      color: "#2d0eb5",
+      color: "#180959",
     },
   },
   {
@@ -64,7 +64,7 @@ export const timelineData = [
     skills: "ReactJS, Redux, JavaScript",
     category: {
       tag: "Internship",
-      color: "#2d0eb5",
+      color: "#180959",
     },
   },
   {
@@ -76,7 +76,7 @@ export const timelineData = [
     skills: "HTML, CSS, JavaScript, ReactJS",
     category: {
       tag: "Internship",
-      color: "#2d0eb5",
+      color: "#180959",
     },
   },
   {
@@ -88,7 +88,7 @@ export const timelineData = [
     skills: "ReactJS, Node.js, Express.js, MongoDB, Microservices",
     category: {
       tag: "Volunteer",
-      color: "#c93e38",
+      color: "#5c120f",
     },
   },
   {
@@ -99,7 +99,7 @@ export const timelineData = [
     icon: "https://media.licdn.com/dms/image/C560BAQGqbQqGLrllzQ/company-logo_200_200/0/1641201041884?e=1687996800&v=beta&t=2oyq76Q-LwG5IpijX7rEe_L0cRSpOy1hEv2DKb0UVn4",
     category: {
       tag: "Volunteer",
-      color: "#c93e38",
+      color: "#5c120f",
     },
   },
   {
@@ -110,7 +110,7 @@ export const timelineData = [
     icon: "https://media.licdn.com/dms/image/C510BAQF0ldUOAHOqSQ/company-logo_200_200/0/1532854671740?e=1687996800&v=beta&t=HuOXwOMSOSL8bWqr467_SV7FGa18zRC2syXrYswpYnQ",
     category: {
       tag: "University",
-      color: "#017354",
+      color: "#053b2c",
     },
   },
   {
@@ -121,7 +121,7 @@ export const timelineData = [
     icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
     category: {
       tag: "High School",
-      color: "#017354",
+      color: "#053b2c",
     },
   },
   {
@@ -132,7 +132,7 @@ export const timelineData = [
     icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
     category: {
       tag: "School",
-      color: "#017354",
+      color: "#053b2c",
     },
   },
 ];

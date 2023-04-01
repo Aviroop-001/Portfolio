@@ -17,12 +17,12 @@ function Contact() {
         >
           <SlSocialLinkedin />
         </a>
-        <a
+        {/* <a
           href="https://wa.me/917439263408"
           className="icon"
         >
           <AiOutlineWhatsApp />
-        </a>
+        </a> */}
       </div>
     </div>
   );
