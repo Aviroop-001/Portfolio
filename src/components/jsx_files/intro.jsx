@@ -35,7 +35,7 @@ export default function Intro() {
               I'm a <span ref={textRef}></span>
             </h3>
             <a
-              href="https://drive.google.com/file/d/1CbzcGo4qWujdKwbGA5qUwiic1fLkKxDO/view?usp=share_link"
+              href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
               target="_blank"
             >
               <button className="btn">Resume</button>
