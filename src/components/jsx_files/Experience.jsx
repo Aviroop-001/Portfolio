@@ -6,13 +6,13 @@ import { timelineData } from "./Data";
 const TimelineItem = ({ data }) => (
   <div className="timeline-item">
     <div className="timeline-item-content">
-      <div>
+      {/* <div>
         <img
           className="iconImage"
           src={data.icon}
           alt=""
         />
-      </div>
+      </div> */}
       <span className="tag" style={{ background: data.category.color }}>
         {data.category.tag}
       </span>

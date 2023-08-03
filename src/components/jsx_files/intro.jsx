@@ -10,40 +10,43 @@ import {AiOutlineDown} from 'react-icons/ai'
 
 export default function Intro() {
 
-    const  textRef = useRef();
-    useEffect(() => {
-        init(textRef.current, {
-          showCursor: true,
-          backDelay: 1000,
-          backSpeed: 30,
-          strings: [
-            "Backend Developer",
-            "Frontend Developer",
-            "MERN Fullstack Developer",
-            "Problem Solver",
-          ],
-        });
+    // const  textRef = useRef();
+    // useEffect(() => {
+    //     init(textRef.current, {
+    //       showCursor: true,
+    //       backDelay: 1000,
+    //       backSpeed: 30,
+    //       strings: [
+    //         "Backend Developer",
+    //         "Frontend Developer",
+    //         "MERN Fullstack Developer",
+    //         "Problem Solver",
+    //       ],
+    //     });
         
-    }, [])
+    // }, [])
 
     return (
       <div className="intro" id="intro">
         <div className="left">
           <div className="shortintro">
             <h1>Aviroop Banerjee</h1>
-            <h3>
-              I'm a <span ref={textRef}></span>
-            </h3>
+            {/* <h3>
+              <span ref={textRef}></span>
+            </h3> */}
             <a
               href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+              className="btn-shine"
               target="_blank"
             >
-              <button className="btn">Resume</button>
+              {/* <button className="btn"> */}
+                Download Resume
+              {/* </button> */}
             </a>
           </div>
-          <a href="#skills">
+          {/* <a href="#skills">
             <AiOutlineDown className="downarrow" />
-          </a>
+          </a> */}
         </div>
         <div className="right">
           <div className="links">
@@ -55,7 +58,7 @@ export default function Intro() {
               <VscGithubAlt color="white" />
             </a>
             <a
-              href="https://www.linkedin.com/in/aviroop-banerjee-4946621b5/"
+              href="https://www.linkedin.com/in/aviroopbanerjee/"
               className="link"
               target="_blank"
             >
@@ -68,13 +71,13 @@ export default function Intro() {
             >
               <SlSocialTwitter color="white" />
             </a>
-            <a
+            {/* <a
               href="https://leetcode.com/Aviroop_01/"
               className="link"
               target="_blank"
             >
               <SiLeetcode color="white" />
-            </a>
+            </a> */}
             {/* <button className="btn">Resume</button> */}
           </div>
         </div>

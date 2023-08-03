@@ -8,10 +8,10 @@ const navbar= ({ menuactive, setmenuactive }) => {
             <div className="nav-items">
                 <div className="info">
                     
-                    <div className="shortcontact">
+                    {/* <div className="shortcontact">
                         <FaEnvelope className="shortcontact_icon"/>
                         <span>&nbsp;&nbsp;banerjeeaviroop01@gmail.com</span>
-                    </div>
+                    </div> */}
                     {/* <div className="shortcontact">
                         <FaUser className="shortcontact_icon"/>
                         <span>+91 7439263408</span>
