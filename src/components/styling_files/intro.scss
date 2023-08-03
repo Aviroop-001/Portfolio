@@ -48,7 +48,8 @@
       position: relative;
       @include mobile {
         align-items: center;
-        margin-top: 5rem;
+        justify-content: flex-end;
+        // padding-top: 5rem;
       }
       .btn-shine {
         // position: absolute;
@@ -79,6 +80,7 @@
         white-space: nowrap;
         @include mobile {
           font-size: 1rem;
+          margin-top: 6rem;
         }
       }
 
