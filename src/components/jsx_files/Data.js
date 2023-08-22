@@ -44,9 +44,9 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Building for Creators",
-    date: "March 2022 - Present",
-    position: "Juior Backend Developer",
+    text: "Building systems that are capable and smart!",
+    date: "March 2023 - Present",
+    position: "Junior Backend Developer",
     org: "Listed",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills: "Node.js, Express.js, SQL, JavaScript",
@@ -57,7 +57,7 @@ export const timelineData = [
   },
   {
     text: "Developed multiple frontend features for the flagship product",
-    date: "Feb 2022 - March 2022",
+    date: "Feb 2023 - March 2023",
     position: "SDE Intern",
     org: "Fi Ellements",
     icon: "https://media.licdn.com/dms/image/C510BAQELrF4Lb0OOpg/company-logo_200_200/0/1546436333837?e=1687996800&v=beta&t=jD4dowgank25ny5a9M5e4FaWAyO8S-kdjU-rNy0vQrQ",
