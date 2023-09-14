@@ -41,9 +41,9 @@ export default function Skills() {
             ))}
           </div>
         </div>
-        <div className="section">
+        <div className="section framework-section">
           <div className="header">Frameworks</div>
-          <div className="content">
+          <div className="content framework">
             {frameworks.map((f) => (
               <button className="btn">{f}</button>
             ))}
