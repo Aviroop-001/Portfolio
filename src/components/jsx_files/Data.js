@@ -10,6 +10,16 @@ export const projectsData = [
       "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   },
   {
+    id: "5",
+    title: "Collab.io",
+    description:
+      "Designed a real-time collaborative document editing platform with the ability to track active users. The project had 100+ registered users, boasting REST API response times under 150 milliseconds",
+    liveLink: "https://collab-io-lovat.vercel.app/",
+    // repo: "https://github.com/Aviroop-001/Blogetra",
+    image:
+      "https://www.computerhardwareinc.com/wp-content/uploads/2019/04/collaborate-with-colleagues-in-google-docs.jpg",
+  },
+  {
     id: "2",
     title: "Radius",
     description:
@@ -45,7 +55,7 @@ export const projectsData = [
 export const timelineData = [
   {
     text: "Building for Creators",
-    date: "March 2022 - Present",
+    date: "March 2023 - Present",
     position: "Juior Backend Developer",
     org: "Listed",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
@@ -57,7 +67,7 @@ export const timelineData = [
   },
   {
     text: "Developed multiple frontend features for the flagship product",
-    date: "Feb 2022 - March 2022",
+    date: "Feb 2023 - March 2023",
     position: "SDE Intern",
     org: "Fi Ellements",
     icon: "https://media.licdn.com/dms/image/C510BAQELrF4Lb0OOpg/company-logo_200_200/0/1546436333837?e=1687996800&v=beta&t=jD4dowgank25ny5a9M5e4FaWAyO8S-kdjU-rNy0vQrQ",
