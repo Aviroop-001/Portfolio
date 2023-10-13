@@ -55,8 +55,20 @@ export const projectsData = [
 export const timelineData = [
   {
     text: "Building for Creators",
-    date: "March 2023 - Present",
-    position: "Juior Backend Developer",
+    date: "Sep 2023 - Present",
+    position: "Software Engineer",
+    org: "Airbook",
+    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
+    skills: "Google Cloud Platform, Flask, Python",
+    category: {
+      tag: "Internship",
+      color: "#180959",
+    },
+  },
+  {
+    text: "Building for Creators",
+    date: "March 2023 - Sep 2023",
+    position: "Junior Backend Developer",
     org: "Listed",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills: "Node.js, Express.js, SQL, JavaScript",
