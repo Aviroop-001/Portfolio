@@ -54,12 +54,12 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Building for Creators",
+    text: "Building fastest way to build and share your data work",
     date: "Sep 2023 - Present",
     position: "Software Engineer",
     org: "Airbook",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills: "Google Cloud Platform, Flask, Python",
+    skills: "GCP, AWS, Supabase, Flask, Python, ETL pipelines, Software Architecture",
     category: {
       tag: "Internship",
       color: "#180959",
@@ -79,7 +79,7 @@ export const timelineData = [
   },
   {
     text: "Developed multiple frontend features for the flagship product",
-    date: "Feb 2023 - March 2023",
+    date: "Dec 2022 - March 2023",
     position: "SDE Intern",
     org: "Fi Ellements",
     icon: "https://media.licdn.com/dms/image/C510BAQELrF4Lb0OOpg/company-logo_200_200/0/1546436333837?e=1687996800&v=beta&t=jD4dowgank25ny5a9M5e4FaWAyO8S-kdjU-rNy0vQrQ",
@@ -91,7 +91,7 @@ export const timelineData = [
   },
   {
     text: "Worked in a team of UI/UX Developers to develop fast & responsive websites",
-    date: "Dec 2022 - Jan 2023",
+    date: "Oct 2022 - Dec 2022",
     position: "Frontend Developer",
     org: "Winsple",
     icon: "https://media.licdn.com/dms/image/C560BAQFM0ickEenjXA/company-logo_200_200/0/1648554433632?e=1687996800&v=beta&t=cB6t1M1oVtRmzzipkKtzn-U_xe7T12ReZ4996WFI6bM",
