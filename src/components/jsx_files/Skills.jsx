@@ -1,72 +1,191 @@
 import "../styling_files/skills.scss";
-import { useState } from "react";
+import {
+  Tag,
+  TagLabel, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel,
+  HStack
+} from "@chakra-ui/react";
 
 export default function Skills() {
 
-  const languages = ["JavaScript","Python","C++/ C","HTML","CSS","SQL","SASS"]
+  const categories = ['Languages', "Frameworks/libraries", "Tools", "Others"]
+  const languages = ["JavaScript","Python", "Golang", "TypeScript", "C++/ C","HTML","CSS","SQL","SASS"]
   const frameworks = [
     "Node.js",
     "Express.js",
     "Django",
     "Flask",
+    "Gin",
     "ReactJS",
     "React Native",
     "Mongoose",
     "jQuery",
-    "Socket.IO",
     "Redux",
-    "Tailwind CSS",
-    "Axios",
+    "TensorFlow",
+    "Keras",
+    "Pandas",
+    "Numpy", "Pyplot",
     "Scrapy",
     "Beautiful Soup ",
   ];
-  const others = ["System Design", 'MongoDB','MySQL','Firebase','REST API','Web Scraping','Git','Github','Docker','Kubernetes', "CI/CD"];
-  const ml = ["TensorFlow", 'Machine Learning','Data Science','Large Language Models','Natural Language Processing']
-  const frontend = ["ReactJS" , "React Native","Redux","React-Query","HTML/CSS","SASS","jQuery","Tailwind CSS","Bootstrap","Material UI"]
-  const backend = ["Node.js","Express.js","MongoDB","REST API","CRUD","Mongoose","MySQL",, "Docker", "Kubernetes"];
-  const misc = ["JavaScript","Python","C++/C","Git","Github","Shell script","jQuery","Axios","Bootstrap","Material UI"
+  const others = [
+    "AWS", "GCP", "Supabase", "Snowflake",
+    "MongoDB",
+    "MySQL", "PostgreSQL", "Linux", 
+    "REST API",
+    "Web Scraping",
+    "Git",
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "CI/CD"
+  ];
+  const ml = [
+    "Machine Learning",
+    "LLMs",
+    "NLP",
+    "Data Science",
+    "System Design",
+    "Software Architecture",
   ];
 
   return (
     <div className="skills" id="skills">
-      {/* <div className="headsection"> */}
-        <div className="head">Skills</div>
-      {/* </div> */}
-      <div className="skillsections">
-        <div className="section">
-          <div className="header">Languages</div>
-          <div className="content">
-            {languages.map((f) => (
-              <button className="btn">{f}</button>
-            ))}
-          </div>
-        </div>
-        <div className="section framework-section">
-          <div className="header">Frameworks</div>
-          <div className="content framework">
-            {frameworks.map((f) => (
-              <button className="btn">{f}</button>
-            ))}
-          </div>
-        </div>
-        <div className="section">
-          <div className="header">Others</div>
-          <div className="content">
-            {others.map((f) => (
-              <button className="btn">{f}</button>
-            ))}
-          </div>
-        </div>
-        <div className="section">
-          <div className="header">AI/ML</div>
-          <div className="content">
-            {ml.map((f) => (
-              <button className="btn">{f}</button>
-            ))}
-          </div>
-        </div>
-      </div>
-      
+      <Text fontSize={["3rem", "4rem"]}>Skills</Text>
+      <Tabs variant="soft-rounded">
+        <TabList justifyContent="center" alignItems="center" flexWrap="wrap">
+          {categories.map((cat) => {
+            return (
+              <Tab _selected={{ color: "#d5dbd8", bg: "black" }}>{cat}</Tab>
+            );
+          })}
+          {/* <Tab>languages</Tab>
+          <Tab>frameworks</Tab>
+          <Tab>others</Tab>
+          <Tab>AI/ML</Tab> */}
+        </TabList>
+        <TabPanels justifyContent="center" alignItems="center" flexWrap="wrap">
+          <TabPanel>
+            <Box
+              w="80vw"
+              h="fit-content"
+              justifyContent="center"
+              alignItems="center"
+              p="1rem"
+            >
+              <HStack
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                {languages.map((f) => (
+                  <Tag
+                    size={["md", "lg"]}
+                    key={f}
+                    variant="solid"
+                    colorScheme="black"
+                    color="black"
+                    w="fit-content"
+                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
+                  >
+                    <TagLabel p="5px">{f}</TagLabel>
+                  </Tag>
+                ))}
+              </HStack>
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box
+              w="80vw"
+              h="fit-content"
+              justifyContent="center"
+              alignItems="center"
+              p="1rem"
+            >
+              <HStack
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                {frameworks.map((f) => (
+                  <Tag
+                    size={["md", "lg"]}
+                    key={f}
+                    variant="solid"
+                    colorScheme="black"
+                    color="black"
+                    w="fit-content"
+                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
+                  >
+                    <TagLabel>{f}</TagLabel>
+                  </Tag>
+                ))}
+              </HStack>
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box
+              w="80vw"
+              h="fit-content"
+              justifyContent="center"
+              alignItems="center"
+              p="1rem"
+            >
+              <HStack
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                {others.map((f) => (
+                  <Tag
+                    size={["md", "lg"]}
+                    key={f}
+                    variant="solid"
+                    colorScheme="black"
+                    color="black"
+                    w="fit-content"
+                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
+                  >
+                    <TagLabel>{f}</TagLabel>
+                  </Tag>
+                ))}
+              </HStack>
+            </Box>
+          </TabPanel>
+          <TabPanel>
+            <Box
+              w="80vw"
+              h="fit-content"
+              justifyContent="center"
+              alignItems="center"
+              p="1rem"
+            >
+              <HStack
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                {ml.map((f) => (
+                  <Tag
+                    size={["md", "lg"]}
+                    key={f}
+                    variant="solid"
+                    colorScheme="black"
+                    color="black"
+                    w="fit-content"
+                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
+                  >
+                    <TagLabel>{f}</TagLabel>
+                  </Tag>
+                ))}
+              </HStack>
+            </Box>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </div>
   );
 }

@@ -1,19 +1,19 @@
 @import "../../global.scss";
 
 .skills {
-  color: $lighter;
-  background-color: $darkest;
+  // color: $lighter;
+  background-color: #d5dbd8;
   // border: 1px dotted red;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  position: relative;
+  // position: relative;
   padding: 2rem 5px;
   @include mobile {
     // border: 1px solid green;
-    min-height: 120vh;
-    justify-content: flex-start;
+    // min-height: 120vh;
+    justify-content: space-evenly;
     padding: 5px;
   }
   .head {

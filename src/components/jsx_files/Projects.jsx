@@ -1,67 +1,94 @@
-import "../styling_files/projects.scss";
+// import "../styling_files/projects.scss";
 import { useState } from "react";
-import {BsCodeSlash} from 'react-icons/bs'
-import {AiOutlineLink} from 'react-icons/ai'
+import { BsCodeSlash } from "react-icons/bs";
+import { AiOutlineLink } from "react-icons/ai";
 import { projectsData } from "./Data";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Text, Button,
+  Box, Image, Stack, Heading
+} from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 
 export default function Projects() {
+  const projectList = ["Blogetra", "Collab.io", "Radius", "Intelligram", "User dashboard"]
 
-  const [Currentslide, setCurrentslide] = useState(0);
-
-  const handleclick = (direction) =>{
-    if(direction === 'left'){
-      setCurrentslide(
-        Currentslide > 0 ? Currentslide - 1 : projectsData.length - 1
-      );
-    }
-    else{
-      setCurrentslide(
-        Currentslide < projectsData.length - 1 ? Currentslide + 1 : 0
-      );
-    }
-  }
 
   return (
-    <div className="projects" id="projects">
-      <div className="header">Projects</div>
-      <div
-        className="slider"
-        style={{ transform: `translateX(-${Currentslide * 100}vw)` }}
+    <Box
+      height="100%"
+      width="100vw"
+      backgroundColor="#d5dbd8"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-evenly"
+      alignItems="center"
+    >
+      <Text fontSize={["3rem", "4rem"]}>Projects</Text>
+      <Tabs
+        variant="soft-rounded"
+        colorScheme="green"
+        width="80%"
+        justifyContent="center"
+        alignItems="center"
       >
-        {projectsData.map((d) => (
-          <div className="container">
-            <div className="item">
-              <div className="left">
-                <div className="icons">
-                  {/* <a href={d.repo} target="_blank">
-                    <BsCodeSlash className="icon" />
-                  </a> */}
-                  <a href={d.liveLink} target="_blank">
-                    <AiOutlineLink className="icon" />
-                  </a>
-                </div>
-                <h2>{d.title}</h2>
-                <p>{d.description}</p>
-              </div>
-              <div className="right">
-                <img src={d.image} alt="" />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <img
-        src="myAssets/leftarrow.png"
-        alt=""
-        className="arrow left"
-        onClick={() => handleclick("left")}
-      />
-      <img
-        src="myAssets/rightarrow.png"
-        alt=""
-        className="arrow right"
-        onClick={() => handleclick("right")}
-      />
-    </div>
+        <TabList justifyContent="center" alignItems="center" flexWrap="wrap">
+          {projectList.map((cat) => {
+            return (
+              <Tab _selected={{ color: "#d5dbd8", bg: "black" }}>{cat}</Tab>
+            );
+          })}
+        </TabList>
+        <TabPanels justifyContent="center" alignItems="center" flexWrap="wrap">
+          {projectsData.map((p) => {
+            return (
+              <TabPanel
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                <Card
+                  direction={{ base: "column", sm: "row" }}
+                  overflow="hidden"
+                  variant="outline"
+                  width={["100%", "60%"]}
+                >
+                  <Image
+                    objectFit="cover"
+                    maxW={{ base: "100%", sm: "200px" }}
+                    src={p.image}
+                  />
+                  <Stack>
+                    <CardBody>
+                      <Heading size="md">{p.title}</Heading>
+                      <Text display={["none", "none", "block"]} py="2">
+                        {p.description}
+                      </Text>
+                      <a href={p.liveLink}>
+                        <Button
+                          marginTop="5px"
+                          variant="solid"
+                          color="#d5dbd8"
+                          backgroundColor="black"
+                          _hover={{ shadow: "4px 4px 7px gray" }}
+                          _active={{ shadow: "4px 4px 7px gray" }}
+                        >
+                          website
+                        </Button>
+                      </a>
+                    </CardBody>
+                  </Stack>
+                </Card>
+              </TabPanel>
+            );
+          })}
+        </TabPanels>
+      </Tabs>
+    </Box>
   );
 }

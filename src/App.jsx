@@ -13,8 +13,8 @@ function App() {
   const [menuactive, setmenuactive] = useState(false);
   return (
     <div className="App">
-      <Navbar menuactive={menuactive} setmenuactive={setmenuactive} />
-      <Burgermenu menuactive={menuactive} setmenuactive={setmenuactive} />
+      {/* <Navbar menuactive={menuactive} setmenuactive={setmenuactive} /> */}
+      {/* <Burgermenu menuactive={menuactive} setmenuactive={setmenuactive} /> */}
       <div className="sections">
         <Intro />
         <Experience />

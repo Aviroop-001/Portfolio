@@ -7,6 +7,19 @@ import {VscGithubAlt} from 'react-icons/vsc'
 import {SlSocialTwitter} from 'react-icons/sl'
 import {SiLeetcode} from 'react-icons/si'
 import {AiOutlineDown} from 'react-icons/ai'
+import { RiMenuLine } from "react-icons/ri";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  IconButton,
+  Box, Text
+} from "@chakra-ui/react";
 
 export default function Intro() {
 
@@ -27,29 +40,112 @@ export default function Intro() {
     // }, [])
 
     return (
-      <div className="intro" id="intro">
-        <div className="left">
-          <div className="shortintro">
-            <h1>Aviroop Banerjee</h1>
-            {/* <h3>
+      <Box
+        className="intro"
+        id="intro"
+        backgroundColor="#d5dbd8"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
+        <Menu justifyContent="flex-end" height="fit-content">
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<RiMenuLine />}
+            size="lg"
+            variant="ghost"
+            position="fixed"
+            top={["20px", "50px"]}
+            right={["25px", "60px"]}
+            _hover={{ boxShadow: "2px 2px 5px gray" }}
+            _active={{ backgroundColor: "#d5dbd8" }}
+            z-index= '999'
+          />
+          <MenuList color="black" backgroundColor="#d5dbd8" borderWidth="0px">
+            <a href="#intro">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Intorduction{" "}
+              </MenuItem>
+            </a>
+            <a href="#experience">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Experience{" "}
+              </MenuItem>
+            </a>
+            <a href="#skills">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Skills{" "}
+              </MenuItem>
+            </a>
+            <a href="#projects">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Project{" "}
+              </MenuItem>
+            </a>
+            <a href="#contact">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Contact me{" "}
+              </MenuItem>
+            </a>
+          </MenuList>
+        </Menu>
+        <Text
+          color="black"
+          fontSize={["3.4rem", "5rem"]}
+          width="100%"
+          textAlign="center"
+        >
+          Aviroop Banerjee
+        </Text>
+        {/* <h3>
               <span ref={textRef}></span>
             </h3> */}
-            <a
-              href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
-              className="btn-shine"
-              target="_blank"
-            >
-              {/* <button className="btn"> */}
-                Download Resume
-              {/* </button> */}
-            </a>
-          </div>
-          {/* <a href="#skills">
-            <AiOutlineDown className="downarrow" />
-          </a> */}
-        </div>
-        <div className="right">
-          <div className="links">
+        <a
+          href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+          className="btn-shine"
+          target="_blank"
+        >
+          Download Resume
+        </a>
+        {/* <div className="right">
+          <Box className="links">
             <a
               href="https://github.com/Aviroop-001"
               className="link"
@@ -78,9 +174,9 @@ export default function Intro() {
             >
               <SiLeetcode color="white" />
             </a> */}
-            {/* <button className="btn">Resume</button> */}
-          </div>
-        </div>
-      </div>
+        {/* <button className="btn">Resume</button> */}
+        {/* </div> */}
+        {/* </div> */}
+      </Box>
     );
 }
