@@ -8,7 +8,7 @@ import {
 export default function Skills() {
 
   const categories = ['Languages', "Frameworks/libraries", "Tools", "Others"]
-  const languages = ["JavaScript","Python", "Golang", "TypeScript", "C++/ C","HTML","CSS","SQL","SASS"]
+  const languages = ["JavaScript","Python", "Golang", "TypeScript", "C++", "C","HTML","CSS","SQL","SASS", "SCSS"]
   const frameworks = [
     "Node.js",
     "Express.js",
@@ -41,8 +41,8 @@ export default function Skills() {
   ];
   const ml = [
     "Machine Learning",
-    "LLMs",
-    "NLP",
+    "Large Language Models",
+    "Natural Language Processing",
     "Data Science",
     "System Design",
     "Software Architecture",

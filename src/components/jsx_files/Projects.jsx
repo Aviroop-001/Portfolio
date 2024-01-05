@@ -26,7 +26,7 @@ export default function Projects() {
       display="flex"
       flexDirection="column"
       justifyContent="space-evenly"
-      alignItems="center"
+      alignItems="center" id='projects'
     >
       <Text fontSize={["3rem", "4rem"]}>Projects</Text>
       <Tabs

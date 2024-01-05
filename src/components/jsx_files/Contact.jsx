@@ -17,7 +17,7 @@ function Contact() {
       flexDirection="column"
       color="black"
       justifyContent="space-evenly"
-      alignItems="center"
+      alignItems="center" id='contact'
     >
       <Text fontSize={["3rem", "4rem"]}>Contact me</Text>
       <Box
