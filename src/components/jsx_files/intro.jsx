@@ -61,7 +61,7 @@ export default function Intro() {
             right={["25px", "60px"]}
             _hover={{ boxShadow: "2px 2px 5px gray" }}
             _active={{ backgroundColor: "#d5dbd8" }}
-            z-index= '999'
+            z-index="999"
           />
           <MenuList color="black" backgroundColor="#d5dbd8" borderWidth="0px">
             <a href="#intro">
@@ -98,6 +98,18 @@ export default function Intro() {
               >
                 {" "}
                 Skills{" "}
+              </MenuItem>
+            </a>
+            <a href="#education">
+              <MenuItem
+                backgroundColor="#d5dbd8"
+                borderRadius="5px"
+                padding="1rem 2rem"
+                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
+                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
+              >
+                {" "}
+                Education{" "}
               </MenuItem>
             </a>
             <a href="#projects">

@@ -55,7 +55,7 @@ export const projectsData = [
 export const timelineData = [
   {
     text: "Building fastest way to build and share your data work",
-    date: "Sep 2023 - Present",
+    date: "Sep 2023 - Jan 2024",
     position: "Software Engineer",
     org: "Airbook",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
@@ -103,7 +103,7 @@ export const timelineData = [
   },
   {
     text: "Taught Web Dev. to 50+ students, organized 10+ workshops, hackathons for everyone",
-    date: "Aug 2022 - Present",
+    date: "2022 - Present",
     position: "Web Development LEAD",
     org: "Google Developer's Student Club",
     icon: "https://media.licdn.com/dms/image/C4D0BAQHgWZO4CpYT6w/company-logo_200_200/0/1629032109185?e=1687996800&v=beta&t=4nRawtisfkbaF9i8MFkKFnEHBAENP91pR6jKLsrQ7Pg",
@@ -115,7 +115,7 @@ export const timelineData = [
   },
   {
     text: "Organized 10+ contests, including International contests with 200+ attendees.",
-    date: "Oct 2021 - Aug 2022",
+    date: "2021 - 2022",
     position: "Problem Setter",
     org: "Codechef",
     icon: "https://media.licdn.com/dms/image/C560BAQGqbQqGLrllzQ/company-logo_200_200/0/1641201041884?e=1687996800&v=beta&t=2oyq76Q-LwG5IpijX7rEe_L0cRSpOy1hEv2DKb0UVn4",
@@ -123,12 +123,15 @@ export const timelineData = [
       tag: "Volunteer",
       color: "#5c120f",
     },
-  },
+  }
+];
+
+export const educationData = [
   {
     text: "Currently in pre-final year, with CGPA of 9.34",
-    date: "Nov 2020 - Feb 2024",
-    position: "B.Tech in CSE",
-    org: "MAULANA ABUL KALAM AZAD UNIVERSITY OF TECHNOLOGY",
+    date: "2020 - 2024",
+    position: "B.Tech CSE",
+    org: "MAULANA ABUL KALAM AZAD UNI OF TECHNOLOGY",
     icon: "https://media.licdn.com/dms/image/C510BAQF0ldUOAHOqSQ/company-logo_200_200/0/1532854671740?e=1687996800&v=beta&t=HuOXwOMSOSL8bWqr467_SV7FGa18zRC2syXrYswpYnQ",
     category: {
       tag: "University",
@@ -137,7 +140,7 @@ export const timelineData = [
   },
   {
     text: "Graduated school with 9.2 CGPA",
-    date: "April 2018 - April 2020",
+    date: "2018 - 2020",
     position: "AISSCE",
     org: "Aditya Academy Sr. Secondary",
     icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
@@ -148,7 +151,7 @@ export const timelineData = [
   },
   {
     text: "Graduated school with 9.1 CGPA",
-    date: "- March 2018",
+    date: "- 2018",
     position: "AISSE",
     org: "Aditya Academy Secondary",
     icon: "https://media.licdn.com/dms/image/C510BAQE_4PQKYedENg/company-logo_200_200/0/1556271098214?e=1687996800&v=beta&t=gHQxV-d8OMOHZZR51W_7GQgpoPvCdYqEIaKlQAJ4YgM",
