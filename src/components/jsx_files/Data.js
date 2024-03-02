@@ -55,11 +55,25 @@ export const projectsData = [
 export const timelineData = [
   {
     text: "Building fastest way to build and share your data work",
+    date: "Jan 2024 - Present",
+    position: "Software Engineer",
+    org: "CommerceIQ",
+    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
+    skills:
+      "Javascript, Typescript, Vue, Node.js, Software Architecture",
+    category: {
+      tag: "Internship",
+      color: "#180959",
+    },
+  },
+  {
+    text: "Building fastest way to build and share your data work",
     date: "Sep 2023 - Jan 2024",
     position: "Software Engineer",
     org: "Airbook",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills: "GCP, AWS, Supabase, Flask, Python, ETL pipelines, Software Architecture",
+    skills:
+      "GCP, AWS, Supabase, Flask, Python, ETL pipelines, Software Architecture",
     category: {
       tag: "Internship",
       color: "#180959",
@@ -123,7 +137,7 @@ export const timelineData = [
       tag: "Volunteer",
       color: "#5c120f",
     },
-  }
+  },
 ];
 
 export const educationData = [
