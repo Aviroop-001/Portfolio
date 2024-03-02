@@ -54,7 +54,7 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Building fastest way to build and share your data work",
+    text: "Retail Media management, Dashboard tooling ",
     date: "Jan 2024 - Present",
     position: "Software Engineer",
     org: "CommerceIQ",
