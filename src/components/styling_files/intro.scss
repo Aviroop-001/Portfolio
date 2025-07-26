@@ -155,13 +155,30 @@
       font-size: 1.25rem;
       color: rgba(234, 224, 213, 0.85);
       font-weight: 400;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0.5rem;
       letter-spacing: 0.5px;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
       @include mobile {
         font-size: 1.05rem;
+        margin-bottom: 0.8rem;
+      }
+    }
+
+    .skills-tagline {
+      font-size: 0.95rem;
+      color: rgba(198, 172, 142, 0.8);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.8px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.4;
+      font-style: italic;
+
+      @include mobile {
+        font-size: 0.85rem;
         margin-bottom: 2rem;
+        letter-spacing: 0.5px;
       }
     }
   }
@@ -206,9 +223,26 @@
     }
   }
 
+  // CTA Buttons Container
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+  }
+
   // Glass Button
   .glass-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     position: relative;
     padding: 1.2rem 3rem;
     background: rgba(198, 172, 142, 0.12);
@@ -224,6 +258,16 @@
     overflow: hidden;
     text-transform: uppercase;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    cursor: pointer;
+
+    .button-icon {
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    &.preview-button {
+      padding: 1.2rem 2rem;
+    }
 
     span {
       position: relative;
@@ -254,6 +298,11 @@
 
       .button-shimmer {
         left: 100%;
+      }
+
+      .button-icon {
+        transform: scale(1.1);
+        color: #EAE0D5;
       }
     }
 
@@ -308,6 +357,107 @@
     }
     60% {
       transform: translateX(-50%) translateY(-4px);
+    }
+  }
+
+  // Resume Preview Modal
+  .resume-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 4, 4, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 2rem;
+    
+    @include mobile {
+      padding: 1rem;
+    }
+  }
+
+  .resume-modal {
+    width: 90%;
+    max-width: 900px;
+    height: 90%;
+    background: rgba(234, 224, 213, 0.08);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(198, 172, 142, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 
+      0 25px 50px rgba(10, 9, 8, 0.3),
+      0 5px 10px rgba(10, 9, 8, 0.2),
+      inset 0 1px 0 rgba(234, 224, 213, 0.1);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(198, 172, 142, 0.2);
+    
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #EAE0D5;
+      margin: 0;
+    }
+    
+    .modal-close {
+      background: rgba(198, 172, 142, 0.12);
+      border: 1px solid rgba(198, 172, 142, 0.3);
+      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C6AC8E;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(198, 172, 142, 0.2);
+        color: #EAE0D5;
+        transform: scale(1.05);
+      }
+    }
+    
+    @include mobile {
+      padding: 1rem 1.5rem;
+      
+      .modal-title {
+        font-size: 1.2rem;
+      }
+      
+      .modal-close {
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .modal-content {
+    flex: 1;
+    padding: 1rem;
+    
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(10, 9, 8, 0.2);
+    }
+    
+    @include mobile {
+      padding: 0.5rem;
     }
   }
 }
