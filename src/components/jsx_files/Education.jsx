@@ -16,9 +16,8 @@ import { educationData } from "./Data";
 export default function Education() {
 
   return (
-    <Box
-      className="education"
-      id="education"
+          <Box
+        className="education"
       minHeight="100vh"
       display="flex"
       justifyContent="center"

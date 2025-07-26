@@ -15,9 +15,8 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(0);
 
   return (
-    <Box
-      className="projects"
-      id="projects"
+          <Box
+        className="projects"
       minHeight="100vh"
       display="flex"
       justifyContent="center"

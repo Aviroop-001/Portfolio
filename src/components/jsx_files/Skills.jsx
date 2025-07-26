@@ -41,9 +41,8 @@ export default function Skills() {
   ];
 
   return (
-    <Box
-      className="skills"
-      id="skills"
+          <Box
+        className="skills"
       minHeight="100vh"
       display="flex"
       justifyContent="center"

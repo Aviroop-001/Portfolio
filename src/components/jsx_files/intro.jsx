@@ -2,6 +2,7 @@ import "../styling_files/intro.scss"
 import {FaChevronDown} from "react-icons/fa";
 import { init } from "ityped";
 import { useEffect, useRef } from "react";
+import { useMagneticEffect } from "../../hooks/useMagneticEffect";
 import {RiLinkedinLine} from "react-icons/ri"
 import {VscGithubAlt} from 'react-icons/vsc'
 import {SlSocialTwitter} from 'react-icons/sl'
@@ -10,6 +11,11 @@ import {AiOutlineDown} from 'react-icons/ai'
 import { Box, Text } from "@chakra-ui/react";
 
 export default function Intro() {
+    // Magnetic effect refs
+    const downloadButtonRef = useMagneticEffect(0.2);
+    const linkedinRef = useMagneticEffect(0.3);
+    const githubRef = useMagneticEffect(0.3);
+    const leetcodeRef = useMagneticEffect(0.3);
 
     // const  textRef = useRef();
     // useEffect(() => {
@@ -30,7 +36,6 @@ export default function Intro() {
     return (
       <Box
         className="intro"
-        id="intro"
         minHeight="100vh"
         display="flex"
         justifyContent="center"
@@ -58,16 +63,16 @@ export default function Intro() {
             
             {/* Social Links */}
             <Box className="social-links">
-              <a href="https://github.com/Aviroop-001" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://github.com/Aviroop-001" target="_blank" rel="noopener noreferrer" className="social-link" ref={githubRef}>
                 <VscGithubAlt />
               </a>
-              <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noopener noreferrer" className="social-link" ref={linkedinRef}>
                 <RiLinkedinLine />
               </a>
               <a href="https://twitter.com/aviroop_B" target="_blank" rel="noopener noreferrer" className="social-link">
                 <SlSocialTwitter />
               </a>
-              <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noopener noreferrer" className="social-link">
+              <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noopener noreferrer" className="social-link" ref={leetcodeRef}>
                 <SiLeetcode />
               </a>
             </Box>
@@ -78,6 +83,7 @@ export default function Intro() {
               className="glass-button"
               target="_blank"
               rel="noopener noreferrer"
+              ref={downloadButtonRef}
             >
               <span>Download Resume</span>
               <Box className="button-shimmer" />

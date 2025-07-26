@@ -1,20 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../styling_files/contact.scss"
+import { useMagneticEffect } from "../../hooks/useMagneticEffect";
 import {AiOutlineMail} from 'react-icons/ai'
 import { SlSocialLinkedin } from "react-icons/sl";
 import { VscGithubAlt } from "react-icons/vsc";
 import { SlSocialTwitter } from "react-icons/sl";
 import { SiLeetcode } from "react-icons/si";
+import { IoCopyOutline, IoCheckmarkOutline } from "react-icons/io5";
 import {
   Box,
   Text,
 } from "@chakra-ui/react";
 
 function Contact() {
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  
+  // Magnetic effect refs
+  const contactButtonRef = useMagneticEffect(0.2);
+  const copyButtonRef = useMagneticEffect(0.3);
+  const githubRef = useMagneticEffect(0.3);
+  const linkedinRef = useMagneticEffect(0.3);
+  const leetcodeRef = useMagneticEffect(0.3);
+  
+  const email = "banerjeeaviroop01@gmail.com";
+  
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopySuccess(true);
+      setShowToast(true);
+      
+      // Reset after 2 seconds
+      setTimeout(() => {
+        setCopySuccess(false);
+        setShowToast(false);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy email: ', err);
+    }
+  };
+
   return (
     <Box
       className="contact"
-      id="contact"
       minHeight="100vh"
       display="flex"
       justifyContent="center"
@@ -38,15 +67,27 @@ function Contact() {
 
           {/* Contact Links */}
           <Box className="contact-links">
-                         <a 
-               href="mailto:banerjeeaviroop01@gmail.com" 
-               className="glass-button"
-               target="_blank"
-               rel="noopener noreferrer"
-             >
-               <span>Contact Me</span>
-               <Box className="button-shimmer" />
-             </a>
+            <Box className="email-buttons">
+              <a 
+                href={`mailto:${email}`} 
+                className="glass-button"
+                target="_blank"
+                rel="noopener noreferrer"
+                ref={contactButtonRef}
+              >
+                <span>Contact Me</span>
+                <Box className="button-shimmer" />
+              </a>
+              
+              <button 
+                onClick={copyToClipboard}
+                className={`copy-email-button ${copySuccess ? 'success' : ''}`}
+                title="Copy email to clipboard"
+                ref={copyButtonRef}
+              >
+                {copySuccess ? <IoCheckmarkOutline /> : <IoCopyOutline />}
+              </button>
+            </Box>
 
                          <Box className="social-links">
                <a
@@ -54,6 +95,7 @@ function Contact() {
                  className="social-link"
                  target="_blank"
                  rel="noopener noreferrer"
+                 ref={githubRef}
                >
                  <VscGithubAlt />
                </a>
@@ -63,6 +105,7 @@ function Contact() {
                  className="social-link"
                  target="_blank"
                  rel="noopener noreferrer"
+                 ref={linkedinRef}
                >
                  <SlSocialLinkedin />
                </a>
@@ -72,6 +115,7 @@ function Contact() {
                  className="social-link"
                  target="_blank"
                  rel="noopener noreferrer"
+                 ref={leetcodeRef}
                >
                  <SiLeetcode />
                </a>
@@ -79,6 +123,14 @@ function Contact() {
           </Box>
         </Box>
       </Box>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <Box className={`toast-notification ${showToast ? 'show' : ''}`}>
+          <IoCheckmarkOutline />
+          <span>Email copied to clipboard!</span>
+        </Box>
+      )}
     </Box>
   );
 }

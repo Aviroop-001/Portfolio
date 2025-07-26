@@ -9,7 +9,6 @@ export default function Experience() {
   return (
     <Box
       className="experience"
-      id="experience"
       minHeight="100vh"
       display="flex"
       justifyContent="center"
