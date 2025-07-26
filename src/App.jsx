@@ -6,6 +6,8 @@ import Contact from "./components/jsx_files/Contact";
 import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
+import { AiOutlineUp } from 'react-icons/ai';
+import { Box, Text } from "@chakra-ui/react";
 
 function App() {
   const [activeSection, setActiveSection] = useState(0);
@@ -144,6 +146,15 @@ function App() {
         block: 'start'
       });
     }
+  };
+
+  const scrollToTop = () => {
+    // Show navigation temporarily when clicking
+    setIsScrolling(true);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
         return (
@@ -299,21 +310,70 @@ function App() {
         </div>
       </div>
 
-      {/* Floating Glass Navigation */}
-      <div className={`floating-nav ${isScrolling ? 'visible' : 'hidden'}`}>
-        {sections.map((section, index) => (
-          <div
-            key={section.id}
-            className={`nav-dot ${activeSection === index ? 'active' : ''}`}
-            onClick={() => scrollToSection(index)}
-            title={section.name}
+              {/* Floating Glass Navigation */}
+        <div className={`floating-nav ${isScrolling ? 'visible' : 'hidden'}`}>
+          {sections.map((section, index) => (
+            <div
+              key={section.id}
+              className={`nav-dot ${activeSection === index ? 'active' : ''}`}
+              onClick={() => scrollToSection(index)}
+              title={section.name}
+            >
+              <span className="nav-label">{section.name}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Back to Top Button */}
+        {activeSection > 0 && (
+          <Box 
+            className="back-to-top"
+            onClick={scrollToTop}
+            title="Back to Top"
+            style={{
+              position: 'fixed',
+              bottom: '2.5rem',
+              right: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              color: 'rgba(198, 172, 142, 0.7)',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              zIndex: 1000,
+              animation: 'bounce 1s ease-in-out infinite',
+              borderRadius: '8px',
+              padding: '0.5rem'
+            }}
+            _hover={{
+              color: 'rgba(234, 224, 213, 0.9)',
+              transform: 'translateY(-3px)'
+            }}
           >
-            <span className="nav-label">{section.name}</span>
-          </div>
-        ))}
+            <AiOutlineUp 
+              className="back-to-top-arrow"
+              style={{
+                fontSize: '1.3rem',
+                marginBottom: '0.6rem'
+              }}
+            />
+            <Text 
+              className="back-to-top-text"
+              style={{
+                fontSize: '0.8rem',
+                letterSpacing: '1.5px',
+                textTransform: 'uppercase',
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+                fontWeight: 300,
+                color: 'inherit'
+              }}
+            >
+              Back to top
+            </Text>
+          </Box>
+        )}
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 export default App;
