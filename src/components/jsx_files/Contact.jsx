@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styling_files/contact.scss"
 import {AiOutlineMail} from 'react-icons/ai'
 import { SlSocialLinkedin } from "react-icons/sl";
 import { VscGithubAlt } from "react-icons/vsc";
@@ -12,43 +13,71 @@ import {
 function Contact() {
   return (
     <Box
-      backgroundColor="#d5dbd8"
+      className="contact"
+      id="contact"
+      minHeight="100vh"
       display="flex"
+      justifyContent="center"
+      alignItems="center"
       flexDirection="column"
-      color="black"
-      justifyContent="space-evenly"
-      alignItems="center" id='contact'
+      position="relative"
+      overflow="hidden"
     >
-      <Text fontSize={["3rem", "4rem"]}>Contact me</Text>
-      <Box
-        width="80%"
-        display="flex"
-        justifyContent="space-evenly"
-        alignItems="center"
-      >
-        <a href="mailto: banerjeeaviroop01@gmail.com" className="icon">
-          <AiOutlineMail fontSize="3rem" />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/aviroop-banerjee-4946621b5/"
-          className="icon"
-          target="_blank"
-        >
-          <SlSocialLinkedin fontSize="3rem" />
-        </a>
-        <a
-          href="https://github.com/Aviroop-001"
-          className="icon"
-          target="_blank"
-        >
-          <VscGithubAlt fontSize="3rem" />
-        </a>
-        {/* <a
-          href="https://wa.me/917439263408"
-          className="icon"
-        >
-          <AiOutlineWhatsApp />
-        </a> */}
+
+
+      {/* Main Glass Card */}
+      <Box className="glass-card" maxWidth="700px" width="90%" padding={["2rem", "3rem"]} textAlign="center">
+        <Box className="contact-content">
+          <Text className="section-title">
+            Get In Touch
+          </Text>
+          
+          <Text className="contact-description">
+            I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and innovation.
+          </Text>
+
+          {/* Contact Links */}
+          <Box className="contact-links">
+                         <a 
+               href="mailto:banerjeeaviroop01@gmail.com" 
+               className="glass-button"
+               target="_blank"
+               rel="noopener noreferrer"
+             >
+               <span>Contact Me</span>
+               <Box className="button-shimmer" />
+             </a>
+
+                         <Box className="social-links">
+               <a
+                 href="https://github.com/Aviroop-001"
+                 className="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 <VscGithubAlt />
+               </a>
+               
+               <a
+                 href="https://www.linkedin.com/in/aviroopbanerjee/"
+                 className="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 <SlSocialLinkedin />
+               </a>
+               
+               <a
+                 href="https://leetcode.com/Aviroop_01/"
+                 className="social-link"
+                 target="_blank"
+                 rel="noopener noreferrer"
+               >
+                 <SiLeetcode />
+               </a>
+             </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

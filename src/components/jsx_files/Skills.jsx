@@ -1,192 +1,96 @@
 import "../styling_files/skills.scss";
+import { useState } from "react";
 import {
   Tag,
-  TagLabel, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel,
-  HStack
+  TagLabel, 
+  Box, 
+  Text
 } from "@chakra-ui/react";
 
 export default function Skills() {
+  const [activeCategory, setActiveCategory] = useState(0);
 
-  const categories = ['Languages', "Frameworks/libraries", "Tools", "Others"]
-  const languages = ["JavaScript","Python", "Golang", "TypeScript", "C++", "C","HTML","CSS","SQL","SASS", "SCSS"]
-  const frameworks = [
-    "Node.js",
-    "Express.js",
-    "Django",
-    "Flask",
-    "Gin",
-    "ReactJS",
-    "React Native",
-    "Mongoose",
-    "jQuery",
-    "Redux",
-    "TensorFlow",
-    "Keras",
-    "Pandas",
-    "Numpy", "Pyplot",
-    "Scrapy",
-    "Beautiful Soup ",
-  ];
-  const others = [
-    "AWS", "GCP", "Supabase", "Snowflake",
-    "MongoDB",
-    "MySQL", "PostgreSQL", "Linux", 
-    "REST API",
-    "Web Scraping",
-    "Git",
-    "Docker",
-    "Kubernetes",
-    "Terraform",
-    "CI/CD"
-  ];
-  const ml = [
-    "Machine Learning",
-    "Large Language Models",
-    "Natural Language Processing",
-    "Data Science",
-    "System Design",
-    "Software Architecture",
+  const categories = [
+    {
+      name: 'Languages',
+      skills: ["JavaScript","Python", "Golang", "TypeScript", "C++", "C","HTML","CSS","SQL","SASS", "SCSS"]
+    },
+    {
+      name: 'Frameworks',
+      skills: [
+        "Node.js", "Express.js", "Django", "Flask", "Gin", "ReactJS", "React Native", 
+        "Mongoose", "jQuery", "Redux", "TensorFlow", "Keras", "Pandas", "Numpy", 
+        "Pyplot", "Scrapy", "Beautiful Soup"
+      ]
+    },
+    {
+      name: 'Tools & Cloud',
+      skills: [
+        "AWS", "GCP", "Supabase", "Snowflake", "MongoDB", "MySQL", "PostgreSQL", 
+        "Linux", "REST API", "Web Scraping", "Git", "Docker", "Kubernetes", 
+        "Terraform", "CI/CD"
+      ]
+    },
+    {
+      name: 'Specializations',
+      skills: [
+        "Machine Learning", "Large Language Models", "Natural Language Processing", 
+        "Data Science", "System Design", "Software Architecture"
+      ]
+    }
   ];
 
   return (
-    <div className="skills" id="skills">
-      <Text fontSize={["3rem", "4rem"]}>Skills</Text>
-      <Tabs variant="soft-rounded">
-        <TabList justifyContent="center" alignItems="center" flexWrap="wrap">
-          {categories.map((cat) => {
-            return (
-              <Tab _selected={{ color: "#d5dbd8", bg: "black" }}>{cat}</Tab>
-            );
-          })}
-          {/* <Tab>languages</Tab>
-          <Tab>frameworks</Tab>
-          <Tab>others</Tab>
-          <Tab>AI/ML</Tab> */}
-        </TabList>
-        <TabPanels justifyContent="center" alignItems="center" flexWrap="wrap">
-          <TabPanel>
-            <Box
-              w="80vw"
-              h="fit-content"
-              justifyContent="center"
-              alignItems="center"
-              p="1rem"
-            >
-              <HStack
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
-                flexWrap="wrap"
+    <Box
+      className="skills"
+      id="skills"
+      minHeight="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      position="relative"
+      overflow="hidden"
+    >
+
+
+      {/* Main Glass Card */}
+      <Box className="glass-card" maxWidth="850px" width="90%">
+        <Box className="skills-content">
+          <Text className="section-title">
+            Technical Expertise
+          </Text>
+          
+          <Text className="skills-description">
+            A comprehensive toolkit spanning full-stack development, cloud architecture, and emerging technologies.
+          </Text>
+
+          {/* Category Navigation */}
+          <Box className="category-nav">
+            {categories.map((category, index) => (
+              <button
+                key={category.name}
+                className={`nav-button ${activeCategory === index ? 'active' : ''}`}
+                onClick={() => setActiveCategory(index)}
               >
-                {languages.map((f) => (
-                  <Tag
-                    size={["md", "lg"]}
-                    key={f}
-                    variant="solid"
-                    colorScheme="black"
-                    color="black"
-                    w="fit-content"
-                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
-                  >
-                    <TagLabel p="5px">{f}</TagLabel>
-                  </Tag>
-                ))}
-              </HStack>
+                {category.name}
+              </button>
+            ))}
+          </Box>
+
+          {/* Skills Display */}
+          <Box className="skills-showcase">
+            <Box className="skills-grid">
+              {categories[activeCategory].skills.map((skill, index) => (
+                <Box key={skill} className="skill-tag" style={{animationDelay: `${index * 0.1}s`}}>
+                  {skill}
+                </Box>
+              ))}
             </Box>
-          </TabPanel>
-          <TabPanel>
-            <Box
-              w="80vw"
-              h="fit-content"
-              justifyContent="center"
-              alignItems="center"
-              p="1rem"
-            >
-              <HStack
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
-                flexWrap="wrap"
-              >
-                {frameworks.map((f) => (
-                  <Tag
-                    size={["md", "lg"]}
-                    key={f}
-                    variant="solid"
-                    colorScheme="black"
-                    color="black"
-                    w="fit-content"
-                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
-                  >
-                    <TagLabel>{f}</TagLabel>
-                  </Tag>
-                ))}
-              </HStack>
-            </Box>
-          </TabPanel>
-          <TabPanel>
-            <Box
-              w="80vw"
-              h="fit-content"
-              justifyContent="center"
-              alignItems="center"
-              p="1rem"
-            >
-              <HStack
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
-                flexWrap="wrap"
-              >
-                {others.map((f) => (
-                  <Tag
-                    size={["md", "lg"]}
-                    key={f}
-                    variant="solid"
-                    colorScheme="black"
-                    color="black"
-                    w="fit-content"
-                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
-                  >
-                    <TagLabel>{f}</TagLabel>
-                  </Tag>
-                ))}
-              </HStack>
-            </Box>
-          </TabPanel>
-          <TabPanel>
-            <Box
-              w="80vw"
-              h="fit-content"
-              justifyContent="center"
-              alignItems="center"
-              p="1rem"
-            >
-              <HStack
-                spacing={4}
-                justifyContent="center"
-                alignItems="center"
-                flexWrap="wrap"
-              >
-                {ml.map((f) => (
-                  <Tag
-                    size={["md", "lg"]}
-                    key={f}
-                    variant="solid"
-                    colorScheme="black"
-                    color="black"
-                    w="fit-content"
-                    _hover={{ variant: "outline", textShadow: "0px 0px 4px" }}
-                  >
-                    <TagLabel>{f}</TagLabel>
-                  </Tag>
-                ))}
-              </HStack>
-            </Box>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </div>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 

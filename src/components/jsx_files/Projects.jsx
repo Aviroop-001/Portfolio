@@ -1,94 +1,112 @@
-// import "../styling_files/projects.scss";
+import "../styling_files/projects.scss";
 import { useState } from "react";
 import { BsCodeSlash } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
+import { VscGithubAlt } from "react-icons/vsc";
 import { projectsData } from "./Data";
 import {
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Text, Button,
-  Box, Image, Stack, Heading
+  Box, 
+  Text, 
+  Image,
+  Button
 } from "@chakra-ui/react";
-import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 
 export default function Projects() {
-  const projectList = ["Blogetra", "Collab.io", "Radius", "Intelligram", "User dashboard"]
-
+  const [selectedProject, setSelectedProject] = useState(0);
 
   return (
     <Box
-      height="100%"
-      width="100vw"
-      backgroundColor="#d5dbd8"
+      className="projects"
+      id="projects"
+      minHeight="100vh"
       display="flex"
+      justifyContent="center"
+      alignItems="center"
       flexDirection="column"
-      justifyContent="space-evenly"
-      alignItems="center" id='projects'
+      position="relative"
+      overflow="hidden"
     >
-      <Text fontSize={["3rem", "4rem"]}>Projects</Text>
-      <Tabs
-        variant="soft-rounded"
-        colorScheme="green"
-        width="80%"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <TabList justifyContent="center" alignItems="center" flexWrap="wrap">
-          {projectList.map((cat) => {
-            return (
-              <Tab _selected={{ color: "#d5dbd8", bg: "black" }}>{cat}</Tab>
-            );
-          })}
-        </TabList>
-        <TabPanels justifyContent="center" alignItems="center" flexWrap="wrap">
-          {projectsData.map((p) => {
-            return (
-              <TabPanel
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexWrap="wrap"
+
+
+      {/* Main Glass Card */}
+      <Box className="glass-card" maxWidth="850px" width="90%">
+        <Box className="projects-content">
+          <Text className="section-title">
+            Featured Projects
+          </Text>
+          
+          <Text className="projects-description">
+            A showcase of my technical expertise and problem-solving abilities through innovative web applications.
+          </Text>
+
+          {/* Project Navigation */}
+          <Box className="project-nav">
+            {projectsData.map((project, index) => (
+              <button
+                key={project.id}
+                className={`nav-button ${selectedProject === index ? 'active' : ''}`}
+                onClick={() => setSelectedProject(index)}
               >
-                <Card
-                  direction={{ base: "column", sm: "row" }}
-                  overflow="hidden"
-                  variant="outline"
-                  width={["100%", "60%"]}
-                >
-                  <Image
+                {project.title}
+              </button>
+            ))}
+          </Box>
+
+          {/* Current Project Display */}
+          <Box className="project-showcase">
+            <Box className="project-card">
+              <Box className="project-content">
+                <Box className="project-image">
+                  <Image 
+                    src={projectsData[selectedProject].image} 
+                    alt={projectsData[selectedProject].title}
                     objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src={p.image}
+                    w="100%"
+                    h="100%"
+                    borderRadius="12px"
                   />
-                  <Stack>
-                    <CardBody>
-                      <Heading size="md">{p.title}</Heading>
-                      <Text display={["none", "none", "block"]} py="2">
-                        {p.description}
-                      </Text>
-                      <a href={p.liveLink}>
-                        <Button
-                          marginTop="5px"
-                          variant="solid"
-                          color="#d5dbd8"
-                          backgroundColor="black"
-                          _hover={{ shadow: "4px 4px 7px gray" }}
-                          _active={{ shadow: "4px 4px 7px gray" }}
-                        >
-                          website
-                        </Button>
-                      </a>
-                    </CardBody>
-                  </Stack>
-                </Card>
-              </TabPanel>
-            );
-          })}
-        </TabPanels>
-      </Tabs>
+                </Box>
+                
+                <Box className="project-info">
+                  <Text className="project-title">
+                    {projectsData[selectedProject].title}
+                  </Text>
+                  
+                  <Text className="project-description">
+                    {projectsData[selectedProject].description}
+                  </Text>
+                </Box>
+              </Box>
+              
+              <Box className="project-actions">
+                <a 
+                  href={projectsData[selectedProject].liveLink}
+                  className="glass-button"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <AiOutlineLink className="button-icon" />
+                  <span>Live Demo</span>
+                  <Box className="button-shimmer" />
+                </a>
+                
+                {projectsData[selectedProject].repo && (
+                  <a 
+                    href={projectsData[selectedProject].repo}
+                    className="glass-button secondary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <VscGithubAlt className="button-icon" />
+                    <span>Source Code</span>
+                    <Box className="button-shimmer" />
+                  </a>
+                )}
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   );
 }

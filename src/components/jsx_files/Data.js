@@ -54,9 +54,22 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Retail Media management, Dashboard tooling ",
-    date: "Jan 2024 - Present",
+    text: "Auth Service, Reporting, Ally - Conversational AI",
+    date: "July 2024 - Present",
     position: "Software Engineer",
+    org: "CommerceIQ",
+    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
+    skills:
+      "Nest, Typescript, Node.js, PostgreSQL, Software Architecture",
+    category: {
+      tag: "Full-time",
+      color: "#0f4c3a",
+    },
+  },
+  {
+    text: "Retail Media management, Dashboard tooling ",
+    date: "Jan 2024 - Jul 2024",
+    position: "Software Engineer Intern",
     org: "CommerceIQ",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills:
@@ -69,7 +82,7 @@ export const timelineData = [
   {
     text: "Building fastest way to build and share your data work",
     date: "Sep 2023 - Jan 2024",
-    position: "Software Engineer",
+    position: "Software Engineer Intern",
     org: "Airbook",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills:
@@ -142,10 +155,10 @@ export const timelineData = [
 
 export const educationData = [
   {
-    text: "Currently in pre-final year, with CGPA of 9.34",
+    text: "Graduated with 9.34 CGPA",
     date: "2020 - 2024",
-    position: "B.Tech CSE",
-    org: "MAULANA ABUL KALAM AZAD UNI OF TECHNOLOGY",
+    position: "B.Tech in Computer Science and Engineering",
+    org: "Maulana Abul Kalam Azad University of Technology",
     icon: "https://media.licdn.com/dms/image/C510BAQF0ldUOAHOqSQ/company-logo_200_200/0/1532854671740?e=1687996800&v=beta&t=HuOXwOMSOSL8bWqr467_SV7FGa18zRC2syXrYswpYnQ",
     category: {
       tag: "University",
@@ -153,7 +166,7 @@ export const educationData = [
     },
   },
   {
-    text: "Graduated school with 9.2 CGPA",
+    text: "Graduated high school with 9.2 CGPA",
     date: "2018 - 2020",
     position: "AISSCE",
     org: "Aditya Academy Sr. Secondary",

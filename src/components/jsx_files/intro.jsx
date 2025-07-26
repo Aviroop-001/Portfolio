@@ -7,19 +7,7 @@ import {VscGithubAlt} from 'react-icons/vsc'
 import {SlSocialTwitter} from 'react-icons/sl'
 import {SiLeetcode} from 'react-icons/si'
 import {AiOutlineDown} from 'react-icons/ai'
-import { RiMenuLine } from "react-icons/ri";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  IconButton,
-  Box, Text
-} from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 export default function Intro() {
 
@@ -43,152 +31,65 @@ export default function Intro() {
       <Box
         className="intro"
         id="intro"
-        backgroundColor="#d5dbd8"
+        minHeight="100vh"
         display="flex"
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
+        position="relative"
+        overflow="hidden"
       >
-        <Menu justifyContent="flex-end" height="fit-content">
-          <MenuButton
-            as={IconButton}
-            aria-label="Options"
-            icon={<RiMenuLine />}
-            size="lg"
-            variant="ghost"
-            position="fixed"
-            top={["20px", "50px"]}
-            right={["25px", "60px"]}
-            _hover={{ boxShadow: "2px 2px 5px gray" }}
-            _active={{ backgroundColor: "#d5dbd8" }}
-            z-index="999"
-          />
-          <MenuList color="black" backgroundColor="#d5dbd8" borderWidth="0px">
-            <a href="#intro">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Intorduction{" "}
-              </MenuItem>
-            </a>
-            <a href="#experience">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Experience{" "}
-              </MenuItem>
-            </a>
-            <a href="#skills">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Skills{" "}
-              </MenuItem>
-            </a>
-            <a href="#education">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Education{" "}
-              </MenuItem>
-            </a>
-            <a href="#projects">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Project{" "}
-              </MenuItem>
-            </a>
-            <a href="#contact">
-              <MenuItem
-                backgroundColor="#d5dbd8"
-                borderRadius="5px"
-                padding="1rem 2rem"
-                _hover={{ color: "#d5dbd8", backgroundColor: "black" }}
-                _active={{ color: "#d5dbd8", backgroundColor: "black" }}
-              >
-                {" "}
-                Contact me{" "}
-              </MenuItem>
-            </a>
-          </MenuList>
-        </Menu>
-        <Text
-          color="black"
-          fontSize={["3.4rem", "5rem"]}
-          width="100%"
-          textAlign="center"
-        >
-          Aviroop Banerjee
-        </Text>
-        {/* <h3>
-              <span ref={textRef}></span>
-            </h3> */}
-        <a
-          href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
-          className="btn-shine"
-          target="_blank"
-        >
-          Download Resume
-        </a>
-        {/* <div className="right">
-          <Box className="links">
+
+
+
+
+        {/* Main Glass Card */}
+        <Box className="glass-card" maxWidth="800px" width="90%" padding={["2rem", "3rem"]} textAlign="center">
+          <Box className="hero-content">
+            <Text className="greeting-text">
+              Hello, I'm
+            </Text>
+            <Text className="name-text">
+              Aviroop Banerjee
+            </Text>
+            <Text className="subtitle-text">
+              Software Engineer
+            </Text>
+            
+            {/* Social Links */}
+            <Box className="social-links">
+              <a href="https://github.com/Aviroop-001" target="_blank" rel="noopener noreferrer" className="social-link">
+                <VscGithubAlt />
+              </a>
+              <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noopener noreferrer" className="social-link">
+                <RiLinkedinLine />
+              </a>
+              <a href="https://twitter.com/aviroop_B" target="_blank" rel="noopener noreferrer" className="social-link">
+                <SlSocialTwitter />
+              </a>
+              <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noopener noreferrer" className="social-link">
+                <SiLeetcode />
+              </a>
+            </Box>
+
+            {/* CTA Button */}
             <a
-              href="https://github.com/Aviroop-001"
-              className="link"
+              href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+              className="glass-button"
               target="_blank"
+              rel="noopener noreferrer"
             >
-              <VscGithubAlt color="white" />
+              <span>Download Resume</span>
+              <Box className="button-shimmer" />
             </a>
-            <a
-              href="https://www.linkedin.com/in/aviroopbanerjee/"
-              className="link"
-              target="_blank"
-            >
-              <RiLinkedinLine color="white" />
-            </a>
-            <a
-              href="https://twitter.com/aviroop_B"
-              className="link"
-              target="_blank"
-            >
-              <SlSocialTwitter color="white" />
-            </a>
-            {/* <a
-              href="https://leetcode.com/Aviroop_01/"
-              className="link"
-              target="_blank"
-            >
-              <SiLeetcode color="white" />
-            </a> */}
-        {/* <button className="btn">Resume</button> */}
-        {/* </div> */}
-        {/* </div> */}
+          </Box>
+        </Box>
+
+        {/* Scroll Indicator */}
+        <Box className="scroll-indicator">
+          <AiOutlineDown className="scroll-arrow" />
+          <Text className="scroll-text">Scroll to explore</Text>
+        </Box>
       </Box>
     );
 }

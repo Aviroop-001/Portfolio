@@ -1,111 +1,280 @@
 @import "../../global.scss";
 
 .skills {
-  // color: $lighter;
-  background-color: #d5dbd8;
-  // border: 1px dotted red;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  // position: relative;
-  padding: 2rem 5px;
-  @include mobile {
-    // border: 1px solid green;
-    // min-height: 120vh;
-    justify-content: space-evenly;
-    padding: 5px;
-  }
-  .head {
-    // border: 1px solid yellow;
-    font-size: 4rem;
-    font-family: "Fredericka the Great", cursive;
-    font-weight: lighter;
-    letter-spacing: 5px;
-    text-align: center;
+  flex-direction: column;
+
+
+
+  // Main Glass Card
+  .glass-card {
+    background: rgba(234, 224, 213, 0.06);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(198, 172, 142, 0.2);
+    border-radius: 28px;
+    box-shadow: 
+      0 25px 50px rgba(10, 9, 8, 0.15),
+      0 2px 4px rgba(10, 9, 8, 0.1),
+      inset 0 1px 0 rgba(234, 224, 213, 0.2),
+      inset 0 -1px 0 rgba(94, 80, 63, 0.1);
+    padding: 3.5rem;
+    max-width: 850px;
+    width: 90%;
+    position: relative;
+    z-index: 1;
+    animation: cardFloat 4s ease-in-out infinite;
+    overflow: visible;
+
     @include mobile {
-      margin-bottom: 3rem;
+      padding: 2.5rem;
+      margin: 1rem;
+      border-radius: 24px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 28px;
+      background: linear-gradient(135deg, 
+        rgba(234, 224, 213, 0.08) 0%,
+        rgba(198, 172, 142, 0.04) 50%,
+        rgba(94, 80, 63, 0.02) 100%
+      );
+      z-index: -1;
     }
   }
-  .skillsections {
-    // border: 1px red solid;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    @include mobile {
-      // flex: 19;
+
+  @keyframes cardFloat {
+    0%, 100% {
+      transform: translateY(0px);
     }
-    .section {
-      // border: 1px red solid;
-      overflow-y: hidden;
-      display: flex;
-      flex-direction: row;
-      width: 90%;
-      align-items: center;
-      max-height: 15vh;
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  // Skills Content
+  .skills-content {
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #EAE0D5;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, 
+        #ffffff 0%, 
+        #EAE0D5 30%, 
+        #C6AC8E 70%, 
+        #EAE0D5 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      text-align: center;
+
       @include mobile {
-        height: 45vh;
-        flex-direction: column;
-        // border: 1px solid blue;
-      }
-      &.framework-content{
-        @include mobile {
-        height: 55vh;
-        flex-direction: column;
-        // border: 1px solid blue;
-      }
-      }
-      .header {
-        flex: 3;
         font-size: 2rem;
-        @include mobile {
-          font-size: 1.3rem;
-          margin-bottom: 10px;
-          flex: 4;
-          // letter-spacing: 1px;
-          // writing-mode: vertical-lr;
-          // text-orientation: upright;
-          // font-size: 1.3rem;
-          // height: 100%;
-        }
-      }
-      .content {
-        flex: 6;
-        display: flex;
-        flex-wrap: wrap;
-        @include mobile {
-          flex: 10;
-        }
-        &.framework{
-          @include mobile {
-          // min-height:10vh;
-          flex: 25;
-          // background-color: red;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.8rem;
       }
     }
-        .btn {
-          height: 2rem;
-          background-color: $darkest;
-          color: $lighter;
-          // padding: 2px 5px;
-          margin: 5px 10px;
-          border-radius: 10px;
-          border-width: 0;
-          // box-shadow: 0px 0px 1px wheat;
-          font-size: 1rem;
-          font-family: "Roboto";
-          font-weight: bold;
-          &:hover {
-            text-shadow: 0px 0px 5px rgb(245, 165, 165);
-          }
-          @include mobile {
-            font-size: 0.8rem;
-            margin: 0;
-            padding: 0 6px;
-          }
+
+    .skills-description {
+      font-size: 1.1rem;
+      color: rgba(234, 224, 213, 0.8);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      letter-spacing: 0.3px;
+      line-height: 1.6;
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include mobile {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // Category Navigation
+  .category-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.5rem;
+    padding: 0.5rem 0;
+    
+    @include mobile {
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding: 0.4rem 0;
+    }
+
+    .nav-button {
+      background: rgba(234, 224, 213, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(198, 172, 142, 0.2);
+      border-radius: 25px;
+      padding: 0.7rem 1.5rem;
+      color: rgba(234, 224, 213, 0.8);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+          transparent 0%,
+          rgba(234, 224, 213, 0.1) 50%,
+          transparent 100%
+        );
+        transition: left 0.4s ease;
+      }
+
+      &:hover {
+        background: rgba(234, 224, 213, 0.12);
+        border-color: rgba(234, 224, 213, 0.3);
+        color: #EAE0D5;
+        transform: translateY(-2px);
+
+        &::before {
+          left: 100%;
         }
       }
+
+      &.active {
+        background: rgba(198, 172, 142, 0.15);
+        border-color: rgba(234, 224, 213, 0.4);
+        color: #EAE0D5;
+        box-shadow: 0 4px 15px rgba(10, 9, 8, 0.2);
+      }
+
+      @include mobile {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  // Skills Showcase
+  .skills-showcase {
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+
+      @include mobile {
+        gap: 0.6rem;
+      }
+
+      .skill-tag {
+        background: rgba(234, 224, 213, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(198, 172, 142, 0.2);
+        border-radius: 20px;
+        padding: 0.6rem 1.2rem;
+        color: rgba(234, 224, 213, 0.9);
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        animation: skillFadeIn 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, 
+            transparent 0%,
+            rgba(234, 224, 213, 0.15) 50%,
+            transparent 100%
+          );
+          transition: left 0.5s ease;
+        }
+
+        &:hover {
+          background: rgba(234, 224, 213, 0.15);
+          border-color: rgba(234, 224, 213, 0.4);
+          color: #EAE0D5;
+          transform: translateY(-4px) scale(1.05);
+          box-shadow: 0 8px 20px rgba(10, 9, 8, 0.2);
+
+          &::before {
+            left: 100%;
+          }
+        }
+
+        // Skill-specific styling
+        &:nth-child(3n+1) {
+          border-color: rgba(198, 172, 142, 0.3);
+          
+          &:hover {
+            border-color: rgba(198, 172, 142, 0.5);
+            box-shadow: 0 8px 20px rgba(198, 172, 142, 0.1);
+          }
+        }
+
+        &:nth-child(3n+2) {
+          border-color: rgba(234, 224, 213, 0.25);
+          
+          &:hover {
+            border-color: rgba(234, 224, 213, 0.45);
+            box-shadow: 0 8px 20px rgba(234, 224, 213, 0.1);
+          }
+        }
+
+        &:nth-child(3n+3) {
+          border-color: rgba(94, 80, 63, 0.3);
+          
+          &:hover {
+            border-color: rgba(94, 80, 63, 0.5);
+            box-shadow: 0 8px 20px rgba(94, 80, 63, 0.1);
+          }
+        }
+
+        @include mobile {
+          padding: 0.5rem 1rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  // Skill fade-in animation
+  @keyframes skillFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
