@@ -1,0 +1,312 @@
+@import "../../global.scss";
+
+.contact {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+
+  // Main Glass Card
+  .glass-card {
+    background: rgba(234, 224, 213, 0.06);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(198, 172, 142, 0.2);
+    border-radius: 28px;
+    box-shadow: 
+      0 25px 50px rgba(10, 9, 8, 0.15),
+      0 2px 4px rgba(10, 9, 8, 0.1),
+      inset 0 1px 0 rgba(234, 224, 213, 0.2),
+      inset 0 -1px 0 rgba(94, 80, 63, 0.1);
+    padding: 3.5rem;
+    min-width: 1200px;
+    min-height: 650px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: cardFloat 4s ease-in-out infinite;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+      padding: 2.5rem;
+      margin: 1rem;
+      border-radius: 24px;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 28px;
+      background: linear-gradient(135deg, 
+        rgba(234, 224, 213, 0.08) 0%,
+        rgba(198, 172, 142, 0.04) 50%,
+        rgba(94, 80, 63, 0.02) 100%
+      );
+      z-index: -1;
+    }
+  }
+
+  @keyframes cardFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  // Contact Content
+  .contact-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #EAE0D5;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, 
+        #ffffff 0%, 
+        #EAE0D5 30%, 
+        #C6AC8E 70%, 
+        #EAE0D5 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      letter-spacing: -1px;
+
+      @include mobile {
+        font-size: 2rem;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.8rem;
+      }
+    }
+
+    .contact-description {
+      font-size: 1.2rem;
+      color: rgba(234, 224, 213, 0.8);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      letter-spacing: 0.3px;
+      line-height: 1.6;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @include mobile {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // Contact Links
+  .contact-links {
+    padding-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+    // Glass Button
+    .glass-button {
+      display: inline-block;
+      position: relative;
+      padding: 1.2rem 3rem;
+      background: rgba(198, 172, 142, 0.12);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(234, 224, 213, 0.25);
+      border-radius: 50px;
+      color: #EAE0D5;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      transition: all 0.4s ease, transform 0.1s ease;
+      overflow: hidden;
+      text-transform: uppercase;
+
+      span {
+        position: relative;
+        z-index: 2;
+      }
+
+      .button-shimmer {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+          transparent 0%,
+          rgba(234, 224, 213, 0.2) 50%,
+          transparent 100%
+        );
+        transition: left 0.6s ease;
+        z-index: 1;
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(10, 9, 8, 0.55);
+        background: rgba(198, 172, 142, 0.18);
+        color: #EAE0D5;
+        border-color: rgba(234, 224, 213, 0.4);
+
+        .button-shimmer {
+          left: 100%;
+        }
+      }
+
+      @include mobile {
+        padding: 1rem 2.5rem;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.4rem;
+      padding-top: 0.5rem;
+      padding-bottom: 1rem;
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        background: rgba(234, 224, 213, 0.08);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(198, 172, 142, 0.2);
+        border-radius: 16px;
+        color: #C6AC8E;
+        font-size: 1.4rem;
+        transition: all 0.4s ease, transform 0.1s ease;
+        text-decoration: none;
+
+        &:hover {
+          background: rgba(198, 172, 142, 0.15);
+          transform: translateY(-6px) scale(1.05);
+          box-shadow: 0 5px 10px rgba(10, 9, 8, 0.75);
+          color: #EAE0D5;
+          border-color: rgba(234, 224, 213, 0.3);
+        }
+
+        @include mobile {
+          width: 48px;
+          height: 48px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    
+    // Email buttons container
+    .email-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      padding: 1rem;
+    }
+    
+    // Copy email button
+    .copy-email-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: rgba(234, 224, 213, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(198, 172, 142, 0.2);
+      border-radius: 16px;
+      color: #C6AC8E;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: all 0.4s ease, transform 0.1s ease;
+      
+      &:hover {
+        background: rgba(198, 172, 142, 0.15);
+        transform: translateY(-6px) scale(1.05);
+        box-shadow: 0 5px 10px rgba(10, 9, 8, 0.75);
+        color: #EAE0D5;
+        border-color: rgba(234, 224, 213, 0.3);
+      }
+      
+      &.success {
+        background: rgba(74, 222, 128, 0.15);
+        color: #4ade80;
+        border-color: rgba(74, 222, 128, 0.3);
+        transform: scale(1.1);
+      }
+      
+      @include mobile {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  
+  // Toast notification
+  .toast-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(234, 224, 213, 0.12);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(198, 172, 142, 0.25);
+    border-radius: 20px;
+    color: #EAE0D5;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1500;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    &.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    svg {
+      color: #4ade80;
+      font-size: 1.2rem;
+    }
+    
+    @include mobile {
+      bottom: 1rem;
+      right: 1rem;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.8rem;
+    }
+  }
+} 

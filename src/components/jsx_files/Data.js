@@ -54,9 +54,22 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Retail Media management, Dashboard tooling ",
-    date: "Jan 2024 - Present",
+    text: "Auth Service, Reporting, Ally - Conversational AI",
+    date: "July 2024 - Present",
     position: "Software Engineer",
+    org: "CommerceIQ",
+    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
+    skills:
+      "Nest, Typescript, Node.js, PostgreSQL, Software Architecture",
+    category: {
+      tag: "Full-time",
+      color: "#0f4c3a",
+    },
+  },
+  {
+    text: "Retail Media management, Dashboard tooling ",
+    date: "Jan 2024 - Jul 2024",
+    position: "Software Engineer Intern",
     org: "CommerceIQ",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills:
@@ -69,7 +82,7 @@ export const timelineData = [
   {
     text: "Building fastest way to build and share your data work",
     date: "Sep 2023 - Jan 2024",
-    position: "Software Engineer",
+    position: "Software Engineer Intern",
     org: "Airbook",
     icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
     skills:
@@ -142,10 +155,10 @@ export const timelineData = [
 
 export const educationData = [
   {
-    text: "Currently in pre-final year, with CGPA of 9.34",
+    text: "Graduated with 9.34 CGPA",
     date: "2020 - 2024",
-    position: "B.Tech CSE",
-    org: "MAULANA ABUL KALAM AZAD UNI OF TECHNOLOGY",
+    position: "B.Tech in Computer Science and Engineering",
+    org: "Maulana Abul Kalam Azad University of Technology",
     icon: "https://media.licdn.com/dms/image/C510BAQF0ldUOAHOqSQ/company-logo_200_200/0/1532854671740?e=1687996800&v=beta&t=HuOXwOMSOSL8bWqr467_SV7FGa18zRC2syXrYswpYnQ",
     category: {
       tag: "University",
@@ -153,7 +166,7 @@ export const educationData = [
     },
   },
   {
-    text: "Graduated school with 9.2 CGPA",
+    text: "Graduated high school with 9.2 CGPA",
     date: "2018 - 2020",
     position: "AISSCE",
     org: "Aditya Academy Sr. Secondary",
@@ -174,5 +187,37 @@ export const educationData = [
       color: "#053b2c",
     },
   },
+];
+
+// Companies Data for Marquee
+export const companiesData = [
+  {
+    name: "CommerceIQ",
+    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH3OWUlPmQcsw/company-logo_200_200/company-logo_200_200/0/1647734716803/commerceiq_logo?e=1756339200&v=beta&t=DxKzawkixJeClKxF6IeT2xwSme49E6LFUJpJ72VTd9Y"
+  },
+  {
+    name: "Airbook", 
+    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQFZxe8lZcEt_g/company-logo_200_200/company-logo_200_200/0/1694254154361/getairbook_logo?e=1756339200&v=beta&t=8jhCx_vNxNLz3vg9NjyDWSb3mgPERLhG9P78OUXs8Tg"
+  },
+  {
+    name: "Listed",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQECqkaHTVJq5A/company-logo_200_200/company-logo_200_200/0/1643636347682/listed_fans_logo?e=1756339200&v=beta&t=Xs_xkcXDGjyLgul2eMqKGowl83xLrDqDkxQbq3ihbKQ"
+  },
+  {
+    name: "Fi Ellements",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQF8UvcDsCUPnw/company-logo_200_200/company-logo_200_200/0/1630648477253/epifi_logo?e=1756339200&v=beta&t=RgH9WBNa7FxPsNA1lrowlr6Jsm_eyzVMejdNvH3oYio"
+  },
+  {
+    name: "Winsple",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQFM0ickEenjXA/company-logo_200_200/company-logo_200_200/0/1648554434070/winsple_logo?e=1756339200&v=beta&t=rk5PTUlK2KWBf3mWGTlpA6lr1SHuqMaRcl__rbFlYdE"
+  },
+  {
+    name: "Google Developer's Student Club",
+    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH0EOjtTxM3WQ/company-logo_200_200/company-logo_200_200/0/1644941332197?e=1756339200&v=beta&t=Y7aIDd0f32m5YBGK0QYgUCK9F_dNvztP_ndnyMO-fOA"
+  },
+  {
+    name: "Codechef",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQGqbQqGLrllzQ/company-logo_200_200/company-logo_200_200/0/1641201042355/codechef_logo?e=1756339200&v=beta&t=V41zAWuLX4xxxqaRD-WJbDPK8wMcZ03kaHwz9Nqx-ag"
+  }
 ];
 
