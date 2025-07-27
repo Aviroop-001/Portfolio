@@ -14,6 +14,7 @@ function App() {
   const [isScrolling, setIsScrolling] = useState(true); // Show initially
   const [revealedSections, setRevealedSections] = useState(new Set(['intro']));
   const [scrollY, setScrollY] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const observerRef = useRef(null);
 
@@ -53,6 +54,7 @@ function App() {
 
   useEffect(() => {
     let scrollTimeout;
+    let snapTimeout;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -60,6 +62,11 @@ function App() {
       
       // Update scroll position for parallax
       setScrollY(currentScrollY);
+      
+      // Calculate scroll progress (0-100%)
+      const maxScroll = (sections.length - 1) * windowHeight;
+      const progress = Math.min(Math.max((currentScrollY / maxScroll) * 100, 0), 100);
+      setScrollProgress(progress);
       
       // Show navigation when scrolling starts
       setIsScrolling(true);
@@ -74,15 +81,23 @@ function App() {
       
       // Find which section is currently most visible
       let newActiveSection = 0;
+      let closestSectionDistance = Infinity;
+      let targetScrollPosition = 0;
+
       sections.forEach((section, index) => {
         const element = document.getElementById(section.id);
         if (element) {
           const rect = element.getBoundingClientRect();
           const elementTop = rect.top + currentScrollY;
+          const sectionCenter = elementTop + windowHeight / 2;
+          const currentCenter = currentScrollY + windowHeight / 2;
+          const distance = Math.abs(sectionCenter - currentCenter);
           
-          // If we've scrolled past this section's start point minus 1/3 of window height
-          if (currentScrollY >= elementTop - windowHeight / 3) {
+          // Find the closest section to current scroll position
+          if (distance < closestSectionDistance) {
+            closestSectionDistance = distance;
             newActiveSection = index;
+            targetScrollPosition = elementTop;
           }
         }
       });
@@ -93,14 +108,36 @@ function App() {
       if (newActiveSection !== activeSection) {
         setActiveSection(newActiveSection);
       }
+
+      // Clear existing snap timeout
+      clearTimeout(snapTimeout);
+
+      // Auto-snap to nearest section after scrolling stops
+      snapTimeout = setTimeout(() => {
+        const finalScrollY = window.scrollY;
+        const sectionHeight = windowHeight;
+        const currentSectionIndex = Math.round(finalScrollY / sectionHeight);
+        const targetPosition = currentSectionIndex * sectionHeight;
+        
+        // Only snap if we're not already at a perfect section boundary
+        if (Math.abs(finalScrollY - targetPosition) > 10) {
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 150); // Short delay after scrolling stops
     };
     
+
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     
     return () => {
       window.removeEventListener('scroll', handleScroll, { passive: true });
       clearTimeout(scrollTimeout);
+      clearTimeout(snapTimeout);
     };
     }, [activeSection, sections]);
 
@@ -261,7 +298,20 @@ function App() {
           </div>
         </div>
       </div>
-        {/* Parallax Background Elements */}
+
+      {/* Scroll Progress Bar */}
+      {!isLoading && (
+        <div className={`scroll-progress-container ${isScrolling ? 'visible' : 'semi-hidden'}`}>
+          <div 
+            className="scroll-progress-bar"
+            style={{
+              width: `${scrollProgress}%`
+            }}
+          />
+        </div>
+      )}
+
+      {/* Parallax Background Elements */}
         <div className="parallax-elements">
           <div 
             className="parallax-element circle-1"
