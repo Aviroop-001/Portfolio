@@ -189,3 +189,35 @@ export const educationData = [
   },
 ];
 
+// Companies Data for Marquee
+export const companiesData = [
+  {
+    name: "CommerceIQ",
+    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH3OWUlPmQcsw/company-logo_200_200/company-logo_200_200/0/1647734716803/commerceiq_logo?e=1756339200&v=beta&t=DxKzawkixJeClKxF6IeT2xwSme49E6LFUJpJ72VTd9Y"
+  },
+  {
+    name: "Airbook", 
+    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQFZxe8lZcEt_g/company-logo_200_200/company-logo_200_200/0/1694254154361/getairbook_logo?e=1756339200&v=beta&t=8jhCx_vNxNLz3vg9NjyDWSb3mgPERLhG9P78OUXs8Tg"
+  },
+  {
+    name: "Listed",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQECqkaHTVJq5A/company-logo_200_200/company-logo_200_200/0/1643636347682/listed_fans_logo?e=1756339200&v=beta&t=Xs_xkcXDGjyLgul2eMqKGowl83xLrDqDkxQbq3ihbKQ"
+  },
+  {
+    name: "Fi Ellements",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQF8UvcDsCUPnw/company-logo_200_200/company-logo_200_200/0/1630648477253/epifi_logo?e=1756339200&v=beta&t=RgH9WBNa7FxPsNA1lrowlr6Jsm_eyzVMejdNvH3oYio"
+  },
+  {
+    name: "Winsple",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQFM0ickEenjXA/company-logo_200_200/company-logo_200_200/0/1648554434070/winsple_logo?e=1756339200&v=beta&t=rk5PTUlK2KWBf3mWGTlpA6lr1SHuqMaRcl__rbFlYdE"
+  },
+  {
+    name: "Google Developer's Student Club",
+    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH0EOjtTxM3WQ/company-logo_200_200/company-logo_200_200/0/1644941332197?e=1756339200&v=beta&t=Y7aIDd0f32m5YBGK0QYgUCK9F_dNvztP_ndnyMO-fOA"
+  },
+  {
+    name: "Codechef",
+    logo: "https://media.licdn.com/dms/image/v2/C560BAQGqbQqGLrllzQ/company-logo_200_200/company-logo_200_200/0/1641201042355/codechef_logo?e=1756339200&v=beta&t=V41zAWuLX4xxxqaRD-WJbDPK8wMcZ03kaHwz9Nqx-ag"
+  }
+];
+
