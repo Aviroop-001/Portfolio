@@ -20,9 +20,6 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
           <span className="dot dot-green" />
         </Box>
         <Text className="window-title-text">{title}</Text>
-        <Box className="window-header-right">
-          <span className="window-badge">AVI-OS v1.0</span>
-        </Box>
       </Box>
       <Box key={title} className="window-body-content tab-fade-slide-anim">
         {children}
