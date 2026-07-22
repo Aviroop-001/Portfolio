@@ -1,9 +1,9 @@
 @import "../../global.scss";
 
-// VS Code Pets / Desktop Neko Cat Perched on Top Window Ledge
-.desktop-cat-companion {
+// Pure Pixel Art Cat Character Perched on OS Window Ledge (NO CIRCLE, NO BG)
+.desktop-pixel-cat {
   position: absolute;
-  top: -38px; // Perched right on top of the window header bar line!
+  top: -34px; // Stands perched right on top of the window frame!
   z-index: 550;
   display: flex;
   flex-direction: column;
@@ -13,47 +13,38 @@
   transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 
   &:hover {
-    .cat-perch-avatar {
-      transform: translateY(-2px) scale(1.08);
+    .pixel-cat-body {
+      transform: translateY(-3px) scale(1.1);
     }
   }
 
-  // Perched Cat Character Avatar
-  .cat-perch-avatar {
-    width: 44px;
-    height: 44px;
-    background-color: var(--card-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 2px solid var(--border-strong);
-    border-radius: 50%;
+  // Pure Cat Sprite Container (No background box/circle)
+  .pixel-cat-body {
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15), 3px 3px 0px var(--shadow-color);
     position: relative;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-    .cat-emoji {
-      font-size: 1.55rem;
-      line-height: 1;
-    }
+    .pixel-cat-svg {
+      width: 42px;
+      height: 42px;
+      display: block;
+      filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.25));
 
-    // Little paw resting on window ledge
-    .cat-ledge-paw {
-      position: absolute;
-      bottom: -4px;
-      width: 20px;
-      height: 6px;
-      background-color: var(--accent-yellow);
-      border: 1px solid var(--border-strong);
-      border-radius: 4px;
+      .cat-tail-anim {
+        transform-origin: 7px 20px;
+        animation: tailWag 2.5s ease-in-out infinite alternate;
+      }
     }
 
     &.bounce-purr {
-      animation: catPurrBounce 0.35s ease infinite alternate;
-      background-color: var(--accent-yellow);
-      border-color: var(--border-strong);
+      animation: pixelCatPurr 0.35s ease infinite alternate;
     }
 
     &.sleeping {
@@ -65,7 +56,7 @@
   // Speech Bubble Above Cat
   .cat-speech-bubble {
     position: absolute;
-    bottom: 50px;
+    bottom: 46px;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -124,9 +115,15 @@
   }
 }
 
-@keyframes catPurrBounce {
-  0% { transform: translateY(0) scale(1.05) rotate(-4deg); }
-  100% { transform: translateY(-8px) scale(1.2) rotate(4deg); }
+@keyframes tailWag {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-12deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes pixelCatPurr {
+  0% { transform: translateY(0) scale(1.08) rotate(-4deg); }
+  100% { transform: translateY(-8px) scale(1.22) rotate(4deg); }
 }
 
 @keyframes floatUp {
