@@ -20,7 +20,15 @@ import {
   FiSun,
   FiMoon,
   FiCode,
-  FiExternalLink
+  FiExternalLink,
+  FiHome,
+  FiBriefcase,
+  FiZap,
+  FiStar,
+  FiGrid,
+  FiBookOpen,
+  FiMail,
+  FiFolder
 } from 'react-icons/fi';
 
 function App() {
@@ -71,13 +79,13 @@ function App() {
   };
 
   const sections = useMemo(() => [
-    { id: 'intro', name: 'Intro', icon: '🏠' },
-    { id: 'experience', name: 'Experience', icon: '💼' },
-    { id: 'skills', name: 'Skills', icon: '⚡' },
-    { id: 'testimonials', name: 'Reviews', icon: '⭐' },
-    { id: 'projects', name: 'Projects', icon: '🚀' },
-    { id: 'education', name: 'Education', icon: '🎓' },
-    { id: 'contact', name: 'Contact', icon: '📬' }
+    { id: 'intro', name: 'Intro', icon: <FiHome /> },
+    { id: 'experience', name: 'Experience', icon: <FiBriefcase /> },
+    { id: 'skills', name: 'Skills', icon: <FiZap /> },
+    { id: 'testimonials', name: 'Reviews', icon: <FiStar /> },
+    { id: 'projects', name: 'Projects', icon: <FiGrid /> },
+    { id: 'education', name: 'Education', icon: <FiBookOpen /> },
+    { id: 'contact', name: 'Contact', icon: <FiMail /> }
   ], []);
 
   const socialLinks = useMemo(() => [
@@ -222,7 +230,7 @@ function App() {
               title="Click to open Links Folder"
             >
               <div className="icon-box folder-box">
-                📁
+                <FiFolder />
                 <span className="folder-badge-count">4</span>
               </div>
               <span className="icon-label">Links</span>
