@@ -10,13 +10,32 @@ export default function DesktopCatPet() {
 
   const catQuotes = [
     "Meow! Thanks for the scritches! 🥰",
-    "Purrr... Avi is a 10x engineer! 🚀",
+    "Meow! Avi is a 10x engineer! 🚀",
     "Meow! Check out Avi's cool projects! 💻",
-    "Purrr! More head pats please! 🐾",
+    "Meow! More head pats please! 🐾",
     "Meow! Hire Avi today! 💼",
-    "Purrr... Avi builds fast AI systems! ⚡",
-    "Meow! You are the best! ❤️"
+    "Meow! Avi builds fast AI systems! ⚡",
+    "Meow! You are the best! ❤️",
+    "Meow! Did you try switching to Dark Mode? 🌙",
+    "Meow! Avi wrote clean React & SCSS! 🎨",
+    "Meow! I love sitting on this window! 🪟",
+    "Meow! Avi's resume is 1 click away! 📄",
+    "Meow! Best engineering portfolio ever! ⭐",
+    "Meow! Feed me treats! 🐟",
+    "Meow! Avi scales distributed backends! ⚡"
   ];
+
+  // Helper to trigger physical device haptic vibration feedback
+  const triggerHapticVibration = () => {
+    if (typeof window !== 'undefined' && 'vibrate' in navigator) {
+      try {
+        // Soft cat purr vibration pulse pattern
+        navigator.vibrate([35, 25, 35, 25, 50]);
+      } catch (e) {
+        // Handle silently if browser permissions disallow haptics
+      }
+    }
+  };
 
   // Walking and sleeping loop
   useEffect(() => {
@@ -40,9 +59,22 @@ export default function DesktopCatPet() {
     };
   }, [isSleeping, isPurring]);
 
-  const handlePetCat = () => {
+  // ON HOVER: Make the cat purr and vibrate the device!
+  const handleMouseEnter = () => {
     setIsSleeping(false);
     setIsPurring(true);
+    setSpeech("Purr purr... 🥰");
+    triggerHapticVibration();
+  };
+
+  const handleMouseLeave = () => {
+    setIsPurring(false);
+  };
+
+  // ON CLICK: Say fun cat quotes & spawn hearts!
+  const handlePetCat = () => {
+    setIsSleeping(false);
+    triggerHapticVibration();
 
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
     setSpeech(randomQuote);
@@ -52,18 +84,16 @@ export default function DesktopCatPet() {
       left: Math.random() * 20 - 10
     };
     setHearts(prev => [...prev.slice(-4), newHeart]);
-
-    setTimeout(() => {
-      setIsPurring(false);
-    }, 750);
   };
 
   return (
     <div 
       className="desktop-pixel-cat" 
       style={{ left: `${posX}px` }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title="Click to pet Milo the Orange Cat!"
+      title="Hover to hear Milo purr & vibrate, click to talk!"
     >
       {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
@@ -79,7 +109,7 @@ export default function DesktopCatPet() {
         ))}
       </div>
 
-      {/* Adorable Orange / Ginger Tabby Cat Character Sprite (NO CIRCLE, NO BG) */}
+      {/* Adorable Orange / Ginger Tabby Cat Character Sprite */}
       <div className={`pixel-cat-body ${isPurring ? 'bounce-purr' : ''} ${isSleeping ? 'sleeping' : ''}`}>
         <svg className="pixel-cat-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Fluffy Orange Tail */}
