@@ -193,7 +193,7 @@ export const educationData = [
 export const companiesData = [
   {
     name: "CommerceIQ",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/CommerceIQ_Logo.svg/512px-CommerceIQ_Logo.svg.png",
+    logo: "https://commerceiq.ai/wp-content/uploads/2021/08/ciq-logo.svg",
     fallbackText: "CommerceIQ",
     icon: "🛍️"
   },
@@ -210,7 +210,7 @@ export const companiesData = [
     icon: "🚀"
   },
   {
-    name: "Fi Ellements",
+    name: "Fi Money",
     logo: "https://fi.money/favicon.ico",
     fallbackText: "Fi",
     icon: "💳"
