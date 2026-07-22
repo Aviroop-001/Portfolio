@@ -251,7 +251,7 @@ function App() {
 
       {/* RETRO OS LINKS FOLDER MODAL OVERLAY */}
       {showLinksModal && (
-        <div className="links-modal-overlay" onClick={() => setShowLinksModal(false)}>
+        <div className="links-folder-modal-overlay" onClick={() => setShowLinksModal(false)}>
           <div className="links-folder-window" onClick={(e) => e.stopPropagation()}>
             <div className="folder-window-header">
               <div className="window-dots">
