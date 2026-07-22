@@ -70,6 +70,7 @@ export default function DesktopCatPet() {
       <div className={`cat-mascot-avatar ${isPurring ? 'bounce-purr' : ''} ${isSleeping ? 'sleeping' : ''}`}>
         <span className="cat-emoji">{isSleeping ? '😴' : isPurring ? '😻' : '🐱'}</span>
       </div>
+      <span className="cat-name-label">Pet Milo</span>
     </div>
   );
 }

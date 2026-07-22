@@ -9,6 +9,7 @@ import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
 import WallpaperImageBackground from './components/jsx_files/WallpaperImageBackground';
+import DesktopCatPet from './components/jsx_files/DesktopCatPet';
 import { 
   FiFileText, 
   FiGithub, 
@@ -186,7 +187,7 @@ function App() {
           </div>
         </div>
 
-        {/* Right: Theme Toggle & System Badge */}
+        {/* Right: Theme Toggle, Milo Cat Pet & System Badge */}
         <div className="navbar-right">
           <button 
             className="theme-toggle-pill"
@@ -196,6 +197,9 @@ function App() {
             {theme === 'light' ? <FiMoon className="theme-icon" /> : <FiSun className="theme-icon" />}
             <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
           </button>
+
+          {/* Milo the Virtual Cat Pet */}
+          <DesktopCatPet />
 
           <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
         </div>
