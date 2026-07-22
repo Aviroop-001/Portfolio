@@ -5,8 +5,9 @@ export default function DesktopCatPet() {
   const [petCount, setPetCount] = useState(0);
   const [isPurring, setIsPurring] = useState(false);
   const [isSleeping, setIsSleeping] = useState(false);
-  const [speech, setSpeech] = useState("Meow! Click to pet me! 🐱");
+  const [speech, setSpeech] = useState("Meow! I'm Milo! Pet me! 🐱");
   const [hearts, setHearts] = useState([]);
+  const [posX, setPosX] = useState(80); // Horizontal position on top window ledge
 
   const catQuotes = [
     "Meow! Thanks for the scritches! 🥰",
@@ -18,15 +19,28 @@ export default function DesktopCatPet() {
     "Meow! You are the best! ❤️"
   ];
 
-  // Idle Sleep Timer
+  // Idle Sleeping & Walking Timer along window ledge
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const sleepTimer = setTimeout(() => {
       setIsSleeping(true);
       setSpeech("Zzz... 💤");
-    }, 15000);
+    }, 12000);
 
-    return () => clearTimeout(timer);
-  }, [petCount]);
+    const walkInterval = setInterval(() => {
+      if (!isSleeping && !isPurring) {
+        // Slowly walk back and forth along the top window ledge
+        setPosX(prev => {
+          const next = prev + (Math.random() > 0.5 ? 25 : -25);
+          return Math.max(40, Math.min(next, 380));
+        });
+      }
+    }, 6000);
+
+    return () => {
+      clearTimeout(sleepTimer);
+      clearInterval(walkInterval);
+    };
+  }, [petCount, isSleeping, isPurring]);
 
   const handlePetCat = () => {
     setIsSleeping(false);
@@ -37,10 +51,10 @@ export default function DesktopCatPet() {
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
     setSpeech(randomQuote);
 
-    // Spawn floating heart animation particle
+    // Spawn floating heart particle
     const newHeart = {
       id: Date.now() + Math.random(),
-      left: Math.random() * 40 - 20
+      left: Math.random() * 30 - 15
     };
     setHearts(prev => [...prev.slice(-5), newHeart]);
 
@@ -50,8 +64,13 @@ export default function DesktopCatPet() {
   };
 
   return (
-    <div className="desktop-cat-companion" onClick={handlePetCat} title="Click to pet Milo the Cat!">
-      {/* Cat Speech Bubble */}
+    <div 
+      className="desktop-cat-companion" 
+      style={{ left: `${posX}px` }}
+      onClick={handlePetCat} 
+      title="Click to pet Milo the Cat perched on top of your window!"
+    >
+      {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
         <span>{speech}</span>
         {petCount > 0 && <span className="pet-count-badge">{petCount} 🐾</span>}
@@ -66,11 +85,12 @@ export default function DesktopCatPet() {
         ))}
       </div>
 
-      {/* Interactive Cat Mascot */}
-      <div className={`cat-mascot-avatar ${isPurring ? 'bounce-purr' : ''} ${isSleeping ? 'sleeping' : ''}`}>
+      {/* Perched Cat Character Avatar (Sitting on Window Ledge) */}
+      <div className={`cat-perch-avatar ${isPurring ? 'bounce-purr' : ''} ${isSleeping ? 'sleeping' : ''}`}>
         <span className="cat-emoji">{isSleeping ? '😴' : isPurring ? '😻' : '🐱'}</span>
+        {/* Cat Paw Rested on Ledge */}
+        <div className="cat-ledge-paw" />
       </div>
-      <span className="cat-name-label">Pet Milo</span>
     </div>
   );
 }

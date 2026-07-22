@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
+import DesktopCatPet from './DesktopCatPet';
 import './DesktopWindow.scss';
 
 export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%" }) {
@@ -9,6 +10,9 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
       maxWidth={maxWidth} 
       width={width}
     >
+      {/* Milo the Digital Pet Perched on Top Window Ledge */}
+      <DesktopCatPet />
+
       <Box className="window-header-bar">
         <Box className="window-control-dots">
           <span className="dot dot-red" />
