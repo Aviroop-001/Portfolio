@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import './DesktopCatPet.scss';
 
 export default function DesktopCatPet() {
+  const [isAwake, setIsAwake] = useState(false);
   const [isPurring, setIsPurring] = useState(false);
-  const [isSleeping, setIsSleeping] = useState(false);
-  const [speech, setSpeech] = useState("Pet me! 🐾");
+  const [isSleeping, setIsSleeping] = useState(true);
+  const [speech, setSpeech] = useState("Tap to wake me up! 💤");
   const [hearts, setHearts] = useState([]);
   const [posX, setPosX] = useState(120);
 
@@ -15,7 +16,7 @@ export default function DesktopCatPet() {
   const purrGainRef = useRef(null);
 
   const catQuotes = [
-    "Meow! Thanks for the scritches! 🥰",
+    "Meow! Thanks for waking me up! 🥰",
     "Meow! Avi is a 10x engineer! 🚀",
     "Meow! Check out Avi's cool projects! 💻",
     "Meow! More head pats please! 🐾",
@@ -31,7 +32,7 @@ export default function DesktopCatPet() {
     "Meow! Avi scales distributed backends! ⚡"
   ];
 
-  // Synthesize realistic cat purring sound via Web Audio API
+  // Synthesize realistic cat purring sound with natural breathing pauses via Web Audio API
   const startCatPurrSound = () => {
     try {
       const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
@@ -46,44 +47,47 @@ export default function DesktopCatPet() {
         ctx.resume();
       }
 
-      // Stop existing purr oscillator if playing
-      if (purrOscRef.current) {
-        try {
-          purrOscRef.current.stop();
-          purrOscRef.current.disconnect();
-        } catch (e) {}
-      }
+      stopCatPurrSound();
 
-      // Main rumble oscillator (68Hz low frequency cat purr frequency)
+      // Main rumble oscillator (62Hz low frequency cat purr frequency)
       const osc = ctx.createOscillator();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(68, ctx.currentTime);
+      osc.frequency.setValueAtTime(62, ctx.currentTime);
 
-      // Low-Frequency Oscillator (LFO at 24Hz to create rhythmic purring vibration effect)
+      // Fast purr LFO vibration (22Hz)
       const lfo = ctx.createOscillator();
       lfo.type = 'sine';
-      lfo.frequency.setValueAtTime(24, ctx.currentTime);
-      
+      lfo.frequency.setValueAtTime(22, ctx.currentTime);
       const lfoGain = ctx.createGain();
       lfoGain.gain.setValueAtTime(14, ctx.currentTime);
       lfo.connect(lfoGain);
       lfoGain.connect(osc.frequency);
 
-      // Master Purr Volume (cozy low volume)
+      // Breathing Cycle Modulator LFO (0.45Hz -> ~2.2 sec rhythmic purr & breathing pause)
+      const breathLfo = ctx.createOscillator();
+      breathLfo.type = 'sine';
+      breathLfo.frequency.setValueAtTime(0.45, ctx.currentTime);
+
       const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0.08, ctx.currentTime);
+      masterGain.gain.setValueAtTime(0.07, ctx.currentTime);
+
+      const breathGain = ctx.createGain();
+      breathGain.gain.setValueAtTime(0.04, ctx.currentTime);
+      breathLfo.connect(breathGain);
+      breathGain.connect(masterGain.gain);
 
       osc.connect(masterGain);
       masterGain.connect(ctx.destination);
 
       osc.start();
       lfo.start();
+      breathLfo.start();
 
       purrOscRef.current = osc;
       purrLfoRef.current = lfo;
       purrGainRef.current = masterGain;
     } catch (err) {
-      // Audio context autoplay restriction fallback
+      // Audio context fallback
     }
   };
 
@@ -107,44 +111,50 @@ export default function DesktopCatPet() {
     } catch (err) {}
   };
 
-  // Walking and sleeping loop
+  // Walking & Sleeping Timer
   useEffect(() => {
-    const sleepTimer = setTimeout(() => {
-      setIsSleeping(true);
-      setSpeech("Zzz... 💤");
-    }, 15000);
+    let sleepTimer;
+    let walkInterval;
 
-    const walkInterval = setInterval(() => {
-      if (!isSleeping && !isPurring) {
-        setPosX(prev => {
-          const delta = (Math.random() > 0.5 ? 25 : -25);
-          return Math.max(50, Math.min(prev + delta, 420));
-        });
-      }
-    }, 5000);
+    if (isAwake) {
+      // Sleep again if idle for 20 seconds
+      sleepTimer = setTimeout(() => {
+        setIsSleeping(true);
+        setIsAwake(false);
+        setIsPurring(false);
+        setSpeech("Tap to wake me up! 💤");
+        stopCatPurrSound();
+      }, 20000);
+
+      walkInterval = setInterval(() => {
+        if (!isPurring) {
+          setPosX(prev => {
+            const delta = (Math.random() > 0.5 ? 25 : -25);
+            return Math.max(50, Math.min(prev + delta, 420));
+          });
+        }
+      }, 5000);
+    }
 
     return () => {
       clearTimeout(sleepTimer);
       clearInterval(walkInterval);
     };
-  }, [isSleeping, isPurring]);
+  }, [isAwake, isPurring]);
 
-  // ON HOVER: Cat purrs, says "Purr purr... 🥰", and plays synthesized purr sound!
-  const handleMouseEnter = () => {
-    setIsSleeping(false);
-    setIsPurring(true);
-    setSpeech("Purr purr... 🥰");
-    startCatPurrSound();
-  };
-
-  const handleMouseLeave = () => {
-    setIsPurring(false);
-    stopCatPurrSound();
-  };
-
-  // ON CLICK: Say fun cat quotes, play purr audio pulse & spawn hearts!
+  // TAP / CLICK: Wakes cat up & unlocks browser AudioContext!
   const handlePetCat = () => {
-    setIsSleeping(false);
+    if (!isAwake || isSleeping) {
+      setIsAwake(true);
+      setIsSleeping(false);
+      setSpeech("Meow! Thanks for waking me up! 🥰");
+      startCatPurrSound();
+      setTimeout(() => stopCatPurrSound(), 1400);
+      return;
+    }
+
+    // Cat is awake, pet and speak!
+    setIsPurring(true);
     startCatPurrSound();
 
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
@@ -158,7 +168,23 @@ export default function DesktopCatPet() {
 
     setTimeout(() => {
       stopCatPurrSound();
-    }, 1200);
+    }, 1400);
+  };
+
+  // ON HOVER: If awake, purrs with breathing pauses!
+  const handleMouseEnter = () => {
+    if (isAwake && !isSleeping) {
+      setIsPurring(true);
+      setSpeech("Purr purr... 🥰");
+      startCatPurrSound();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isAwake) {
+      setIsPurring(false);
+      stopCatPurrSound();
+    }
   };
 
   return (
@@ -168,7 +194,7 @@ export default function DesktopCatPet() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title="Hover over Milo to hear him purr!"
+      title={isAwake ? "Hover to hear Milo purr!" : "Tap to wake Milo up!"}
     >
       {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
