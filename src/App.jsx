@@ -161,6 +161,7 @@ function App() {
           <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
             AVI OS
           </span>
+          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>v1.0</span>
         </div>
 
         {/* Center: Audio Player Widget */}
@@ -186,7 +187,7 @@ function App() {
           </div>
         </div>
 
-        {/* Right: Theme Toggle & System Badge */}
+        {/* Right: Theme Toggle Mode Changer Only */}
         <div className="navbar-right">
           <button 
             className="theme-toggle-pill"
@@ -196,8 +197,6 @@ function App() {
             {theme === 'light' ? <FiMoon className="theme-icon" /> : <FiSun className="theme-icon" />}
             <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
           </button>
-
-          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
         </div>
       </header>
 
