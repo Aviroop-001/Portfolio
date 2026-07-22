@@ -19,33 +19,34 @@ export default function AnimatedBackground() {
     };
     window.addEventListener('resize', handleResize);
 
-    // Floating Glowing Orbs
+    // Large Vibrant Floating Orbs (Emerald, Jade, Deep Teal)
     const orbs = [
-      { x: width * 0.2, y: height * 0.3, radius: 260, vx: 0.4, vy: 0.3, color: 'rgba(99, 102, 241, 0.15)' },
-      { x: width * 0.8, y: height * 0.7, radius: 300, vx: -0.3, vy: -0.4, color: 'rgba(168, 85, 247, 0.12)' },
-      { x: width * 0.5, y: height * 0.8, radius: 220, vx: 0.2, vy: -0.3, color: 'rgba(16, 185, 129, 0.1)' }
+      { x: width * 0.25, y: height * 0.25, radius: 340, vx: 0.45, vy: 0.35, color: 'rgba(2, 79, 55, 0.28)' },
+      { x: width * 0.75, y: height * 0.65, radius: 380, vx: -0.35, vy: -0.45, color: 'rgba(16, 185, 129, 0.24)' },
+      { x: width * 0.45, y: height * 0.85, radius: 300, vx: 0.3, vy: -0.35, color: 'rgba(15, 118, 110, 0.2)' },
+      { x: width * 0.85, y: height * 0.2, radius: 280, vx: -0.4, vy: 0.3, color: 'rgba(52, 211, 153, 0.22)' }
     ];
 
     // Drifting Micro Particles
-    const particles = Array.from({ length: 32 }, () => ({
+    const particles = Array.from({ length: 40 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 2 + 1,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: (Math.random() - 0.5) * 0.4,
-      opacity: Math.random() * 0.5 + 0.2
+      size: Math.random() * 2.5 + 1,
+      speedX: (Math.random() - 0.5) * 0.45,
+      speedY: (Math.random() - 0.5) * 0.45,
+      opacity: Math.random() * 0.5 + 0.25
     }));
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Render Floating Orbs
+      // Render Vibrant Floating Orbs
       orbs.forEach((orb) => {
         orb.x += orb.vx;
         orb.y += orb.vy;
 
-        if (orb.x < -100 || orb.x > width + 100) orb.vx *= -1;
-        if (orb.y < -100 || orb.y > height + 100) orb.vy *= -1;
+        if (orb.x < -120 || orb.x > width + 120) orb.vx *= -1;
+        if (orb.y < -120 || orb.y > height + 120) orb.vy *= -1;
 
         const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
         gradient.addColorStop(0, orb.color);
@@ -67,7 +68,7 @@ export default function AnimatedBackground() {
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
+        ctx.fillStyle = `rgba(2, 79, 55, ${p.opacity * 0.7})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();

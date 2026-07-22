@@ -2,10 +2,10 @@
 
 .retro-desktop-window {
   background-color: var(--card-bg);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid var(--border-color);
-  border-radius: 18px;
+  backdrop-filter: blur(36px) saturate(200%);
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   width: 100%;
@@ -14,14 +14,14 @@
   flex-direction: column;
   position: relative;
 
-  // macOS Glass Specular Highlight Inner Border
+  // macOS Glass Specular Highlight Inset Border
   &::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 18px;
+    border-radius: 20px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.08));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -31,10 +31,10 @@
   // Window Top Header Bar (macOS Glass Header Line)
   .window-header-bar {
     background-color: var(--secondary-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border-color);
-    padding: 0.75rem 1.3rem;
+    padding: 0.8rem 1.4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,8 +74,8 @@
         color: var(--btn-text-on-yellow);
         border: 1px solid var(--border-strong);
         border-radius: 9999px;
-        padding: 3px 10px;
-        box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+        padding: 3px 12px;
+        box-shadow: 0 2px 10px rgba(2, 79, 55, 0.25);
       }
     }
   }
