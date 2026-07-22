@@ -1,10 +1,12 @@
 @import "../../global.scss";
 
 .retro-desktop-window {
-  background-color: var(--card-bg);
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  box-shadow: 6px 6px 0px var(--shadow-color);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-elevated);
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -14,8 +16,8 @@
   // Window Top Header Bar
   .window-header-bar {
     background-color: var(--secondary-bg);
-    border-bottom: 2px solid var(--border-color);
-    padding: 0.65rem 1.1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.7rem 1.2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,7 +32,7 @@
         width: 11px;
         height: 11px;
         border-radius: 50%;
-        border: 1px solid var(--border-color);
+        border: 1px solid rgba(0,0,0,0.08);
 
         &.dot-red { background-color: #FF5F56; }
         &.dot-yellow { background-color: #FFBD2E; }
@@ -39,30 +41,30 @@
     }
 
     .window-title-text {
-      font-family: $font-mono;
+      font-family: $font-body;
       font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--text-color);
-      letter-spacing: 0.2px;
+      font-weight: 600;
+      color: var(--subtext-color);
+      letter-spacing: -0.1px;
     }
 
     .window-badge-right {
       .os-badge {
-        font-family: $font-mono;
-        font-size: 0.72rem;
-        font-weight: 800;
+        font-family: $font-body;
+        font-size: 0.74rem;
+        font-weight: 700;
         background-color: var(--accent-yellow);
         color: var(--btn-text-on-yellow);
-        border: 1.5px solid var(--border-color);
-        border-radius: 4px;
-        padding: 2px 8px;
-        box-shadow: 1px 1px 0px var(--shadow-color);
+        border: 1px solid var(--border-strong);
+        border-radius: 9999px;
+        padding: 3px 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       }
     }
   }
 
   .window-body-content {
-    padding: 2.4rem 3rem 5.5rem 3rem;
+    padding: 2.6rem 3.2rem 5.5rem 3.2rem;
     color: var(--text-color);
     font-family: $font-body;
     flex: 1;
