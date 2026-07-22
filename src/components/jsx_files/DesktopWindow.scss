@@ -43,12 +43,13 @@
     justify-content: space-between;
     user-select: none;
 
-    .window-controls-left {
+    .window-control-dots {
       display: flex;
       align-items: center;
       gap: 7px;
+      min-width: 60px;
 
-      .control-dot {
+      .dot {
         width: 11px;
         height: 11px;
         border-radius: 50%;
@@ -61,25 +62,17 @@
     }
 
     .window-title-text {
-      font-family: $font-body;
+      flex: 1;
+      text-align: center;
+      font-family: $font-mono;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--subtext-color);
       letter-spacing: -0.1px;
     }
 
-    .window-badge-right {
-      .os-badge {
-        font-family: $font-body;
-        font-size: 0.74rem;
-        font-weight: 700;
-        background-color: var(--accent-yellow);
-        color: var(--btn-text-on-yellow);
-        border: 1px solid var(--border-strong);
-        border-radius: 9999px;
-        padding: 3px 12px;
-        box-shadow: 0 2px 10px rgba(2, 79, 55, 0.25);
-      }
+    .window-header-right-spacer {
+      min-width: 60px;
     }
   }
 

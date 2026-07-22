@@ -20,6 +20,7 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
           <span className="dot dot-green" />
         </Box>
         <Text className="window-title-text">{title}</Text>
+        <Box className="window-header-right-spacer" />
       </Box>
       <Box key={title} className="window-body-content tab-fade-slide-anim">
         {children}
