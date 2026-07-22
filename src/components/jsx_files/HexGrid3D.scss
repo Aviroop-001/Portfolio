@@ -6,19 +6,19 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  perspective: 900px;
+  perspective: 800px;
   background-color: var(--bg-color);
 
   .hex-grid-perspective-plane {
     position: absolute;
-    top: -30%;
-    left: -25%;
-    width: 150vw;
-    height: 160vh;
-    transform: rotateX(52deg) scale(1.35) translateY(-5%);
+    top: -40%;
+    left: -30%;
+    width: 160vw;
+    height: 180vh;
+    transform: rotateX(55deg) scale(1.4) translateY(-10%);
     transform-origin: 50% 50%;
     transition: transform 0.3s ease;
 
@@ -36,14 +36,14 @@
 
     [data-theme="light"] &, &[data-wallpaper-theme="light"] {
       background: 
-        radial-gradient(ellipse at 50% 15%, rgba(251, 226, 133, 0.4) 0%, transparent 65%),
-        linear-gradient(to bottom, var(--bg-color) 0%, transparent 30%, transparent 70%, var(--bg-color) 100%);
+        radial-gradient(ellipse at 50% 15%, rgba(2, 79, 55, 0.25) 0%, transparent 70%),
+        linear-gradient(to bottom, var(--bg-color) 0%, transparent 20%, transparent 65%, var(--bg-color) 100%);
     }
 
     [data-theme="dark"] &, &[data-wallpaper-theme="dark"] {
       background: 
-        radial-gradient(ellipse at 50% 15%, rgba(52, 211, 153, 0.25) 0%, transparent 65%),
-        linear-gradient(to bottom, var(--bg-color) 0%, transparent 25%, transparent 70%, var(--bg-color) 100%);
+        radial-gradient(ellipse at 50% 15%, rgba(52, 211, 153, 0.3) 0%, transparent 70%),
+        linear-gradient(to bottom, var(--bg-color) 0%, transparent 20%, transparent 65%, var(--bg-color) 100%);
     }
   }
 }

@@ -19,25 +19,25 @@ export default function HexGrid3D() {
               <path 
                 d="M 30,0 L 60,17.32 L 60,51.96 L 30,69.28 L 0,51.96 L 0,17.32 Z" 
                 fill="none" 
-                stroke="var(--border-strong)" 
-                strokeWidth="1.2"
-                opacity="0.35"
+                stroke="var(--accent-yellow)" 
+                strokeWidth="1.5"
+                opacity="0.55"
               />
               {/* Hexagon 2 Offset */}
               <path 
                 d="M 0,51.96 L 30,69.28 L 30,103.92 L 0,121.24 L -30,103.92 L -30,69.28 Z" 
                 fill="none" 
-                stroke="var(--border-strong)" 
-                strokeWidth="1.2"
-                opacity="0.35"
+                stroke="var(--accent-yellow)" 
+                strokeWidth="1.5"
+                opacity="0.55"
               />
               {/* Hexagon 3 Offset */}
               <path 
                 d="M 60,51.96 L 90,69.28 L 90,103.92 L 60,121.24 L 30,103.92 L 30,69.28 Z" 
                 fill="none" 
-                stroke="var(--border-strong)" 
-                strokeWidth="1.2"
-                opacity="0.35"
+                stroke="var(--accent-yellow)" 
+                strokeWidth="1.5"
+                opacity="0.55"
               />
             </pattern>
           </defs>
@@ -45,7 +45,7 @@ export default function HexGrid3D() {
         </svg>
       </div>
 
-      {/* Ambient Radial Gradient Horizon Mask */}
+      {/* Ambient Horizon Glow Mask */}
       <div className="hex-horizon-mask" />
     </div>
   );
