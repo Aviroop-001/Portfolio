@@ -189,35 +189,49 @@ export const educationData = [
   },
 ];
 
-// Companies Data for Marquee
+// Companies Data for Marquee (Logos Only)
 export const companiesData = [
   {
     name: "CommerceIQ",
-    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH3OWUlPmQcsw/company-logo_200_200/company-logo_200_200/0/1647734716803/commerceiq_logo?e=1756339200&v=beta&t=DxKzawkixJeClKxF6IeT2xwSme49E6LFUJpJ72VTd9Y"
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/CommerceIQ_Logo.svg/512px-CommerceIQ_Logo.svg.png",
+    fallbackText: "CommerceIQ",
+    icon: "🛍️"
   },
   {
     name: "Airbook", 
-    logo: "https://media.licdn.com/dms/image/v2/D4E0BAQFZxe8lZcEt_g/company-logo_200_200/company-logo_200_200/0/1694254154361/getairbook_logo?e=1756339200&v=beta&t=8jhCx_vNxNLz3vg9NjyDWSb3mgPERLhG9P78OUXs8Tg"
+    logo: "https://raw.githubusercontent.com/getairbook/airbook/main/static/logo.png",
+    fallbackText: "Airbook",
+    icon: "📊"
   },
   {
     name: "Listed",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQECqkaHTVJq5A/company-logo_200_200/company-logo_200_200/0/1643636347682/listed_fans_logo?e=1756339200&v=beta&t=Xs_xkcXDGjyLgul2eMqKGowl83xLrDqDkxQbq3ihbKQ"
+    logo: "https://listed.fan/favicon.ico",
+    fallbackText: "Listed",
+    icon: "🚀"
   },
   {
     name: "Fi Ellements",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQF8UvcDsCUPnw/company-logo_200_200/company-logo_200_200/0/1630648477253/epifi_logo?e=1756339200&v=beta&t=RgH9WBNa7FxPsNA1lrowlr6Jsm_eyzVMejdNvH3oYio"
+    logo: "https://fi.money/favicon.ico",
+    fallbackText: "Fi",
+    icon: "💳"
   },
   {
     name: "Winsple",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQFM0ickEenjXA/company-logo_200_200/company-logo_200_200/0/1648554434070/winsple_logo?e=1756339200&v=beta&t=rk5PTUlK2KWBf3mWGTlpA6lr1SHuqMaRcl__rbFlYdE"
+    logo: "https://winsple.com/favicon.ico",
+    fallbackText: "Winsple",
+    icon: "⚡"
   },
   {
-    name: "Google Developer's Student Club",
-    logo: "https://media.licdn.com/dms/image/v2/C4E0BAQH0EOjtTxM3WQ/company-logo_200_200/company-logo_200_200/0/1644941332197?e=1756339200&v=beta&t=Y7aIDd0f32m5YBGK0QYgUCK9F_dNvztP_ndnyMO-fOA"
+    name: "Google Developer Student Clubs",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Google_Developers_logo.svg/512px-Google_Developers_logo.svg.png",
+    fallbackText: "GDSC",
+    icon: "🌐"
   },
   {
     name: "Codechef",
-    logo: "https://media.licdn.com/dms/image/v2/C560BAQGqbQqGLrllzQ/company-logo_200_200/company-logo_200_200/0/1641201042355/codechef_logo?e=1756339200&v=beta&t=V41zAWuLX4xxxqaRD-WJbDPK8wMcZ03kaHwz9Nqx-ag"
+    logo: "https://cdn.codechef.com/images/cc-logo.svg",
+    fallbackText: "CodeChef",
+    icon: "👨‍💻"
   }
 ];
 

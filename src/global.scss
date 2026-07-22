@@ -1,14 +1,52 @@
-$darkest: rgb(25, 25, 25);
-$darker: rgb(30, 30, 30);
-$dark: rgb(45, 45, 45);
-$light: rgb(248, 118, 140);
-$lighter: rgb(196, 167, 176);
-$lightest: rgb(216, 185, 195);
+// Global SCSS variables & Theme Design Tokens
+$mobile: 768px;
 
-$width: 768px;
-
-@mixin mobile{
-    @media (max-width: #{$width}){
-        @content
-    }
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
 }
+
+// Light Theme (PostHog Cream - Default)
+:root, [data-theme="light"], [data-theme="cream"] {
+  --bg-color: #F3ECE1;
+  --text-color: #1D1E1C;
+  --title-color: #1D1E1C;
+  --subtext-color: #4A4B48;
+  --muted-text: #6C6D69;
+  --card-bg: #FAF6F0;
+  --secondary-bg: #EFE7DA;
+  --accent-yellow: #FBE285;
+  --btn-text-on-yellow: #1D1E1C;
+  --border-color: #1D1E1C;
+  --shadow-color: #1D1E1C;
+  --icon-bg: #FAF6F0;
+  --label-bg: #FAF6F0;
+  --accent-green: #27C93F;
+}
+
+// Dark Theme (PostHog Midnight Charcoal)
+[data-theme="dark"] {
+  --bg-color: #121311;
+  --text-color: #F3ECE1;
+  --title-color: #FFFFFF;
+  --subtext-color: #D0D3CA;
+  --muted-text: #A5A89E;
+  --card-bg: #1E201D;
+  --secondary-bg: #2B2D29;
+  --accent-yellow: #FBE285;
+  --btn-text-on-yellow: #1D1E1C;
+  --border-color: #000000;
+  --shadow-color: #000000;
+  --icon-bg: #2B2D29;
+  --label-bg: #2B2D29;
+  --accent-green: #27C93F;
+}
+
+// Global Variables linking to Theme Tokens
+$bg-beige: var(--bg-color);
+$text-charcoal: var(--text-color);
+$accent-yellow: var(--accent-yellow);
+$card-cream: var(--card-bg);
+$border-black: var(--border-color);
+$shadow-black: var(--shadow-color);

@@ -1,429 +1,495 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import "./App.scss";
+import DesktopWindow from "./components/jsx_files/DesktopWindow";
 import Intro from "./components/jsx_files/intro";
 import Projects from "./components/jsx_files/Projects";
 import Contact from "./components/jsx_files/Contact";
 import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
-import { AiOutlineUp } from 'react-icons/ai';
-import { Box, Text } from "@chakra-ui/react";
+import Testimonials from './components/jsx_files/Testimonials';
+import { 
+  FiFileText, 
+  FiGithub, 
+  FiLinkedin,
+  FiPlay,
+  FiPause,
+  FiVolume2,
+  FiVolumeX,
+  FiSun,
+  FiMoon,
+  FiChevronDown,
+  FiCheck,
+  FiInfo,
+  FiMail,
+  FiCopy,
+  FiCode,
+  FiExternalLink
+} from 'react-icons/fi';
 
 function App() {
-  const [activeSection, setActiveSection] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(true); // Show initially
-  const [revealedSections, setRevealedSections] = useState(new Set(['intro']));
-  const [scrollY, setScrollY] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const observerRef = useRef(null);
+  const [activeTab, setActiveTab] = useState('intro');
+  const [theme, setTheme] = useState('light');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showLinksModal, setShowLinksModal] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+  
+  const audioRef = useRef(null);
+  const menuContainerRef = useRef(null);
 
-  const sections = useMemo(() => [
-    { id: 'intro', name: 'Intro' },
-    { id: 'experience', name: 'Experience' },
-    { id: 'skills', name: 'Skills' },
-    { id: 'education', name: 'Education' },
-    { id: 'projects', name: 'Projects' },
-    { id: 'contact', name: 'Contact' }
-  ], []);
-
-  // Loading animation - show for 5 seconds
+  // Apply theme to html data-theme attribute
   useEffect(() => {
-    console.log('Loading started, isLoading:', isLoading);
-    const loadingTimer = setTimeout(() => {
-      console.log('Loading timer finished, setting isLoading to false');
-      setIsLoading(false);
-    }, 5000); // Show loading for 5 seconds
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
-    return () => clearTimeout(loadingTimer);
+  // Close top OS menu dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuContainerRef.current && !menuContainerRef.current.contains(e.target)) {
+        setActiveMenu(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Debug loading state changes
-  useEffect(() => {
-    console.log('Loading state changed:', isLoading);
-  }, [isLoading]);
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setActiveMenu(null);
+  };
 
-  // Hide navigation after initial load
-  useEffect(() => {
-    const initialTimeout = setTimeout(() => {
-      setIsScrolling(false);
-    }, 2500); // Show for 2.5 seconds initially
-
-    return () => clearTimeout(initialTimeout);
-  }, []);
-
-  useEffect(() => {
-    let scrollTimeout;
-    let snapTimeout;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      
-      // Update scroll position for parallax
-      setScrollY(currentScrollY);
-      
-      // Calculate scroll progress (0-100%)
-      const maxScroll = (sections.length - 1) * windowHeight;
-      const progress = Math.min(Math.max((currentScrollY / maxScroll) * 100, 0), 100);
-      setScrollProgress(progress);
-      
-      // Show navigation when scrolling starts
-      setIsScrolling(true);
-
-      // Clear existing timeout
-      clearTimeout(scrollTimeout);
-
-      // Hide navigation after scrolling stops (800ms delay)
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false);
-      }, 800);
-      
-      // Find which section is currently most visible
-      let newActiveSection = 0;
-      let closestSectionDistance = Infinity;
-      let targetScrollPosition = 0;
-
-      sections.forEach((section, index) => {
-        const element = document.getElementById(section.id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const elementTop = rect.top + currentScrollY;
-          const sectionCenter = elementTop + windowHeight / 2;
-          const currentCenter = currentScrollY + windowHeight / 2;
-          const distance = Math.abs(sectionCenter - currentCenter);
-          
-          // Find the closest section to current scroll position
-          if (distance < closestSectionDistance) {
-            closestSectionDistance = distance;
-            newActiveSection = index;
-            targetScrollPosition = elementTop;
-          }
-        }
-      });
-      
-      // Ensure we don't go out of bounds
-      newActiveSection = Math.max(0, Math.min(newActiveSection, sections.length - 1));
-      
-      if (newActiveSection !== activeSection) {
-        setActiveSection(newActiveSection);
-      }
-
-      // Clear existing snap timeout
-      clearTimeout(snapTimeout);
-
-      // Auto-snap to nearest section after scrolling stops
-      snapTimeout = setTimeout(() => {
-        const finalScrollY = window.scrollY;
-        const sectionHeight = windowHeight;
-        const currentSectionIndex = Math.round(finalScrollY / sectionHeight);
-        const targetPosition = currentSectionIndex * sectionHeight;
-        
-        // Only snap if we're not already at a perfect section boundary
-        if (Math.abs(finalScrollY - targetPosition) > 10) {
-          window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 150); // Short delay after scrolling stops
-    };
-    
-
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll, { passive: true });
-      clearTimeout(scrollTimeout);
-      clearTimeout(snapTimeout);
-    };
-    }, [activeSection, sections]);
-
-  // Scroll reveal animations
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealedSections(prev => new Set([...prev, entry.target.id]));
-          }
-        });
-      },
-      {
-        threshold: 0.2, // Trigger when 20% of the element is visible
-        rootMargin: '-50px 0px' // Start animation 50px before element comes into view
-      }
-    );
-
-    // Observe all sections
-    sections.forEach(section => {
-      const element = document.getElementById(section.id);
-      if (element && observerRef.current) {
-        observerRef.current.observe(element);
-      }
-    });
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [sections]);
-
-  const scrollToSection = (index) => {
-    const sectionId = sections[index].id;
-    const element = document.getElementById(sectionId);
-    if (element) {
-      // Show navigation temporarily when clicking
-      setIsScrolling(true);
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+  const togglePlayAudio = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.log("Audio play error:", err);
       });
     }
   };
 
-  const scrollToTop = () => {
-    // Show navigation temporarily when clicking
-    setIsScrolling(true);
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    audioRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
   };
 
-        return (
+  const triggerToast = (msg) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 2500);
+  };
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("banerjeeaviroop01@gmail.com");
+      triggerToast("Email copied to clipboard!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const sections = useMemo(() => [
+    { id: 'intro', name: 'Intro', icon: '🏠' },
+    { id: 'experience', name: 'Experience', icon: '💼' },
+    { id: 'skills', name: 'Skills', icon: '⚡' },
+    { id: 'testimonials', name: 'Reviews', icon: '⭐' },
+    { id: 'projects', name: 'Projects', icon: '🚀' },
+    { id: 'education', name: 'Education', icon: '🎓' },
+    { id: 'contact', name: 'Contact', icon: '📬' }
+  ], []);
+
+  const socialLinks = useMemo(() => [
+    {
+      id: 'resume',
+      title: 'Resume.pdf',
+      label: 'PDF Document',
+      icon: <FiFileText />,
+      url: 'https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link',
+      type: 'pdf'
+    },
+    {
+      id: 'github',
+      title: 'GitHub.link',
+      label: '@Aviroop-001',
+      icon: <FiGithub />,
+      url: 'https://github.com/Aviroop-001',
+      type: 'link'
+    },
+    {
+      id: 'linkedin',
+      title: 'LinkedIn.link',
+      label: 'in/aviroopbanerjee',
+      icon: <FiLinkedin />,
+      url: 'https://www.linkedin.com/in/aviroopbanerjee/',
+      type: 'link'
+    },
+    {
+      id: 'leetcode',
+      title: 'LeetCode.link',
+      label: '@Aviroop_01',
+      icon: <FiCode />,
+      url: 'https://leetcode.com/Aviroop_01/',
+      type: 'link'
+    }
+  ], []);
+
+  const renderActiveSection = () => {
+    switch (activeTab) {
+      case 'intro':
+        return <Intro />;
+      case 'experience':
+        return <Experience />;
+      case 'skills':
+        return <Skills />;
+      case 'testimonials':
+        return <Testimonials />;
+      case 'education':
+        return <Education />;
+      case 'projects':
+        return <Projects />;
+      case 'contact':
+        return <Contact />;
+      default:
+        return <Intro />;
+    }
+  };
+
+  return (
     <div className="App">
-      {/* Loading Screen */}
-      <div 
-        className={`loading-screen ${!isLoading ? 'fade-out' : ''}`}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          background: 'linear-gradient(135deg, #050404 0%, #0F1419 25%, #1A1612 50%, #2D2520 75%, #3A352E 100%)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 10000,
-          opacity: isLoading ? 1 : 0,
-          visibility: isLoading ? 'visible' : 'hidden',
-          transition: 'all 0.8s ease'
-        }}
-      >
-                 <div className="loading-content" style={{ textAlign: 'center', color: '#EAE0D5' }}>
-          <div 
-            className="loading-spinner"
-            style={{
-              position: 'relative',
-              width: '80px',
-              height: '80px',
-              margin: '0 auto 2rem'
-            }}
-          >
-            {/* Ring 1 - Outermost, slowest, clockwise */}
-            <div 
-              className="spinner-ring-1"
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                border: '2px solid transparent',
-                borderTop: '2px solid rgba(234, 224, 213, 0.7)',
-                borderRadius: '50%',
-                animation: 'spin 4s linear infinite'
-              }}
-            ></div>
-            {/* Ring 2 - 2nd, slow, counterclockwise */}
-            <div 
-              className="spinner-ring-2"
-              style={{
-                position: 'absolute',
-                width: '80%',
-                height: '80%',
-                top: '10%',
-                left: '10%',
-                border: '2px solid transparent',
-                borderTop: '2px solid rgba(198, 172, 142, 0.6)',
-                borderRadius: '50%',
-                animation: 'spinReverse 3s linear infinite'
-              }}
-            ></div>
-            {/* Ring 3 - 3rd, medium speed, clockwise (same as ring 1) */}
-            <div 
-              className="spinner-ring-3"
-              style={{
-                position: 'absolute',
-                width: '60%',
-                height: '60%',
-                top: '20%',
-                left: '20%',
-                border: '2px solid transparent',
-                borderTop: '2px solid rgba(234, 224, 213, 0.5)',
-                borderRadius: '50%',
-                animation: 'spin 2s linear infinite'
-              }}
-            ></div>
-            {/* Ring 4 - Innermost, fastest, counterclockwise (same as ring 2) */}
-            <div 
-              className="spinner-ring-4"
-              style={{
-                position: 'absolute',
-                width: '40%',
-                height: '40%',
-                top: '30%',
-                left: '30%',
-                border: '2px solid transparent',
-                borderTop: '2px solid rgba(198, 172, 142, 0.4)',
-                borderRadius: '50%',
-                animation: 'spinReverse 1s linear infinite'
-              }}
-            ></div>
-          </div>
-          <div 
-            className="loading-text"
-            style={{
-              fontSize: '1.1rem',
-              fontWeight: '500',
-              color: 'rgba(234, 224, 213, 0.8)',
-              letterSpacing: '1px',
-              textAlign: 'center'
-            }}
-          >
-            <span>Loading Portfolio</span>
+      {/* Hidden Audio Element for Synthwave Lofi */}
+      <audio 
+        ref={audioRef} 
+        loop
+        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
+      />
+
+      {/* Top Retro OS Navbar (Height: 48px) */}
+      <header className="top-os-navbar">
+        <div className="navbar-left" ref={menuContainerRef}>
+          <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
+            🦔 AVI OS
+          </span>
+
+          {/* Top Menu Options with Interactive Retro Dropdowns */}
+          <div className="os-menu-bar">
+            {/* FILE MENU */}
+            <div className="menu-dropdown-wrapper">
+              <span 
+                className={`nav-menu-item ${activeMenu === 'file' ? 'active' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === 'file' ? null : 'file')}
+              >
+                File <FiChevronDown className="arrow-icon" />
+              </span>
+              {activeMenu === 'file' && (
+                <div className="retro-dropdown-menu">
+                  <a 
+                    href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="dropdown-item"
+                    onClick={() => setActiveMenu(null)}
+                  >
+                    <FiFileText /> Download Resume PDF
+                  </a>
+                  <div 
+                    className="dropdown-item"
+                    onClick={() => { setShowLinksModal(true); setActiveMenu(null); }}
+                  >
+                    📁 Open Links Folder
+                  </div>
+                  <div className="dropdown-divider" />
+                  <div 
+                    className="dropdown-item"
+                    onClick={() => { setActiveTab('contact'); setActiveMenu(null); }}
+                  >
+                    <FiMail /> Send Message / Inquiry
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* EDIT MENU */}
+            <div className="menu-dropdown-wrapper">
+              <span 
+                className={`nav-menu-item ${activeMenu === 'edit' ? 'active' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === 'edit' ? null : 'edit')}
+              >
+                Edit <FiChevronDown className="arrow-icon" />
+              </span>
+              {activeMenu === 'edit' && (
+                <div className="retro-dropdown-menu">
+                  <div className="dropdown-item" onClick={() => { copyEmail(); setActiveMenu(null); }}>
+                    <FiCopy /> Copy Email Address
+                  </div>
+                  <div className="dropdown-divider" />
+                  <a 
+                    href="https://github.com/Aviroop-001" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="dropdown-item"
+                    onClick={() => setActiveMenu(null)}
+                  >
+                    <FiGithub /> Open GitHub Profile
+                  </a>
+                  <a 
+                    href="https://www.linkedin.com/in/aviroopbanerjee/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="dropdown-item"
+                    onClick={() => setActiveMenu(null)}
+                  >
+                    <FiLinkedin /> Open LinkedIn Profile
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* VIEW MENU */}
+            <div className="menu-dropdown-wrapper">
+              <span 
+                className={`nav-menu-item ${activeMenu === 'view' ? 'active' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === 'view' ? null : 'view')}
+              >
+                View <FiChevronDown className="arrow-icon" />
+              </span>
+              {activeMenu === 'view' && (
+                <div className="retro-dropdown-menu">
+                  <div className="dropdown-item" onClick={toggleTheme}>
+                    {theme === 'light' ? <FiMoon /> : <FiSun />}
+                    <span>Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme</span>
+                  </div>
+                  <div className="dropdown-divider" />
+                  <div className="dropdown-item" onClick={togglePlayAudio}>
+                    {isPlaying ? <FiPause /> : <FiPlay />}
+                    <span>{isPlaying ? 'Pause Lofi Audio' : 'Play Lofi Audio'}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* WINDOW MENU */}
+            <div className="menu-dropdown-wrapper">
+              <span 
+                className={`nav-menu-item ${activeMenu === 'window' ? 'active' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === 'window' ? null : 'window')}
+              >
+                Window <FiChevronDown className="arrow-icon" />
+              </span>
+              {activeMenu === 'window' && (
+                <div className="retro-dropdown-menu">
+                  {sections.map((sec) => (
+                    <div 
+                      key={sec.id}
+                      className={`dropdown-item ${activeTab === sec.id ? 'selected' : ''}`}
+                      onClick={() => { setActiveTab(sec.id); setActiveMenu(null); }}
+                    >
+                      <span>{sec.icon} {sec.name}.app</span>
+                      {activeTab === sec.id && <FiCheck className="check-icon" />}
+                    </div>
+                  ))}
+                  <div className="dropdown-divider" />
+                  <div className="dropdown-item" onClick={() => { setShowLinksModal(true); setActiveMenu(null); }}>
+                    📁 Links.folder
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* HELP MENU */}
+            <div className="menu-dropdown-wrapper">
+              <span 
+                className={`nav-menu-item ${activeMenu === 'help' ? 'active' : ''}`}
+                onClick={() => setActiveMenu(activeMenu === 'help' ? null : 'help')}
+              >
+                Help <FiChevronDown className="arrow-icon" />
+              </span>
+              {activeMenu === 'help' && (
+                <div className="retro-dropdown-menu">
+                  <div className="dropdown-item" onClick={() => { setShowAboutModal(true); setActiveMenu(null); }}>
+                    <FiInfo /> About AVI OS v1.0
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Scroll Progress Bar */}
-      {!isLoading && (
-        <div className={`scroll-progress-container ${isScrolling ? 'visible' : 'semi-hidden'}`}>
-          <div 
-            className="scroll-progress-bar"
-            style={{
-              width: `${scrollProgress}%`
-            }}
-          />
+        {/* Center: Audio Player Widget */}
+        <div className="navbar-center">
+          <div className="synthwave-audio-widget">
+            <button className="audio-control-btn" onClick={togglePlayAudio} title={isPlaying ? "Pause Lofi" : "Play Lofi"}>
+              {isPlaying ? <FiPause /> : <FiPlay />}
+            </button>
+            <div className="audio-track-info">
+              <span className="track-title">🎵 Synthwave Lofi</span>
+              {isPlaying && (
+                <div className="equalizer-bars">
+                  <span className="bar bar-1" />
+                  <span className="bar bar-2" />
+                  <span className="bar bar-3" />
+                  <span className="bar bar-4" />
+                </div>
+              )}
+            </div>
+            <button className="audio-control-btn mute-btn" onClick={toggleMute} title={isMuted ? "Unmute" : "Mute"}>
+              {isMuted ? <FiVolumeX /> : <FiVolume2 />}
+            </button>
+          </div>
+        </div>
+
+        {/* Right: Theme Toggle & System Badge */}
+        <div className="navbar-right">
+          <button 
+            className="theme-toggle-pill"
+            onClick={toggleTheme}
+            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
+          >
+            {theme === 'light' ? <FiMoon className="theme-icon" /> : <FiSun className="theme-icon" />}
+            <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
+          </button>
+
+          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
+        </div>
+      </header>
+
+      {/* Desktop Viewport Container */}
+      <main className="desktop-main-viewport">
+        {/* WALLPAPER DESKTOP ICONS (Left Navigation Column) */}
+        <aside className="wallpaper-sidebar">
+          <div className="wallpaper-group">
+            {sections.map((sec) => (
+              <button
+                key={sec.id}
+                className={`wallpaper-icon-btn ${activeTab === sec.id ? 'active' : ''}`}
+                onClick={() => setActiveTab(sec.id)}
+                title={sec.name}
+              >
+                <div className="icon-box">{sec.icon}</div>
+                <span className="icon-label">{sec.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Separator Line */}
+          <div className="wallpaper-divider" />
+
+          {/* DESKTOP LINKS FOLDER ICON */}
+          <div className="wallpaper-group resources-group">
+            <button 
+              className="wallpaper-icon-btn links-folder-btn"
+              onClick={() => setShowLinksModal(true)}
+              title="Click to open Links Folder"
+            >
+              <div className="icon-box folder-box">
+                📁
+                <span className="folder-badge-count">4</span>
+              </div>
+              <span className="icon-label">Links</span>
+            </button>
+          </div>
+        </aside>
+
+        {/* OS DESKTOP WINDOW (Contains purely the active content section) */}
+        <section className="window-viewport-container">
+          <DesktopWindow 
+            title={`avi-os / ${activeTab}.app`} 
+            maxWidth="100%" 
+            width="100%"
+          >
+            {renderActiveSection()}
+          </DesktopWindow>
+        </section>
+      </main>
+
+      {/* RETRO OS LINKS FOLDER MODAL OVERLAY */}
+      {showLinksModal && (
+        <div className="links-modal-overlay" onClick={() => setShowLinksModal(false)}>
+          <div className="links-folder-window" onClick={(e) => e.stopPropagation()}>
+            <div className="folder-window-header">
+              <div className="window-dots">
+                <span className="dot dot-red" onClick={() => setShowLinksModal(false)} />
+                <span className="dot dot-yellow" />
+                <span className="dot dot-green" />
+              </div>
+              <span className="folder-window-title">📁 avi-os / links.folder</span>
+              <button className="close-btn" onClick={() => setShowLinksModal(false)}>✕</button>
+            </div>
+
+            <div className="folder-window-body">
+              <div className="folder-intro-bar">
+                <span className="folder-path">Location: /Desktop/Links/</span>
+                <span className="item-count">{socialLinks.length} Items</span>
+              </div>
+
+              <div className="folder-links-grid">
+                {socialLinks.map((item) => (
+                  <a
+                    key={item.id}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="folder-item-card"
+                  >
+                    <div className="item-icon-box">
+                      {item.icon}
+                      <FiExternalLink className="ext-icon" />
+                    </div>
+                    <div className="item-text-info">
+                      <span className="item-title">{item.title}</span>
+                      <span className="item-label">{item.label}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Parallax Background Elements */}
-        <div className="parallax-elements">
-          <div 
-            className="parallax-element circle-1"
-            style={{
-              transform: `translateY(${scrollY * 0.2}px) rotate(${scrollY * 0.1}deg)`
-            }}
-          />
-          <div 
-            className="parallax-element circle-2"
-            style={{
-              transform: `translateY(${scrollY * -0.15}px) rotate(${scrollY * -0.05}deg)`
-            }}
-          />
-          <div 
-            className="parallax-element triangle-1"
-            style={{
-              transform: `translateY(${scrollY * 0.25}px) rotate(${scrollY * 0.08}deg)`
-            }}
-          />
-          <div 
-            className="parallax-element square-1"
-            style={{
-              transform: `translateY(${scrollY * -0.1}px) rotate(${scrollY * 0.03}deg)`
-            }}
-          />
-        </div>
-        
-        <div className="sections">
-        <div id="intro" className={`section-wrapper ${revealedSections.has('intro') ? 'revealed' : ''}`}>
-          <Intro />
-        </div>
-        <div id="experience" className={`section-wrapper ${revealedSections.has('experience') ? 'revealed' : ''}`}>
-          <Experience />
-        </div>
-        <div id="skills" className={`section-wrapper ${revealedSections.has('skills') ? 'revealed' : ''}`}>
-          <Skills />
-        </div>
-        <div id="education" className={`section-wrapper ${revealedSections.has('education') ? 'revealed' : ''}`}>
-          <Education />
-        </div>
-        <div id="projects" className={`section-wrapper ${revealedSections.has('projects') ? 'revealed' : ''}`}>
-          <Projects />
-        </div>
-        <div id="contact" className={`section-wrapper ${revealedSections.has('contact') ? 'revealed' : ''}`}>
-          <Contact/>
-        </div>
-      </div>
-
-              {/* Floating Glass Navigation */}
-        <div className={`floating-nav ${isScrolling ? 'visible' : 'hidden'}`}>
-          {sections.map((section, index) => (
-            <div
-              key={section.id}
-              className={`nav-dot ${activeSection === index ? 'active' : ''}`}
-              onClick={() => scrollToSection(index)}
-              title={section.name}
-            >
-              <span className="nav-label">{section.name}</span>
+      {/* About AVI OS Modal */}
+      {showAboutModal && (
+        <div className="about-modal-overlay" onClick={() => setShowAboutModal(false)}>
+          <div className="about-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-top">
+              <span className="brand-logo">🦔 AVI OS</span>
+              <button className="close-btn" onClick={() => setShowAboutModal(false)}>✕</button>
             </div>
-          ))}
+            <div className="modal-body">
+              <h3>AVI OS v1.0</h3>
+              <p>A PostHog-inspired retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
+              <div className="info-pills">
+                <span className="info-pill">⚡ Built with React &amp; SCSS</span>
+                <span className="info-pill">🎨 Light &amp; Dark Theme Engine</span>
+                <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
+              </div>
+            </div>
+          </div>
         </div>
+      )}
 
-        {/* Back to Top Button */}
-        {activeSection > 0 && (
-          <Box 
-            className="back-to-top"
-            onClick={scrollToTop}
-            title="Back to Top"
-            style={{
-              position: 'fixed',
-              bottom: '2.5rem',
-              right: '2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              color: 'rgba(198, 172, 142, 0.7)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              zIndex: 1000,
-              animation: 'bounce 1s ease-in-out infinite',
-              borderRadius: '8px',
-              padding: '0.5rem'
-            }}
-            _hover={{
-              color: 'rgba(234, 224, 213, 0.9)',
-              transform: 'translateY(-3px)'
-            }}
-          >
-            <AiOutlineUp 
-              className="back-to-top-arrow"
-              style={{
-                fontSize: '1.3rem',
-                marginBottom: '0.6rem'
-              }}
-            />
-            <Text 
-              className="back-to-top-text"
-              style={{
-                fontSize: '0.8rem',
-                letterSpacing: '1.5px',
-                textTransform: 'uppercase',
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
-                fontWeight: 300,
-                color: 'inherit'
-              }}
-            >
-              Back to top
-            </Text>
-          </Box>
-        )}
+      {/* System Toast Notification */}
+      {toastMessage && (
+        <div className="system-toast">
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
+      {/* Decorative Parallax Shapes */}
+      <div className="parallax-elements">
+        <div className="parallax-element circle-1" />
+        <div className="parallax-element circle-2" />
+        <div className="parallax-element triangle-1" />
+        <div className="parallax-element square-1" />
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 export default App;

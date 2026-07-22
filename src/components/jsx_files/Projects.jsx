@@ -1,107 +1,125 @@
+import React, { useState } from 'react';
 import "../styling_files/projects.scss";
-import { useState } from "react";
-import { BsCodeSlash } from "react-icons/bs";
+import { projectsData } from "./Data";
+import { Box, Text, Image } from "@chakra-ui/react";
 import { AiOutlineLink } from "react-icons/ai";
 import { VscGithubAlt } from "react-icons/vsc";
-import { projectsData } from "./Data";
-import {
-  Box, 
-  Text, 
-  Image,
-  Button
-} from "@chakra-ui/react";
+import { FiZap, FiLayers } from "react-icons/fi";
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(0);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+
+  const activeProject = projectsData[selectedProjectIndex] || projectsData[0];
+
+  const projectTechMap = {
+    "Blogetra": ["ReactJS", "Node.js", "Express.js", "MongoDB", "REST API", "Auth"],
+    "Collab.io": ["ReactJS", "Node.js", "Express.js", "REST API", "Real-time Sync"],
+    "Radius": ["ReactJS", "Node.js", "Express.js", "MongoDB", "Socket.io"],
+    "Intelligram": ["React Native Expo", "Firebase", "Redux", "Real-time CRUD"],
+    "User Dashboard": ["ReactJS", "React Query", "JSON Server", "Tailwind CSS"]
+  };
+
+  const projectMetricsMap = {
+    "Blogetra": "Fullstack Blog with User Authentication & Full CRUD",
+    "Collab.io": "100+ Registered Users • <150ms Response Times",
+    "Radius": "Bi-directional WebSocket Communication & Chat",
+    "Intelligram": "Cross-platform Mobile App with Firebase Backend",
+    "User Dashboard": "Realtime State Management & Employee Tracking"
+  };
 
   return (
-          <Box
-        className="projects"
-      minHeight="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      position="relative"
-      overflow="hidden"
-    >
+    <Box className="projects-showcase-container">
+      {/* Header */}
+      <Box className="projects-header">
+        <Text className="section-title">
+          Featured Engineering Projects
+        </Text>
+        <Text className="projects-description">
+          A showcase of fullstack applications, real-time collaboration platforms, and mobile apps built for performance and scale.
+        </Text>
+      </Box>
 
+      {/* Project Selector Tab Bar */}
+      <Box className="project-selector-tabs">
+        {projectsData.map((project, index) => (
+          <button
+            key={project.id}
+            className={`project-tab-btn ${selectedProjectIndex === index ? 'active' : ''}`}
+            onClick={() => setSelectedProjectIndex(index)}
+          >
+            <FiZap className="btn-icon" />
+            <span>{project.title}</span>
+          </button>
+        ))}
+      </Box>
 
-      {/* Main Glass Card */}
-      <Box className="glass-card" maxWidth="850px" width="90%">
-        <Box className="projects-content">
-          <Text className="section-title">
-            Featured Projects
-          </Text>
-          
-          <Text className="projects-description">
-            A showcase of my technical expertise and problem-solving abilities through innovative web applications.
-          </Text>
-
-          {/* Project Navigation */}
-          <Box className="project-nav">
-            {projectsData.map((project, index) => (
-              <button
-                key={project.id}
-                className={`nav-button ${selectedProject === index ? 'active' : ''}`}
-                onClick={() => setSelectedProject(index)}
-              >
-                {project.title}
-              </button>
-            ))}
+      {/* Active Project Card View */}
+      <Box className="active-project-card">
+        <Box className="project-grid-layout">
+          {/* Left Column: Image Preview */}
+          <Box className="project-preview-wrapper">
+            <Image 
+              src={activeProject.image} 
+              alt={activeProject.title}
+              className="project-img"
+            />
+            <span className="live-status-pill">
+              <span className="pulse-dot" /> LIVE APP
+            </span>
           </Box>
 
-          {/* Current Project Display */}
-          <Box className="project-showcase">
-            <Box className="project-card">
-              <Box className="project-content">
-                <Box className="project-image">
-                  <Image 
-                    src={projectsData[selectedProject].image} 
-                    alt={projectsData[selectedProject].title}
-                    objectFit="cover"
-                    w="100%"
-                    h="100%"
-                    borderRadius="12px"
-                  />
-                </Box>
-                
-                <Box className="project-info">
-                  <Text className="project-title">
-                    {projectsData[selectedProject].title}
-                  </Text>
-                  
-                  <Text className="project-description">
-                    {projectsData[selectedProject].description}
-                  </Text>
-                </Box>
+          {/* Right Column: Details & Tech */}
+          <Box className="project-details-column">
+            <Box className="details-header">
+              <Text className="project-title-text">{activeProject.title}</Text>
+              {projectMetricsMap[activeProject.title] && (
+                <span className="metric-pill">
+                  <FiLayers className="icon" />
+                  {projectMetricsMap[activeProject.title]}
+                </span>
+              )}
+            </Box>
+
+            <Text className="project-description-text">
+              {activeProject.description}
+            </Text>
+
+            {/* Tech Stack Badges */}
+            {projectTechMap[activeProject.title] && (
+              <Box className="tech-badges-group">
+                {projectTechMap[activeProject.title].map((tech) => (
+                  <span key={tech} className="tech-badge">
+                    {tech}
+                  </span>
+                ))}
               </Box>
-              
-              <Box className="project-actions">
+            )}
+
+            {/* Action Buttons */}
+            <Box className="project-action-btns">
+              {activeProject.liveLink && (
                 <a 
-                  href={projectsData[selectedProject].liveLink}
-                  className="glass-button"
+                  href={activeProject.liveLink}
+                  className="glass-button primary-btn"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <AiOutlineLink className="button-icon" />
                   <span>Live Demo</span>
-                  <Box className="button-shimmer" />
                 </a>
-                
-                {projectsData[selectedProject].repo && (
-                  <a 
-                    href={projectsData[selectedProject].repo}
-                    className="glass-button secondary"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <VscGithubAlt className="button-icon" />
-                    <span>Source Code</span>
-                    <Box className="button-shimmer" />
-                  </a>
-                )}
-              </Box>
+              )}
+
+              {activeProject.repo && (
+                <a 
+                  href={activeProject.repo}
+                  className="glass-button secondary-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <VscGithubAlt className="button-icon" />
+                  <span>Source Code</span>
+                </a>
+              )}
             </Box>
           </Box>
         </Box>

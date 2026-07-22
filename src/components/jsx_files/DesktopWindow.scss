@@ -1,0 +1,75 @@
+@import "../../global.scss";
+
+.retro-desktop-window {
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 6px 6px 0px var(--shadow-color);
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  // Window Top Header Bar
+  .window-header-bar {
+    background-color: var(--secondary-bg);
+    border-bottom: 2px solid var(--border-color);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+
+    .window-controls-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      .control-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 1px solid var(--border-color);
+
+        &.dot-red { background-color: #FF5F56; }
+        &.dot-yellow { background-color: #FFBD2E; }
+        &.dot-green { background-color: #27C93F; }
+      }
+    }
+
+    .window-title-text {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-color);
+      letter-spacing: 0.5px;
+    }
+
+    .window-badge-right {
+      .os-badge {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.72rem;
+        font-weight: 800;
+        background-color: var(--accent-yellow);
+        color: var(--btn-text-on-yellow);
+        border: 1.5px solid var(--border-color);
+        border-radius: 4px;
+        padding: 2px 8px;
+        box-shadow: 1px 1px 0px var(--shadow-color);
+      }
+    }
+  }
+
+  .window-body-content {
+    padding: 2.2rem 2.8rem 5.5rem 2.8rem;
+    color: var(--text-color);
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @media (max-width: 768px) {
+      padding: 1.2rem 1.2rem 4rem 1.2rem;
+    }
+  }
+}

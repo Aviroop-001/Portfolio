@@ -1,132 +1,166 @@
-import React, { useState } from 'react'
-import "../styling_files/contact.scss"
-import { useMagneticEffect } from "../../hooks/useMagneticEffect";
-import {AiOutlineMail} from 'react-icons/ai'
-import { SlSocialLinkedin } from "react-icons/sl";
-import { VscGithubAlt } from "react-icons/vsc";
-import { SlSocialTwitter } from "react-icons/sl";
-import { SiLeetcode } from "react-icons/si";
-import { IoCopyOutline, IoCheckmarkOutline } from "react-icons/io5";
-import {
-  Box,
-  Text,
-} from "@chakra-ui/react";
+import React, { useState } from 'react';
+import "../styling_files/contact.scss";
+import { Box, Text } from "@chakra-ui/react";
+import { 
+  IoMailOutline, 
+  IoCopyOutline, 
+  IoCheckmarkOutline, 
+  IoLogoGithub, 
+  IoLogoLinkedin, 
+  IoCodeSlashOutline,
+  IoPaperPlaneOutline
+} from "react-icons/io5";
 
-function Contact() {
+export default function Contact() {
   const [copySuccess, setCopySuccess] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  
-  // Magnetic effect refs
-  const contactButtonRef = useMagneticEffect(0.2);
-  const copyButtonRef = useMagneticEffect(0.3);
-  const githubRef = useMagneticEffect(0.3);
-  const linkedinRef = useMagneticEffect(0.3);
-  const leetcodeRef = useMagneticEffect(0.3);
-  
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
   const email = "banerjeeaviroop01@gmail.com";
-  
+
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(email);
       setCopySuccess(true);
-      setShowToast(true);
-      
-      // Reset after 2 seconds
-      setTimeout(() => {
-        setCopySuccess(false);
-        setShowToast(false);
-      }, 2000);
+      setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
       console.error('Failed to copy email: ', err);
     }
   };
 
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject || 'Portfolio Inquiry')}&body=${encodeURIComponent(message)}`;
+    window.open(mailtoUrl, '_blank');
+  };
+
   return (
-    <Box
-      className="contact"
-      minHeight="100vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      position="relative"
-      overflow="hidden"
-    >
+    <Box className="contact-compact-container">
+      {/* Section Title Header */}
+      <Box className="contact-header">
+        <Text className="section-title">
+          Let's Build Together
+        </Text>
+        <Text className="contact-description">
+          Open for full-time software engineering roles, AI agent architecture, and backend systems collaboration.
+        </Text>
+      </Box>
 
-
-      {/* Main Glass Card */}
-      <Box className="glass-card" maxWidth="700px" width="90%" padding={["2rem", "3rem"]} textAlign="center">
-        <Box className="contact-content">
-          <Text className="section-title">
-            Get In Touch
-          </Text>
-          
-          <Text className="contact-description">
-            I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and innovation.
-          </Text>
-
-          {/* Contact Links */}
-          <Box className="contact-links">
-            <Box className="email-buttons">
+      {/* 2-Column Compact Layout (Fits screen without scrolling) */}
+      <Box className="contact-content-grid">
+        {/* Left Column: Direct Mail & Social Cards */}
+        <Box className="left-info-column">
+          {/* Direct Email Box */}
+          <Box className="email-action-card">
+            <Box className="card-top">
+              <Box className="card-icon-box">
+                <IoMailOutline />
+              </Box>
+              <Box className="card-text">
+                <Text className="card-label">DIRECT EMAIL</Text>
+                <Text className="card-email">{email}</Text>
+              </Box>
+            </Box>
+            <Box className="card-btns">
               <a 
                 href={`mailto:${email}`} 
-                className="glass-button"
+                className="compact-btn primary"
                 target="_blank"
                 rel="noopener noreferrer"
-                ref={contactButtonRef}
               >
-                <span>Contact Me</span>
-                <Box className="button-shimmer" />
+                Mail
               </a>
-              
               <button 
                 onClick={copyToClipboard}
-                className={`copy-email-button ${copySuccess ? 'success' : ''}`}
-                title="Copy email to clipboard"
-                ref={copyButtonRef}
+                className={`compact-btn ${copySuccess ? 'copied' : ''}`}
+                title="Copy Email"
               >
                 {copySuccess ? <IoCheckmarkOutline /> : <IoCopyOutline />}
               </button>
             </Box>
+          </Box>
 
-                         <Box className="social-links">
-               <a
-                 href="https://github.com/Aviroop-001"
-                 className="social-link"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 ref={githubRef}
-               >
-                 <VscGithubAlt />
-               </a>
-               
-               <a
-                 href="https://www.linkedin.com/in/aviroopbanerjee/"
-                 className="social-link"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 ref={linkedinRef}
-               >
-                 <SlSocialLinkedin />
-               </a>
-               
-               <a
-                 href="https://leetcode.com/Aviroop_01/"
-                 className="social-link"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 ref={leetcodeRef}
-               >
-                 <SiLeetcode />
-               </a>
-             </Box>
+          {/* Social Links Row */}
+          <Box className="social-links-row">
+            <a 
+              href="https://github.com/Aviroop-001" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="social-compact-badge"
+              title="GitHub"
+            >
+              <IoLogoGithub className="social-icon" />
+              <span>GitHub</span>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/in/aviroopbanerjee/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="social-compact-badge"
+              title="LinkedIn"
+            >
+              <IoLogoLinkedin className="social-icon" />
+              <span>LinkedIn</span>
+            </a>
+
+            <a 
+              href="https://leetcode.com/Aviroop_01/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="social-compact-badge"
+              title="LeetCode"
+            >
+              <IoCodeSlashOutline className="social-icon" />
+              <span>LeetCode</span>
+            </a>
+          </Box>
+        </Box>
+
+        {/* Right Column: Compact Message Box */}
+        <Box className="right-form-column">
+          <Box className="compact-console-box">
+            <Box className="console-header">
+              <span className="console-dot dot-red" />
+              <span className="console-dot dot-yellow" />
+              <span className="console-dot dot-green" />
+              <span className="console-title">send_message.sh</span>
+            </Box>
+
+            <form onSubmit={handleSendEmail} className="console-form">
+              <Box className="form-group">
+                <label className="form-label">SUBJECT</label>
+                <input 
+                  type="text" 
+                  placeholder="Role Inquiry / Systems Project"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  className="form-input"
+                />
+              </Box>
+
+              <Box className="form-group">
+                <label className="form-label">MESSAGE</label>
+                <textarea 
+                  rows={3}
+                  placeholder="Your message details..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="form-textarea"
+                />
+              </Box>
+
+              <button type="submit" className="send-message-btn">
+                <IoPaperPlaneOutline className="btn-icon" />
+                <span>SEND VIA EMAIL CLIENT</span>
+              </button>
+            </form>
           </Box>
         </Box>
       </Box>
 
       {/* Toast Notification */}
-      {showToast && (
-        <Box className={`toast-notification ${showToast ? 'show' : ''}`}>
+      {copySuccess && (
+        <Box className="toast-pill">
           <IoCheckmarkOutline />
           <span>Email copied to clipboard!</span>
         </Box>
@@ -134,5 +168,3 @@ function Contact() {
     </Box>
   );
 }
-
-export default Contact
