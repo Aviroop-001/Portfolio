@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react';
 import DesktopCatPet from './DesktopCatPet';
 import './DesktopWindow.scss';
 
-export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%" }) {
+export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%", onClose }) {
   return (
     <Box 
       className={`retro-desktop-window ${className}`} 
@@ -15,7 +15,7 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
 
       <Box className="window-header-bar">
         <Box className="window-control-dots">
-          <span className="dot dot-red" />
+          <span className="dot dot-red" onClick={onClose} title="Close window tab" />
           <span className="dot dot-yellow" />
           <span className="dot dot-green" />
         </Box>

@@ -236,13 +236,24 @@ function App() {
 
         {/* OS DESKTOP WINDOW (Contains purely the active content section) */}
         <section className="window-viewport-container">
-          <DesktopWindow 
-            title={`avi-os / ${activeTab}.app`} 
-            maxWidth="100%" 
-            width="100%"
-          >
-            {renderActiveSection()}
-          </DesktopWindow>
+          {activeTab ? (
+            <DesktopWindow 
+              title={`avi-os / ${activeTab}.app`} 
+              maxWidth="100%" 
+              width="100%"
+              onClose={() => setActiveTab(null)}
+            >
+              {renderActiveSection()}
+            </DesktopWindow>
+          ) : (
+            <div className="desktop-empty-state" onClick={() => setActiveTab('intro')}>
+              <div className="empty-state-card">
+                <FiHome className="empty-icon" />
+                <h3>Window Closed</h3>
+                <p>Click any icon on the left sidebar to open a section, or tap here for Intro!</p>
+              </div>
+            </div>
+          )}
         </section>
       </main>
 

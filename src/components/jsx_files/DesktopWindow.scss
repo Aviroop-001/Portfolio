@@ -55,7 +55,16 @@
         border-radius: 50%;
         border: 1px solid rgba(0,0,0,0.1);
 
-        &.dot-red { background-color: #FF5F56; }
+        &.dot-red { 
+          background-color: #FF5F56; 
+          cursor: pointer;
+          transition: transform 0.15s ease, opacity 0.15s ease;
+
+          &:hover {
+            transform: scale(1.25);
+            opacity: 0.9;
+          }
+        }
         &.dot-yellow { background-color: #FFBD2E; }
         &.dot-green { background-color: #27C93F; }
       }
