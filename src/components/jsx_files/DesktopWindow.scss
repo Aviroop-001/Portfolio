@@ -1,23 +1,40 @@
 @import "../../global.scss";
 
 .retro-desktop-window {
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: var(--card-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 
-  // Window Top Header Bar
+  // macOS Glass Specular Highlight Inner Border
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.05));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  // Window Top Header Bar (macOS Glass Header Line)
   .window-header-bar {
     background-color: var(--secondary-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
-    padding: 0.7rem 1.2rem;
+    padding: 0.75rem 1.3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,13 +43,13 @@
     .window-controls-left {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
 
       .control-dot {
         width: 11px;
         height: 11px;
         border-radius: 50%;
-        border: 1px solid rgba(0,0,0,0.08);
+        border: 1px solid rgba(0,0,0,0.1);
 
         &.dot-red { background-color: #FF5F56; }
         &.dot-yellow { background-color: #FFBD2E; }
@@ -58,7 +75,7 @@
         border: 1px solid var(--border-strong);
         border-radius: 9999px;
         padding: 3px 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
       }
     }
   }
@@ -70,6 +87,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    background: transparent;
 
     @media (max-width: 768px) {
       padding: 1.4rem 1.4rem 4rem 1.4rem;

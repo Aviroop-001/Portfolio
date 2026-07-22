@@ -1,4 +1,4 @@
-// Global SCSS Variables & Premium Warm Sand & Amber Gold Theme Tokens
+// Global SCSS Variables & macOS Glassmorphism + Premium Emerald Jade Theme Tokens
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
 
 $mobile: 768px;
@@ -21,62 +21,62 @@ $font-heading: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', monospace;
 
-// Light Theme (Warm Sand & Amber Gold Glass - PostHog Vibe)
+// Light Theme (macOS Porcelain Glass & Premium Emerald Jade)
 :root, [data-theme="light"], [data-theme="cream"] {
-  --bg-color: #F6F2EC;
-  --text-color: #24211D;
-  --title-color: #141210;
-  --subtext-color: #57524A;
-  --muted-text: #7A7369;
-  --card-bg: rgba(255, 253, 249, 0.85);
+  --bg-color: #F4F8F5;
+  --text-color: #1A2E26;
+  --title-color: #0B1F17;
+  --subtext-color: #3D5249;
+  --muted-text: #5E756C;
+  --card-bg: rgba(255, 255, 255, 0.55);
   --card-solid: #FFFFFF;
-  --secondary-bg: #ECE6DC;
-  --accent-yellow: #F59E0B; // Warm Amber Gold
-  --accent-primary: #141210;
+  --secondary-bg: rgba(235, 245, 239, 0.65);
+  --accent-yellow: #059669; // Premium Emerald Green Accent
+  --accent-primary: #059669;
   --btn-text-on-accent: #FFFFFF;
   --btn-text-on-yellow: #FFFFFF;
-  --border-color: rgba(36, 33, 29, 0.18);
-  --border-strong: rgba(20, 18, 16, 0.28);
-  --shadow-color: rgba(20, 18, 16, 0.08);
-  --shadow-elevated: 0 20px 40px -10px rgba(20, 18, 16, 0.12);
-  --shadow-card: 0 4px 20px -2px rgba(20, 18, 16, 0.06);
-  --glass-bg: rgba(255, 253, 249, 0.85);
+  --border-color: rgba(5, 150, 105, 0.18);
+  --border-strong: rgba(5, 150, 105, 0.3);
+  --shadow-color: rgba(5, 150, 105, 0.08);
+  --shadow-elevated: 0 24px 48px -12px rgba(5, 150, 105, 0.15);
+  --shadow-card: 0 4px 20px -2px rgba(5, 150, 105, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.5);
   --glass-border: rgba(255, 255, 255, 0.7);
-  --icon-bg: #FFFFFF;
-  --label-bg: #FFFFFF;
-  --accent-green: #10B981;
-  --mesh-orb-1: rgba(245, 158, 11, 0.24);
-  --mesh-orb-2: rgba(251, 191, 36, 0.2);
-  --mesh-orb-3: rgba(234, 88, 12, 0.12);
+  --icon-bg: rgba(255, 255, 255, 0.6);
+  --label-bg: rgba(255, 255, 255, 0.7);
+  --accent-green: #059669;
+  --mesh-orb-1: rgba(16, 185, 129, 0.25);
+  --mesh-orb-2: rgba(52, 211, 153, 0.2);
+  --mesh-orb-3: rgba(6, 182, 212, 0.14);
 }
 
-// Dark Theme (Deep Espresso Obsidian & Amber Gold Aurora)
+// Dark Theme (macOS Midnight Obsidian Glass & Neon Emerald Jade)
 [data-theme="dark"] {
-  --bg-color: #13110E;
-  --text-color: #F5F0E8;
+  --bg-color: #050D0A;
+  --text-color: #E6F5EF;
   --title-color: #FFFFFF;
-  --subtext-color: #BDB5A8;
-  --muted-text: #8C8375;
-  --card-bg: rgba(27, 24, 20, 0.82);
-  --card-solid: #1B1814;
-  --secondary-bg: #28241F;
-  --accent-yellow: #FBBF24; // Radiant Amber Gold Aurora
-  --accent-primary: #FBBF24;
-  --btn-text-on-accent: #141210;
-  --btn-text-on-yellow: #141210;
-  --border-color: rgba(245, 240, 232, 0.14);
-  --border-strong: rgba(245, 240, 232, 0.26);
-  --shadow-color: rgba(0, 0, 0, 0.45);
-  --shadow-elevated: 0 24px 48px -12px rgba(0, 0, 0, 0.65);
-  --shadow-card: 0 8px 28px -4px rgba(0, 0, 0, 0.4);
-  --glass-bg: rgba(27, 24, 20, 0.82);
-  --glass-border: rgba(245, 240, 232, 0.16);
-  --icon-bg: #1B1814;
-  --label-bg: #1B1814;
+  --subtext-color: #9EC7B7;
+  --muted-text: #6B9C89;
+  --card-bg: rgba(10, 26, 20, 0.55);
+  --card-solid: #0A1C16;
+  --secondary-bg: rgba(16, 38, 30, 0.65);
+  --accent-yellow: #34D399; // Neon Jade Emerald Aurora
+  --accent-primary: #34D399;
+  --btn-text-on-accent: #050D0A;
+  --btn-text-on-yellow: #050D0A;
+  --border-color: rgba(52, 211, 153, 0.18);
+  --border-strong: rgba(52, 211, 153, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --shadow-elevated: 0 28px 56px -12px rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.45);
+  --glass-bg: rgba(10, 26, 20, 0.55);
+  --glass-border: rgba(52, 211, 153, 0.22);
+  --icon-bg: rgba(10, 26, 20, 0.6);
+  --label-bg: rgba(10, 26, 20, 0.7);
   --accent-green: #34D399;
-  --mesh-orb-1: rgba(251, 191, 36, 0.22);
-  --mesh-orb-2: rgba(245, 158, 11, 0.18);
-  --mesh-orb-3: rgba(239, 68, 68, 0.1);
+  --mesh-orb-1: rgba(52, 211, 153, 0.28);
+  --mesh-orb-2: rgba(16, 185, 129, 0.22);
+  --mesh-orb-3: rgba(20, 184, 166, 0.18);
 }
 
 // Global Variables linking to Theme Tokens
