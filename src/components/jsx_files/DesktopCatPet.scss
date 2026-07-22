@@ -1,0 +1,139 @@
+@import "../../global.scss";
+
+.desktop-cat-companion {
+  position: absolute;
+  top: -46px;
+  right: 24px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+
+    .cat-mascot-avatar {
+      transform: scale(1.1);
+    }
+  }
+
+  // Speech Bubble
+  .cat-speech-bubble {
+    position: absolute;
+    bottom: 48px;
+    right: -10px;
+    white-space: nowrap;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 0.35rem 0.75rem;
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-color);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    pointer-events: none;
+    animation: fadeInBubble 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      right: 22px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid var(--border-strong);
+    }
+
+    .pet-count-badge {
+      background-color: var(--accent-yellow);
+      color: var(--btn-text-on-yellow);
+      border-radius: 9999px;
+      padding: 1px 6px;
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
+  }
+
+  // Floating Hearts Particle
+  .floating-hearts-container {
+    position: absolute;
+    top: -15px;
+    pointer-events: none;
+
+    .floating-heart {
+      position: absolute;
+      font-size: 0.95rem;
+      animation: floatUp 0.8s ease-out forwards;
+    }
+  }
+
+  // Cat Avatar
+  .cat-mascot-avatar {
+    width: 44px;
+    height: 44px;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 2px solid var(--border-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0px var(--shadow-color);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .cat-emoji {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    &.bounce-purr {
+      animation: catPurr 0.4s ease infinite alternate;
+      background-color: var(--accent-yellow);
+      border-color: var(--border-strong);
+    }
+
+    &.sleeping {
+      opacity: 0.85;
+      transform: scale(0.95);
+    }
+  }
+}
+
+@keyframes catPurr {
+  0% { transform: translateY(0) scale(1.05) rotate(-4deg); }
+  100% { transform: translateY(-6px) scale(1.15) rotate(4deg); }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-35px) scale(1.3);
+  }
+}
+
+@keyframes fadeInBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

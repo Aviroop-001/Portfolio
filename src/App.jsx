@@ -159,7 +159,7 @@ function App() {
       <header className="top-os-navbar">
         <div className="navbar-left">
           <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
-            🦔 AVI OS
+            🐱 AVI OS
           </span>
         </div>
 
@@ -300,15 +300,15 @@ function App() {
         <div className="about-modal-overlay" onClick={() => setShowAboutModal(false)}>
           <div className="about-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-top">
-              <span className="brand-logo">🦔 AVI OS</span>
+              <span className="brand-logo">🐱 AVI OS</span>
               <button className="close-btn" onClick={() => setShowAboutModal(false)}>✕</button>
             </div>
             <div className="modal-body">
               <h3>AVI OS v1.0</h3>
-              <p>A PostHog-inspired retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
+              <p>A retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
               <div className="info-pills">
                 <span className="info-pill">⚡ Built with React &amp; SCSS</span>
-                <span className="info-pill">🎨 Light &amp; Dark Theme Engine</span>
+                <span className="info-pill">🐱 Milo the Virtual Desktop Cat</span>
                 <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
               </div>
             </div>
