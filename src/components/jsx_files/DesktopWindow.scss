@@ -16,6 +16,29 @@
   overflow: visible;
   position: relative;
 
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &.minimized {
+    flex: initial;
+    height: 48px !important;
+    max-height: 48px !important;
+    border-radius: 14px;
+    overflow: hidden;
+
+    .window-header-bar {
+      border-bottom: none;
+    }
+  }
+
+  &.maximized {
+    position: fixed;
+    inset: 58px 1.5rem 1.5rem 1.5rem;
+    z-index: 9999;
+    max-height: calc(100vh - 75px) !important;
+    border-radius: 16px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  }
+
   // macOS Glass Specular Highlight Inset Border
   &::before {
     content: '';
@@ -54,17 +77,15 @@
         height: 11px;
         border-radius: 50%;
         border: 1px solid rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.15s ease, opacity 0.15s ease;
 
-        &.dot-red { 
-          background-color: #FF5F56; 
-          cursor: pointer;
-          transition: transform 0.15s ease, opacity 0.15s ease;
-
-          &:hover {
-            transform: scale(1.25);
-            opacity: 0.9;
-          }
+        &:hover {
+          transform: scale(1.25);
+          opacity: 0.9;
         }
+
+        &.dot-red { background-color: #FF5F56; }
         &.dot-yellow { background-color: #FFBD2E; }
         &.dot-green { background-color: #27C93F; }
       }
