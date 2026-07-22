@@ -1,3 +1,8 @@
+import openinappLogo from "../../assets/images/logos/openinapp.png";
+import commerceiqLogo from "../../assets/images/logos/commerceiq.png";
+import airbookLogo from "../../assets/images/logos/airbook.png";
+import winspleLogo from "../../assets/images/logos/winsple.png";
+
 export const projectsData = [
   {
     id: "1",
@@ -193,15 +198,27 @@ export const educationData = [
 export const companiesData = [
   {
     name: "CommerceIQ",
-    logo: "https://commerceiq.ai/wp-content/uploads/2021/08/ciq-logo.svg",
+    logo: commerceiqLogo,
     fallbackText: "CommerceIQ",
     icon: "🛍️"
   },
   {
+    name: "OpeninApp",
+    logo: openinappLogo,
+    fallbackText: "OpeninApp",
+    icon: "🚀"
+  },
+  {
     name: "Airbook", 
-    logo: "https://raw.githubusercontent.com/getairbook/airbook/main/static/logo.png",
+    logo: airbookLogo,
     fallbackText: "Airbook",
     icon: "📊"
+  },
+  {
+    name: "Winsple",
+    logo: winspleLogo,
+    fallbackText: "Winsple",
+    icon: "⚡"
   },
   {
     name: "Listed",
@@ -214,12 +231,6 @@ export const companiesData = [
     logo: "https://fi.money/favicon.ico",
     fallbackText: "Fi",
     icon: "💳"
-  },
-  {
-    name: "Winsple",
-    logo: "https://winsple.com/favicon.ico",
-    fallbackText: "Winsple",
-    icon: "⚡"
   },
   {
     name: "Google Developer Student Clubs",
