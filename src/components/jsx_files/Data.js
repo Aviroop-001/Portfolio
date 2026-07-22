@@ -5,6 +5,15 @@ import winspleLogo from "../../assets/images/logos/winsple.png";
 
 export const projectsData = [
   {
+    id: "0",
+    title: "Generative AI & Financial Reporting Platform",
+    description:
+      "Developed an ensemble ML pipeline (RandomForest, LightGBM, Logistic Regression) with TF-IDF feature engineering & SMOTE for transaction classification. Automates reporting and goal-based spend optimization using GitHub Actions, Gemini, and Gmail API.",
+    repo: "https://github.com/Aviroop-001",
+    image:
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+  },
+  {
     id: "1",
     title: "Blogetra",
     description:
@@ -20,7 +29,6 @@ export const projectsData = [
     description:
       "Designed a real-time collaborative document editing platform with the ability to track active users. The project had 100+ registered users, boasting REST API response times under 150 milliseconds",
     liveLink: "https://collab-io-lovat.vercel.app/",
-    // repo: "https://github.com/Aviroop-001/Blogetra",
     image:
       "https://www.computerhardwareinc.com/wp-content/uploads/2019/04/collaborate-with-colleagues-in-google-docs.jpg",
   },
@@ -59,51 +67,64 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Auth Service, Reporting, Ally - Conversational AI",
-    date: "July 2024 - Present",
-    position: "Software Engineer",
+    text: "Multi-Agent Fault Localization, Event-Driven Sync & Foundation Libraries",
+    bullets: [
+      "Built a multi-agent fault localization system using LangGraph with specialized sub-agents that isolate errors from Jira stack traces via lexical + call-graph search, generate candidate fixes, and open PRs behind human approval checkpoints.",
+      "Replaced a legacy polling pipeline with an event-driven sync layer using S3 event triggers and AWS Lambda.",
+      "Spearheaded the design of a JSON-driven, PostgreSQL-backed template service for AllyAI to assemble dashboards from reusable widgets.",
+      "Architected a standardized 'Golden Path' Node.js foundation library adopted across the microservice ecosystem, integrating OpenTelemetry and circuit-breaker patterns."
+    ],
+    date: "July 2024 – Present",
+    position: "Software Development Engineer",
     org: "CommerceIQ",
-    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills:
-      "Nest, Typescript, Node.js, PostgreSQL, Software Architecture",
+    icon: commerceiqLogo,
+    skills: "LangGraph, Node.js, NestJS, AWS Lambda, PostgreSQL, OpenTelemetry, TypeScript",
     category: {
       tag: "Full-time",
       color: "#0f4c3a",
     },
   },
   {
-    text: "Retail Media management, Dashboard tooling ",
-    date: "Jan 2024 - Jul 2024",
-    position: "Software Engineer Intern",
+    text: "RBAC Microservice & Component Provisioning",
+    bullets: [
+      "Built a NestJS RBAC microservice automating component rendering and role provisioning across internal engineering teams."
+    ],
+    date: "Jan 2024 – July 2024",
+    position: "Software Development Engineer Intern",
     org: "CommerceIQ",
-    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills:
-      "Javascript, Typescript, Vue, Node.js, Software Architecture",
+    icon: commerceiqLogo,
+    skills: "NestJS, TypeScript, Node.js, RBAC, Software Architecture",
     category: {
       tag: "Internship",
       color: "#180959",
     },
   },
   {
-    text: "Building fastest way to build and share your data work",
-    date: "Sep 2023 - Jan 2024",
+    text: "ETL Pipelines & NLQ-to-SQL System",
+    bullets: [
+      "Integrated DuckDB and orchestrated high-efficiency ETL pipelines across BigQuery, Redshift, and Supabase.",
+      "Developed a Natural Language Query (NLQ) to SQL system utilizing t5-base and Meta CodeLlama-13B-Instruct."
+    ],
+    date: "Sep 2023 – Jan 2024",
     position: "Software Engineer Intern",
     org: "Airbook",
-    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills:
-      "GCP, AWS, Supabase, Flask, Python, ETL pipelines, Software Architecture",
+    icon: airbookLogo,
+    skills: "DuckDB, BigQuery, Redshift, Supabase, Python, CodeLlama-13B, NLQ-to-SQL",
     category: {
       tag: "Internship",
       color: "#180959",
     },
   },
   {
-    text: "Building for Creators",
-    date: "March 2023 - Sep 2023",
-    position: "Junior Backend Developer",
+    text: "Multi-Modal Recommendation Pipeline",
+    bullets: [
+      "Orchestrated a multi-modal recommendation pipeline for 11M users, leveraging OpenAI Whisper for speech-to-text extraction from video ads and BERT for semantic entity mapping for automated affiliate link generation."
+    ],
+    date: "Mar 2023 – Sep 2023",
+    position: "Backend Engineer Intern",
     org: "Listed",
-    icon: "https://media.licdn.com/dms/image/C560BAQECqkaHTVJq5A/company-logo_200_200/0/1643636347121?e=1687996800&v=beta&t=gL8Ht2VXCR0_GzButQ1q82ZSj738_Ckh86jinyHGKc0",
-    skills: "Node.js, Express.js, SQL, JavaScript",
+    icon: openinappLogo,
+    skills: "OpenAI Whisper, BERT, Node.js, Express.js, SQL, Recommendation Systems",
     category: {
       tag: "Internship",
       color: "#180959",
@@ -111,7 +132,10 @@ export const timelineData = [
   },
   {
     text: "Developed multiple frontend features for the flagship product",
-    date: "Dec 2022 - March 2023",
+    bullets: [
+      "Engineered responsive UI modules and state management workflows for flagship fintech product."
+    ],
+    date: "Dec 2022 – March 2023",
     position: "SDE Intern",
     org: "Fi Ellements",
     icon: "https://media.licdn.com/dms/image/C510BAQELrF4Lb0OOpg/company-logo_200_200/0/1546436333837?e=1687996800&v=beta&t=jD4dowgank25ny5a9M5e4FaWAyO8S-kdjU-rNy0vQrQ",
@@ -123,10 +147,13 @@ export const timelineData = [
   },
   {
     text: "Worked in a team of UI/UX Developers to develop fast & responsive websites",
-    date: "Oct 2022 - Dec 2022",
+    bullets: [
+      "Collaborated with UI/UX engineers to craft high-performance web interfaces."
+    ],
+    date: "Oct 2022 – Dec 2022",
     position: "Frontend Developer",
     org: "Winsple",
-    icon: "https://media.licdn.com/dms/image/C560BAQFM0ickEenjXA/company-logo_200_200/0/1648554433632?e=1687996800&v=beta&t=cB6t1M1oVtRmzzipkKtzn-U_xe7T12ReZ4996WFI6bM",
+    icon: winspleLogo,
     skills: "HTML, CSS, JavaScript, ReactJS",
     category: {
       tag: "Internship",
@@ -134,8 +161,11 @@ export const timelineData = [
     },
   },
   {
-    text: "Taught Web Dev. to 50+ students, organized 10+ workshops, hackathons for everyone",
-    date: "2022 - Present",
+    text: "Taught Web Dev to 50+ students, organized 10+ workshops, hackathons",
+    bullets: [
+      "Led web development workshops and organized hackathons for student developers."
+    ],
+    date: "2022 – Present",
     position: "Web Development LEAD",
     org: "Google Developer's Student Club",
     icon: "https://media.licdn.com/dms/image/C4D0BAQHgWZO4CpYT6w/company-logo_200_200/0/1629032109185?e=1687996800&v=beta&t=4nRawtisfkbaF9i8MFkKFnEHBAENP91pR6jKLsrQ7Pg",
@@ -146,8 +176,11 @@ export const timelineData = [
     },
   },
   {
-    text: "Organized 10+ contests, including International contests with 200+ attendees.",
-    date: "2021 - 2022",
+    text: "Organized 10+ contests, including International contests with 200+ attendees",
+    bullets: [
+      "Authored competitive programming problems and setter solutions for international contests."
+    ],
+    date: "2021 – 2022",
     position: "Problem Setter",
     org: "Codechef",
     icon: "https://media.licdn.com/dms/image/C560BAQGqbQqGLrllzQ/company-logo_200_200/0/1641201041884?e=1687996800&v=beta&t=2oyq76Q-LwG5IpijX7rEe_L0cRSpOy1hEv2DKb0UVn4",

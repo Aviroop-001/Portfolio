@@ -181,6 +181,32 @@
         line-height: 1.6;
         margin-bottom: 1.2rem;
         font-weight: 500;
+
+        .bullet-points-list {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.65rem;
+
+          .bullet-item {
+            position: relative;
+            padding-left: 1.4rem;
+            font-family: $font-body;
+            font-size: 0.92rem;
+            color: var(--text-color);
+            line-height: 1.65;
+
+            &::before {
+              content: '⚡';
+              position: absolute;
+              left: 0;
+              top: 1px;
+              font-size: 0.75rem;
+            }
+          }
+        }
       }
 
       // Card Footer Tags
