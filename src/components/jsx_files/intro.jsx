@@ -34,14 +34,6 @@ export default function Intro() {
 
     return (
       <Box className="intro-hero-container">
-        {/* Availability Status Badge */}
-        <Box className="status-badge-wrapper">
-          <span className="availability-badge">
-            <span className="status-pulse-dot" />
-            AVAILABLE FOR NEW OPPORTUNITIES
-          </span>
-        </Box>
-
         {/* Hero Title & Bio */}
         <Box className="hero-content">
           <Text className="name-text">

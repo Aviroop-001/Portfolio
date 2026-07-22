@@ -81,7 +81,7 @@
   }
 
   .window-body-content {
-    padding: 2.6rem 3.2rem 5.5rem 3.2rem;
+    padding: 1.5rem 1.8rem 3rem 1.8rem;
     color: var(--text-color);
     font-family: $font-body;
     flex: 1;
@@ -90,7 +90,7 @@
     background: transparent;
 
     @media (max-width: 768px) {
-      padding: 1.4rem 1.4rem 4rem 1.4rem;
+      padding: 1rem 1rem 3rem 1rem;
     }
   }
 }
