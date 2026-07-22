@@ -52,20 +52,20 @@
       }
     }
 
-    // Subtitle & Bio (Inter 1.18rem, smooth 450 weight with 1.7 line height)
+    // Subtitle & Bio (Terminal Monospace Font)
     .subtitle-text {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.18rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.02rem;
       color: var(--subtext-color);
       font-weight: 450;
       max-width: 720px;
-      line-height: 1.7;
+      line-height: 1.65;
       letter-spacing: -0.2px;
 
       strong {
         font-family: 'Space Grotesk', sans-serif;
         font-weight: 800;
-        font-size: 1.28rem;
+        font-size: 1.15rem;
         letter-spacing: -0.5px;
         color: var(--title-color);
         background: transparent;
@@ -74,7 +74,7 @@
       }
 
       @include mobile {
-        font-size: 0.98rem;
+        font-size: 0.88rem;
       }
     }
 

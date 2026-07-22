@@ -30,7 +30,6 @@ function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showLinksModal, setShowLinksModal] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
   
   const audioRef = useRef(null);
 
@@ -61,20 +60,6 @@ function App() {
     if (!audioRef.current) return;
     audioRef.current.muted = !isMuted;
     setIsMuted(!isMuted);
-  };
-
-  const triggerToast = (msg) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 2500);
-  };
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText("banerjeeaviroop01@gmail.com");
-      triggerToast("Email copied to clipboard!");
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const sections = useMemo(() => [
@@ -312,13 +297,6 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* System Toast Notification */}
-      {toastMessage && (
-        <div className="system-toast">
-          <span>{toastMessage}</span>
         </div>
       )}
     </div>
