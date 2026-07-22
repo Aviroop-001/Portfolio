@@ -1,5 +1,4 @@
 import "../styling_files/intro.scss";
-import { useEffect, useState } from "react";
 import { 
   IoEyeOutline, 
   IoDownloadOutline,
@@ -8,29 +7,7 @@ import {
 import { Box, Text } from "@chakra-ui/react";
 import { companiesData } from "./Data.js";
 
-export default function Intro() {
-    const [showResumeModal, setShowResumeModal] = useState(false);
-
-    useEffect(() => {
-        const handleEscape = (e) => {
-            if (e.key === 'Escape' && showResumeModal) {
-                setShowResumeModal(false);
-            }
-        };
-
-        if (showResumeModal) {
-            document.addEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-
-        return () => {
-            document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'unset';
-        };
-    }, [showResumeModal]);
-
+export default function Intro({ onPreviewResume }) {
     return (
       <Box className="intro-hero-container">
         {/* Hero Title & Bio */}
@@ -60,7 +37,7 @@ export default function Intro() {
             </a>
             
             <button
-              onClick={() => setShowResumeModal(true)}
+              onClick={onPreviewResume}
               className="glass-button preview-button"
             >
               <IoEyeOutline className="button-icon" />
@@ -114,37 +91,6 @@ export default function Intro() {
             </Box>
           </Box>
         </Box>
-
-        {/* Full-Screen macOS Glass Resume Preview Modal */}
-        {showResumeModal && (
-          <Box className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
-            <Box className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
-              <Box className="resume-modal-header">
-                <Box className="window-dots">
-                  <span className="dot dot-red" onClick={() => setShowResumeModal(false)} />
-                  <span className="dot dot-yellow" />
-                  <span className="dot dot-green" />
-                </Box>
-                <Text className="modal-title">📄 avi-os / resume_preview.pdf</Text>
-                <button 
-                  className="close-btn"
-                  onClick={() => setShowResumeModal(false)}
-                >
-                  ✕
-                </button>
-              </Box>
-              <Box className="resume-modal-body">
-                <iframe
-                  src="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/preview"
-                  width="100%"
-                  height="100%"
-                  title="Aviroop Banerjee Resume Preview"
-                  frameBorder="0"
-                />
-              </Box>
-            </Box>
-          </Box>
-        )}
       </Box>
     );
 }

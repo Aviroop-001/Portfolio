@@ -20,7 +20,15 @@ import {
   FiSun,
   FiMoon,
   FiCode,
-  FiExternalLink
+  FiExternalLink,
+  FiHome,
+  FiBriefcase,
+  FiZap,
+  FiStar,
+  FiGrid,
+  FiBookOpen,
+  FiMail,
+  FiFolder
 } from 'react-icons/fi';
 
 function App() {
@@ -30,6 +38,7 @@ function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showLinksModal, setShowLinksModal] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
   
   const audioRef = useRef(null);
 
@@ -70,13 +79,13 @@ function App() {
   };
 
   const sections = useMemo(() => [
-    { id: 'intro', name: 'Intro', icon: '🏠' },
-    { id: 'experience', name: 'Experience', icon: '💼' },
-    { id: 'skills', name: 'Skills', icon: '⚡' },
-    { id: 'testimonials', name: 'Reviews', icon: '⭐' },
-    { id: 'projects', name: 'Projects', icon: '🚀' },
-    { id: 'education', name: 'Education', icon: '🎓' },
-    { id: 'contact', name: 'Contact', icon: '📬' }
+    { id: 'intro', name: 'Intro', icon: <FiHome /> },
+    { id: 'experience', name: 'Experience', icon: <FiBriefcase /> },
+    { id: 'skills', name: 'Skills', icon: <FiZap /> },
+    { id: 'testimonials', name: 'Reviews', icon: <FiStar /> },
+    { id: 'projects', name: 'Projects', icon: <FiGrid /> },
+    { id: 'education', name: 'Education', icon: <FiBookOpen /> },
+    { id: 'contact', name: 'Contact', icon: <FiMail /> }
   ], []);
 
   const socialLinks = useMemo(() => [
@@ -117,7 +126,7 @@ function App() {
   const renderActiveSection = () => {
     switch (activeTab) {
       case 'intro':
-        return <Intro />;
+        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
       case 'experience':
         return <Experience />;
       case 'skills':
@@ -131,7 +140,7 @@ function App() {
       case 'contact':
         return <Contact />;
       default:
-        return <Intro />;
+        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
     }
   };
 
@@ -150,7 +159,7 @@ function App() {
       <header className="top-os-navbar">
         <div className="navbar-left">
           <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
-            🦔 AVI OS
+            AVI OS
           </span>
         </div>
 
@@ -221,7 +230,7 @@ function App() {
               title="Click to open Links Folder"
             >
               <div className="icon-box folder-box">
-                📁
+                <FiFolder />
                 <span className="folder-badge-count">4</span>
               </div>
               <span className="icon-label">Links</span>
@@ -291,17 +300,43 @@ function App() {
         <div className="about-modal-overlay" onClick={() => setShowAboutModal(false)}>
           <div className="about-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-top">
-              <span className="brand-logo">🦔 AVI OS</span>
+              <span className="brand-logo">AVI OS</span>
               <button className="close-btn" onClick={() => setShowAboutModal(false)}>✕</button>
             </div>
             <div className="modal-body">
               <h3>AVI OS v1.0</h3>
-              <p>A PostHog-inspired retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
+              <p>A retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
               <div className="info-pills">
                 <span className="info-pill">⚡ Built with React &amp; SCSS</span>
-                <span className="info-pill">🎨 Light &amp; Dark Theme Engine</span>
+                <span className="info-pill">🐱 Milo the Virtual Desktop Cat</span>
                 <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-Screen macOS Glass Resume Preview Modal */}
+      {showResumeModal && (
+        <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+          <div className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-modal-header">
+              <div className="window-dots">
+                <span className="dot dot-red" onClick={() => setShowResumeModal(false)} title="Close Modal" />
+                <span className="dot dot-yellow" />
+                <span className="dot dot-green" />
+              </div>
+              <span className="modal-title">📄 avi-os / resume_preview.pdf</span>
+              <button className="close-btn" onClick={() => setShowResumeModal(false)} title="Close (Esc)">✕</button>
+            </div>
+            <div className="resume-modal-body">
+              <iframe
+                src="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/preview"
+                width="100%"
+                height="100%"
+                title="Aviroop Banerjee Resume Preview"
+                frameBorder="0"
+              />
             </div>
           </div>
         </div>

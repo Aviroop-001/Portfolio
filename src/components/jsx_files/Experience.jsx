@@ -68,7 +68,17 @@ export default function Experience() {
               </Box>
 
               <Box className="card-body-text">
-                <Text>{exp.text}</Text>
+                {exp.bullets && exp.bullets.length > 0 ? (
+                  <ul className="bullet-points-list">
+                    {exp.bullets.map((bullet, idx) => (
+                      <li key={idx} className="bullet-item">
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Text>{exp.text}</Text>
+                )}
               </Box>
 
               {/* Tag Badges */}

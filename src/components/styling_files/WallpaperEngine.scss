@@ -1,6 +1,6 @@
 @import "../../global.scss";
 
-// PostHog & macOS Dynamic Desktop Wallpaper Engine
+// Retro & macOS Dynamic Desktop Wallpaper Engine
 .desktop-wallpaper-background {
   position: fixed;
   top: 0;
@@ -11,11 +11,11 @@
   pointer-events: none;
   transition: background 0.4s ease;
 
-  // PostHog Retro Sunset Grid Wallpaper (Default)
+  // Retro Sunset Grid Wallpaper (Default)
   &.wallpaper-posthog {
     background-color: var(--bg-color);
 
-    // Light PostHog Sunset Wallpaper
+    // Light Sunset Wallpaper
     [data-theme="light"] &, &[data-wallpaper-theme="light"] {
       background: 
         radial-gradient(ellipse at 50% 20%, rgba(251, 226, 133, 0.5) 0%, transparent 60%),
@@ -24,7 +24,7 @@
         linear-gradient(180deg, #F9F5EE 0%, #EFE5D8 100%);
     }
 
-    // Dark PostHog Synthwave Wallpaper
+    // Dark Synthwave Wallpaper
     [data-theme="dark"] &, &[data-wallpaper-theme="dark"] {
       background: 
         radial-gradient(ellipse at 50% 15%, rgba(129, 140, 248, 0.3) 0%, transparent 60%),
