@@ -159,7 +159,7 @@ function App() {
       <header className="top-os-navbar">
         <div className="navbar-left">
           <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
-            🐱 AVI OS
+            AVI OS
           </span>
         </div>
 
@@ -300,7 +300,7 @@ function App() {
         <div className="about-modal-overlay" onClick={() => setShowAboutModal(false)}>
           <div className="about-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-top">
-              <span className="brand-logo">🐱 AVI OS</span>
+              <span className="brand-logo">AVI OS</span>
               <button className="close-btn" onClick={() => setShowAboutModal(false)}>✕</button>
             </div>
             <div className="modal-body">
