@@ -9,8 +9,9 @@
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   width: 100%;
-  height: 580px; // Fixed constant height across all section tabs
-  max-height: 80vh;
+  height: 640px; // Ample fixed vertical height across all section tabs
+  max-height: 82vh;
+  min-height: 520px;
   display: flex;
   flex-direction: column;
   position: relative;
