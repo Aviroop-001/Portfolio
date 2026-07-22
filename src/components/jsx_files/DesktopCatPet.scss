@@ -13,12 +13,13 @@
   user-select: none;
 
   &:hover {
-    .pixel-cat-body {
-      transform: translateY(-3px) scale(1.12);
+    // Tail wags faster on hover, body stays completely still!
+    .cat-tail-anim {
+      animation: fastTailWag 0.35s ease-in-out infinite alternate !important;
     }
   }
 
-  // Pure Cat Sprite Container (No background box/circle)
+  // Pure Cat Sprite Container (No background box/circle, BODY STAYS COMPLETELY STILL)
   .pixel-cat-body {
     width: 44px;
     height: 44px;
@@ -29,7 +30,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: none !important; // Body stays completely still!
 
     .pixel-cat-svg {
       width: 44px;
@@ -43,13 +44,14 @@
       }
     }
 
-    &.bounce-purr {
-      animation: pixelCatPurr 0.35s ease infinite alternate;
+    &.wagging {
+      .cat-tail-anim {
+        animation: fastTailWag 0.35s ease-in-out infinite alternate !important;
+      }
     }
 
     &.sleeping {
       opacity: 0.85;
-      transform: scale(0.95);
     }
   }
 
@@ -111,9 +113,9 @@
   100% { transform: rotate(12deg); }
 }
 
-@keyframes pixelCatPurr {
-  0% { transform: translateY(0) scale(1.08) rotate(-4deg); }
-  100% { transform: translateY(-8px) scale(1.22) rotate(4deg); }
+@keyframes fastTailWag {
+  0% { transform: rotate(-18deg); }
+  100% { transform: rotate(18deg); }
 }
 
 @keyframes floatUp {
