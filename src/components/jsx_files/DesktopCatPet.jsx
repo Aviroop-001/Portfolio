@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './DesktopCatPet.scss';
 
 export default function DesktopCatPet() {
@@ -7,6 +7,12 @@ export default function DesktopCatPet() {
   const [speech, setSpeech] = useState("Pet me! 🐾");
   const [hearts, setHearts] = useState([]);
   const [posX, setPosX] = useState(120);
+
+  // Web Audio Cat Purr Synthesizer Refs
+  const audioCtxRef = useRef(null);
+  const purrOscRef = useRef(null);
+  const purrLfoRef = useRef(null);
+  const purrGainRef = useRef(null);
 
   const catQuotes = [
     "Meow! Thanks for the scritches! 🥰",
@@ -25,16 +31,80 @@ export default function DesktopCatPet() {
     "Meow! Avi scales distributed backends! ⚡"
   ];
 
-  // Helper to trigger physical device haptic vibration feedback
-  const triggerHapticVibration = () => {
-    if (typeof window !== 'undefined' && 'vibrate' in navigator) {
-      try {
-        // Soft cat purr vibration pulse pattern
-        navigator.vibrate([35, 25, 35, 25, 50]);
-      } catch (e) {
-        // Handle silently if browser permissions disallow haptics
+  // Synthesize realistic cat purring sound via Web Audio API
+  const startCatPurrSound = () => {
+    try {
+      const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtxClass) return;
+
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new AudioCtxClass();
       }
+
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+
+      // Stop existing purr oscillator if playing
+      if (purrOscRef.current) {
+        try {
+          purrOscRef.current.stop();
+          purrOscRef.current.disconnect();
+        } catch (e) {}
+      }
+
+      // Main rumble oscillator (68Hz low frequency cat purr frequency)
+      const osc = ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(68, ctx.currentTime);
+
+      // Low-Frequency Oscillator (LFO at 24Hz to create rhythmic purring vibration effect)
+      const lfo = ctx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.setValueAtTime(24, ctx.currentTime);
+      
+      const lfoGain = ctx.createGain();
+      lfoGain.gain.setValueAtTime(14, ctx.currentTime);
+      lfo.connect(lfoGain);
+      lfoGain.connect(osc.frequency);
+
+      // Master Purr Volume (cozy low volume)
+      const masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(0.08, ctx.currentTime);
+
+      osc.connect(masterGain);
+      masterGain.connect(ctx.destination);
+
+      osc.start();
+      lfo.start();
+
+      purrOscRef.current = osc;
+      purrLfoRef.current = lfo;
+      purrGainRef.current = masterGain;
+    } catch (err) {
+      // Audio context autoplay restriction fallback
     }
+  };
+
+  const stopCatPurrSound = () => {
+    try {
+      if (purrGainRef.current && audioCtxRef.current) {
+        purrGainRef.current.gain.exponentialRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.25);
+        setTimeout(() => {
+          if (purrOscRef.current) {
+            purrOscRef.current.stop();
+            purrOscRef.current.disconnect();
+            purrOscRef.current = null;
+          }
+          if (purrLfoRef.current) {
+            purrLfoRef.current.stop();
+            purrLfoRef.current.disconnect();
+            purrLfoRef.current = null;
+          }
+        }, 250);
+      }
+    } catch (err) {}
   };
 
   // Walking and sleeping loop
@@ -59,22 +129,23 @@ export default function DesktopCatPet() {
     };
   }, [isSleeping, isPurring]);
 
-  // ON HOVER: Make the cat purr and vibrate the device!
+  // ON HOVER: Cat purrs, says "Purr purr... 🥰", and plays synthesized purr sound!
   const handleMouseEnter = () => {
     setIsSleeping(false);
     setIsPurring(true);
     setSpeech("Purr purr... 🥰");
-    triggerHapticVibration();
+    startCatPurrSound();
   };
 
   const handleMouseLeave = () => {
     setIsPurring(false);
+    stopCatPurrSound();
   };
 
-  // ON CLICK: Say fun cat quotes & spawn hearts!
+  // ON CLICK: Say fun cat quotes, play purr audio pulse & spawn hearts!
   const handlePetCat = () => {
     setIsSleeping(false);
-    triggerHapticVibration();
+    startCatPurrSound();
 
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
     setSpeech(randomQuote);
@@ -84,6 +155,10 @@ export default function DesktopCatPet() {
       left: Math.random() * 20 - 10
     };
     setHearts(prev => [...prev.slice(-4), newHeart]);
+
+    setTimeout(() => {
+      stopCatPurrSound();
+    }, 1200);
   };
 
   return (
@@ -93,7 +168,7 @@ export default function DesktopCatPet() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title="Hover to hear Milo purr & vibrate, click to talk!"
+      title="Hover over Milo to hear him purr!"
     >
       {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
