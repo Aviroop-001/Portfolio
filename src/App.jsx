@@ -158,7 +158,7 @@ function App() {
       {/* Top Retro OS Navbar (Height: 48px) */}
       <header className="top-os-navbar">
         <div className="navbar-left">
-          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
+          <span className="nav-badge">AVI-OS v1.0</span>
         </div>
 
         {/* Center: Audio Player Widget */}
@@ -245,15 +245,7 @@ function App() {
             >
               {renderActiveSection()}
             </DesktopWindow>
-          ) : (
-            <div className="desktop-empty-state" onClick={() => setActiveTab('intro')}>
-              <div className="empty-state-card">
-                <FiHome className="empty-icon" />
-                <h3>Window Closed</h3>
-                <p>Click any icon on the left sidebar to open a section, or tap here for Intro!</p>
-              </div>
-            </div>
-          )}
+          ) : (<></>)}
         </section>
       </main>
 
@@ -315,7 +307,7 @@ function App() {
               <p>A retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
               <div className="info-pills">
                 <span className="info-pill">⚡ Built with React &amp; SCSS</span>
-                <span className="info-pill">🐱 Milo the Virtual Desktop Cat</span>
+                <span className="info-pill">🐱 Kookie the Virtual Desktop Cat</span>
                 <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
               </div>
             </div>

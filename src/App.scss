@@ -61,26 +61,15 @@
     gap: 1rem;
 
     .nav-badge {
-      font-family: $font-mono;
-      font-size: 0.88rem;
-      font-weight: 800;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      font-weight: 600;
       color: var(--text-color);
-      letter-spacing: 0.4px;
+      letter-spacing: 2px;
       white-space: nowrap;
-      cursor: pointer;
       padding: 0.35rem 0.85rem;
-      background-color: var(--secondary-bg);
-      border: 1.5px solid var(--border-strong);
       border-radius: 8px;
-      box-shadow: 2px 2px 0px var(--shadow-color);
       transition: all 0.15s ease;
-
-      &:hover {
-        background-color: var(--accent-yellow);
-        color: var(--btn-text-on-yellow);
-        transform: translate(-1px, -1px);
-        box-shadow: 3px 3px 0px var(--shadow-color);
-      }
     }
   }
 
@@ -121,9 +110,10 @@
         gap: 0.45rem;
 
         .track-title {
-          font-family: $font-body;
-          font-size: 0.78rem;
-          font-weight: 700;
+          font-family: 'VT323', monospace;
+          font-size: 1rem;
+          font-weight: 600;
+          letter-spacing: 2px;
           color: var(--text-color);
           white-space: nowrap;
         }
@@ -158,14 +148,15 @@
     .theme-toggle-pill {
       display: inline-flex;
       align-items: center;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
       gap: 0.45rem;
       background-color: var(--secondary-bg);
       border: 1px solid var(--border-color);
       border-radius: 9999px;
       padding: 0.35rem 0.95rem;
-      font-family: $font-body;
-      font-size: 0.78rem;
-      font-weight: 700;
       color: var(--text-color);
       cursor: pointer;
       white-space: nowrap;
@@ -279,7 +270,7 @@
   left: 1.5rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 10000; // Stay above maximized window so section tabs remain clickable
   width: 80px;
   display: flex;
   flex-direction: column;

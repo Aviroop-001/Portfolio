@@ -4,36 +4,27 @@ import DesktopCatPet from './DesktopCatPet';
 import './DesktopWindow.scss';
 
 export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%", onClose }) {
-  const [isMinimized, setIsMinimized] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
-
-  const toggleMinimize = () => {
-    setIsMinimized(prev => !prev);
-  };
 
   const toggleMaximize = () => {
     setIsMaximized(prev => !prev);
-    // Unminimize if maximizing
-    if (isMinimized) setIsMinimized(false);
   };
+
+  const isIntro = title.toLowerCase().includes('intro');
+  // Cat only on restored intro — window gets a shorter height so the perch isn't clipped
+  const showCat = isIntro && !isMaximized;
 
   return (
     <Box 
-      className={`retro-desktop-window ${isMaximized ? 'maximized' : ''} ${isMinimized ? 'minimized' : ''} ${className}`} 
-      maxWidth={isMaximized ? "100%" : maxWidth} 
-      width={isMaximized ? "100%" : width}
+      className={`retro-desktop-window ${isMaximized ? 'maximized' : ''} ${showCat ? 'has-cat-perch' : ''} ${className}`} 
+      maxWidth={isMaximized ? undefined : maxWidth} 
+      width={isMaximized ? undefined : width}
     >
-      {/* Milo the Digital Pet Perched ONLY on the Intro Tab Ledge */}
-      {title.toLowerCase().includes('intro') && !isMinimized && <DesktopCatPet />}
+      {showCat && <DesktopCatPet />}
 
       <Box className="window-header-bar">
         <Box className="window-control-dots">
           <span className="dot dot-red" onClick={onClose} title="Close window tab" />
-          <span 
-            className="dot dot-yellow" 
-            onClick={toggleMinimize} 
-            title={isMinimized ? "Restore window size" : "Minimize window"} 
-          />
           <span 
             className="dot dot-green" 
             onClick={toggleMaximize} 
@@ -41,16 +32,14 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
           />
         </Box>
         <Text className="window-title-text">
-          {title} {isMinimized ? " (Minimized)" : isMaximized ? " (Full Screen)" : ""}
+          {title} {isMaximized ? " (Full Screen)" : ""}
         </Text>
         <Box className="window-header-right-spacer" />
       </Box>
 
-      {!isMinimized && (
-        <Box key={title} className="window-body-content tab-fade-slide-anim">
-          {children}
-        </Box>
-      )}
+      <Box key={title} className="window-body-content tab-fade-slide-anim">
+        {children}
+      </Box>
     </Box>
   );
 }
