@@ -13,7 +13,7 @@ export default function DesktopCatPet() {
   const purrOscRef = useRef(null);
   const purrLfoRef = useRef(null);
   const purrGainRef = useRef(null);
-  const purrSequenceTimerRef = useRef(null);
+  const sequenceTimersRef = useRef([]);
 
   const catQuotes = [
     "Meow! Thanks for waking me up! 🥰",
@@ -31,6 +31,12 @@ export default function DesktopCatPet() {
     "Meow! Feed me treats! 🐟",
     "Meow! Avi scales distributed backends! ⚡"
   ];
+
+  // Cancel all pending purr sequence timers immediately
+  const cancelAllPurrTimers = () => {
+    sequenceTimersRef.current.forEach(t => clearTimeout(t));
+    sequenceTimersRef.current = [];
+  };
 
   // Synthesize cat purr pulse via Web Audio API
   const startCatPurrSound = () => {
@@ -86,57 +92,53 @@ export default function DesktopCatPet() {
   const stopCatPurrSound = () => {
     try {
       if (purrGainRef.current && audioCtxRef.current) {
-        purrGainRef.current.gain.exponentialRampToValueAtTime(0.0001, audioCtxRef.current.currentTime + 0.15);
-        setTimeout(() => {
-          if (purrOscRef.current) {
-            purrOscRef.current.stop();
-            purrOscRef.current.disconnect();
-            purrOscRef.current = null;
-          }
-          if (purrLfoRef.current) {
-            purrLfoRef.current.stop();
-            purrLfoRef.current.disconnect();
-            purrLfoRef.current = null;
-          }
-        }, 150);
+        purrGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime);
+        if (purrOscRef.current) {
+          purrOscRef.current.stop();
+          purrOscRef.current.disconnect();
+          purrOscRef.current = null;
+        }
+        if (purrLfoRef.current) {
+          purrLfoRef.current.stop();
+          purrLfoRef.current.disconnect();
+          purrLfoRef.current = null;
+        }
       }
     } catch (err) {}
   };
 
-  // Play exactly 3 purr pulses, 1 second each!
+  // Play up to 3 purr pulses (1 sec each), cancellable instantly on mouse leave!
   const triggerThreePurrsSequence = () => {
-    // Clear any previous running sequence
-    if (purrSequenceTimerRef.current) {
-      clearTimeout(purrSequenceTimerRef.current);
-    }
-
+    cancelAllPurrTimers();
     setIsPurring(true);
 
-    // Pulse 1: 0ms -> 1000ms
+    // Pulse 1: 0s -> 1.0s
     startCatPurrSound();
 
-    // Pulse 2: 1200ms -> 2200ms
-    setTimeout(() => {
+    const t1 = setTimeout(() => {
       stopCatPurrSound();
     }, 1000);
 
-    setTimeout(() => {
+    // Pulse 2: 1.2s -> 2.2s
+    const t2 = setTimeout(() => {
       startCatPurrSound();
     }, 1200);
 
-    setTimeout(() => {
+    const t3 = setTimeout(() => {
       stopCatPurrSound();
     }, 2200);
 
-    // Pulse 3: 2400ms -> 3400ms
-    setTimeout(() => {
+    // Pulse 3: 2.4s -> 3.4s
+    const t4 = setTimeout(() => {
       startCatPurrSound();
     }, 2400);
 
-    purrSequenceTimerRef.current = setTimeout(() => {
+    const t5 = setTimeout(() => {
       stopCatPurrSound();
       setIsPurring(false);
     }, 3400);
+
+    sequenceTimersRef.current = [t1, t2, t3, t4, t5];
   };
 
   // Sleeping Timer
@@ -149,15 +151,14 @@ export default function DesktopCatPet() {
         setIsAwake(false);
         setIsPurring(false);
         setSpeech("Tap to wake me up! 💤");
+        cancelAllPurrTimers();
         stopCatPurrSound();
       }, 20000);
     }
 
     return () => {
       clearTimeout(sleepTimer);
-      if (purrSequenceTimerRef.current) {
-        clearTimeout(purrSequenceTimerRef.current);
-      }
+      cancelAllPurrTimers();
     };
   }, [isAwake]);
 
@@ -172,7 +173,6 @@ export default function DesktopCatPet() {
       return;
     }
 
-    // Subsequent clicks when awake: Purr 3 times (1s each)!
     triggerThreePurrsSequence();
 
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
@@ -185,7 +185,7 @@ export default function DesktopCatPet() {
     setHearts(prev => [...prev.slice(-4), newHeart]);
   };
 
-  // ON HOVER AFTER FIRST TIME: Purr 3 times (1s each) & wag tail!
+  // ON HOVER: Purr 3 times (1s each)
   const handleMouseEnter = () => {
     if (isAwake && !isSleeping) {
       setSpeech("Purr purr... 🥰");
@@ -193,8 +193,11 @@ export default function DesktopCatPet() {
     }
   };
 
+  // ON MOUSE LEAVE: INSTANTLY CANCEL ALL PURRING SOUND & TIMERS!
   const handleMouseLeave = () => {
-    // Keep purr sequence running or stop cleanly on leave
+    cancelAllPurrTimers();
+    stopCatPurrSound();
+    setIsPurring(false);
   };
 
   return (
@@ -203,7 +206,7 @@ export default function DesktopCatPet() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title={isAwake ? "Hover or click to hear Milo purr 3 times!" : "Tap to wake Milo up!"}
+      title={isAwake ? "Hover or click to hear Milo purr!" : "Tap to wake Milo up!"}
     >
       {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
