@@ -38,6 +38,13 @@ function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  // Ambient Cursor Spotlight Position Tracker
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    document.documentElement.style.setProperty('--mouse-x', `${clientX}px`);
+    document.documentElement.style.setProperty('--mouse-y', `${clientY}px`);
+  };
+
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
@@ -129,7 +136,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" onMouseMove={handleMouseMove}>
       {/* High-Resolution Desktop Wallpaper Image */}
       <WallpaperImageBackground theme={theme} />
       {/* Hidden Audio Element for Synthwave Lofi */}

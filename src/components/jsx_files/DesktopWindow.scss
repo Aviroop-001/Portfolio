@@ -95,8 +95,23 @@
     font-family: $font-body;
     background: transparent;
 
+    &.tab-fade-slide-anim {
+      animation: tabSlideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
     @media (max-width: 768px) {
       padding: 1rem;
     }
+  }
+}
+
+@keyframes tabSlideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }

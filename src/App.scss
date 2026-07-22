@@ -13,6 +13,22 @@
   display: flex;
   flex-direction: column;
 
+  // Ambient Cursor Spotlight (2 - b)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      var(--shadow-color),
+      transparent 75%
+    );
+    z-index: 5;
+    opacity: 0.65;
+    transition: opacity 0.3s ease;
+  }
+
   // Hide scrollbars
   ::-webkit-scrollbar {
     display: none;
