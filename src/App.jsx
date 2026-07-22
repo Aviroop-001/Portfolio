@@ -158,10 +158,7 @@ function App() {
       {/* Top Retro OS Navbar (Height: 48px) */}
       <header className="top-os-navbar">
         <div className="navbar-left">
-          <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
-            AVI OS
-          </span>
-          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>v1.0</span>
+          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
         </div>
 
         {/* Center: Audio Player Widget */}
