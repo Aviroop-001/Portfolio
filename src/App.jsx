@@ -8,7 +8,7 @@ import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
-import HexGrid3D from './components/jsx_files/HexGrid3D';
+import HexTechBackground from './components/jsx_files/HexTechBackground';
 import { 
   FiFileText, 
   FiGithub, 
@@ -164,8 +164,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* 3D Perspective Hexagonal Grid Background */}
-      <HexGrid3D />
+      {/* Hex.tech Spirograph Grid Background */}
+      <HexTechBackground />
       {/* Hidden Audio Element for Synthwave Lofi */}
       <audio 
         ref={audioRef} 
@@ -483,14 +483,6 @@ function App() {
           <span>{toastMessage}</span>
         </div>
       )}
-
-      {/* Decorative Parallax Shapes */}
-      <div className="parallax-elements">
-        <div className="parallax-element circle-1" />
-        <div className="parallax-element circle-2" />
-        <div className="parallax-element triangle-1" />
-        <div className="parallax-element square-1" />
-      </div>
     </div>
   );
 }

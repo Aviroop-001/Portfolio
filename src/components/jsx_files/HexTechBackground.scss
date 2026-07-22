@@ -1,0 +1,45 @@
+@import "../../global.scss";
+
+.hex-tech-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--bg-color);
+
+  .hex-spirograph-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  // Micro-Dot Grid Overlay
+  .hex-dot-matrix-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--border-strong) 0.85px, transparent 0.85px);
+    background-size: 24px 24px;
+    opacity: 0.25;
+  }
+
+  // Technical Corner Marks
+  .hex-corner-mark {
+    position: absolute;
+    font-family: $font-mono;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--subtext-color);
+    opacity: 0.4;
+    user-select: none;
+
+    &.top-left { top: 60px; left: 24px; }
+    &.top-right { top: 60px; right: 24px; }
+    &.bottom-left { bottom: 24px; left: 24px; }
+    &.bottom-right { bottom: 24px; right: 24px; }
+  }
+}
