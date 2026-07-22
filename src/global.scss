@@ -1,4 +1,4 @@
-// Global SCSS Variables & Modern Glass OS Tokens
+// Global SCSS Variables & Premium Animated Glass OS Tokens
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
 
 $mobile: 768px;
@@ -21,60 +21,62 @@ $font-heading: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', monospace;
 
-// Light Theme (Modern Cream Glass)
+// Light Theme (Ultra-Clean Luxury Porcelain & Indigo Glass)
 :root, [data-theme="light"], [data-theme="cream"] {
-  --bg-color: #F6F3EE;
-  --text-color: #1A1C19;
-  --title-color: #0F110E;
-  --subtext-color: #555852;
-  --muted-text: #73776E;
-  --card-bg: rgba(255, 255, 255, 0.85);
+  --bg-color: #F8F9FB;
+  --text-color: #1E293B;
+  --title-color: #0F172A;
+  --subtext-color: #475569;
+  --muted-text: #64748B;
+  --card-bg: rgba(255, 255, 255, 0.82);
   --card-solid: #FFFFFF;
-  --secondary-bg: #EFEBE4;
-  --accent-yellow: #FBE285;
-  --accent-primary: #1A1C19;
+  --secondary-bg: #F1F5F9;
+  --accent-yellow: #6366F1; // Electric Indigo Accent
+  --accent-primary: #0F172A;
   --btn-text-on-accent: #FFFFFF;
-  --btn-text-on-yellow: #1A1C19;
-  --border-color: rgba(26, 28, 25, 0.12);
-  --border-strong: rgba(26, 28, 25, 0.2);
-  --shadow-color: rgba(0, 0, 0, 0.08);
-  --shadow-elevated: 0 12px 32px -8px rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.6);
+  --btn-text-on-yellow: #FFFFFF;
+  --border-color: rgba(148, 163, 184, 0.22);
+  --border-strong: rgba(15, 23, 42, 0.25);
+  --shadow-color: rgba(15, 23, 42, 0.06);
+  --shadow-elevated: 0 20px 40px -12px rgba(15, 23, 42, 0.12);
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.7);
   --icon-bg: #FFFFFF;
   --label-bg: #FFFFFF;
-  --accent-green: #20C997;
-  --ambient-mesh-1: rgba(251, 226, 133, 0.4);
-  --ambient-mesh-2: rgba(239, 235, 228, 0.7);
+  --accent-green: #10B981;
+  --mesh-orb-1: rgba(99, 102, 241, 0.18);
+  --mesh-orb-2: rgba(168, 85, 247, 0.15);
+  --mesh-orb-3: rgba(16, 185, 129, 0.12);
 }
 
-// Dark Theme (Modern Midnight Obsidian Glass)
+// Dark Theme (Midnight Aurora Obsidian Glass)
 [data-theme="dark"] {
-  --bg-color: #0F100E;
-  --text-color: #F3ECE1;
-  --title-color: #FFFFFF;
-  --subtext-color: #A6A99F;
-  --muted-text: #7D8076;
-  --card-bg: rgba(26, 28, 25, 0.85);
-  --card-solid: #1A1C19;
-  --secondary-bg: #242622;
-  --accent-yellow: #FBE285;
-  --accent-primary: #FBE285;
-  --btn-text-on-accent: #0F100E;
-  --btn-text-on-yellow: #0F100E;
-  --border-color: rgba(243, 236, 225, 0.12);
-  --border-strong: rgba(243, 236, 225, 0.22);
-  --shadow-color: rgba(0, 0, 0, 0.35);
-  --shadow-elevated: 0 16px 40px -10px rgba(0, 0, 0, 0.45);
-  --shadow-card: 0 6px 24px -4px rgba(0, 0, 0, 0.3);
-  --glass-bg: rgba(26, 28, 25, 0.75);
-  --glass-border: rgba(243, 236, 225, 0.15);
-  --icon-bg: #1A1C19;
-  --label-bg: #1A1C19;
-  --accent-green: #20C997;
-  --ambient-mesh-1: rgba(32, 201, 151, 0.1);
-  --ambient-mesh-2: rgba(251, 226, 133, 0.08);
+  --bg-color: #0B0F19;
+  --text-color: #E2E8F0;
+  --title-color: #F8FAFC;
+  --subtext-color: #94A3B8;
+  --muted-text: #64748B;
+  --card-bg: rgba(15, 23, 42, 0.75);
+  --card-solid: #0F172A;
+  --secondary-bg: #1E293B;
+  --accent-yellow: #818CF8; // Aurora Indigo Accent
+  --accent-primary: #818CF8;
+  --btn-text-on-accent: #0F172A;
+  --btn-text-on-yellow: #0F172A;
+  --border-color: rgba(226, 232, 240, 0.14);
+  --border-strong: rgba(226, 232, 240, 0.25);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 24px 48px -12px rgba(0, 0, 0, 0.55);
+  --shadow-card: 0 8px 28px -4px rgba(0, 0, 0, 0.35);
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(226, 232, 240, 0.16);
+  --icon-bg: #0F172A;
+  --label-bg: #0F172A;
+  --accent-green: #34D399;
+  --mesh-orb-1: rgba(99, 102, 241, 0.25);
+  --mesh-orb-2: rgba(139, 92, 246, 0.22);
+  --mesh-orb-3: rgba(16, 185, 129, 0.18);
 }
 
 // Global Variables linking to Theme Tokens
