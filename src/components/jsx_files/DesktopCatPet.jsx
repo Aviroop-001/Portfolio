@@ -3,17 +3,14 @@ import './DesktopCatPet.scss';
 
 export default function DesktopCatPet() {
   const [isAwake, setIsAwake] = useState(false);
-  const [isPurring, setIsPurring] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [isSleeping, setIsSleeping] = useState(true);
   const [speech, setSpeech] = useState("Tap to wake me up! 💤");
   const [hearts, setHearts] = useState([]);
 
-  // Web Audio Cat Purr Synthesizer Refs
+  // Web Audio Context & Heart Interval Refs
   const audioCtxRef = useRef(null);
-  const purrOscRef = useRef(null);
-  const purrLfoRef = useRef(null);
-  const purrGainRef = useRef(null);
-  const sequenceTimersRef = useRef([]);
+  const heartIntervalRef = useRef(null);
 
   const catQuotes = [
     "Meow! Thanks for waking me up! 🥰",
@@ -32,14 +29,8 @@ export default function DesktopCatPet() {
     "Meow! Avi scales distributed backends! ⚡"
   ];
 
-  // Cancel all pending purr sequence timers immediately
-  const cancelAllPurrTimers = () => {
-    sequenceTimersRef.current.forEach(t => clearTimeout(t));
-    sequenceTimersRef.current = [];
-  };
-
-  // Synthesize cat purr pulse via Web Audio API
-  const startCatPurrSound = () => {
+  // Synthesize an adorable gentle "Meow~" sound via Web Audio API
+  const playGentleMeowSound = () => {
     try {
       const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtxClass) return;
@@ -53,92 +44,53 @@ export default function DesktopCatPet() {
         ctx.resume();
       }
 
-      if (purrOscRef.current) {
-        try {
-          purrOscRef.current.stop();
-          purrOscRef.current.disconnect();
-        } catch (e) {}
-      }
-
-      // 64Hz low frequency cat purr oscillator
       const osc = ctx.createOscillator();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(64, ctx.currentTime);
+      const gain = ctx.createGain();
 
-      // 22Hz purr modulation LFO
-      const lfo = ctx.createOscillator();
-      lfo.type = 'sine';
-      lfo.frequency.setValueAtTime(22, ctx.currentTime);
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.setValueAtTime(14, ctx.currentTime);
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
+      osc.type = 'sine';
+      
+      // Pitch curve for a cute soft "Me-o-w~": 520Hz -> 720Hz -> 540Hz over 0.28s
+      const now = ctx.currentTime;
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(720, now + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(540, now + 0.28);
 
-      const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0.08, ctx.currentTime);
+      // Volume envelope (gentle volume)
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.09, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
 
-      osc.connect(masterGain);
-      masterGain.connect(ctx.destination);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
 
-      osc.start();
-      lfo.start();
-
-      purrOscRef.current = osc;
-      purrLfoRef.current = lfo;
-      purrGainRef.current = masterGain;
+      osc.start(now);
+      osc.stop(now + 0.3);
     } catch (err) {}
   };
 
-  const stopCatPurrSound = () => {
-    try {
-      if (purrGainRef.current && audioCtxRef.current) {
-        purrGainRef.current.gain.setValueAtTime(0.0001, audioCtxRef.current.currentTime);
-        if (purrOscRef.current) {
-          purrOscRef.current.stop();
-          purrOscRef.current.disconnect();
-          purrOscRef.current = null;
-        }
-        if (purrLfoRef.current) {
-          purrLfoRef.current.stop();
-          purrLfoRef.current.disconnect();
-          purrLfoRef.current = null;
-        }
-      }
-    } catch (err) {}
+  // Helper to spawn a floating heart particle
+  const spawnHeart = () => {
+    const newHeart = {
+      id: Date.now() + Math.random(),
+      left: Math.random() * 24 - 12
+    };
+    setHearts(prev => [...prev.slice(-6), newHeart]);
   };
 
-  // Play up to 3 purr pulses (1 sec each), cancellable instantly on mouse leave!
-  const triggerThreePurrsSequence = () => {
-    cancelAllPurrTimers();
-    setIsPurring(true);
+  // Continuous Floating Hearts on Hover
+  const startFloatingHearts = () => {
+    stopFloatingHearts();
+    spawnHeart();
+    heartIntervalRef.current = setInterval(() => {
+      spawnHeart();
+    }, 320);
+  };
 
-    // Pulse 1: 0s -> 1.0s
-    startCatPurrSound();
-
-    const t1 = setTimeout(() => {
-      stopCatPurrSound();
-    }, 1000);
-
-    // Pulse 2: 1.2s -> 2.2s
-    const t2 = setTimeout(() => {
-      startCatPurrSound();
-    }, 1200);
-
-    const t3 = setTimeout(() => {
-      stopCatPurrSound();
-    }, 2200);
-
-    // Pulse 3: 2.4s -> 3.4s
-    const t4 = setTimeout(() => {
-      startCatPurrSound();
-    }, 2400);
-
-    const t5 = setTimeout(() => {
-      stopCatPurrSound();
-      setIsPurring(false);
-    }, 3400);
-
-    sequenceTimersRef.current = [t1, t2, t3, t4, t5];
+  const stopFloatingHearts = () => {
+    if (heartIntervalRef.current) {
+      clearInterval(heartIntervalRef.current);
+      heartIntervalRef.current = null;
+    }
   };
 
   // Sleeping Timer
@@ -149,55 +101,48 @@ export default function DesktopCatPet() {
       sleepTimer = setTimeout(() => {
         setIsSleeping(true);
         setIsAwake(false);
-        setIsPurring(false);
+        setIsHovered(false);
         setSpeech("Tap to wake me up! 💤");
-        cancelAllPurrTimers();
-        stopCatPurrSound();
+        stopFloatingHearts();
       }, 20000);
     }
 
     return () => {
       clearTimeout(sleepTimer);
-      cancelAllPurrTimers();
+      stopFloatingHearts();
     };
   }, [isAwake]);
 
-  // FIRST CLICK / TAP: Wakes cat up
-  // SUBSEQUENT CLICKS: Purr 3 times (1 sec each), wag tail, say random quote!
+  // CLICK / TAP: Wakes cat up & plays gentle meow sound + fun quote!
   const handlePetCat = () => {
+    playGentleMeowSound();
+
     if (!isAwake || isSleeping) {
       setIsAwake(true);
       setIsSleeping(false);
       setSpeech("Meow! Thanks for waking me up! 🥰");
-      triggerThreePurrsSequence();
+      spawnHeart();
       return;
     }
 
-    triggerThreePurrsSequence();
-
+    // Cat is awake: play meow sound, spawn heart & say quote!
+    spawnHeart();
     const randomQuote = catQuotes[Math.floor(Math.random() * catQuotes.length)];
     setSpeech(randomQuote);
-
-    const newHeart = {
-      id: Date.now() + Math.random(),
-      left: Math.random() * 20 - 10
-    };
-    setHearts(prev => [...prev.slice(-4), newHeart]);
   };
 
-  // ON HOVER: Purr 3 times (1s each)
+  // ON HOVER: Continuous floating hearts & tail wagging!
   const handleMouseEnter = () => {
+    setIsHovered(true);
     if (isAwake && !isSleeping) {
-      setSpeech("Purr purr... 🥰");
-      triggerThreePurrsSequence();
+      setSpeech("Purrr... 🥰");
+      startFloatingHearts();
     }
   };
 
-  // ON MOUSE LEAVE: INSTANTLY CANCEL ALL PURRING SOUND & TIMERS!
   const handleMouseLeave = () => {
-    cancelAllPurrTimers();
-    stopCatPurrSound();
-    setIsPurring(false);
+    setIsHovered(false);
+    stopFloatingHearts();
   };
 
   return (
@@ -206,10 +151,10 @@ export default function DesktopCatPet() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title={isAwake ? "Hover or click to hear Milo purr!" : "Tap to wake Milo up!"}
+      title={isAwake ? "Hover for floating hearts, click for gentle meow!" : "Tap to wake Milo up!"}
     >
       {/* Speech Bubble Above Cat */}
-      <div className={`cat-speech-bubble ${isPurring ? 'purring' : ''}`}>
+      <div className={`cat-speech-bubble ${isHovered ? 'purring' : ''}`}>
         <span>{speech}</span>
       </div>
 
@@ -222,8 +167,8 @@ export default function DesktopCatPet() {
         ))}
       </div>
 
-      {/* Adorable Orange Tabby Cat Character Sprite (STATIONARY BODY, TAIL WAG ONLY) */}
-      <div className={`pixel-cat-body ${isPurring ? 'wagging' : ''} ${isSleeping ? 'sleeping' : ''}`}>
+      {/* Adorable Orange Tabby Cat Character Sprite */}
+      <div className={`pixel-cat-body ${isHovered ? 'wagging' : ''} ${isSleeping ? 'sleeping' : ''}`}>
         <svg className="pixel-cat-svg" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
           {/* Fluffy Orange Tail (Wags on hover/click) */}
           <path 
@@ -266,7 +211,7 @@ export default function DesktopCatPet() {
               <path d="M13.5 12 Q15.5 14 16.5 12" stroke="#4A2810" strokeWidth="1.5" strokeLinecap="round" fill="none" />
               <path d="M19.5 12 Q20.5 14 22.5 12" stroke="#4A2810" strokeWidth="1.5" strokeLinecap="round" fill="none" />
             </>
-          ) : isPurring ? (
+          ) : isHovered ? (
             <>
               <text x="13" y="14" fontSize="7" fill="#FF5F56" fontWeight="bold">♥</text>
               <text x="19.5" y="14" fontSize="7" fill="#FF5F56" fontWeight="bold">♥</text>
