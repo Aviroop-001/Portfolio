@@ -5,7 +5,7 @@ export default function DesktopCatPet() {
   const [isAwake, setIsAwake] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isSleeping, setIsSleeping] = useState(true);
-  const [speech, setSpeech] = useState("Tap to wake me up! 💤");
+  const [speech, setSpeech] = useState("Kookie is sleeping! Tap to wake her up! 💤");
   const [hearts, setHearts] = useState([]);
 
   // Web Audio Context & Heart Interval Refs
@@ -14,19 +14,18 @@ export default function DesktopCatPet() {
 
   const catQuotes = [
     "Meow! Thanks for waking me up! 🥰",
-    "Meow! Avi is a 10x engineer! 🚀",
-    "Meow! Check out Avi's cool projects! 💻",
+    "Avi is a 10x engineer! 🚀",
+    "Check out Avi's cool projects! 💻",
     "Meow! More head pats please! 🐾",
-    "Meow! Hire Avi today! 💼",
-    "Meow! Avi builds fast AI systems! ⚡",
+    "Hire Avi today! 💼",
+    "Avi builds fast AI systems! ⚡",
     "Meow! You are the best! ❤️",
     "Meow! Did you try switching to Dark Mode? 🌙",
-    "Meow! Avi wrote clean React & SCSS! 🎨",
     "Meow! I love sitting on this window! 🪟",
-    "Meow! Avi's resume is 1 click away! 📄",
-    "Meow! Best engineering portfolio ever! ⭐",
+    "Avi's resume is 1 click away! 📄",
+    "Best engineering portfolio ever! ⭐",
     "Meow! Feed me treats! 🐟",
-    "Meow! Avi scales distributed backends! ⚡"
+    "Avi scales distributed backends! ⚡"
   ];
 
   // Synthesize an adorable gentle "Meow~" sound via Web Audio API
@@ -102,7 +101,7 @@ export default function DesktopCatPet() {
         setIsSleeping(true);
         setIsAwake(false);
         setIsHovered(false);
-        setSpeech("Tap to wake me up! 💤");
+        setSpeech("Kookie is sleeping! Tap to wake her up! 💤");
         stopFloatingHearts();
       }, 20000);
     }
@@ -151,7 +150,7 @@ export default function DesktopCatPet() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
-      title={isAwake ? "Hover for floating hearts, click for gentle meow!" : "Tap to wake Milo up!"}
+      title={isAwake ? "Hover for floating hearts, click for gentle meow!" : "Tap to wake Kookie up!"}
     >
       {/* Speech Bubble Above Cat */}
       <div className={`cat-speech-bubble ${isHovered ? 'purring' : ''}`}>

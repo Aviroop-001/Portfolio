@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import DesktopCatPet from './DesktopCatPet';
 import './DesktopWindow.scss';
 
-export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%" }) {
+export default function DesktopWindow({ title, children, className = "", maxWidth = "850px", width = "90%", onClose }) {
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  const toggleMaximize = () => {
+    setIsMaximized(prev => !prev);
+  };
+
+  const isIntro = title.toLowerCase().includes('intro');
+  // Cat only on restored intro — window gets a shorter height so the perch isn't clipped
+  const showCat = isIntro && !isMaximized;
+
   return (
     <Box 
-      className={`retro-desktop-window ${className}`} 
-      maxWidth={maxWidth} 
-      width={width}
+      className={`retro-desktop-window ${isMaximized ? 'maximized' : ''} ${showCat ? 'has-cat-perch' : ''} ${className}`} 
+      maxWidth={isMaximized ? undefined : maxWidth} 
+      width={isMaximized ? undefined : width}
     >
-      {/* Milo the Digital Pet Perched ONLY on the Intro Tab Ledge */}
-      {title.toLowerCase().includes('intro') && <DesktopCatPet />}
+      {showCat && <DesktopCatPet />}
 
       <Box className="window-header-bar">
         <Box className="window-control-dots">
-          <span className="dot dot-red" />
-          <span className="dot dot-yellow" />
-          <span className="dot dot-green" />
+          <span className="dot dot-red" onClick={onClose} title="Close window tab" />
+          <span 
+            className="dot dot-green" 
+            onClick={toggleMaximize} 
+            title={isMaximized ? "Restore window size" : "Maximize window"} 
+          />
         </Box>
-        <Text className="window-title-text">{title}</Text>
-        <Box className="window-header-right">
-          <span className="window-badge">AVI-OS v1.0</span>
-        </Box>
+        <Text className="window-title-text">
+          {title} {isMaximized ? " (Full Screen)" : ""}
+        </Text>
+        <Box className="window-header-right-spacer" />
       </Box>
+
       <Box key={title} className="window-body-content tab-fade-slide-anim">
         {children}
       </Box>

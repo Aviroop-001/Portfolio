@@ -158,9 +158,7 @@ function App() {
       {/* Top Retro OS Navbar (Height: 48px) */}
       <header className="top-os-navbar">
         <div className="navbar-left">
-          <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
-            AVI OS
-          </span>
+          <span className="nav-badge">AVI-OS v1.0</span>
         </div>
 
         {/* Center: Audio Player Widget */}
@@ -186,7 +184,7 @@ function App() {
           </div>
         </div>
 
-        {/* Right: Theme Toggle & System Badge */}
+        {/* Right: Theme Toggle Mode Changer Only */}
         <div className="navbar-right">
           <button 
             className="theme-toggle-pill"
@@ -196,8 +194,6 @@ function App() {
             {theme === 'light' ? <FiMoon className="theme-icon" /> : <FiSun className="theme-icon" />}
             <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
           </button>
-
-          <span className="nav-badge" onClick={() => setShowAboutModal(true)}>AVI-OS v1.0</span>
         </div>
       </header>
 
@@ -240,13 +236,16 @@ function App() {
 
         {/* OS DESKTOP WINDOW (Contains purely the active content section) */}
         <section className="window-viewport-container">
-          <DesktopWindow 
-            title={`avi-os / ${activeTab}.app`} 
-            maxWidth="100%" 
-            width="100%"
-          >
-            {renderActiveSection()}
-          </DesktopWindow>
+          {activeTab ? (
+            <DesktopWindow 
+              title={`avi-os / ${activeTab}.app`} 
+              maxWidth="100%" 
+              width="100%"
+              onClose={() => setActiveTab(null)}
+            >
+              {renderActiveSection()}
+            </DesktopWindow>
+          ) : (<></>)}
         </section>
       </main>
 
@@ -308,7 +307,7 @@ function App() {
               <p>A retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
               <div className="info-pills">
                 <span className="info-pill">⚡ Built with React &amp; SCSS</span>
-                <span className="info-pill">🐱 Milo the Virtual Desktop Cat</span>
+                <span className="info-pill">🐱 Kookie the Virtual Desktop Cat</span>
                 <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
               </div>
             </div>

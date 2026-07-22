@@ -58,15 +58,15 @@
       align-items: center;
 
       .window-badge {
-        font-family: 'Courier New', Courier, monospace;
+        font-family: monospace;
         font-size: 0.65rem;
         font-weight: 800;
-        background-color: $accent-yellow;
+        // background-color: $accent-yellow;
         color: $text-charcoal;
         padding: 2px 6px;
-        border: 1.5px solid $text-charcoal;
-        border-radius: 4px;
-        box-shadow: 1px 1px 0px $text-charcoal;
+        // border: 1.5px solid $text-charcoal;
+        // border-radius: 4px;
+        // box-shadow: 1px 1px 0px $text-charcoal;
       }
     }
   }
