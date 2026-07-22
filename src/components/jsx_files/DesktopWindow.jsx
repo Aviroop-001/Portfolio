@@ -10,8 +10,8 @@ export default function DesktopWindow({ title, children, className = "", maxWidt
       maxWidth={maxWidth} 
       width={width}
     >
-      {/* Milo the Digital Pet Perched on Top Window Ledge */}
-      <DesktopCatPet />
+      {/* Milo the Digital Pet Perched ONLY on the Intro Tab Ledge */}
+      {title.toLowerCase().includes('intro') && <DesktopCatPet />}
 
       <Box className="window-header-bar">
         <Box className="window-control-dots">

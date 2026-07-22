@@ -7,7 +7,6 @@ export default function DesktopCatPet() {
   const [isSleeping, setIsSleeping] = useState(true);
   const [speech, setSpeech] = useState("Tap to wake me up! 💤");
   const [hearts, setHearts] = useState([]);
-  const [posX, setPosX] = useState(120);
 
   // Web Audio Cat Purr Synthesizer Refs
   const audioCtxRef = useRef(null);
@@ -111,10 +110,9 @@ export default function DesktopCatPet() {
     } catch (err) {}
   };
 
-  // Walking & Sleeping Timer
+  // Sleeping Timer (No jumping/walking around)
   useEffect(() => {
     let sleepTimer;
-    let walkInterval;
 
     if (isAwake) {
       // Sleep again if idle for 20 seconds
@@ -125,22 +123,12 @@ export default function DesktopCatPet() {
         setSpeech("Tap to wake me up! 💤");
         stopCatPurrSound();
       }, 20000);
-
-      walkInterval = setInterval(() => {
-        if (!isPurring) {
-          setPosX(prev => {
-            const delta = (Math.random() > 0.5 ? 25 : -25);
-            return Math.max(50, Math.min(prev + delta, 420));
-          });
-        }
-      }, 5000);
     }
 
     return () => {
       clearTimeout(sleepTimer);
-      clearInterval(walkInterval);
     };
-  }, [isAwake, isPurring]);
+  }, [isAwake]);
 
   // TAP / CLICK: Wakes cat up & unlocks browser AudioContext!
   const handlePetCat = () => {
@@ -190,7 +178,6 @@ export default function DesktopCatPet() {
   return (
     <div 
       className="desktop-pixel-cat" 
-      style={{ left: `${posX}px` }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handlePetCat} 
