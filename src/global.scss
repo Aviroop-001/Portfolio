@@ -1,4 +1,4 @@
-// Global SCSS Variables & Hex.tech Glass UI Theme Tokens
+// Global SCSS Variables & High-Visibility Hex.tech Glass UI Theme Tokens
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
 
 $mobile: 768px;
@@ -21,55 +21,55 @@ $font-heading: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', monospace;
 
-// Light Theme (Hex.tech Glass & Deep Dark Rolex Emerald)
+// Light Theme (Crisp Glass & Deep Dark Rolex Emerald)
 :root, [data-theme="light"], [data-theme="cream"] {
-  --bg-color: #F4F7F4;
-  --text-color: #11261F;
-  --title-color: #041F18;
-  --subtext-color: #2D473E;
-  --muted-text: #4E695F;
-  --card-bg: rgba(255, 255, 255, 0.45);
-  --card-solid: rgba(255, 255, 255, 0.52);
-  --secondary-bg: rgba(225, 240, 232, 0.55);
+  --bg-color: #F2F6F3;
+  --text-color: #0E241D;
+  --title-color: #031C15;
+  --subtext-color: #274238;
+  --muted-text: #486359;
+  --card-bg: rgba(255, 255, 255, 0.22); // High Glass Translucency
+  --card-solid: rgba(255, 255, 255, 0.32);
+  --secondary-bg: rgba(215, 235, 225, 0.35);
   --accent-yellow: #024F37; // Deep Dark Rolex Emerald
   --accent-primary: #024F37;
   --btn-text-on-accent: #FFFFFF;
   --btn-text-on-yellow: #FFFFFF;
-  --border-color: rgba(2, 79, 55, 0.18);
-  --border-strong: rgba(2, 79, 55, 0.32);
+  --border-color: rgba(2, 79, 55, 0.22);
+  --border-strong: rgba(2, 79, 55, 0.38);
   --shadow-color: rgba(2, 79, 55, 0.1);
-  --shadow-elevated: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 24px 60px -10px rgba(2, 79, 55, 0.22);
-  --shadow-card: 0 4px 20px -2px rgba(2, 79, 55, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.45);
+  --shadow-elevated: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 20px 50px -10px rgba(2, 79, 55, 0.18);
+  --shadow-card: 0 4px 20px -2px rgba(2, 79, 55, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.22);
   --glass-border: rgba(255, 255, 255, 0.85);
-  --icon-bg: rgba(255, 255, 255, 0.5);
-  --label-bg: rgba(255, 255, 255, 0.65);
+  --icon-bg: rgba(255, 255, 255, 0.35);
+  --label-bg: rgba(255, 255, 255, 0.5);
   --accent-green: #024F37;
 }
 
-// Dark Theme (Hex.tech Midnight Obsidian Glass & Neon Jade Emerald)
+// Dark Theme (Hex.tech Midnight Glass & Neon Emerald)
 [data-theme="dark"] {
-  --bg-color: #0C0A14; // Hex.tech Deep Obsidian Canvas
+  --bg-color: #0C0A14;
   --text-color: #E6F5EF;
   --title-color: #FFFFFF;
   --subtext-color: #9EC7B7;
   --muted-text: #6B9C89;
-  --card-bg: rgba(18, 16, 28, 0.58);
-  --card-solid: rgba(24, 22, 38, 0.65);
-  --secondary-bg: rgba(30, 26, 48, 0.65);
+  --card-bg: rgba(18, 16, 28, 0.35);
+  --card-solid: rgba(24, 22, 38, 0.45);
+  --secondary-bg: rgba(30, 26, 48, 0.45);
   --accent-yellow: #34D399; // Neon Jade Emerald
   --accent-primary: #34D399;
   --btn-text-on-accent: #0C0A14;
   --btn-text-on-yellow: #0C0A14;
-  --border-color: rgba(52, 211, 153, 0.22);
-  --border-strong: rgba(52, 211, 153, 0.38);
+  --border-color: rgba(52, 211, 153, 0.25);
+  --border-strong: rgba(52, 211, 153, 0.42);
   --shadow-color: rgba(0, 0, 0, 0.55);
   --shadow-elevated: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 28px 60px -12px rgba(0, 0, 0, 0.75);
   --shadow-card: 0 8px 30px -4px rgba(0, 0, 0, 0.5);
-  --glass-bg: rgba(18, 16, 28, 0.58);
-  --glass-border: rgba(52, 211, 153, 0.28);
-  --icon-bg: rgba(18, 16, 28, 0.6);
-  --label-bg: rgba(18, 16, 28, 0.7);
+  --glass-bg: rgba(18, 16, 28, 0.35);
+  --glass-border: rgba(52, 211, 153, 0.3);
+  --icon-bg: rgba(18, 16, 28, 0.45);
+  --label-bg: rgba(18, 16, 28, 0.55);
   --accent-green: #34D399;
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './HexTechBackground.scss';
 
 export default function HexTechBackground() {
-  // Generate 24 intersecting radial lines for Hex.tech spirograph
+  // Generate 36 intersecting radial lines for Hex.tech spirograph
   const radialLines = Array.from({ length: 36 }, (_, i) => {
     const angle = (i * 10 * Math.PI) / 180;
     const x2 = 50 + 50 * Math.cos(angle);
@@ -10,44 +10,44 @@ export default function HexTechBackground() {
     return { x2: `${x2}%`, y2: `${y2}%` };
   });
 
-  // Generate concentric geometric rings
-  const rings = [10, 20, 30, 40, 50, 65, 80, 95];
+  // Concentric geometric rings
+  const rings = [8, 16, 26, 38, 52, 68, 85, 100];
 
   return (
     <div className="hex-tech-bg-container">
       {/* Central Hex.tech Spirograph Lattice */}
       <svg className="hex-spirograph-svg" width="100%" height="100%" preserveAspectRatio="none">
-        <g opacity="0.35">
+        <g opacity="0.75">
           {/* Concentric Circles */}
           {rings.map((r, idx) => (
             <circle 
               key={idx} 
               cx="50%" 
-              cy="45%" 
+              cy="48%" 
               r={`${r}%`} 
               fill="none" 
               stroke="var(--accent-yellow)" 
-              strokeWidth="0.75" 
-              strokeDasharray={idx % 2 === 0 ? "none" : "4 4"}
+              strokeWidth="1.3" 
+              strokeDasharray={idx % 2 === 0 ? "none" : "6 4"}
             />
           ))}
 
-          {/* Radial Lines */}
+          {/* Radial Intersecting Web Rays */}
           {radialLines.map((line, idx) => (
             <line 
               key={idx} 
               x1="50%" 
-              y1="45%" 
+              y1="48%" 
               x2={line.x2} 
               y2={line.y2} 
               stroke="var(--accent-yellow)" 
-              strokeWidth="0.75" 
+              strokeWidth="1.3" 
             />
           ))}
 
-          {/* Additional Intersecting Curved Web */}
-          <circle cx="50%" cy="45%" r="25%" fill="none" stroke="var(--accent-yellow)" strokeWidth="0.75" />
-          <circle cx="50%" cy="45%" r="45%" fill="none" stroke="var(--accent-yellow)" strokeWidth="0.75" />
+          {/* Additional Outer Web Rings */}
+          <circle cx="50%" cy="48%" r="32%" fill="none" stroke="var(--accent-yellow)" strokeWidth="1.3" />
+          <circle cx="50%" cy="48%" r="60%" fill="none" stroke="var(--accent-yellow)" strokeWidth="1.3" />
         </g>
       </svg>
 
