@@ -135,22 +135,27 @@
   .navbar-right {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
+    gap: 1rem;
 
-    .theme-toggle-btn {
-      display: flex;
+    .theme-toggle-pill {
+      display: inline-flex;
       align-items: center;
       gap: 0.45rem;
       background-color: var(--secondary-bg);
       border: 1px solid var(--border-color);
       border-radius: 9999px;
-      padding: 0.3rem 0.85rem;
+      padding: 0.35rem 0.95rem;
       font-family: $font-body;
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--text-color);
       cursor: pointer;
+      white-space: nowrap;
       transition: all 0.18s ease;
+
+      .theme-icon {
+        font-size: 0.88rem;
+      }
 
       &:hover {
         background-color: var(--accent-yellow);
@@ -159,11 +164,17 @@
       }
     }
 
-    .os-version-badge {
+    .nav-badge {
       font-family: $font-mono;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
       color: var(--subtext-color);
+      white-space: nowrap;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--title-color);
+      }
     }
   }
 }
