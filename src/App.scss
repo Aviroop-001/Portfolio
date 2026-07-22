@@ -300,24 +300,26 @@
   100% { height: 12px; }
 }
 
-// Main Desktop Viewport Container
+// Main Desktop Viewport Container (Compact & Centered so wallpaper is prominent)
 .desktop-main-viewport {
-  padding: 4.4rem 1.8rem 1.4rem 1.8rem;
-  max-width: 1600px;
+  padding: 4.2rem 1.5rem 1.5rem 1.5rem;
+  max-width: 1160px;
   margin: 0 auto;
   height: calc(100vh - 48px);
   display: flex;
-  gap: 1.8rem;
-  align-items: stretch;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
   position: relative;
   z-index: 1;
 
   @media (max-width: 850px) {
     flex-direction: column;
-    padding: 4.4rem 1rem 1rem 1rem;
+    padding: 4.2rem 1rem 1rem 1rem;
     gap: 1rem;
     height: auto;
     min-height: calc(100vh - 48px);
+    align-items: stretch;
   }
 }
 

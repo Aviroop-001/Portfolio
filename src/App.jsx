@@ -19,11 +19,6 @@ import {
   FiVolumeX,
   FiSun,
   FiMoon,
-  FiChevronDown,
-  FiCheck,
-  FiInfo,
-  FiMail,
-  FiCopy,
   FiCode,
   FiExternalLink
 } from 'react-icons/fi';
@@ -33,33 +28,19 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showLinksModal, setShowLinksModal] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   
   const audioRef = useRef(null);
-  const menuContainerRef = useRef(null);
 
   // Apply theme to html data-theme attribute
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Close top OS menu dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (menuContainerRef.current && !menuContainerRef.current.contains(e.target)) {
-        setActiveMenu(null);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    setActiveMenu(null);
   };
 
   const togglePlayAudio = () => {
@@ -175,153 +156,10 @@ function App() {
 
       {/* Top Retro OS Navbar (Height: 48px) */}
       <header className="top-os-navbar">
-        <div className="navbar-left" ref={menuContainerRef}>
+        <div className="navbar-left">
           <span className="os-brand" onClick={() => setShowAboutModal(true)} title="About AVI OS">
             🦔 AVI OS
           </span>
-
-          {/* Top Menu Options with Interactive Retro Dropdowns */}
-          <div className="os-menu-bar">
-            {/* FILE MENU */}
-            <div className="menu-dropdown-wrapper">
-              <span 
-                className={`nav-menu-item ${activeMenu === 'file' ? 'active' : ''}`}
-                onClick={() => setActiveMenu(activeMenu === 'file' ? null : 'file')}
-              >
-                File <FiChevronDown className="arrow-icon" />
-              </span>
-              {activeMenu === 'file' && (
-                <div className="retro-dropdown-menu">
-                  <a 
-                    href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="dropdown-item"
-                    onClick={() => setActiveMenu(null)}
-                  >
-                    <FiFileText /> Download Resume PDF
-                  </a>
-                  <div 
-                    className="dropdown-item"
-                    onClick={() => { setShowLinksModal(true); setActiveMenu(null); }}
-                  >
-                    📁 Open Links Folder
-                  </div>
-                  <div className="dropdown-divider" />
-                  <div 
-                    className="dropdown-item"
-                    onClick={() => { setActiveTab('contact'); setActiveMenu(null); }}
-                  >
-                    <FiMail /> Send Message / Inquiry
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* EDIT MENU */}
-            <div className="menu-dropdown-wrapper">
-              <span 
-                className={`nav-menu-item ${activeMenu === 'edit' ? 'active' : ''}`}
-                onClick={() => setActiveMenu(activeMenu === 'edit' ? null : 'edit')}
-              >
-                Edit <FiChevronDown className="arrow-icon" />
-              </span>
-              {activeMenu === 'edit' && (
-                <div className="retro-dropdown-menu">
-                  <div className="dropdown-item" onClick={() => { copyEmail(); setActiveMenu(null); }}>
-                    <FiCopy /> Copy Email Address
-                  </div>
-                  <div className="dropdown-divider" />
-                  <a 
-                    href="https://github.com/Aviroop-001" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="dropdown-item"
-                    onClick={() => setActiveMenu(null)}
-                  >
-                    <FiGithub /> Open GitHub Profile
-                  </a>
-                  <a 
-                    href="https://www.linkedin.com/in/aviroopbanerjee/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="dropdown-item"
-                    onClick={() => setActiveMenu(null)}
-                  >
-                    <FiLinkedin /> Open LinkedIn Profile
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* VIEW MENU */}
-            <div className="menu-dropdown-wrapper">
-              <span 
-                className={`nav-menu-item ${activeMenu === 'view' ? 'active' : ''}`}
-                onClick={() => setActiveMenu(activeMenu === 'view' ? null : 'view')}
-              >
-                View <FiChevronDown className="arrow-icon" />
-              </span>
-              {activeMenu === 'view' && (
-                <div className="retro-dropdown-menu">
-                  <div className="dropdown-item" onClick={toggleTheme}>
-                    {theme === 'light' ? <FiMoon /> : <FiSun />}
-                    <span>Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme</span>
-                  </div>
-                  <div className="dropdown-divider" />
-                  <div className="dropdown-item" onClick={togglePlayAudio}>
-                    {isPlaying ? <FiPause /> : <FiPlay />}
-                    <span>{isPlaying ? 'Pause Lofi Audio' : 'Play Lofi Audio'}</span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* WINDOW MENU */}
-            <div className="menu-dropdown-wrapper">
-              <span 
-                className={`nav-menu-item ${activeMenu === 'window' ? 'active' : ''}`}
-                onClick={() => setActiveMenu(activeMenu === 'window' ? null : 'window')}
-              >
-                Window <FiChevronDown className="arrow-icon" />
-              </span>
-              {activeMenu === 'window' && (
-                <div className="retro-dropdown-menu">
-                  {sections.map((sec) => (
-                    <div 
-                      key={sec.id}
-                      className={`dropdown-item ${activeTab === sec.id ? 'selected' : ''}`}
-                      onClick={() => { setActiveTab(sec.id); setActiveMenu(null); }}
-                    >
-                      <span>{sec.icon} {sec.name}.app</span>
-                      {activeTab === sec.id && <FiCheck className="check-icon" />}
-                    </div>
-                  ))}
-                  <div className="dropdown-divider" />
-                  <div className="dropdown-item" onClick={() => { setShowLinksModal(true); setActiveMenu(null); }}>
-                    📁 Links.folder
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* HELP MENU */}
-            <div className="menu-dropdown-wrapper">
-              <span 
-                className={`nav-menu-item ${activeMenu === 'help' ? 'active' : ''}`}
-                onClick={() => setActiveMenu(activeMenu === 'help' ? null : 'help')}
-              >
-                Help <FiChevronDown className="arrow-icon" />
-              </span>
-              {activeMenu === 'help' && (
-                <div className="retro-dropdown-menu">
-                  <div className="dropdown-item" onClick={() => { setShowAboutModal(true); setActiveMenu(null); }}>
-                    <FiInfo /> About AVI OS v1.0
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
 
         {/* Center: Audio Player Widget */}

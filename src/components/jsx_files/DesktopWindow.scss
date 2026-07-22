@@ -9,12 +9,13 @@
   box-shadow: var(--shadow-elevated);
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  max-height: 82vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   position: relative;
 
-  // Apple VisionOS Glass Specular Highlight Inset Border
+  // macOS Glass Specular Highlight Inset Border
   &::before {
     content: '';
     position: absolute;
@@ -34,7 +35,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
-    padding: 0.8rem 1.4rem;
+    padding: 0.65rem 1.2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -81,7 +82,7 @@
   }
 
   .window-body-content {
-    padding: 1.5rem 1.8rem 3rem 1.8rem;
+    padding: 1.2rem 1.6rem 2rem 1.6rem;
     color: var(--text-color);
     font-family: $font-body;
     flex: 1;
@@ -90,7 +91,7 @@
     background: transparent;
 
     @media (max-width: 768px) {
-      padding: 1rem 1rem 3rem 1rem;
+      padding: 1rem 1rem 2rem 1rem;
     }
   }
 }
