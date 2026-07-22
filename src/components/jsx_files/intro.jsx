@@ -2,7 +2,6 @@ import "../styling_files/intro.scss";
 import { useEffect, useState } from "react";
 import { 
   IoEyeOutline, 
-  IoCloseOutline, 
   IoDownloadOutline,
   IoSparkles
 } from 'react-icons/io5';
@@ -116,25 +115,30 @@ export default function Intro() {
           </Box>
         </Box>
 
-        {/* Resume Preview Modal */}
+        {/* Full-Screen macOS Glass Resume Preview Modal */}
         {showResumeModal && (
           <Box className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
-            <Box className="resume-modal" onClick={(e) => e.stopPropagation()}>
-              <Box className="modal-header">
-                <Text className="modal-title">Resume Preview</Text>
+            <Box className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
+              <Box className="resume-modal-header">
+                <Box className="window-dots">
+                  <span className="dot dot-red" onClick={() => setShowResumeModal(false)} />
+                  <span className="dot dot-yellow" />
+                  <span className="dot dot-green" />
+                </Box>
+                <Text className="modal-title">📄 avi-os / resume_preview.pdf</Text>
                 <button 
-                  className="modal-close"
+                  className="close-btn"
                   onClick={() => setShowResumeModal(false)}
                 >
-                  <IoCloseOutline />
+                  ✕
                 </button>
               </Box>
-              <Box className="modal-content">
+              <Box className="resume-modal-body">
                 <iframe
                   src="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/preview"
                   width="100%"
                   height="100%"
-                  title="Resume Preview"
+                  title="Aviroop Banerjee Resume Preview"
                   frameBorder="0"
                 />
               </Box>
