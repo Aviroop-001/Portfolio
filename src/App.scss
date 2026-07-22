@@ -58,28 +58,28 @@
   .navbar-left {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 1rem;
 
-    .os-brand {
-      font-family: $font-heading;
+    .nav-badge {
+      font-family: $font-mono;
+      font-size: 0.88rem;
       font-weight: 800;
-      font-size: 0.95rem;
-      color: var(--title-color);
-      letter-spacing: -0.3px;
+      color: var(--text-color);
+      letter-spacing: 0.4px;
+      white-space: nowrap;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.85rem;
       background-color: var(--secondary-bg);
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--border-strong);
       border-radius: 8px;
-      transition: all 0.18s ease;
+      box-shadow: 2px 2px 0px var(--shadow-color);
+      transition: all 0.15s ease;
 
       &:hover {
         background-color: var(--accent-yellow);
         color: var(--btn-text-on-yellow);
-        border-color: var(--border-strong);
+        transform: translate(-1px, -1px);
+        box-shadow: 3px 3px 0px var(--shadow-color);
       }
     }
   }
