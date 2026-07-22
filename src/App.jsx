@@ -8,6 +8,7 @@ import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
+import HexGrid3D from './components/jsx_files/HexGrid3D';
 import { 
   FiFileText, 
   FiGithub, 
@@ -163,10 +164,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* PostHog Retro Sunset Desktop Wallpaper */}
-      <div className="desktop-wallpaper-background wallpaper-posthog">
-        <div className="wallpaper-grid-overlay" />
-      </div>
+      {/* 3D Perspective Hexagonal Grid Background */}
+      <HexGrid3D />
       {/* Hidden Audio Element for Synthwave Lofi */}
       <audio 
         ref={audioRef} 
