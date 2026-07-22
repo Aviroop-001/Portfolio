@@ -15,7 +15,7 @@
   .window-header-bar {
     background-color: var(--secondary-bg);
     border-bottom: 2px solid var(--border-color);
-    padding: 0.6rem 1rem;
+    padding: 0.65rem 1.1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,16 +39,16 @@
     }
 
     .window-title-text {
-      font-family: 'Courier New', Courier, monospace;
+      font-family: $font-mono;
       font-size: 0.82rem;
       font-weight: 800;
       color: var(--text-color);
-      letter-spacing: 0.5px;
+      letter-spacing: 0.2px;
     }
 
     .window-badge-right {
       .os-badge {
-        font-family: 'Courier New', Courier, monospace;
+        font-family: $font-mono;
         font-size: 0.72rem;
         font-weight: 800;
         background-color: var(--accent-yellow);
@@ -62,14 +62,15 @@
   }
 
   .window-body-content {
-    padding: 2.2rem 2.8rem 5.5rem 2.8rem;
+    padding: 2.4rem 3rem 5.5rem 3rem;
     color: var(--text-color);
+    font-family: $font-body;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
 
     @media (max-width: 768px) {
-      padding: 1.2rem 1.2rem 4rem 1.2rem;
+      padding: 1.4rem 1.4rem 4rem 1.4rem;
     }
   }
 }

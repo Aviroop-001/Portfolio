@@ -2,36 +2,37 @@
 
 .education-compact-container {
   width: 100%;
-  max-width: 960px;
+  max-width: 980px;
   margin: 0 auto;
 
   .education-header {
     text-align: center;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
 
     .section-title {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       font-weight: 800;
       color: var(--title-color);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin-bottom: 0.3rem;
-      letter-spacing: -0.5px;
+      font-family: $font-heading;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.8px;
 
       @include mobile {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
       }
     }
 
     .education-description {
-      font-size: 0.88rem;
+      font-family: $font-body;
+      font-size: 0.92rem;
       color: var(--subtext-color);
       font-weight: 500;
-      max-width: 620px;
+      max-width: 640px;
       margin: 0 auto;
-      line-height: 1.4;
+      line-height: 1.55;
 
       @include mobile {
-        font-size: 0.8rem;
+        font-size: 0.82rem;
       }
     }
   }
@@ -40,19 +41,19 @@
   .education-cards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
+    gap: 1.4rem;
 
     @include mobile {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.1rem;
     }
 
     .compact-edu-card {
       background-color: var(--card-bg);
       border: 2px solid var(--border-color);
       border-radius: 10px;
-      padding: 1.2rem;
-      box-shadow: 4px 4px 0px var(--shadow-color);
+      padding: 1.4rem;
+      box-shadow: 4.5px 4.5px 0px var(--shadow-color);
       transition: all 0.15s ease;
       display: flex;
       flex-direction: column;
@@ -60,7 +61,7 @@
 
       &:hover {
         transform: translate(-2px, -2px);
-        box-shadow: 6px 6px 0px var(--shadow-color);
+        box-shadow: 6.5px 6.5px 0px var(--shadow-color);
       }
 
       .card-top {
@@ -68,18 +69,18 @@
         justify-content: space-between;
         align-items: flex-start;
         gap: 0.5rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.9rem;
 
         .edu-icon-badge {
-          width: 38px;
-          height: 38px;
+          width: 40px;
+          height: 40px;
           background-color: var(--accent-yellow);
           border: 2px solid var(--border-color);
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.2rem;
+          font-size: 1.25rem;
           color: var(--btn-text-on-yellow);
           box-shadow: 2px 2px 0px var(--shadow-color);
           flex-shrink: 0;
@@ -89,7 +90,7 @@
           display: flex;
           flex-direction: column;
           align-items: flex-end;
-          gap: 0.3rem;
+          gap: 0.35rem;
 
           .cgpa-pill {
             display: inline-flex;
@@ -99,8 +100,8 @@
             color: #1D1E1C;
             border: 1.5px solid var(--border-color);
             border-radius: 5px;
-            padding: 0.2rem 0.5rem;
-            font-family: 'Courier New', Courier, monospace;
+            padding: 0.2rem 0.55rem;
+            font-family: $font-mono;
             font-size: 0.72rem;
             font-weight: 800;
             box-shadow: 1.5px 1.5px 0px var(--shadow-color);
@@ -113,8 +114,8 @@
             background-color: var(--secondary-bg);
             border: 1.5px solid var(--border-color);
             border-radius: 5px;
-            padding: 0.2rem 0.5rem;
-            font-family: 'Courier New', Courier, monospace;
+            padding: 0.2rem 0.55rem;
+            font-family: $font-mono;
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--text-color);
@@ -123,37 +124,39 @@
       }
 
       .card-titles {
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.7rem;
 
         .degree-name {
-          font-size: 1rem;
+          font-family: $font-heading;
+          font-size: 1.05rem;
           font-weight: 800;
           color: var(--title-color);
-          line-height: 1.25;
+          line-height: 1.3;
         }
 
         .institution-name {
-          font-family: 'Courier New', Courier, monospace;
+          font-family: $font-mono;
           font-size: 0.75rem;
           font-weight: 800;
           color: var(--subtext-color);
-          margin-top: 2px;
+          margin-top: 3px;
         }
       }
 
       .edu-details-text {
-        font-size: 0.82rem;
+        font-family: $font-body;
+        font-size: 0.85rem;
         color: var(--text-color);
-        line-height: 1.4;
-        margin-bottom: 0.8rem;
+        line-height: 1.5;
+        margin-bottom: 0.9rem;
       }
 
       .coursework-box {
         border-top: 1.5px dashed var(--subtext-color);
-        padding-top: 0.6rem;
+        padding-top: 0.7rem;
 
         .coursework-label {
-          font-family: 'Courier New', Courier, monospace;
+          font-family: $font-mono;
           font-size: 0.65rem;
           font-weight: 800;
           color: var(--subtext-color);
@@ -170,8 +173,8 @@
             background-color: var(--secondary-bg);
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            padding: 0.15rem 0.45rem;
-            font-family: 'Courier New', Courier, monospace;
+            padding: 0.15rem 0.48rem;
+            font-family: $font-mono;
             font-size: 0.7rem;
             font-weight: 700;
             color: var(--text-color);
