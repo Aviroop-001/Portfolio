@@ -38,17 +38,17 @@
       }
     }
 
-    // Tagline (Inter Clean Sans-Serif Uppercase Tagline)
+    // Tagline (Terminal Monospace Font)
     .title-tagline {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.15rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
       font-weight: 700;
-      color: var(--subtext-color);
-      letter-spacing: 2.2px;
+      color: var(--accent-yellow);
+      letter-spacing: 1.8px;
       text-transform: uppercase;
 
       @include mobile {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
       }
     }
 
