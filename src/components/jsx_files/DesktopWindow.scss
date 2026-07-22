@@ -2,8 +2,8 @@
 
 .retro-desktop-window {
   background-color: var(--card-bg);
-  backdrop-filter: blur(10px) saturate(150%);
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   box-shadow: var(--shadow-elevated);
@@ -14,14 +14,14 @@
   flex-direction: column;
   position: relative;
 
-  // macOS Glass Specular Highlight Inset Border
+  // Apple VisionOS Glass Specular Highlight Inset Border
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 20px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.08));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.08));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -31,8 +31,8 @@
   // Window Top Header Bar (macOS Glass Header Line)
   .window-header-bar {
     background-color: var(--secondary-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
     padding: 0.8rem 1.4rem;
     display: flex;

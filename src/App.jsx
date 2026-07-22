@@ -8,7 +8,7 @@ import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
-import HexTechBackground from './components/jsx_files/HexTechBackground';
+import AnimatedBackground from './components/jsx_files/AnimatedBackground';
 import { 
   FiFileText, 
   FiGithub, 
@@ -164,8 +164,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* Hex.tech Spirograph Grid Background */}
-      <HexTechBackground />
+      {/* Apple VisionOS Ambient Glass Aurora Mesh Background */}
+      <AnimatedBackground />
       {/* Hidden Audio Element for Synthwave Lofi */}
       <audio 
         ref={audioRef} 
