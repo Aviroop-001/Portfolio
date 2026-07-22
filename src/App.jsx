@@ -8,7 +8,6 @@ import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
-import AnimatedBackground from './components/jsx_files/AnimatedBackground';
 import { 
   FiFileText, 
   FiGithub, 
@@ -164,7 +163,10 @@ function App() {
 
   return (
     <div className="App">
-      <AnimatedBackground />
+      {/* PostHog Retro Sunset Desktop Wallpaper */}
+      <div className="desktop-wallpaper-background wallpaper-posthog">
+        <div className="wallpaper-grid-overlay" />
+      </div>
       {/* Hidden Audio Element for Synthwave Lofi */}
       <audio 
         ref={audioRef} 
