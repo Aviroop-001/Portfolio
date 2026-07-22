@@ -30,6 +30,7 @@ function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showLinksModal, setShowLinksModal] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
   
   const audioRef = useRef(null);
 
@@ -117,7 +118,7 @@ function App() {
   const renderActiveSection = () => {
     switch (activeTab) {
       case 'intro':
-        return <Intro />;
+        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
       case 'experience':
         return <Experience />;
       case 'skills':
@@ -131,7 +132,7 @@ function App() {
       case 'contact':
         return <Contact />;
       default:
-        return <Intro />;
+        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
     }
   };
 
@@ -302,6 +303,32 @@ function App() {
                 <span className="info-pill">🎨 Light &amp; Dark Theme Engine</span>
                 <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Full-Screen macOS Glass Resume Preview Modal */}
+      {showResumeModal && (
+        <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+          <div className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-modal-header">
+              <div className="window-dots">
+                <span className="dot dot-red" onClick={() => setShowResumeModal(false)} title="Close Modal" />
+                <span className="dot dot-yellow" />
+                <span className="dot dot-green" />
+              </div>
+              <span className="modal-title">📄 avi-os / resume_preview.pdf</span>
+              <button className="close-btn" onClick={() => setShowResumeModal(false)} title="Close (Esc)">✕</button>
+            </div>
+            <div className="resume-modal-body">
+              <iframe
+                src="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/preview"
+                width="100%"
+                height="100%"
+                title="Aviroop Banerjee Resume Preview"
+                frameBorder="0"
+              />
             </div>
           </div>
         </div>
