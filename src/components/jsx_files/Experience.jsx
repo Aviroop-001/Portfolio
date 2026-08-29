@@ -2,102 +2,49 @@ import React, { useState } from 'react';
 import "../styling_files/experience.scss";
 import { timelineData } from "./Data";
 import { Box, Text } from "@chakra-ui/react";
-import { MdBusinessCenter } from "react-icons/md";
-import { FiCalendar, FiCode, FiLayers } from "react-icons/fi";
+import { FiCalendar, FiArrowRight } from "react-icons/fi";
 
 export default function Experience() {
-  const [filter, setFilter] = useState('ALL');
-
-  const categories = [
-    { id: 'ALL', label: 'All Roles' },
-    { id: 'Full-time', label: 'Full-Time' },
-    { id: 'Internship', label: 'Internships' },
-    { id: 'Volunteer', label: 'Leadership' }
-  ];
-
-  const filteredData = filter === 'ALL' 
-    ? timelineData 
-    : timelineData.filter(item => item.category?.tag === filter);
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <Box className="experience-container">
-      <Box className="experience-header">
-        <Text className="section-title">
-          Professional Journey
-        </Text>
-        <Text className="experience-description">
-          A track record of engineering scalable platforms, AI solutions, distributed backend services, and high-performance applications.
-        </Text>
-
-        {/* Category Filter Tabs */}
-        <Box className="filter-tab-bar">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              className={`filter-btn ${filter === cat.id ? 'active' : ''}`}
-              onClick={() => setFilter(cat.id)}
+    <Box className="experience-container modern-ux">
+      <Box className="experience-layout">
+        <div className="tabs-column">
+          {timelineData.map((item, idx) => (
+            <button 
+              key={idx}
+              className={`tab-btn ${activeTab === idx ? 'active' : ''}`}
+              onClick={() => setActiveTab(idx)}
             >
-              {cat.label}
+              <span className="tab-title">{item.position}</span>
+              <span className="tab-company">{item.org}</span>
             </button>
           ))}
-        </Box>
-      </Box>
-
-      {/* Experience Cards Stream */}
-      <Box className="experience-stream">
-        {filteredData.map((exp, index) => {
-          const skillsList = exp.skills ? exp.skills.split(',').map(s => s.trim()) : [];
-
-          return (
-            <Box key={exp.org + exp.position + index} className="experience-card-wrapper">
-              <Box className="card-top-row">
-                <Box className="role-meta">
-                  <Box className="company-badge-icon">
-                    <MdBusinessCenter />
-                  </Box>
-                  <Box className="role-titles">
-                    <Text className="position-title">{exp.position}</Text>
-                    <Text className="company-name">{exp.org}</Text>
-                  </Box>
-                </Box>
-
-                <Box className="date-pill">
-                  <FiCalendar className="pill-icon" />
-                  <span>{exp.date}</span>
-                </Box>
-              </Box>
-
-              <Box className="card-body-text">
-                {exp.bullets && exp.bullets.length > 0 ? (
-                  <ul className="bullet-points-list">
-                    {exp.bullets.map((bullet, idx) => (
-                      <li key={idx} className="bullet-item">
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <Text>{exp.text}</Text>
-                )}
-              </Box>
-
-              {/* Tag Badges */}
-              <Box className="card-footer-tags">
-                <span className={`tag-pill category-tag ${exp.category?.tag?.toLowerCase()}`}>
-                  <FiLayers className="pill-icon" />
-                  {exp.category?.tag}
-                </span>
-
-                {skillsList.map((skill) => (
-                  <span key={skill} className="tag-pill tech-tag">
-                    <FiCode className="pill-icon" />
-                    {skill}
-                  </span>
+        </div>
+        
+        <div className="content-column">
+          {timelineData[activeTab] && (
+            <div className="experience-details">
+              <h3 className="role-title">{timelineData[activeTab].position} <span className="company-name">@ {timelineData[activeTab].org}</span></h3>
+              <div className="date-badge">
+                <FiCalendar /> {timelineData[activeTab].date}
+              </div>
+              <ul className="impact-list">
+                {timelineData[activeTab].bullets && timelineData[activeTab].bullets.map((desc, i) => (
+                  <li key={i}><FiArrowRight className="bullet-icon"/> <span>{desc}</span></li>
                 ))}
-              </Box>
-            </Box>
-          );
-        })}
+              </ul>
+              {timelineData[activeTab].skills && (
+                <div className="tech-tags">
+                  {timelineData[activeTab].skills.split(', ').map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </Box>
     </Box>
   );

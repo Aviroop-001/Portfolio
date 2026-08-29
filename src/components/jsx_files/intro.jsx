@@ -5,24 +5,30 @@ import {
   IoSparkles
 } from 'react-icons/io5';
 import { Box, Text } from "@chakra-ui/react";
-import { companiesData } from "./Data.js";
+import ScrambleText from "./ScrambleText";
+import DesktopCatPet from "./DesktopCatPet";
 
 export default function Intro({ onPreviewResume }) {
     return (
       <Box className="intro-hero-container">
+        {/* Ambient Background Elements */}
+        <div className="hero-ambient-glow"></div>
+        <div className="hero-grid-overlay"></div>
+
         {/* Hero Title & Bio */}
         <Box className="hero-content">
-          <Text className="name-text">
-            Aviroop Banerjee
-          </Text>
+          <ScrambleText 
+            as="h1" 
+            text="Aviroop Banerjee" 
+            className="name-text" 
+          />
 
-          <Text className="title-tagline">
-            Software Engineer
-          </Text>
-
-          <Text className="subtitle-text">
-            Software Engineer with <strong>2+ years of experience</strong> building AI agents, LLM systems, distributed backend infrastructure, and platform-level software.
-          </Text>
+          <Box className="subtitle-wrapper" style={{ position: 'relative', display: 'inline-block' }}>
+            {/* <DesktopCatPet /> Disabled for now per request */}
+            <Text className="subtitle-text">
+              Software Engineer with <strong>2+ years of experience</strong> building AI agents, LLM systems, distributed backend infrastructure, and platform-level software.
+            </Text>
+          </Box>
 
           {/* CTA Action Buttons */}
           <Box className="cta-buttons">
@@ -43,52 +49,6 @@ export default function Intro({ onPreviewResume }) {
               <IoEyeOutline className="button-icon" />
               <span>PREVIEW RESUME</span>
             </button>
-          </Box>
-
-          {/* Worked at the Best Section */}
-          <Box className="worked-at-section">
-            <Box className="worked-at-header">
-              <IoSparkles className="sparkle-icon" />
-              <Text className="worked-at-title">WORKED AT THE BEST</Text>
-            </Box>
-            
-            <Box className="companies-marquee">
-              <Box className="marquee-content">
-                {companiesData.map((company, index) => (
-                  <Box key={index} className="company-logo-badge" title={company.name}>
-                    <img 
-                      src={company.logo} 
-                      alt={company.name} 
-                      className="company-logo-img"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        if (e.target.nextSibling) e.target.nextSibling.style.display = 'inline-flex';
-                      }}
-                    />
-                    <span className="company-fallback-icon" style={{ display: 'none' }}>
-                      {company.icon || '💼'} {company.fallbackText}
-                    </span>
-                  </Box>
-                ))}
-                {/* Duplicate for smooth continuous marquee scroll */}
-                {companiesData.map((company, index) => (
-                  <Box key={`dup-${index}`} className="company-logo-badge" title={company.name}>
-                    <img 
-                      src={company.logo} 
-                      alt={company.name} 
-                      className="company-logo-img"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        if (e.target.nextSibling) e.target.nextSibling.style.display = 'inline-flex';
-                      }}
-                    />
-                    <span className="company-fallback-icon" style={{ display: 'none' }}>
-                      {company.icon || '💼'} {company.fallbackText}
-                    </span>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
           </Box>
         </Box>
       </Box>

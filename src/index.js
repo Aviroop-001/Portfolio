@@ -9,7 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider resetCSS={false}>
       <App />
     </ChakraProvider>
     <SpeedInsights />

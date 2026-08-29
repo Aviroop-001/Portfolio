@@ -1,0 +1,64 @@
+.custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background-color: #10b981; /* Neon emerald green */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s, border 0.2s;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+
+  &.pointer {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(16, 185, 129, 0.15);
+    border: 2px solid rgba(16, 185, 129, 0.8);
+    backdrop-filter: blur(2px);
+  }
+}
+
+.custom-cursor-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999997;
+  transform: translate(-50%, -50%);
+  transition: left 0.15s ease-out, top 0.15s ease-out, background 0.2s; /* Lag effect */
+  
+  &.pointer {
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.25), transparent 60%);
+  }
+}
+
+/* The SVG trailing path styling */
+.cursor-trail-svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999998; /* Just behind the dot */
+}
+
+.cursor-trail-path {
+  fill: none;
+  stroke: rgba(16, 185, 129, 0.4); /* Trailing green line */
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
+}
+
+/* Hide default cursor on body */
+body {
+  cursor: none !important;
+}
+a, button, .tab-btn {
+  cursor: none !important;
+}

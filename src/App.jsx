@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./App.scss";
-import DesktopWindow from "./components/jsx_files/DesktopWindow";
 import Intro from "./components/jsx_files/intro";
 import Projects from "./components/jsx_files/Projects";
 import Contact from "./components/jsx_files/Contact";
@@ -8,325 +7,230 @@ import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
-import WallpaperImageBackground from './components/jsx_files/WallpaperImageBackground';
+import CustomCursor from './components/jsx_files/CustomCursor';
 import { 
   FiFileText, 
   FiGithub, 
   FiLinkedin,
-  FiPlay,
-  FiPause,
-  FiVolume2,
-  FiVolumeX,
-  FiSun,
-  FiMoon,
-  FiCode,
-  FiExternalLink,
-  FiHome,
-  FiBriefcase,
-  FiZap,
-  FiStar,
-  FiGrid,
-  FiBookOpen,
-  FiMail,
-  FiFolder
+  FiCode
 } from 'react-icons/fi';
 
+import { motion } from 'framer-motion';
+import ScrambleText from './components/jsx_files/ScrambleText';
+import CommandPalette from './components/jsx_files/CommandPalette';
+
 function App() {
-  const [activeTab, setActiveTab] = useState('intro');
-  const [theme, setTheme] = useState('light');
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showAboutModal, setShowAboutModal] = useState(false);
-  const [showLinksModal, setShowLinksModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
-  
-  const audioRef = useRef(null);
+  const [activeSection, setActiveSection] = useState('intro');
 
-  // Apply theme to html data-theme attribute
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', 'dark');
 
-  // Ambient Cursor Spotlight Position Tracker
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    document.documentElement.style.setProperty('--mouse-x', `${clientX}px`);
-    document.documentElement.style.setProperty('--mouse-y', `${clientY}px`);
-  };
+    const handleScroll = () => {
+      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'contact'];
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top >= -200 && rect.top <= window.innerHeight / 2) {
+            setActiveSection(section);
+          }
+        }
+      }
+    };
+    
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
-  const togglePlayAudio = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(err => {
-        console.log("Audio play error:", err);
-      });
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const toggleMute = () => {
-    if (!audioRef.current) return;
-    audioRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
-  };
+  const navLinks = [
+    { id: 'intro', name: 'Home' },
+    { id: 'experience', name: 'Experience' },
+    { id: 'skills', name: 'Skills' },
+    { id: 'projects', name: 'Projects' },
+    { id: 'education', name: 'Education' },
+    { id: 'testimonials', name: 'Reviews' },
+    { id: 'contact', name: 'Contact' }
+  ];
 
-  const sections = useMemo(() => [
-    { id: 'intro', name: 'Intro', icon: <FiHome /> },
-    { id: 'experience', name: 'Experience', icon: <FiBriefcase /> },
-    { id: 'skills', name: 'Skills', icon: <FiZap /> },
-    { id: 'testimonials', name: 'Reviews', icon: <FiStar /> },
-    { id: 'projects', name: 'Projects', icon: <FiGrid /> },
-    { id: 'education', name: 'Education', icon: <FiBookOpen /> },
-    { id: 'contact', name: 'Contact', icon: <FiMail /> }
-  ], []);
-
-  const socialLinks = useMemo(() => [
-    {
-      id: 'resume',
-      title: 'Resume.pdf',
-      label: 'PDF Document',
-      icon: <FiFileText />,
-      url: 'https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link',
-      type: 'pdf'
-    },
-    {
-      id: 'github',
-      title: 'GitHub.link',
-      label: '@Aviroop-001',
-      icon: <FiGithub />,
-      url: 'https://github.com/Aviroop-001',
-      type: 'link'
-    },
-    {
-      id: 'linkedin',
-      title: 'LinkedIn.link',
-      label: 'in/aviroopbanerjee',
-      icon: <FiLinkedin />,
-      url: 'https://www.linkedin.com/in/aviroopbanerjee/',
-      type: 'link'
-    },
-    {
-      id: 'leetcode',
-      title: 'LeetCode.link',
-      label: '@Aviroop_01',
-      icon: <FiCode />,
-      url: 'https://leetcode.com/Aviroop_01/',
-      type: 'link'
-    }
-  ], []);
-
-  const renderActiveSection = () => {
-    switch (activeTab) {
-      case 'intro':
-        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
-      case 'experience':
-        return <Experience />;
-      case 'skills':
-        return <Skills />;
-      case 'testimonials':
-        return <Testimonials />;
-      case 'education':
-        return <Education />;
-      case 'projects':
-        return <Projects />;
-      case 'contact':
-        return <Contact />;
-      default:
-        return <Intro onPreviewResume={() => setShowResumeModal(true)} />;
-    }
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
   return (
-    <div className="App" onMouseMove={handleMouseMove}>
-      {/* High-Resolution Desktop Wallpaper Image */}
-      <WallpaperImageBackground theme={theme} />
-      {/* Hidden Audio Element for Synthwave Lofi */}
-      <audio 
-        ref={audioRef} 
-        loop
-        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
-      />
+    <div className="App modern-theme">
+      <CustomCursor />
+      <CommandPalette />
 
-      {/* Top Retro OS Navbar (Height: 48px) */}
-      <header className="top-os-navbar">
-        <div className="navbar-left">
-          <span className="nav-badge">AVI-OS v1.0</span>
+      {/* Modern Sticky Navbar */}
+      <nav className="modern-navbar">
+        <div className="nav-brand" onClick={() => scrollToSection('intro')}>
+          {/* Brand removed per request */}
         </div>
-
-        {/* Center: Audio Player Widget */}
-        <div className="navbar-center">
-          <div className="synthwave-audio-widget">
-            <button className="audio-control-btn" onClick={togglePlayAudio} title={isPlaying ? "Pause Lofi" : "Play Lofi"}>
-              {isPlaying ? <FiPause /> : <FiPlay />}
-            </button>
-            <div className="audio-track-info">
-              <span className="track-title">🎵 Synthwave Lofi</span>
-              {isPlaying && (
-                <div className="equalizer-bars">
-                  <span className="bar bar-1" />
-                  <span className="bar bar-2" />
-                  <span className="bar bar-3" />
-                  <span className="bar bar-4" />
-                </div>
-              )}
-            </div>
-            <button className="audio-control-btn mute-btn" onClick={toggleMute} title={isMuted ? "Unmute" : "Mute"}>
-              {isMuted ? <FiVolumeX /> : <FiVolume2 />}
-            </button>
-          </div>
-        </div>
-
-        {/* Right: Theme Toggle Mode Changer Only */}
-        <div className="navbar-right">
-          <button 
-            className="theme-toggle-pill"
-            onClick={toggleTheme}
-            title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}
-          >
-            {theme === 'light' ? <FiMoon className="theme-icon" /> : <FiSun className="theme-icon" />}
-            <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
-          </button>
-        </div>
-      </header>
-
-      {/* Desktop Viewport Container */}
-      <main className="desktop-main-viewport">
-        {/* WALLPAPER DESKTOP ICONS (Left Navigation Column) */}
-        <aside className="wallpaper-sidebar">
-          <div className="wallpaper-group">
-            {sections.map((sec) => (
-              <button
-                key={sec.id}
-                className={`wallpaper-icon-btn ${activeTab === sec.id ? 'active' : ''}`}
-                onClick={() => setActiveTab(sec.id)}
-                title={sec.name}
-              >
-                <div className="icon-box">{sec.icon}</div>
-                <span className="icon-label">{sec.name}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Separator Line */}
-          <div className="wallpaper-divider" />
-
-          {/* DESKTOP LINKS FOLDER ICON */}
-          <div className="wallpaper-group resources-group">
+        <div className="nav-links">
+          {navLinks.map(link => (
             <button 
-              className="wallpaper-icon-btn links-folder-btn"
-              onClick={() => setShowLinksModal(true)}
-              title="Click to open Links Folder"
+              key={link.id} 
+              className={`nav-btn ${activeSection === link.id ? 'active' : ''}`}
+              onClick={() => scrollToSection(link.id)}
             >
-              <div className="icon-box folder-box">
-                <FiFolder />
-                <span className="folder-badge-count">4</span>
-              </div>
-              <span className="icon-label">Links</span>
+              {link.name}
             </button>
-          </div>
-        </aside>
+          ))}
+          <button 
+            className="cmd-k-hint"
+            onClick={() => {
+              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
+              window.dispatchEvent(event);
+            }}
+          >
+            <span className="search-icon">🔍</span>
+            <span className="kb-shortcut">⌘K</span>
+          </button>
+          <a 
+            href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="resume-btn"
+          >
+            Résumé
+          </a>
+        </div>
+      </nav>
 
-        {/* OS DESKTOP WINDOW (Contains purely the active content section) */}
-        <section className="window-viewport-container">
-          {activeTab ? (
-            <DesktopWindow 
-              title={`avi-os / ${activeTab}.app`} 
-              maxWidth="100%" 
-              width="100%"
-              onClose={() => setActiveTab(null)}
-            >
-              {renderActiveSection()}
-            </DesktopWindow>
-          ) : (<></>)}
+      {/* Main Scrolling Content */}
+      <main className="scrolling-content">
+        <section id="intro" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <Intro onPreviewResume={() => setShowResumeModal(true)} />
+          </motion.div>
+        </section>
+
+        <section id="about" className="page-section">
+          <motion.div 
+            className="section-container about-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="About Me" className="section-title" />
+            <p className="about-text">
+              Software Engineer specializing in highly scalable distributed backends, LLM-powered multi-agent architectures, and resilient microservices. 
+              I architect robust event-driven data pipelines (AWS, Kafka, PostgreSQL) and build full-stack generative AI solutions using frameworks like LangGraph and LangChain. 
+              My core focus is designing fault-tolerant foundation libraries and automating complex enterprise workflows to drive measurable impact.
+            </p>
+          </motion.div>
+        </section>
+        
+        <section id="experience" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Experience" className="section-title" />
+            <Experience />
+          </motion.div>
+        </section>
+
+        <section id="skills" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Skills" className="section-title" />
+            <Skills />
+          </motion.div>
+        </section>
+
+        <section id="projects" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Projects" className="section-title" />
+            <Projects />
+          </motion.div>
+        </section>
+
+        <section id="education" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Education" className="section-title" />
+            <Education />
+          </motion.div>
+        </section>
+
+        <section id="testimonials" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Testimonials" className="section-title" />
+            <Testimonials />
+          </motion.div>
+        </section>
+
+        <section id="contact" className="page-section">
+          <motion.div 
+            className="section-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <ScrambleText as="h2" text="Contact" className="section-title" />
+            <Contact />
+          </motion.div>
         </section>
       </main>
 
-      {/* RETRO OS LINKS FOLDER MODAL OVERLAY */}
-      {showLinksModal && (
-        <div className="links-folder-modal-overlay" onClick={() => setShowLinksModal(false)}>
-          <div className="links-folder-window" onClick={(e) => e.stopPropagation()}>
-            <div className="folder-window-header">
-              <div className="window-dots">
-                <span className="dot dot-red" onClick={() => setShowLinksModal(false)} />
-                <span className="dot dot-yellow" />
-                <span className="dot dot-green" />
-              </div>
-              <span className="folder-window-title">📁 avi-os / links.folder</span>
-              <button className="close-btn" onClick={() => setShowLinksModal(false)}>✕</button>
-            </div>
+      {/* Floating Socials Pill */}
+      <div className="floating-socials-pill">
+        <a href="https://github.com/Aviroop-001" target="_blank" rel="noreferrer" title="GitHub"><FiGithub /></a>
+        <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noreferrer" title="LinkedIn"><FiLinkedin /></a>
+        <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noreferrer" title="LeetCode"><FiCode /></a>
+      </div>
 
-            <div className="folder-window-body">
-              <div className="folder-intro-bar">
-                <span className="folder-path">Location: /Desktop/Links/</span>
-                <span className="item-count">{socialLinks.length} Items</span>
-              </div>
-
-              <div className="folder-links-grid">
-                {socialLinks.map((item) => (
-                  <a
-                    key={item.id}
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="folder-item-card"
-                  >
-                    <div className="item-icon-box">
-                      {item.icon}
-                      <FiExternalLink className="ext-icon" />
-                    </div>
-                    <div className="item-text-info">
-                      <span className="item-title">{item.title}</span>
-                      <span className="item-label">{item.label}</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* About AVI OS Modal */}
-      {showAboutModal && (
-        <div className="about-modal-overlay" onClick={() => setShowAboutModal(false)}>
-          <div className="about-modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-top">
-              <span className="brand-logo">AVI OS</span>
-              <button className="close-btn" onClick={() => setShowAboutModal(false)}>✕</button>
-            </div>
-            <div className="modal-body">
-              <h3>AVI OS v1.0</h3>
-              <p>A retro desktop environment built for Aviroop Banerjee's engineering portfolio.</p>
-              <div className="info-pills">
-                <span className="info-pill">⚡ Built with React &amp; SCSS</span>
-                <span className="info-pill">🐱 Kookie the Virtual Desktop Cat</span>
-                <span className="info-pill">🎵 Synthwave Lofi Audio Engine</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Full-Screen macOS Glass Resume Preview Modal */}
+      {/* Resume Modal */}
       {showResumeModal && (
         <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
           <div className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="resume-modal-header">
-              <div className="window-dots">
-                <span className="dot dot-red" onClick={() => setShowResumeModal(false)} title="Close Modal" />
-                <span className="dot dot-yellow" />
-                <span className="dot dot-green" />
-              </div>
-              <span className="modal-title">📄 avi-os / resume_preview.pdf</span>
-              <button className="close-btn" onClick={() => setShowResumeModal(false)} title="Close (Esc)">✕</button>
+              <span className="modal-title">Resume Preview</span>
+              <button className="close-btn" onClick={() => setShowResumeModal(false)}>✕</button>
             </div>
             <div className="resume-modal-body">
               <iframe

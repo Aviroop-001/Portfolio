@@ -1,20 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import "../styling_files/skills.scss";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { 
   FiCode, 
   FiCloud, 
   FiCpu, 
   FiDatabase, 
   FiTool, 
-  FiZap,
-  FiCheckCircle
+  FiBriefcase
 } from "react-icons/fi";
 
 export default function Skills() {
-  const [activeCategory, setActiveCategory] = useState('ALL');
-  const [searchQuery, setSearchQuery] = useState('');
-
   const skillCategories = useMemo(() => [
     {
       id: 'LANGUAGES',
@@ -30,163 +26,41 @@ export default function Skills() {
     },
     {
       id: 'AI_DATA',
-      name: 'AI & Data Engineering',
+      name: 'AI & Data Eng',
       icon: <FiCpu />,
-      skills: ["LangChain", "LangGraph", "RAG", "LLM agents", "prompt engineering", "PyTorch", "TensorFlow", "Whisper", "Kafka", "DuckDB", "Pandas"]
+      skills: ["LangChain", "LangGraph", "RAG", "LLM agents", "PyTorch", "TensorFlow", "Whisper", "Kafka", "DuckDB", "Pandas"]
     },
     {
       id: 'DATABASES',
-      name: 'Databases & Caching',
+      name: 'Databases & Cache',
       icon: <FiDatabase />,
-      skills: ["PostgreSQL", "pgvector", "Elasticsearch", "Redis", "DynamoDB", "MongoDB", "Redshift", "Snowflake"]
+      skills: ["PostgreSQL", "pgvector", "Redis", "MongoDB", "ClickHouse"]
     },
     {
-      id: 'OBSERVABILITY',
-      name: 'Observability & Tools',
+      id: 'TOOLS_INFRA',
+      name: 'Tools & Practices',
       icon: <FiTool />,
-      skills: ["OpenTelemetry", "Prometheus", "Jenkins", "GitHub Actions (CI/CD)", "Git", "Linux"]
+      skills: ["Git", "GitHub Actions", "CI/CD", "Prometheus", "Grafana", "OpenTelemetry"]
     }
   ], []);
 
-  // Compute filtered skills list based on active category tab & search query
-  const displayedCategories = useMemo(() => {
-    return skillCategories
-      .map(cat => {
-        if (activeCategory !== 'ALL' && cat.id !== activeCategory) {
-          return null;
-        }
-
-        const filteredSkills = cat.skills.filter(skill => 
-          skill.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-        if (filteredSkills.length === 0 && searchQuery.trim() !== '') {
-          return null;
-        }
-
-        return {
-          ...cat,
-          skills: searchQuery.trim() !== '' ? filteredSkills : cat.skills
-        };
-      })
-      .filter(Boolean);
-  }, [skillCategories, activeCategory, searchQuery]);
-
-  const totalSkillCount = useMemo(() => {
-    return skillCategories.reduce((acc, curr) => acc + curr.skills.length, 0);
-  }, [skillCategories]);
-
   return (
-    <Box className="skills-console-container">
-      {/* Header Banner */}
-      <Box className="skills-header">
-        <Text className="section-title">
-          Technical Capabilities
-        </Text>
-        <Text className="skills-description">
-          An interactive catalog of my production stack spanning AI agents, high-throughput backend services, cloud systems, and data infrastructure.
-        </Text>
-      </Box>
-
-      {/* Retro CLI Search & Console Stats */}
-      <Box className="skills-console-toolbar">
-        <Box className="cli-search-box">
-          <span className="cli-prompt-tag">&gt;_ query:</span>
-          <input
-            type="text"
-            placeholder="Search skills (e.g. LangChain, gRPC, pgvector, Docker)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="cli-search-input"
-          />
-          {searchQuery && (
-            <button className="clear-search-btn" onClick={() => setSearchQuery('')}>
-              Clear
-            </button>
-          )}
-        </Box>
-
-        <Box className="console-stats-pill">
-          <FiZap className="stat-icon" />
-          <span>{totalSkillCount} Stack Items</span>
-        </Box>
-      </Box>
-
-      {/* Category Selection Tabs */}
-      <Box className="category-tab-bar">
-        <button
-          className={`category-tab-btn ${activeCategory === 'ALL' ? 'active' : ''}`}
-          onClick={() => setActiveCategory('ALL')}
-        >
-          <span className="tab-icon">⚡</span>
-          <span>All Stack</span>
-        </button>
-
-        {skillCategories.map((cat) => (
-          <button
-            key={cat.id}
-            className={`category-tab-btn ${activeCategory === cat.id ? 'active' : ''}`}
-            onClick={() => setActiveCategory(cat.id)}
-          >
-            <span className="tab-icon">{cat.icon}</span>
-            <span>{cat.name}</span>
-          </button>
+    <Box className="skills-container modern-ux">
+      <div className="skills-grid">
+        {skillCategories.map(cat => (
+          <div key={cat.id} className="skill-category-card">
+            <div className="category-header">
+              <span className="category-icon">{cat.icon}</span>
+              <h3 className="category-name">{cat.name}</h3>
+            </div>
+            <div className="category-tags">
+              {cat.skills.map((skill, i) => (
+                <span key={i} className="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
         ))}
-      </Box>
-
-      {/* Featured AI & Systems Specialization Ribbon */}
-      {activeCategory === 'ALL' && !searchQuery && (
-        <Box className="featured-specialization-card">
-          <Box className="card-badge">
-            <FiZap /> FEATURED SPECIALIZATIONS
-          </Box>
-          <Box className="specialization-grid">
-            <Box className="spec-item">
-              <Text className="spec-title">🤖 AI & Agentic Systems</Text>
-              <Text className="spec-desc">LangChain, LangGraph, RAG pipelines, LLM Agents, pgvector, Whisper</Text>
-            </Box>
-            <Box className="spec-item">
-              <Text className="spec-title">⚡ Distributed Backend & Cloud</Text>
-              <Text className="spec-desc">Go, NestJS, gRPC, NATS JetStream, PostgreSQL, Docker, AWS, GCP</Text>
-            </Box>
-          </Box>
-        </Box>
-      )}
-
-      {/* Skills Showcase Grid by Category */}
-      <Box className="skills-grid-display">
-        {displayedCategories.length === 0 ? (
-          <Box className="no-skills-found">
-            <Text>No matching skills found for "{searchQuery}"</Text>
-            <button onClick={() => { setSearchQuery(''); setActiveCategory('ALL'); }} className="reset-btn">
-              Reset Filters
-            </button>
-          </Box>
-        ) : (
-          displayedCategories.map((cat) => (
-            <Box key={cat.id} className="category-section-block">
-              <Box className="category-block-header">
-                <span className="cat-icon">{cat.icon}</span>
-                <Text className="cat-title">{cat.name}</Text>
-                <span className="cat-count-badge">{cat.skills.length}</span>
-              </Box>
-
-              <Box className="skill-badges-wrapper">
-                {cat.skills.map((skill, index) => (
-                  <Box 
-                    key={skill} 
-                    className="retro-skill-badge"
-                    style={{ animationDelay: `${index * 0.05}s` }}
-                  >
-                    <FiCheckCircle className="badge-check-icon" />
-                    <span className="skill-name">{skill}</span>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          ))
-        )}
-      </Box>
+      </div>
     </Box>
   );
 }

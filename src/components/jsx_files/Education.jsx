@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styling_files/education.scss";
-import { Box, Text } from "@chakra-ui/react";
-import { IoSchoolOutline, IoRibbonOutline, IoCalendarOutline } from "react-icons/io5";
+import { Box } from "@chakra-ui/react";
+import { IoSchoolOutline, IoCalendarOutline } from "react-icons/io5";
 import { educationData } from "./Data";
 
 export default function Education() {
@@ -27,69 +27,41 @@ export default function Education() {
   };
 
   return (
-    <Box className="education-compact-container">
-      {/* Header */}
-      <Box className="education-header">
-        <Text className="section-title">
-          Academic Foundation
-        </Text>
-        <Text className="education-description">
-          Computer Science & Engineering background focused on software architecture, distributed systems, algorithms, and core engineering.
-        </Text>
-      </Box>
+    <Box className="education-modern-container">
+      <div className="education-grid">
+        {educationData.map((edu, idx) => (
+          <div key={idx} className="education-card">
+            <div className="card-header">
+              <div className="icon-wrapper">
+                <IoSchoolOutline />
+              </div>
+              <div className="grade-badge">
+                {edu.text.match(/\d+(\.\d+)?/)?.[0] || ""} {edu.text.includes('CGPA') ? 'CGPA' : '%'}
+              </div>
+            </div>
+            
+            <div className="card-body">
+              <h3 className="degree-title">{edu.position}</h3>
+              <p className="school-name">{edu.org}</p>
+              
+              <div className="date-row">
+                <IoCalendarOutline />
+                <span>{edu.date}</span>
+              </div>
+            </div>
 
-      {/* 3-Column Compact Grid (Fits on screen without scrolling) */}
-      <Box className="education-cards-grid">
-        {educationData.map((edu, index) => {
-          const cgpaMatch = edu.text.match(/\d+\.?\d*\s*CGPA/i);
-          const cgpaText = cgpaMatch ? cgpaMatch[0] : null;
-          const coursework = courseworkMap[edu.org] || [];
-
-          return (
-            <Box key={edu.org + index} className="compact-edu-card">
-              <Box className="card-top">
-                <Box className="edu-icon-badge">
-                  <IoSchoolOutline />
-                </Box>
-
-                <Box className="badges-group">
-                  {cgpaText && (
-                    <span className="cgpa-pill">
-                      <IoRibbonOutline className="icon" />
-                      {cgpaText}
-                    </span>
-                  )}
-                  <span className="date-pill">
-                    <IoCalendarOutline className="icon" />
-                    {edu.date}
-                  </span>
-                </Box>
-              </Box>
-
-              <Box className="card-titles">
-                <Text className="degree-name">{edu.position}</Text>
-                <Text className="institution-name">{edu.org}</Text>
-              </Box>
-
-              <Text className="edu-details-text">{edu.text}</Text>
-
-              {/* Coursework Tags */}
-              {coursework.length > 0 && (
-                <Box className="coursework-box">
-                  <Text className="coursework-label">FOCUS & COURSEWORK:</Text>
-                  <Box className="course-pills-row">
-                    {coursework.map((course) => (
-                      <span key={course} className="course-pill">
-                        {course}
-                      </span>
-                    ))}
-                  </Box>
-                </Box>
-              )}
-            </Box>
-          );
-        })}
-      </Box>
+            {courseworkMap[edu.org] && (
+              <div className="coursework-section">
+                <div className="coursework-tags">
+                  {courseworkMap[edu.org].map((course, i) => (
+                    <span key={i} className="course-tag">{course}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </Box>
   );
 }
