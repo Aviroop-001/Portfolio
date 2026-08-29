@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import "./App.scss";
+import React, { useState, useEffect } from 'react';
+import './global.scss';
+import './App.scss';
 import Intro from "./components/jsx_files/intro";
 import Projects from "./components/jsx_files/Projects";
 import Contact from "./components/jsx_files/Contact";
@@ -9,7 +10,6 @@ import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
 import CustomCursor from './components/jsx_files/CustomCursor';
 import { 
-  FiFileText, 
   FiGithub, 
   FiLinkedin,
   FiCode

@@ -7,7 +7,7 @@ import {
   FiCpu, 
   FiDatabase, 
   FiTool, 
-  FiBriefcase
+  
 } from "react-icons/fi";
 
 export default function Skills() {

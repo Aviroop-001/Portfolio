@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "../styling_files/experience.scss";
 import { timelineData } from "./Data";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { FiCalendar, FiArrowRight } from "react-icons/fi";
 
 export default function Experience() {

@@ -2,11 +2,11 @@ import "../styling_files/intro.scss";
 import { 
   IoEyeOutline, 
   IoDownloadOutline,
-  IoSparkles
+  
 } from 'react-icons/io5';
 import { Box, Text } from "@chakra-ui/react";
 import ScrambleText from "./ScrambleText";
-import DesktopCatPet from "./DesktopCatPet";
+
 
 export default function Intro({ onPreviewResume }) {
     return (
