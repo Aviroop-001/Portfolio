@@ -30,7 +30,7 @@ function App() {
     document.documentElement.setAttribute('data-theme', 'dark');
 
     const handleScroll = () => {
-      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'blogs', 'testimonials', 'contact'];
+      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -60,8 +60,8 @@ function App() {
     { id: 'skills', name: 'Skills' },
     { id: 'projects', name: 'Projects' },
     { id: 'education', name: 'Education' },
-    { id: 'blogs', name: 'Writing' },
     { id: 'testimonials', name: 'Reviews' },
+    { id: 'blogs', name: 'Writing' },
     { id: 'contact', name: 'Contact' }
   ];
 
@@ -217,17 +217,6 @@ function App() {
         </section>
 
 
-        <section id="blogs" className="page-section">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={sectionVariants}
-          >
-            <Blogs />
-          </motion.div>
-        </section>
-
         <section id="testimonials" className="page-section">
           <motion.div 
             className="section-container"
@@ -238,6 +227,17 @@ function App() {
           >
             <ScrambleText as="h2" text="Testimonials" className="section-title" />
             <Testimonials />
+          </motion.div>
+        </section>
+
+        <section id="blogs" className="page-section">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <Blogs />
           </motion.div>
         </section>
 

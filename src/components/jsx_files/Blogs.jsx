@@ -47,6 +47,25 @@ export default function Blogs() {
     return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
+  // Helper to extract the first image from Medium's HTML content
+  const extractImage = (article) => {
+    // Try rss2json parsed thumbnail first
+    if (article.thumbnail && article.thumbnail.indexOf('api.rss2json.com') === -1) {
+      return article.thumbnail;
+    }
+    
+    // Parse the actual HTML body to find the first image tag
+    const htmlContent = article.content || article.description || "";
+    const doc = new DOMParser().parseFromString(htmlContent, 'text/html');
+    const imgElement = doc.querySelector('img');
+    if (imgElement && imgElement.src) {
+      return imgElement.src;
+    }
+
+    // Fallback abstract tech image
+    return "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80";
+  };
+
   return (
     <Box className="blogs-modern-container">
       <div className="blogs-header">
@@ -75,8 +94,7 @@ export default function Blogs() {
           </div>
         ) : (
           articles.map((article) => {
-            // Some Medium RSS images are hidden in description or thumbnail
-            const imageUrl = article.thumbnail || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80";
+            const imageUrl = extractImage(article);
             
             return (
               <a 
