@@ -256,3 +256,57 @@ body {
     }
   }
 }
+
+/* Mobile Responsiveness for App.jsx Navbar */
+@media (max-width: 900px) {
+  .modern-navbar {
+    padding: 12px 20px;
+    
+    .mobile-menu-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 75vw;
+      height: 100vh;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+      border-left: 1px solid var(--border-color);
+      
+      &.mobile-open {
+        right: 0;
+      }
+      
+      .nav-btn {
+        font-size: 1.2rem;
+      }
+
+      .cmd-k-hint {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 901px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}

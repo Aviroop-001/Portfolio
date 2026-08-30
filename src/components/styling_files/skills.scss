@@ -69,3 +69,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .skills-container {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

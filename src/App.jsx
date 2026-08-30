@@ -23,6 +23,7 @@ import CommandPalette from './components/jsx_files/CommandPalette';
 function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [activeSection, setActiveSection] = useState('intro');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -78,12 +79,24 @@ function App() {
         <div className="nav-brand" onClick={() => scrollToSection('intro')}>
           {/* Brand removed per request */}
         </div>
-        <div className="nav-links">
+        
+        {/* Mobile Hamburger Toggle */}
+        <button 
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? '✕' : '☰'}
+        </button>
+
+        <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           {navLinks.map(link => (
             <button 
               key={link.id} 
               className={`nav-btn ${activeSection === link.id ? 'active' : ''}`}
-              onClick={() => scrollToSection(link.id)}
+              onClick={() => {
+                scrollToSection(link.id);
+                setIsMobileMenuOpen(false);
+              }}
             >
               {link.name}
             </button>
@@ -91,12 +104,13 @@ function App() {
           <button 
             className="cmd-k-hint"
             onClick={() => {
+              setIsMobileMenuOpen(false);
               const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
               window.dispatchEvent(event);
             }}
           >
             <span className="search-icon">🔍</span>
-            <span className="kb-shortcut">⌘K</span>
+            <span className="kb-shortcut">⌘K Search</span>
           </button>
           <a 
             href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"

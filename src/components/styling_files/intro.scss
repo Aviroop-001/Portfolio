@@ -397,3 +397,37 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .intro-hero-container {
+    padding-top: 15vh;
+  }
+  
+  .hero-content {
+    .name-text {
+      font-size: 3rem !important;
+      line-height: 1.1;
+      text-align: center;
+    }
+    
+    .subtitle-wrapper {
+      margin-top: 20px;
+    }
+    
+    .subtitle-text {
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      
+      .glass-button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}

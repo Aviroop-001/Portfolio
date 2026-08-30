@@ -112,3 +112,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .education-container {
+    .education-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

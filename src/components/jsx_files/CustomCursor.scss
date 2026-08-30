@@ -62,3 +62,16 @@ body {
 a, button, .tab-btn {
   cursor: none !important;
 }
+
+/* Hide custom cursor entirely on mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor,
+  .custom-cursor-glow,
+  .cursor-trail-svg {
+    display: none !important;
+  }
+  
+  body, a, button, .tab-btn {
+    cursor: auto !important;
+  }
+}
