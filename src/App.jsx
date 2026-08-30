@@ -19,6 +19,7 @@ import { motion } from 'framer-motion';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrambleText from './components/jsx_files/ScrambleText';
 import CommandPalette from './components/jsx_files/CommandPalette';
+import Blogs from './components/jsx_files/Blogs';
 
 function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
@@ -29,7 +30,7 @@ function App() {
     document.documentElement.setAttribute('data-theme', 'dark');
 
     const handleScroll = () => {
-      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'contact'];
+      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'blogs', 'testimonials', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
@@ -59,6 +60,7 @@ function App() {
     { id: 'skills', name: 'Skills' },
     { id: 'projects', name: 'Projects' },
     { id: 'education', name: 'Education' },
+    { id: 'blogs', name: 'Writing' },
     { id: 'testimonials', name: 'Reviews' },
     { id: 'contact', name: 'Contact' }
   ];
@@ -211,6 +213,18 @@ function App() {
           >
             <ScrambleText as="h2" text="Education" className="section-title" />
             <Education />
+          </motion.div>
+        </section>
+
+
+        <section id="blogs" className="page-section">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
+          >
+            <Blogs />
           </motion.div>
         </section>
 
