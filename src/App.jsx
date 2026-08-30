@@ -16,6 +16,7 @@ import {
 } from 'react-icons/fi';
 
 import { motion } from 'framer-motion';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrambleText from './components/jsx_files/ScrambleText';
 import CommandPalette from './components/jsx_files/CommandPalette';
 
@@ -70,6 +71,7 @@ function App() {
     <div className="App modern-theme">
       <CustomCursor />
       <CommandPalette />
+      <SpeedInsights />
 
       {/* Modern Sticky Navbar */}
       <nav className="modern-navbar">
