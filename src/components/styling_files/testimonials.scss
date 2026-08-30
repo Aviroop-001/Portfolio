@@ -1,5 +1,8 @@
 @import "../../global.scss";
 
+// Import a cursive font for the signature
+@import url('https://fonts.googleapis.css2?family=Caveat:wght@600&display=swap');
+
 .testimonials-showcase-container {
   width: 100%;
   max-width: 1060px;
@@ -8,7 +11,7 @@
 
   .testimonials-header {
     text-align: center;
-    margin-bottom: 1.2rem;
+    margin-bottom: 2rem;
 
     .section-title {
       font-size: 2.2rem;
@@ -24,20 +27,19 @@
     }
 
     .testimonials-description {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
       color: var(--subtext-color);
-      font-weight: 500;
+      font-weight: 400;
       max-width: 640px;
       margin: 0 auto 1rem auto;
       line-height: 1.5;
 
       @include mobile {
-        font-size: 0.78rem;
+        font-size: 0.9rem;
       }
     }
 
-    // Toolbar Controls Bar
     .reviews-toolbar {
       display: flex;
       justify-content: space-between;
@@ -68,7 +70,6 @@
           font-size: 0.76rem;
           font-weight: 700;
           color: var(--text-color);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
       }
 
@@ -80,42 +81,38 @@
         .nav-arrow-btn {
           width: 34px;
           height: 34px;
-          background-color: var(--card-bg);
+          background-color: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid var(--border-color);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 1rem;
           color: var(--text-color);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
           cursor: pointer;
           transition: all 0.18s ease;
 
           &:hover {
             background-color: var(--accent-yellow);
             color: var(--btn-text-on-yellow);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(2, 79, 55, 0.25);
           }
         }
       }
     }
   }
 
-  // Horizontally Scrollable Marquee Viewport
   .infinite-marquee-viewport {
     width: 100%;
     overflow-x: auto;
     position: relative;
     padding: 1rem 0 2rem 0;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     
     // Create a smooth fade out on the left and right edges
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 
     &::-webkit-scrollbar {
       display: none;
@@ -125,182 +122,93 @@
       display: flex;
       gap: 1.5rem;
       width: max-content;
-      animation: marqueeScroll 45s linear infinite;
-
-      &:hover {
-        animation-play-state: paused;
-      }
+      // Removed the infinite marquee animation here
     }
 
-    // Ultra-Modern Bento Box Testimonial Card
-    .testimonial-card-horizontal {
+    // Modern White Clean Card Style (matching screenshot structure)
+    .testimonial-card-modern {
+      scroll-snap-align: center;
       position: relative;
       width: 380px;
       flex-shrink: 0;
-      background: rgba(20, 20, 20, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 1.8rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      border-radius: 16px;
+      padding: 2.2rem 1.8rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       box-sizing: border-box;
-      overflow: hidden;
-
-      // Giant watermark quote mark
-      &::before {
-        content: '"';
-        position: absolute;
-        top: -10px;
-        right: 10px;
-        font-size: 8rem;
-        font-family: 'Space Grotesk', sans-serif;
-        color: rgba(255, 255, 255, 0.03);
-        z-index: 0;
-        line-height: 1;
-        pointer-events: none;
-      }
 
       @media (max-width: 600px) {
-        width: 320px;
-        padding: 1.4rem;
+        width: 310px;
+        padding: 1.8rem 1.4rem;
       }
 
       &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(16, 185, 129, 0.1);
-        border-color: rgba(16, 185, 129, 0.3);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
       }
 
-      .card-top-row {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 0.8rem;
-        margin-bottom: 1rem;
+      .card-top-avatar {
+        margin-bottom: 1.5rem;
 
-        .author-meta {
+        .author-avatar-animal {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%; // Perfect circle
           display: flex;
           align-items: center;
-          gap: 1rem;
-
-          .author-avatar-animal {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
-            flex-shrink: 0;
-          }
-
-          .author-titles {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-
-            .author-name {
-              font-family: 'Space Grotesk', sans-serif;
-              font-size: 1.1rem;
-              font-weight: 700;
-              color: #fff;
-              line-height: 1.2;
-            }
-
-            .author-role {
-              font-family: 'Inter', sans-serif;
-              font-size: 0.8rem;
-              font-weight: 500;
-              color: #9ca3af;
-            }
-          }
-        }
-
-        .linkedin-verified-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.3rem;
-          background-color: rgba(10, 102, 194, 0.1);
-          border: 1px solid rgba(10, 102, 194, 0.3);
-          border-radius: 8px;
-          padding: 4px 10px;
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.7rem;
-          font-weight: 600;
-          color: #60a5fa; // LinkedIn Blue tint
-          text-decoration: none;
-          white-space: nowrap;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background-color: rgba(10, 102, 194, 0.2);
-            border-color: rgba(10, 102, 194, 0.5);
-            color: #fff;
-          }
+          justify-content: center;
+          font-size: 1.5rem;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
       }
 
-      // Relationship Info Banner
-      .relationship-banner {
-        position: relative;
-        z-index: 1;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 6px;
-        padding: 0.35rem 0.8rem;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 500;
-        color: #d1d5db;
-        margin-bottom: 1.2rem;
-        width: fit-content;
-
-        .banner-icon {
-          font-size: 0.85rem;
-          color: #10b981; // Neon green
-        }
-      }
-
-      // Review Quote Body
       .card-quote-body {
-        position: relative;
-        z-index: 1;
+        flex-grow: 1;
         font-family: 'Inter', sans-serif;
         font-size: 0.95rem;
-        color: #e5e7eb;
+        color: #333333; // Dark text on white card
         line-height: 1.6;
-        font-style: normal; // Remove italics for a cleaner modern look
         font-weight: 400;
-        margin: 0;
+        margin: 0 0 2rem 0;
         padding: 0;
-        border-left: none; // Remove border
+        border: none;
         overflow-y: auto;
-        max-height: 200px;
+        max-height: 180px;
         
         &::-webkit-scrollbar {
           width: 4px;
         }
         &::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(0, 0, 0, 0.1);
           border-radius: 4px;
+        }
+      }
+
+      .card-bottom-signature {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        
+        .signature-font {
+          font-family: 'Caveat', cursive;
+          font-size: 1.8rem;
+          color: #111111;
+          line-height: 1;
+          margin-bottom: 0.3rem;
+          transform: rotate(-2deg); // Slight tilt for authenticity
+        }
+        
+        .author-role {
+          font-family: 'Inter', sans-serif;
+          font-size: 0.75rem;
+          font-weight: 500;
+          color: #888888;
         }
       }
     }
   }
-}
-
-@keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
 }

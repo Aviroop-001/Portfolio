@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import "../styling_files/testimonials.scss";
-import { FiMessageSquare, FiLinkedin, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const testimonialsData = [
   {
     id: 1,
     name: 'Biswarup Mukherjee',
     animal: '🦔',
-    role: 'SDE2 @ Oracle (5+ Yrs Exp)',
+    role: 'SDE2 @ Oracle',
     company: 'Oracle',
     relationship: 'Worked with Aviroop on different teams',
     date: 'July 19, 2024',
@@ -40,7 +40,7 @@ const testimonialsData = [
     id: 4,
     name: 'Jayant Kapila',
     animal: '🐼',
-    role: 'Software Engineer (Android / Backend)',
+    role: 'Software Engineer',
     company: 'Winsple',
     relationship: 'Managed Aviroop directly',
     date: 'October 19, 2023',
@@ -63,18 +63,66 @@ const testimonialsData = [
 export default function Testimonials() {
   const scrollContainerRef = useRef(null);
 
-  // Duplicated data array to enable infinite seamless marquee loop
-  const marqueeItems = [...testimonialsData, ...testimonialsData];
+  // We append a few extra to allow for infinite scrolling illusion, though step scrolling handles it well
+  const marqueeItems = [...testimonialsData, ...testimonialsData, ...testimonialsData];
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    let scrollInterval;
+    
+    const startAutoScroll = () => {
+      scrollInterval = setInterval(() => {
+        if (scrollContainer) {
+          const cardWidth = 380 + 24; // Card width + gap
+          const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+          
+          if (scrollContainer.scrollLeft >= maxScrollLeft - cardWidth) {
+            // Reset to beginning seamlessly
+            scrollContainer.scrollLeft = 0;
+          } else {
+            scrollContainer.scrollBy({ left: cardWidth, behavior: 'smooth' });
+          }
+        }
+      }, 4000); // Wait 4 seconds, then glide
+    };
+
+    startAutoScroll();
+
+    // Pause auto-scroll on hover
+    const handleMouseEnter = () => clearInterval(scrollInterval);
+    const handleMouseLeave = () => startAutoScroll();
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+    
+    // Also pause on touch
+    scrollContainer.addEventListener('touchstart', handleMouseEnter);
+    scrollContainer.addEventListener('touchend', handleMouseLeave);
+
+    return () => {
+      clearInterval(scrollInterval);
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+        scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+        scrollContainer.removeEventListener('touchstart', handleMouseEnter);
+        scrollContainer.removeEventListener('touchend', handleMouseLeave);
+      }
+    };
+  }, []);
 
   const handleScrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -440, behavior: 'smooth' });
+      const cardWidth = 380 + 24;
+      scrollContainerRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
     }
   };
 
   const handleScrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 440, behavior: 'smooth' });
+      const cardWidth = 380 + 24;
+      scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
     }
   };
 
@@ -84,7 +132,7 @@ export default function Testimonials() {
       <div className="testimonials-header">
         <h2 className="section-title">Peer &amp; Leadership Reviews</h2>
         <p className="testimonials-description">
-          Recommendations and feedback from co-founders, engineering managers, and senior colleagues I've collaborated with.
+          Don't take my word for it. Hear it directly from my managers and colleagues.
         </p>
 
         {/* Controls Toolbar */}
@@ -106,47 +154,28 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* Infinite Horizontally Looping Marquee Showcase */}
+      {/* Step Scrolling Viewport */}
       <div className="infinite-marquee-viewport" ref={scrollContainerRef}>
         <div className="marquee-track">
           {marqueeItems.map((item, index) => (
-            <div key={`${item.id}-${index}`} className="testimonial-card-horizontal">
-              {/* Card Header */}
-              <div className="card-top-row">
-                <div className="author-meta">
-                  <div 
-                    className="author-avatar-animal"
-                    style={{ backgroundColor: item.avatarBg }}
-                  >
-                    {item.animal}
-                  </div>
-                  <div className="author-titles">
-                    <span className="author-name">{item.name}</span>
-                    <span className="author-role">{item.role}</span>
-                  </div>
-                </div>
-
-                <a
-                  href="https://www.linkedin.com/in/aviroopbanerjee/details/recommendations/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="linkedin-verified-badge"
-                  title="Verified on LinkedIn"
+            <div key={`${item.id}-${index}`} className="testimonial-card-modern">
+              <div className="card-top-avatar">
+                <div 
+                  className="author-avatar-animal"
+                  style={{ backgroundColor: item.avatarBg }}
                 >
-                  <FiLinkedin /> Verified ↗
-                </a>
+                  {item.animal}
+                </div>
               </div>
 
-              {/* Relationship Banner */}
-              <div className="relationship-banner">
-                <FiMessageSquare className="banner-icon" />
-                <span>{item.relationship} · {item.date}</span>
-              </div>
-
-              {/* Review Quote Body */}
               <blockquote className="card-quote-body">
                 "{item.text}"
               </blockquote>
+              
+              <div className="card-bottom-signature">
+                <div className="signature-font">{item.name}</div>
+                <div className="author-role">{item.role}</div>
+              </div>
             </div>
           ))}
         </div>
