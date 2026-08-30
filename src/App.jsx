@@ -68,6 +68,14 @@ function App() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
+  const handlePreviewResume = () => {
+    if (window.innerWidth <= 768) {
+      window.open("https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link", "_blank");
+    } else {
+      setShowResumeModal(true);
+    }
+  };
+
   return (
     <div className="App modern-theme">
       <CustomCursor />
@@ -133,7 +141,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             variants={sectionVariants}
           >
-            <Intro onPreviewResume={() => setShowResumeModal(true)} />
+            <Intro onPreviewResume={handlePreviewResume} />
           </motion.div>
         </section>
 
