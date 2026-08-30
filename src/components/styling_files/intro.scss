@@ -400,33 +400,41 @@
 
 @media (max-width: 768px) {
   .intro-hero-container {
-    padding-top: 15vh;
+    padding-top: 0;
   }
   
   .hero-content {
+    margin-top: -10vh; /* Shift up slightly to avoid bottom pill */
+    padding: 0 15px;
+
     .name-text {
-      font-size: 3rem !important;
+      font-size: 2.4rem !important;
       line-height: 1.1;
       text-align: center;
     }
     
     .subtitle-wrapper {
-      margin-top: 20px;
+      margin-top: 15px;
     }
     
     .subtitle-text {
-      font-size: 1.1rem;
+      font-size: 1rem;
       text-align: center;
+      line-height: 1.5;
     }
     
     .cta-buttons {
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
       width: 100%;
+      gap: 15px;
+      margin-top: 20px;
       
       .glass-button {
         width: 100%;
         justify-content: center;
+        padding: 12px 24px;
+        font-size: 0.9rem;
       }
     }
   }
