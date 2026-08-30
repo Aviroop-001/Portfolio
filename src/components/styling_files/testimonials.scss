@@ -110,18 +110,20 @@
     width: 100%;
     overflow-x: auto;
     position: relative;
-    padding: 0.5rem 0.2rem 1.2rem 0.2rem;
+    padding: 1rem 0 2rem 0;
     scroll-behavior: smooth;
+    
+    // Create a smooth fade out on the left and right edges
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 
-    // Scrollbar hidden
     &::-webkit-scrollbar {
       display: none;
     }
 
-    // Marquee Track
     .marquee-track {
       display: flex;
-      gap: 1.2rem;
+      gap: 1.5rem;
       width: max-content;
       animation: marqueeScroll 45s linear infinite;
 
@@ -130,77 +132,94 @@
       }
     }
 
-    // Modern Glassmorphism Testimonial Card
+    // Ultra-Modern Bento Box Testimonial Card
     .testimonial-card-horizontal {
-      width: 350px;
+      position: relative;
+      width: 380px;
       flex-shrink: 0;
-      background-color: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 1.2rem;
-      box-shadow: var(--shadow-card);
-      transition: all 0.18s ease;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 1.8rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       box-sizing: border-box;
+      overflow: hidden;
+
+      // Giant watermark quote mark
+      &::before {
+        content: '"';
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        font-size: 8rem;
+        font-family: 'Space Grotesk', sans-serif;
+        color: rgba(255, 255, 255, 0.03);
+        z-index: 0;
+        line-height: 1;
+        pointer-events: none;
+      }
 
       @media (max-width: 600px) {
-        width: 300px;
-        padding: 1rem;
+        width: 320px;
+        padding: 1.4rem;
       }
 
       &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.15);
-        border-color: var(--border-strong);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(16, 185, 129, 0.1);
+        border-color: rgba(16, 185, 129, 0.3);
       }
 
       .card-top-row {
+        position: relative;
+        z-index: 1;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        gap: 0.6rem;
-        margin-bottom: 0.75rem;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
 
         .author-meta {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
+          gap: 1rem;
 
           .author-avatar-animal {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            font-size: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
             flex-shrink: 0;
           }
 
           .author-titles {
             display: flex;
             flex-direction: column;
-            gap: 1px;
+            gap: 3px;
 
             .author-name {
-              font-family: $font-heading;
-              font-size: 1rem;
-              font-weight: 800;
-              color: var(--title-color);
+              font-family: 'Space Grotesk', sans-serif;
+              font-size: 1.1rem;
+              font-weight: 700;
+              color: #fff;
               line-height: 1.2;
             }
 
             .author-role {
-              font-family: $font-body;
-              font-size: 0.74rem;
-              font-weight: 600;
-              color: var(--subtext-color);
+              font-family: 'Inter', sans-serif;
+              font-size: 0.8rem;
+              font-weight: 500;
+              color: #9ca3af;
             }
           }
         }
@@ -208,60 +227,74 @@
         .linkedin-verified-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.25rem;
-          background-color: var(--secondary-bg);
-          border: 1px solid var(--border-color);
-          border-radius: 6px;
-          padding: 2px 7px;
-          font-family: $font-mono;
-          font-size: 0.65rem;
-          font-weight: 700;
-          color: var(--text-color);
+          gap: 0.3rem;
+          background-color: rgba(10, 102, 194, 0.1);
+          border: 1px solid rgba(10, 102, 194, 0.3);
+          border-radius: 8px;
+          padding: 4px 10px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: #60a5fa; // LinkedIn Blue tint
           text-decoration: none;
           white-space: nowrap;
+          transition: all 0.2s ease;
 
           &:hover {
-            background-color: var(--accent-yellow);
-            color: var(--btn-text-on-yellow);
+            background-color: rgba(10, 102, 194, 0.2);
+            border-color: rgba(10, 102, 194, 0.5);
+            color: #fff;
           }
         }
       }
 
       // Relationship Info Banner
       .relationship-banner {
+        position: relative;
+        z-index: 1;
         display: inline-flex;
         align-items: center;
-        gap: 0.35rem;
-        background-color: var(--secondary-bg);
-        border: 1px solid var(--border-color);
+        gap: 0.4rem;
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 6px;
-        padding: 0.25rem 0.65rem;
-        font-family: $font-mono;
-        font-size: 0.68rem;
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: 0.85rem;
+        padding: 0.35rem 0.8rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: #d1d5db;
+        margin-bottom: 1.2rem;
         width: fit-content;
 
         .banner-icon {
-          font-size: 0.75rem;
-          color: var(--accent-yellow);
+          font-size: 0.85rem;
+          color: #10b981; // Neon green
         }
       }
 
       // Review Quote Body
       .card-quote-body {
-        font-family: $font-body;
-        font-size: 0.86rem;
-        color: var(--text-color);
-        line-height: 1.55;
-        font-style: italic;
-        font-weight: 450;
+        position: relative;
+        z-index: 1;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        color: #e5e7eb;
+        line-height: 1.6;
+        font-style: normal; // Remove italics for a cleaner modern look
+        font-weight: 400;
         margin: 0;
-        padding-left: 0.75rem;
-        border-left: 2.5px solid var(--accent-yellow);
+        padding: 0;
+        border-left: none; // Remove border
         overflow-y: auto;
-        max-height: 160px;
+        max-height: 200px;
+        
+        &::-webkit-scrollbar {
+          width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+        }
       }
     }
   }
