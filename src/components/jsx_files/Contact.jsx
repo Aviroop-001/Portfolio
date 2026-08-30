@@ -9,8 +9,13 @@ import {
 
 export default function Contact() {
   const [copySuccess, setCopySuccess] = useState(false);
+  const [name, setName] = useState('');
+  const [senderEmail, setSenderEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+  
   const email = "banerjeeaviroop01@gmail.com";
 
   const copyToClipboard = async () => {
@@ -23,10 +28,44 @@ export default function Contact() {
     }
   };
 
-  const handleSendEmail = (e) => {
+  const handleSendEmail = async (e) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-    window.location.href = mailtoUrl;
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    // TODO: Paste your Formspree endpoint URL here!
+    const formspreeEndpoint = "YOUR_FORMSPREE_ENDPOINT_HERE"; 
+    
+    if (formspreeEndpoint === "YOUR_FORMSPREE_ENDPOINT_HERE") {
+      alert("Please configure your Formspree endpoint in Contact.jsx");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ name, email: senderEmail, subject, message })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setName('');
+        setSenderEmail('');
+        setSubject('');
+        setMessage('');
+        setTimeout(() => setSubmitStatus(null), 5000); // clear success message after 5s
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -54,6 +93,29 @@ export default function Contact() {
         {/* Right Column: Form */}
         <div className="contact-form-card">
           <form onSubmit={handleSendEmail} className="modern-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label>Name</label>
+                <input 
+                  type="text" 
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  placeholder="john@example.com"
+                  value={senderEmail}
+                  onChange={(e) => setSenderEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
             <div className="form-group">
               <label>Subject</label>
               <input 
@@ -76,10 +138,17 @@ export default function Contact() {
               />
             </div>
 
-            <button type="submit" className="submit-btn">
-              <span>Send Message</span>
-              <IoPaperPlaneOutline />
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              {!isSubmitting && <IoPaperPlaneOutline />}
             </button>
+
+            {submitStatus === 'success' && (
+              <div className="form-status success">Message sent successfully! I'll get back to you soon.</div>
+            )}
+            {submitStatus === 'error' && (
+              <div className="form-status error">Oops! Something went wrong. Please try again.</div>
+            )}
           </form>
         </div>
       </div>
