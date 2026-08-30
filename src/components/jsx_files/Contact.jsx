@@ -34,13 +34,7 @@ export default function Contact() {
     setSubmitStatus(null);
     
     // TODO: Paste your Formspree endpoint URL here!
-    const formspreeEndpoint = "YOUR_FORMSPREE_ENDPOINT_HERE"; 
-    
-    if (formspreeEndpoint === "YOUR_FORMSPREE_ENDPOINT_HERE") {
-      alert("Please configure your Formspree endpoint in Contact.jsx");
-      setIsSubmitting(false);
-      return;
-    }
+    const formspreeEndpoint = "https://formspree.io/f/mrpgezpv"; 
 
     try {
       const response = await fetch(formspreeEndpoint, {
