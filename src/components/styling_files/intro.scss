@@ -13,6 +13,8 @@
   left: 0;
   gap: 1.5rem;
   padding: 0 1rem;
+  box-sizing: border-box;
+  overflow: hidden;
 
   .hero-ambient-glow {
     position: absolute;
@@ -401,11 +403,17 @@
 @media (max-width: 768px) {
   .intro-hero-container {
     padding-top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
   
   .hero-content {
     margin-top: -10vh; /* Shift up slightly to avoid bottom pill */
-    padding: 0 15px;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
 
     .name-text {
       font-size: 2.4rem !important;
@@ -415,12 +423,15 @@
     
     .subtitle-wrapper {
       margin-top: 15px;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .subtitle-text {
       font-size: 1rem;
       text-align: center;
       line-height: 1.5;
+      padding: 0 10px;
     }
     
     .cta-buttons {
@@ -429,9 +440,11 @@
       width: 100%;
       gap: 15px;
       margin-top: 20px;
+      box-sizing: border-box;
       
       .glass-button {
         width: 100%;
+        box-sizing: border-box;
         justify-content: center;
         padding: 12px 24px;
         font-size: 0.9rem;
