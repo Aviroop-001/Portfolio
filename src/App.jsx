@@ -6,7 +6,9 @@ import CustomCursor from './components/jsx_files/CustomCursor';
 import { 
   FiGithub, 
   FiLinkedin,
-  FiCode
+  FiCode,
+  FiMoon,
+  FiSun
 } from 'react-icons/fi';
 
 import { motion } from 'framer-motion';
@@ -27,10 +29,24 @@ function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [activeSection, setActiveSection] = useState('intro');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Initialize theme from localStorage or default to dark
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    return savedTheme || 'dark';
+  });
+
+  // Apply theme to HTML root element
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'dark');
-
     const handleScroll = () => {
       const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
       for (const section of sections) {
@@ -132,6 +148,14 @@ function App() {
           >
             Résumé
           </a>
+          <button 
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            aria-label="Toggle Theme"
+            title="Toggle Dark/Light Mode"
+          >
+            {theme === 'dark' ? <FiSun /> : <FiMoon />}
+          </button>
         </div>
       </nav>
 

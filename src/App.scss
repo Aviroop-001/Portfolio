@@ -323,3 +323,23 @@ body {
     }
   }
 }
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--secondary-bg);
+    transform: scale(1.05);
+  }
+}
