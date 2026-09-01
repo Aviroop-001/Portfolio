@@ -1,0 +1,35 @@
+# Aviroop Banerjee - Software Engineer
+
+> This file is intended for LLMs, AI agents, and search crawlers to quickly parse Aviroop Banerjee's professional portfolio.
+
+## Profile Summary
+Software Engineer specializing in scalable distributed backends, LLM-powered multi-agent architectures, and high-performance microservices. Highly proficient in building systems that handle high traffic and complex data integrations.
+
+## Core Technical Skills
+- **Languages:** JavaScript, TypeScript, Node.js, Python, Java, SQL, Go
+- **Frameworks & Libraries:** NestJS, React, Express, LangChain, LangGraph, Framer Motion
+- **Infrastructure & Tools:** Docker, Kubernetes, AWS, Vercel, PostgreSQL, MongoDB, Redis, ELT pipelines
+
+## Professional Experience
+
+### Oracle
+- **Role:** Software Engineer
+- **Highlights:** Demonstrated extreme ownership and problem-solving in high-impact backend environments.
+
+### Airbook
+- **Role:** Software Engineer
+- **Highlights:** Engineered database and data warehouse integrations enabling direct customer source-of-truth connectivity. Built ELT pipelines, SQL parsers, and managed DevOps tasks.
+
+### Winsple
+- **Role:** Software Engineer (Android / Backend)
+- **Highlights:** Consistently delivered high-quality work and met aggressive deadlines across full-stack and mobile environments.
+
+## Official Links
+- **LinkedIn:** https://www.linkedin.com/in/aviroopbanerjee/
+- **GitHub:** https://github.com/Aviroop-001
+- **Medium (Technical Writing):** https://medium.com/@banerjeeaviroop01
+- **LeetCode:** https://leetcode.com/Aviroop_01/
+
+## Contact
+- **Email:** banerjeeaviroop01@gmail.com
+- **Contact Form:** https://aviroopbanerjee.com/ (See Contact Section)
