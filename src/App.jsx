@@ -71,14 +71,9 @@ function App() {
   };
 
   const navLinks = [
-    { id: 'intro', name: 'Home' },
     { id: 'experience', name: 'Experience' },
-    { id: 'skills', name: 'Skills' },
     { id: 'projects', name: 'Projects' },
-    { id: 'education', name: 'Education' },
-    { id: 'testimonials', name: 'Reviews' },
-    { id: 'blogs', name: 'Writing' },
-    { id: 'contact', name: 'Contact' }
+    { id: 'blogs', name: 'Writing' }
   ];
 
   const sectionVariants = {
