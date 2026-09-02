@@ -71,7 +71,8 @@ function App() {
   const navLinks = [
     { id: 'experience', name: 'Experience' },
     { id: 'projects', name: 'Projects' },
-    { id: 'blogs', name: 'Writing' }
+    { id: 'skills', name: 'Skills' },
+    { id: 'testimonials', name: 'Recommendations' }
   ];
 
   const sectionVariants = {
