@@ -1,8 +1,15 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 import './global.scss';
 import './App.scss';
 import Intro from "./components/jsx_files/intro";
 import CustomCursor from './components/jsx_files/CustomCursor';
+import Experience from './components/jsx_files/Experience';
+import Skills from './components/jsx_files/Skills';
+import Projects from './components/jsx_files/Projects';
+import Education from './components/jsx_files/Education';
+import Testimonials from './components/jsx_files/Testimonials';
+import Blogs from './components/jsx_files/Blogs';
+import Contact from './components/jsx_files/Contact';
 import { 
   FiGithub, 
   FiLinkedin,
@@ -15,15 +22,6 @@ import { motion } from 'framer-motion';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrambleText from './components/jsx_files/ScrambleText';
 import CommandPalette from './components/jsx_files/CommandPalette';
-
-// Lazy loaded components (Below the fold to improve LCP and FCP)
-const Experience = lazy(() => import('./components/jsx_files/Experience'));
-const Skills = lazy(() => import('./components/jsx_files/Skills'));
-const Projects = lazy(() => import('./components/jsx_files/Projects'));
-const Education = lazy(() => import('./components/jsx_files/Education'));
-const Testimonials = lazy(() => import('./components/jsx_files/Testimonials'));
-const Blogs = lazy(() => import('./components/jsx_files/Blogs'));
-const Contact = lazy(() => import('./components/jsx_files/Contact'));
 
 function App() {
   const [showResumeModal, setShowResumeModal] = useState(false);
@@ -190,7 +188,6 @@ function App() {
           </motion.div>
         </section>
         
-        <Suspense fallback={<div style={{ minHeight: "100vh" }}></div>}>
 
         <section id="experience" className="page-section">
           <motion.div 
@@ -281,7 +278,6 @@ function App() {
             <Contact />
           </motion.div>
         </section>
-        </Suspense>
 
       </main>
 
