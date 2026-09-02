@@ -30,11 +30,11 @@ function App() {
   
   // Initialize theme from localStorage or default to dark
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme');
-    return savedTheme || 'dark';
+    const saved = localStorage.getItem('portfolio-theme');
+    return (saved === 'light' || saved === 'dark') ? saved : 'dark';
   });
 
-  // Apply theme to HTML root element
+  // Apply theme to HTML root element synchronously
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('portfolio-theme', theme);
@@ -147,7 +147,7 @@ function App() {
             aria-label="Toggle Theme"
             title="Toggle Dark/Light Mode"
           >
-            {theme === 'dark' ? <FiSun /> : <FiMoon />}
+            {theme === 'dark' ? <FiMoon /> : <FiSun />}
           </button>
         </div>
       </nav>
