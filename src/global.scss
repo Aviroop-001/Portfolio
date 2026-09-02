@@ -48,6 +48,8 @@ $font-mono: 'JetBrains Mono', monospace;
 [data-theme="light"] {
   --bg-color: #fafafa;
   --text-color: #27272a;
+  --text-primary: #111827;
+  --nav-bg: rgba(255, 255, 255, 0.85);
   --title-color: #09090b;
   --subtext-color: #52525b;
   --muted-text: #a1a1aa;
@@ -68,11 +70,17 @@ $font-mono: 'JetBrains Mono', monospace;
   --icon-bg: #f4f4f5;
   --label-bg: #e4e4e7;
   --accent-green: #059669;
+  
+  // Name text gradient
+  --name-gradient-start: #000000;
+  --name-gradient-end: #52525b;
 }
 
 [data-theme="dark"] {
   --bg-color: #000000;
   --text-color: #ededed;
+  --text-primary: #f3f4f6;
+  --nav-bg: rgba(10, 10, 10, 0.8);
   --title-color: #ffffff;
   --subtext-color: #a1a1aa;
   --muted-text: #71717a;

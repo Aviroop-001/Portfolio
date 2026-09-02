@@ -71,7 +71,7 @@
       font-size: 5rem;
       font-weight: 800;
       color: var(--title-color);
-      background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+      background: linear-gradient(135deg, var(--name-gradient-start) 0%, var(--name-gradient-end) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.05;
