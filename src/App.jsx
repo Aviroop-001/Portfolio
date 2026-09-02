@@ -28,15 +28,13 @@ function App() {
   const [activeSection, setActiveSection] = useState('intro');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Initialize theme from localStorage or default to dark
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('portfolio-theme');
-    return (saved === 'light' || saved === 'dark') ? saved : 'dark';
-  });
+  // Always default strictly to dark mode on initial load
+  const [theme, setTheme] = useState('dark');
 
-  // Apply theme to HTML root element synchronously
+  // Apply theme to HTML root and body elements
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
     localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 
