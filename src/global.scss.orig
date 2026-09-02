@@ -6,12 +6,14 @@ $mobile: 768px;
   @media (max-width: #{$mobile}) {
     @content;
   }
+}
 
 // Global Font Smoothing & Antialiasing
 *, *::before, *::after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
 
 // Modern Font Family System
 $font-heading: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -19,9 +21,6 @@ $font-body: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
 $font-mono: 'JetBrains Mono', monospace;
 
 :root {
-  --name-gradient-start: #ffffff;
-  --name-gradient-end: #a1a1aa;
-
   --bg-color: #000000;
   --text-color: #ededed;
   --title-color: #ffffff;
@@ -44,7 +43,11 @@ $font-mono: 'JetBrains Mono', monospace;
   --icon-bg: #18181b;
   --label-bg: #18181b;
   --accent-green: #10b981;
-
+  
+  // Name text gradient
+  --name-gradient-start: #ffffff;
+  --name-gradient-end: #a1a1aa;
+}
 
 [data-theme="light"] {
   --bg-color: #fafafa;
@@ -75,11 +78,9 @@ $font-mono: 'JetBrains Mono', monospace;
   // Name text gradient
   --name-gradient-start: #000000;
   --name-gradient-end: #52525b;
+}
 
 [data-theme="dark"] {
-  --name-gradient-start: #ffffff;
-  --name-gradient-end: #a1a1aa;
-
   --bg-color: #000000;
   --text-color: #ededed;
   --text-primary: #f3f4f6;
@@ -92,6 +93,7 @@ $font-mono: 'JetBrains Mono', monospace;
   --secondary-bg: #18181b;
   --accent-primary: #ffffff;
   --border-color: #27272a;
+}
 
 // Global Variables linking to Theme Tokens
 $bg-beige: var(--bg-color);

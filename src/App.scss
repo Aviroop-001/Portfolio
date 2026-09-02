@@ -133,9 +133,10 @@ body {
       font-weight: 700;
       margin-bottom: 40px;
       letter-spacing: -1px;
-      background: linear-gradient(90deg, #fff, #9ca3af);
+      background: linear-gradient(90deg, var(--name-gradient-start), var(--name-gradient-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: var(--title-color); // Fallback
     }
   }
 }
