@@ -64,7 +64,6 @@ export default function AgenticSystemVisualizer() {
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
   const pathLength = useTransform(smoothProgress, [0.15, 0.85], [0, 1]);
-  const activeStep = useTransform(smoothProgress, [0.15, 0.3, 0.45, 0.6, 0.75], [0, 1, 2, 3, 4]);
 
   return (
     <div className="workos-agentic-flow" ref={targetRef}>
