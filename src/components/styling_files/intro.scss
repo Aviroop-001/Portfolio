@@ -141,7 +141,6 @@
     }
 
     .glass-button {
-      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
@@ -149,7 +148,7 @@
       background: var(--card-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
+      border: 1px solid rgba(16, 185, 129, 0.25);
       border-radius: 9999px;
       color: var(--title-color);
       font-size: 0.95rem;
@@ -157,66 +156,32 @@
       font-family: 'Inter', sans-serif;
       text-decoration: none;
       letter-spacing: 0.2px;
-      box-shadow: var(--shadow-card);
-      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+      transition: all 0.25s ease;
       cursor: pointer;
       box-sizing: border-box;
-      overflow: hidden;
-      z-index: 1;
-
-      // Rotating Emerald Border Beam
-      &::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: 9999px;
-        background: conic-gradient(from 0deg at 50% 50%, rgba(16, 185, 129, 0.8) 0deg, transparent 60deg, transparent 300deg, rgba(16, 185, 129, 0.8) 360deg);
-        animation: borderRotate 4s linear infinite;
-        z-index: -2;
-        opacity: 0.75;
-      }
-
-      // Inner Card Cover
-      &::after {
-        content: '';
-        position: absolute;
-        inset: 1px;
-        background: var(--card-bg);
-        border-radius: 9999px;
-        z-index: -1;
-        transition: background 0.2s ease;
-      }
+      animation: subtleGlowPulse 3s ease-in-out infinite alternate;
 
       .button-icon {
         font-size: 1.15rem;
         color: var(--accent-green);
-        z-index: 1;
-      }
-
-      span {
-        z-index: 1;
       }
 
       .arrow-icon {
         font-size: 1.1rem;
         transition: transform 0.2s ease, color 0.2s ease;
         color: var(--muted-text);
-        z-index: 1;
-        animation: arrowNudge 2.5s ease-in-out infinite;
       }
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.35);
-
-        &::after {
-          background: var(--secondary-bg);
-        }
+        background: var(--secondary-bg);
+        border-color: rgba(16, 185, 129, 0.6);
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
 
         .arrow-icon {
-          transform: translate(3px, -3px);
+          transform: translate(2px, -2px);
           color: var(--accent-green);
-          animation: none;
         }
       }
 
@@ -492,12 +457,13 @@
   }
 }
 
-@keyframes borderRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes arrowNudge {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(2px, -2px); }
+@keyframes subtleGlowPulse {
+  0% {
+    border-color: rgba(16, 185, 129, 0.2);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.12);
+  }
+  100% {
+    border-color: rgba(16, 185, 129, 0.45);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.28);
+  }
 }
