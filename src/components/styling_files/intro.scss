@@ -66,21 +66,23 @@
     gap: 1.5rem;
     background: transparent;
 
-    // Hero Title (Space Grotesk 4.4rem, bold 800, tight -2.5px tracking)
+    // Hero Title (Plus Jakarta Sans 5.2rem, bold 800, tight -2.8px tracking)
     .name-text {
-      font-size: 5rem;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 5.2rem;
       font-weight: 800;
       color: var(--title-color);
-      background: linear-gradient(135deg, var(--name-gradient-start) 0%, var(--name-gradient-end) 100%);
+      background: linear-gradient(135deg, var(--name-gradient-start) 0%, var(--name-gradient-end) 60%, rgba(16, 185, 129, 0.9) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       line-height: 1.05;
-      letter-spacing: -2.5px;
+      letter-spacing: -2.8px;
       padding-top: 2.5rem;
+      filter: drop-shadow(0 0 30px rgba(16, 185, 129, 0.2));
 
       @include mobile {
-        font-size: 3rem;
-        letter-spacing: -1.5px;
+        font-size: 3rem !important;
+        letter-spacing: -1.6px;
       }
     }
 
