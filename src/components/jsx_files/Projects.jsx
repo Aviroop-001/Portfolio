@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../styling_files/projects.scss";
 import { projectsData } from "./Data";
 import { Box, Text, Image } from "@chakra-ui/react";
 import { AiOutlineLink } from "react-icons/ai";
 import { VscGithubAlt } from "react-icons/vsc";
-import { FiLayers } from "react-icons/fi";
+import { FiLayers, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 export default function Projects() {
+  const [showAll, setShowAll] = useState(false);
+
   const projectTechMap = {
     "Generative AI & Financial Reporting Platform": ["Python", "RandomForest", "LightGBM", "Gemini", "GitHub Actions"],
     "Blogetra": ["ReactJS", "Node.js", "Express.js", "MongoDB", "REST API"],
@@ -25,6 +27,8 @@ export default function Projects() {
     "User Dashboard": "Realtime State • Employee Tracking"
   };
 
+  const visibleProjects = showAll ? projectsData : projectsData.slice(0, 2);
+
   return (
     <Box className="projects-showcase-container">
       {/* Header */}
@@ -36,7 +40,7 @@ export default function Projects() {
 
       {/* Modern 2-Column Bento Spotlight Cards Grid */}
       <div className="projects-bento-grid">
-        {projectsData.map((project) => (
+        {visibleProjects.map((project) => (
           <div key={project.id} className="project-bento-card">
             {/* Card Image Preview */}
             <div className="card-preview-container">
@@ -103,6 +107,19 @@ export default function Projects() {
           </div>
         ))}
       </div>
+
+      {/* Expand / Collapse Toggle Button */}
+      {projectsData.length > 2 && (
+        <div className="projects-expand-wrapper">
+          <button 
+            className="projects-toggle-btn"
+            onClick={() => setShowAll(!showAll)}
+          >
+            <span>{showAll ? 'Show Fewer Projects' : `Show All Projects (${projectsData.length - 2} More)`}</span>
+            {showAll ? <FiChevronUp className="arrow-icon" /> : <FiChevronDown className="arrow-icon" />}
+          </button>
+        </div>
+      )}
     </Box>
   );
 }

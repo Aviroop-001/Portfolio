@@ -467,4 +467,38 @@
       }
     }
   }
+
+  .projects-expand-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+
+    .projects-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 25px;
+      color: #10b981;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+
+      &:hover {
+        background: #10b981;
+        color: #000000;
+        box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .arrow-icon {
+        font-size: 1.1rem;
+      }
+    }
+  }
 }
