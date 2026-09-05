@@ -96,26 +96,21 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 800vh scroll track length for extended, smooth scroll progression
+  // 250vh scroll track height: snappy, interactive & responsive
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
-  // Phase 1 -> 2: Emerging SVG Roots (0.10 to 0.28)
-  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.28], [0, 1]);
-  const rootOpacity = useTransform(smoothProgress, [0.08, 0.16], [0, 1]);
+  // SVG Roots (Always visible, draws quickly from 0.00 to 0.15)
+  const rootPathGrowth = useTransform(smoothProgress, [0.00, 0.15], [0.2, 1]);
 
-  // Sub-agents entrance (0.24 to 0.32)
-  const subAgentsOpacity = useTransform(smoothProgress, [0.24, 0.32], [0, 1]);
-  const subAgentsY = useTransform(smoothProgress, [0.24, 0.32], [30, 0]);
-
-  // Unified synchronized Step & Progress calculation (0.32 to 0.84)
+  // Synchronized Step & Progress calculation (0.05 to 0.82)
   const stepStateTransform = useTransform(smoothProgress, (val) => {
-    const START = 0.32;
-    const END = 0.84;
+    const START = 0.05;
+    const END = 0.82;
     if (val < START) return { index: 0, progress: 0 };
     if (val >= END) return { index: 4, progress: 100 };
 
@@ -126,14 +121,14 @@ export default function AgenticSystemVisualizer() {
     return { index, progress };
   });
 
-  // Phase 4: Stage Fade Out & Outro Entrance (0.85 to 0.98)
-  const activeStageScale = useTransform(smoothProgress, [0.85, 0.92], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.85, 0.92], [0, -80]);
-  const activeStageOpacity = useTransform(smoothProgress, [0.85, 0.92], [1, 0]);
+  // Outro transition (0.85 to 0.98)
+  const activeStageScale = useTransform(smoothProgress, [0.85, 0.93], [1, 0.92]);
+  const activeStageY = useTransform(smoothProgress, [0.85, 0.93], [0, -60]);
+  const activeStageOpacity = useTransform(smoothProgress, [0.85, 0.93], [1, 0]);
 
   const outroOpacity = useTransform(smoothProgress, [0.90, 0.97], [0, 1]);
   const outroScale = useTransform(smoothProgress, [0.90, 0.97], [0.9, 1]);
-  const outroY = useTransform(smoothProgress, [0.90, 0.97], [50, 0]);
+  const outroY = useTransform(smoothProgress, [0.90, 0.97], [40, 0]);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [progressPct, setProgressPct] = useState(0);
@@ -160,7 +155,7 @@ export default function AgenticSystemVisualizer() {
             <span>LANGGRAPH MULTI-AGENT ORCHESTRATION</span>
           </div>
           <h2 className="main-headline">Automated System Fault Localization</h2>
-          <p className="sub-headline">Scroll down to trigger Supervisor root branching & worker execution.</p>
+          <p className="sub-headline">Scroll down to trace Supervisor root branching & worker execution.</p>
         </div>
 
         {/* Stage Container */}
@@ -188,22 +183,18 @@ export default function AgenticSystemVisualizer() {
             </div>
 
             {/* Emerging SVG Roots (5 Branch Lines from Mother to Subagents) */}
-            <motion.div className="svg-roots-container" style={{ opacity: rootOpacity }}>
+            <div className="svg-roots-container">
               <svg viewBox="0 0 1000 90" preserveAspectRatio="none" className="roots-svg">
-                {/* 5 Bezier Curves starting at (500, 0) and branching out to 5 positions: 100, 300, 500, 700, 900 */}
                 <motion.path d="M 500 0 C 500 45, 100 45, 100 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 300 45, 300 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 500 45, 500 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 700 45, 700 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 900 45, 900 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
               </svg>
-            </motion.div>
+            </div>
 
-            {/* 5 Sub-Agents Pipeline Bar */}
-            <motion.div 
-              className="subagents-pipeline-grid"
-              style={{ opacity: subAgentsOpacity, y: subAgentsY }}
-            >
+            {/* 5 Sub-Agents Pipeline Bar (Always Visible Immediately) */}
+            <div className="subagents-pipeline-grid">
               {subAgentsData.map((agent, idx) => {
                 const isActive = currentStepIndex === idx;
                 const isDone = currentStepIndex > idx;
@@ -238,7 +229,7 @@ export default function AgenticSystemVisualizer() {
                   </div>
                 );
               })}
-            </motion.div>
+            </div>
 
             {/* Dynamic Code Terminal / Workspace Window */}
             <div className="workspace-output-container">
@@ -246,10 +237,10 @@ export default function AgenticSystemVisualizer() {
                 <motion.div 
                   key={currentAgent.id}
                   className="bare-terminal-window"
-                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                  initial={{ opacity: 0, y: 12, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                 >
                   {/* Top Window Bar */}
                   <div className="terminal-header">
