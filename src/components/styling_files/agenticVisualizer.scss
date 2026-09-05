@@ -1,0 +1,290 @@
+@import "../../global.scss";
+
+.agentic-visualizer-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+
+  @include mobile {
+    padding: 1.25rem 1rem;
+    margin-top: 2rem;
+  }
+
+  // Header & Controls
+  .visualizer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-info {
+      .header-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--accent-green);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+
+      .header-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--title-color);
+        margin: 0;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .simulate-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.75rem 1.4rem;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 10px;
+        color: #10b981;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+
+        &:hover:not(:disabled) {
+          background: rgba(16, 185, 129, 0.25);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .play-icon {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+
+  // Node Diagram Canvas
+  .visualizer-nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    position: relative;
+    margin-bottom: 2rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .agent-node-card {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.25s ease;
+
+      .node-step-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        font-weight: 700;
+        color: var(--muted-text);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .node-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--title-color);
+        margin-bottom: 0.8rem;
+        transition: all 0.2s ease;
+      }
+
+      .node-label {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--title-color);
+        line-height: 1.25;
+        margin-bottom: 0.4rem;
+      }
+
+      .node-subtext {
+        font-size: 0.72rem;
+        color: var(--subtext-color);
+        line-height: 1.3;
+      }
+
+      // Active / Executing state
+      &.active {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.08);
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+        transform: translateY(-3px);
+
+        .node-icon-wrapper {
+          background: #10b981;
+          color: #000;
+          border-color: #10b981;
+          box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        }
+
+        .node-step-badge {
+          color: #10b981;
+        }
+      }
+
+      // Selected state
+      &.selected {
+        border-color: var(--accent-green);
+      }
+    }
+  }
+
+  // Active Node Details & Live Terminal Output
+  .visualizer-console {
+    background: #09090b;
+    border: 1px solid #27272a;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    box-sizing: border-box;
+
+    .console-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid #18181b;
+
+      .console-dots {
+        display: flex;
+        gap: 6px;
+
+        span {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          &.dot-red { background: #ef4444; }
+          &.dot-yellow { background: #eab308; }
+          &.dot-green { background: #22c55e; }
+        }
+      }
+
+      .console-title {
+        font-size: 0.75rem;
+        color: #a1a1aa;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    .console-logs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      min-height: 110px;
+      max-height: 200px;
+      overflow-y: auto;
+
+      .log-line {
+        line-height: 1.5;
+        color: #d4d4d8;
+
+        .log-prefix {
+          color: #10b981;
+          font-weight: 700;
+          margin-right: 0.5rem;
+        }
+
+        .log-highlight {
+          color: #38bdf8;
+          font-weight: 600;
+        }
+
+        .log-metric {
+          color: #facc15;
+          font-weight: 700;
+        }
+
+        &.log-success {
+          color: #4ade80;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  // Summary Metrics Footer
+  .visualizer-impact-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-card {
+      background: var(--secondary-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+
+      .metric-num {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--accent-green);
+        margin-bottom: 0.2rem;
+      }
+
+      .metric-label {
+        font-size: 0.75rem;
+        color: var(--subtext-color);
+      }
+    }
+  }
+}
