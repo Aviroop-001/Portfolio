@@ -96,21 +96,36 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 250vh scroll track height: responsive and interactive
+  // 350vh scroll track length for cinematic choreography
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
-  // SVG Roots (draws quickly from 0.00 to 0.15)
-  const rootPathGrowth = useTransform(smoothProgress, [0.00, 0.15], [0.2, 1]);
+  // Phase 1 -> Phase 2: Supervisor & Roots
+  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.24 to 0.34)
+  const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.22, 0.32], [1, 1, 0]);
+  const supervisorY = useTransform(smoothProgress, [0.22, 0.32], [0, -60]);
 
-  // Motion value for progress fill width (updates DOM style directly without React re-renders)
+  // SVG Roots emerge downwards from Supervisor (0.10 to 0.24), then fade out with Supervisor (0.26 to 0.32)
+  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.24], [0, 1]);
+  const rootOpacity = useTransform(smoothProgress, [0.08, 0.16, 0.26, 0.32], [0, 1, 1, 0]);
+
+  // Phase 2 -> Phase 3: Subagents reveal & take stage
+  const subAgentsOpacity = useTransform(smoothProgress, [0.18, 0.28], [0, 1]);
+  const subAgentsY = useTransform(smoothProgress, [0.18, 0.28], [40, 0]);
+  const subAgentsScale = useTransform(smoothProgress, [0.18, 0.28], [0.95, 1]);
+
+  // Terminal Output Window Entrance (0.26 to 0.34)
+  const terminalOpacity = useTransform(smoothProgress, [0.26, 0.34], [0, 1]);
+  const terminalY = useTransform(smoothProgress, [0.26, 0.34], [30, 0]);
+
+  // Phase 3: Motion value for active progress fill width
   const progressFillWidth = useTransform(smoothProgress, (val) => {
-    const START = 0.05;
-    const END = 0.82;
+    const START = 0.30;
+    const END = 0.84;
     if (val < START) return "0%";
     if (val >= END) return "100%";
 
@@ -121,20 +136,20 @@ export default function AgenticSystemVisualizer() {
     return `${stepProgress}%`;
   });
 
-  // Motion value for active step index (0, 1, 2, 3, 4) - only updates state 4 times total across entire scroll
+  // Motion value for active step index (0, 1, 2, 3, 4) - only updates state when step transitions
   const activeStepIndexTransform = useTransform(smoothProgress, (val) => {
-    const START = 0.05;
-    const END = 0.82;
+    const START = 0.30;
+    const END = 0.84;
     if (val < START) return 0;
     if (val >= END) return 4;
     const fraction = (val - START) / (END - START);
     return Math.min(Math.floor(fraction * 5), 4);
   });
 
-  // Outro stage transitions
-  const activeStageScale = useTransform(smoothProgress, [0.85, 0.93], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.85, 0.93], [0, -60]);
-  const activeStageOpacity = useTransform(smoothProgress, [0.85, 0.93], [1, 0]);
+  // Phase 4: Outro Stage Transitions (0.84 to 0.98)
+  const activeStageScale = useTransform(smoothProgress, [0.84, 0.92], [1, 0.92]);
+  const activeStageY = useTransform(smoothProgress, [0.84, 0.92], [0, -60]);
+  const activeStageOpacity = useTransform(smoothProgress, [0.84, 0.92], [1, 0]);
 
   const outroOpacity = useTransform(smoothProgress, [0.90, 0.97], [0, 1]);
   const outroScale = useTransform(smoothProgress, [0.90, 0.97], [0.9, 1]);
@@ -169,7 +184,7 @@ export default function AgenticSystemVisualizer() {
         {/* Stage Container */}
         <div className="architecture-stage">
 
-          {/* Active Execution Stage (Mother Agent + Roots + Subagents + Code Output) */}
+          {/* Active Execution Stage */}
           <motion.div 
             className="main-execution-view"
             style={{ 
@@ -178,8 +193,11 @@ export default function AgenticSystemVisualizer() {
               scale: activeStageScale
             }}
           >
-            {/* Top Mother Supervisor Node */}
-            <div className="mother-supervisor-node">
+            {/* Phase 1 & 2: Supervisor Node (Animates out as workers take stage) */}
+            <motion.div 
+              className="mother-supervisor-node"
+              style={{ opacity: supervisorOpacity, y: supervisorY }}
+            >
               <div className="node-glow-ring" />
               <div className="mother-content">
                 <IoGitNetworkOutline className="mother-icon" />
@@ -188,10 +206,10 @@ export default function AgenticSystemVisualizer() {
                   <span className="m-title">LangGraph Orchestrator</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Emerging SVG Roots (5 Branch Lines from Mother to Subagents) */}
-            <div className="svg-roots-container">
+            {/* Emerging SVG Roots (Emerges from Supervisor down to Subagents) */}
+            <motion.div className="svg-roots-container" style={{ opacity: rootOpacity }}>
               <svg viewBox="0 0 1000 90" preserveAspectRatio="none" className="roots-svg">
                 <motion.path d="M 500 0 C 500 45, 100 45, 100 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 300 45, 300 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
@@ -199,10 +217,17 @@ export default function AgenticSystemVisualizer() {
                 <motion.path d="M 500 0 C 500 45, 700 45, 700 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
                 <motion.path d="M 500 0 C 500 45, 900 45, 900 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
               </svg>
-            </div>
+            </motion.div>
 
-            {/* 5 Sub-Agents Pipeline Bar */}
-            <div className="subagents-pipeline-grid">
+            {/* Phase 2 & 3: 5 Sub-Agents Pipeline Bar (Reveals as roots grow, then executes) */}
+            <motion.div 
+              className="subagents-pipeline-grid"
+              style={{ 
+                opacity: subAgentsOpacity, 
+                y: subAgentsY,
+                scale: subAgentsScale 
+              }}
+            >
               {subAgentsData.map((agent, idx) => {
                 const isActive = currentStepIndex === idx;
                 const isDone = currentStepIndex > idx;
@@ -224,7 +249,7 @@ export default function AgenticSystemVisualizer() {
                       <span className="agent-subrole">{agent.role}</span>
                     </div>
 
-                    {/* Progress indicator driven directly by motion value */}
+                    {/* Progress indicator */}
                     <div className="node-status-bar">
                       {isActive && (
                         <motion.div 
@@ -240,10 +265,13 @@ export default function AgenticSystemVisualizer() {
                   </div>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* Dynamic Code Terminal / Workspace Window */}
-            <div className="workspace-output-container">
+            <motion.div 
+              className="workspace-output-container"
+              style={{ opacity: terminalOpacity, y: terminalY }}
+            >
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={currentAgent.id}
@@ -320,11 +348,11 @@ export default function AgenticSystemVisualizer() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </motion.div>
 
           </motion.div>
 
-          {/* Outro Impact Metrics Stage (Scales in when scroll reaches 0.90+) */}
+          {/* Outro Impact Metrics Stage */}
           <motion.div 
             className="outro-impact-view"
             style={{ 
