@@ -78,7 +78,7 @@ export default function Experience() {
                     <FiArrowRight className="bullet-icon"/> 
                     <div className="bullet-content-wrap">
                       <span>{desc}</span>
-                      {timelineData[activeTab].org === "CommerceIQ" && i === 0 && (
+                      {activeTab === 0 && i === 0 && (
                         <div className="inline-playground-wrapper">
                           <button 
                             className="inline-playground-link-btn"
