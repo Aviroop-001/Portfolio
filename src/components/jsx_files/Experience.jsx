@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../styling_files/experience.scss";
 import { timelineData } from "./Data";
 import { Box } from "@chakra-ui/react";
-import { FiCalendar, FiArrowRight, FiZap, FiExternalLink } from "react-icons/fi";
+import { FiCalendar, FiArrowRight, FiZap } from "react-icons/fi";
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState(0);
@@ -75,7 +75,21 @@ export default function Experience() {
               <ul className="impact-list">
                 {timelineData[activeTab].bullets && timelineData[activeTab].bullets.map((desc, i) => (
                   <li key={i}>
-                    <FiArrowRight className="bullet-icon"/> <span>{desc}</span>
+                    <FiArrowRight className="bullet-icon"/> 
+                    <div className="bullet-content-wrap">
+                      <span>{desc}</span>
+                      {timelineData[activeTab].org === "CommerceIQ" && i === 0 && (
+                        <div className="inline-playground-wrapper">
+                          <button 
+                            className="inline-playground-link-btn"
+                            onClick={handleOpenPlayground}
+                          >
+                            <FiZap className="btn-zap-icon" />
+                            <span>⚡ Open Interactive LangGraph Multi-Agent Playground ↗</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -85,23 +99,6 @@ export default function Experience() {
                   {timelineData[activeTab].skills.split(', ').map((tech, i) => (
                     <span key={i} className="tech-tag">{tech}</span>
                   ))}
-                </div>
-              )}
-
-              {/* Dedicated Playground Route Trigger for CommerceIQ */}
-              {timelineData[activeTab].org === "CommerceIQ" && (
-                <div className="architecture-showcase-wrapper">
-                  <button 
-                    className="architecture-toggle-btn"
-                    onClick={handleOpenPlayground}
-                  >
-                    <FiZap className="btn-zap-icon" />
-                    <span className="btn-text">
-                      ⚡ Open Interactive LangGraph Multi-Agent Playground
-                    </span>
-                    <span className="btn-badge">Playground Canvas ↗</span>
-                    <FiExternalLink className="arrow-icon" />
-                  </button>
                 </div>
               )}
             </div>
