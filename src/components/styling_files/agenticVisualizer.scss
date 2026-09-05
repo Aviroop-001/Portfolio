@@ -1,17 +1,17 @@
 @import "../../global.scss";
 
-// 350vh Long Scroll Pin Track
+// 400vh Long Scroll Pin Track
 .mother-agent-pin-container {
   position: relative;
   width: 100%;
-  min-height: 350vh;
+  min-height: 400vh;
   box-sizing: border-box;
 
   @include mobile {
     min-height: auto;
   }
 
-  // Sticky Canvas Container
+  // Sticky Canvas
   .mother-sticky-canvas {
     position: sticky;
     top: 0;
@@ -33,197 +33,116 @@
     }
   }
 
-  // Top Header
+  // Header
   .canvas-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 
     .system-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       font-weight: 800;
       color: var(--title-color);
-      margin: 0 0 0.4rem 0;
+      margin: 0 0 0.3rem 0;
       letter-spacing: -0.8px;
 
       @include mobile {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
       }
     }
 
     .system-subtitle {
       font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--subtext-color);
       margin: 0;
     }
   }
 
-  // Phase 1: Mother Agent Idle Stage (Before Spawn)
-  .mother-idle-stage {
+  // Phase 1 & 2: Top Mother Supervisor & Emerging Roots
+  .mother-supervisor-hub {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 3rem 2rem;
-    background: var(--card-bg);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.15);
-    max-width: 650px;
-    margin: 2rem auto 0 auto;
-    text-align: center;
-    box-sizing: border-box;
+    margin-bottom: 1.2rem;
 
-    .mother-core-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: rgba(16, 185, 129, 0.15);
+    .hub-core-card {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 1.2rem;
+      gap: 10px;
+      padding: 8px 18px;
+      background: var(--card-bg);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
 
-      .pulse-ring {
-        position: absolute;
-        inset: -6px;
-        border-radius: 50%;
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        animation: ringPulse 2s ease-in-out infinite;
-      }
-
-      .core-icon {
-        font-size: 2.2rem;
+      .hub-icon {
+        font-size: 1.3rem;
         color: #10b981;
       }
-    }
 
-    .mother-meta {
-      .mother-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        font-weight: 700;
-        color: #10b981;
-        letter-spacing: 1.5px;
-        display: block;
-        margin-bottom: 0.4rem;
-      }
+      .hub-info {
+        display: flex;
+        flex-direction: column;
 
-      .mother-name {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 800;
-        color: var(--title-color);
-        margin: 0 0 0.8rem 0;
-      }
+        .hub-badge {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.65rem;
+          font-weight: 700;
+          color: #10b981;
+          letter-spacing: 1px;
+        }
 
-      .mother-status {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.82rem;
-        color: #facc15;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(250, 204, 21, 0.1);
-        padding: 6px 14px;
-        border-radius: 20px;
-        border: 1px solid rgba(250, 204, 21, 0.25);
-
-        .status-alert {
-          font-size: 1.1rem;
+        .hub-name {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: var(--title-color);
         }
       }
     }
 
-    .scroll-hint-bar {
-      margin-top: 2rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--muted-text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .emerging-roots-wrapper {
+      width: 100px;
+      height: 35px;
 
-      .hint-arrow {
-        color: #10b981;
-        animation: bounceArrow 1.5s infinite;
+      .roots-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+
+        .root-line {
+          stroke: #10b981;
+          stroke-width: 2.5px;
+          fill: none;
+          filter: drop-shadow(0 0 4px #10b981);
+        }
       }
     }
   }
 
-  // Phase 2: Active Spawned Orchestration Stage
-  .mother-spawned-stage {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  // Phase 3: Sub-Agents Execution Stage
+  .agents-execution-stage {
     width: 100%;
 
-    .mother-controller-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 1.2rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-
-      .mother-pill {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #10b981;
-
-        .pill-icon {
-          font-size: 1.1rem;
-        }
-      }
-
-      .spawning-indicator {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
-        color: var(--title-color);
-
-        .live-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #10b981;
-          box-shadow: 0 0 10px #10b981;
-          animation: dotPulse 1.5s infinite;
-        }
-      }
-    }
-
-    // Main 2-Column Stage Grid
-    .stage-grid {
+    .stage-2col-layout {
       display: grid;
-      grid-template-columns: 1fr 1.25fr;
+      grid-template-columns: 1fr 1.2fr;
       gap: 2rem;
       align-items: center;
 
       @media (max-width: 900px) {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
       }
 
-      // Left Column: Tree Nodes
-      .sub-agents-tree-col {
+      // Left Column: Sliding Sub-Agent Cards
+      .subagents-sliding-list {
         display: flex;
         flex-direction: column;
-        gap: 0.8rem;
-        position: relative;
+        gap: 0.75rem;
 
-        .spawned-agent-node {
-          position: relative;
+        .sliding-agent-card {
           display: flex;
           align-items: center;
           gap: 0.9rem;
@@ -232,8 +151,9 @@
           border: 1px solid var(--border-color);
           border-radius: 12px;
           transition: border-color 0.2s ease, background 0.2s ease;
+          box-sizing: border-box;
 
-          .node-icon-box {
+          .agent-icon-box {
             width: 36px;
             height: 36px;
             border-radius: 8px;
@@ -245,30 +165,30 @@
             font-size: 1.1rem;
             color: var(--title-color);
 
-            .done-icon {
+            .check-done {
               color: #22c55e;
               font-size: 1.3rem;
             }
           }
 
-          .node-info {
+          .agent-meta {
             display: flex;
             flex-direction: column;
             flex: 1;
 
-            .node-title-row {
+            .meta-top {
               display: flex;
               align-items: center;
               gap: 8px;
 
-              .node-step {
+              .step-tag {
                 font-family: 'JetBrains Mono', monospace;
                 font-size: 0.7rem;
                 font-weight: 700;
                 color: var(--muted-text);
               }
 
-              .node-title {
+              .agent-name {
                 font-family: 'Space Grotesk', sans-serif;
                 font-size: 0.92rem;
                 font-weight: 700;
@@ -277,14 +197,32 @@
               }
             }
 
-            .node-role {
+            .agent-role {
               font-family: 'JetBrains Mono', monospace;
               font-size: 0.68rem;
               color: var(--subtext-color);
+              margin-bottom: 4px;
+            }
+
+            // Progress Bar Track
+            .progress-bar-track {
+              width: 100%;
+              height: 3px;
+              background: var(--border-color);
+              border-radius: 3px;
+              overflow: hidden;
+              margin-top: 2px;
+
+              .progress-bar-fill {
+                height: 100%;
+                background: #10b981;
+                box-shadow: 0 0 8px #10b981;
+                transition: width 0.1s linear;
+              }
             }
           }
 
-          .node-status-badge {
+          .status-pill {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.62rem;
             font-weight: 700;
@@ -299,13 +237,13 @@
             background: rgba(16, 185, 129, 0.08);
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
 
-            .node-icon-box {
+            .agent-icon-box {
               background: #10b981;
               color: #000;
               border-color: #10b981;
             }
 
-            .node-status-badge {
+            .status-pill {
               color: #10b981;
               background: rgba(16, 185, 129, 0.15);
             }
@@ -314,25 +252,25 @@
           &.done {
             border-color: rgba(34, 197, 94, 0.3);
 
-            .node-status-badge {
+            .status-pill {
               color: #22c55e;
             }
           }
         }
       }
 
-      // Right Column: Active Sub-Agent Workspace
-      .active-subagent-workspace {
+      // Right Column: Workspace Stage
+      .workspace-preview-stage {
         width: 100%;
 
-        .subagent-execution-card {
+        .workspace-window {
           background: #09090b;
           border: 1px solid #27272a;
           border-radius: 14px;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
           overflow: hidden;
 
-          .window-header {
+          .window-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -340,7 +278,7 @@
             background: #121215;
             border-bottom: 1px solid #27272a;
 
-            .window-dots {
+            .dots {
               display: flex;
               gap: 6px;
 
@@ -365,7 +303,7 @@
           .window-body {
             padding: 1.2rem;
 
-            .agent-action-desc {
+            .desc {
               font-family: 'Inter', sans-serif;
               font-size: 0.9rem;
               color: #d4d4d8;
@@ -470,19 +408,94 @@
       }
     }
   }
-}
 
-@keyframes ringPulse {
-  0% { transform: scale(1); opacity: 0.4; }
-  100% { transform: scale(1.15); opacity: 0.8; }
-}
+  // Phase 4: Final Result Outro Card
+  .final-outro-stage {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
-@keyframes bounceArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
+    .outro-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 0 50px rgba(16, 185, 129, 0.2);
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+      box-sizing: border-box;
 
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+      .outro-icon {
+        font-size: 3rem;
+        color: #22c55e;
+        margin-bottom: 0.8rem;
+      }
+
+      .outro-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #10b981;
+        letter-spacing: 1.5px;
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+
+      .outro-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--title-color);
+        margin: 0 0 0.8rem 0;
+      }
+
+      .outro-desc {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.95rem;
+        color: var(--subtext-color);
+        line-height: 1.5;
+        margin: 0 0 2rem 0;
+
+        code {
+          color: #38bdf8;
+          background: rgba(56, 189, 248, 0.1);
+          padding: 2px 6px;
+          border-radius: 4px;
+        }
+      }
+
+      .outro-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        border-top: 1px solid var(--border-color);
+        padding-top: 1.5rem;
+
+        @include mobile {
+          grid-template-columns: 1fr;
+        }
+
+        .metric-cell {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 0.2rem;
+          }
+
+          .lbl {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--muted-text);
+          }
+        }
+      }
+    }
+  }
 }
