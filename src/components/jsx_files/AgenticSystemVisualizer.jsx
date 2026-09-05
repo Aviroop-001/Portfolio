@@ -96,38 +96,40 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 550vh scroll track length for ultra-smooth scroll progression
+  // 800vh scroll track length for extended, smooth scroll progression
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 28, restDelta: 0.001 });
 
-  // Phase 1 -> 2: Emerging SVG Roots (0.10 to 0.30)
-  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.30], [0, 1]);
-  const rootOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
+  // Phase 1 -> 2: Emerging SVG Roots (0.10 to 0.28)
+  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.28], [0, 1]);
+  const rootOpacity = useTransform(smoothProgress, [0.08, 0.16], [0, 1]);
 
-  // Sub-agents entrance (0.28 to 0.38)
-  const subAgentsOpacity = useTransform(smoothProgress, [0.28, 0.36], [0, 1]);
-  const subAgentsY = useTransform(smoothProgress, [0.28, 0.36], [30, 0]);
+  // Sub-agents entrance (0.24 to 0.32)
+  const subAgentsOpacity = useTransform(smoothProgress, [0.24, 0.32], [0, 1]);
+  const subAgentsY = useTransform(smoothProgress, [0.24, 0.32], [30, 0]);
 
-  // Step calculations (0.34 to 0.84)
-  const activeStepFloat = useTransform(smoothProgress, [0.34, 0.46, 0.58, 0.70, 0.82], [0, 1, 2, 3, 4]);
+  // Unified synchronized Step & Progress calculation (0.32 to 0.84)
+  const stepStateTransform = useTransform(smoothProgress, (val) => {
+    const START = 0.32;
+    const END = 0.84;
+    if (val < START) return { index: 0, progress: 0 };
+    if (val >= END) return { index: 4, progress: 100 };
 
-  // Sub-progress % calculation inside active agent (0% -> 100%)
-  const subProgressPercentage = useTransform(smoothProgress, (val) => {
-    if (val < 0.34) return 0;
-    if (val > 0.84) return 100;
-    const normalized = (val - 0.34) / 0.50; // 0 to 1 across 5 steps
-    const stepFraction = (normalized * 5) % 1;
-    return Math.min(Math.round(stepFraction * 100), 100);
+    const fraction = (val - START) / (END - START); // 0.0 to 1.0
+    const scaled = fraction * 5; // 0.0 to 5.0
+    const index = Math.min(Math.floor(scaled), 4);
+    const progress = Math.min(Math.round((scaled - index) * 100), 100);
+    return { index, progress };
   });
 
-  // Phase 4: Stage Fade Out & Outro Entrance (0.84 to 0.98)
-  const activeStageScale = useTransform(smoothProgress, [0.84, 0.92], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.84, 0.92], [0, -80]);
-  const activeStageOpacity = useTransform(smoothProgress, [0.84, 0.92], [1, 0]);
+  // Phase 4: Stage Fade Out & Outro Entrance (0.85 to 0.98)
+  const activeStageScale = useTransform(smoothProgress, [0.85, 0.92], [1, 0.92]);
+  const activeStageY = useTransform(smoothProgress, [0.85, 0.92], [0, -80]);
+  const activeStageOpacity = useTransform(smoothProgress, [0.85, 0.92], [1, 0]);
 
   const outroOpacity = useTransform(smoothProgress, [0.90, 0.97], [0, 1]);
   const outroScale = useTransform(smoothProgress, [0.90, 0.97], [0.9, 1]);
@@ -137,18 +139,12 @@ export default function AgenticSystemVisualizer() {
   const [progressPct, setProgressPct] = useState(0);
 
   useEffect(() => {
-    const unsubStep = activeStepFloat.on("change", (latest) => {
-      const rounded = Math.min(Math.max(Math.round(latest), 0), subAgentsData.length - 1);
-      setCurrentStepIndex(rounded);
+    const unsub = stepStateTransform.on("change", ({ index, progress }) => {
+      setCurrentStepIndex(index);
+      setProgressPct(progress);
     });
-    const unsubProg = subProgressPercentage.on("change", (latest) => {
-      setProgressPct(latest);
-    });
-    return () => {
-      unsubStep();
-      unsubProg();
-    };
-  }, [activeStepFloat, subProgressPercentage]);
+    return () => unsub();
+  }, [stepStateTransform]);
 
   const currentAgent = subAgentsData[currentStepIndex];
 
@@ -164,7 +160,7 @@ export default function AgenticSystemVisualizer() {
             <span>LANGGRAPH MULTI-AGENT ORCHESTRATION</span>
           </div>
           <h2 className="main-headline">Automated System Fault Localization</h2>
-          <p className="sub-headline">Scroll to trigger Supervisor root branching & worker execution.</p>
+          <p className="sub-headline">Scroll down to trigger Supervisor root branching & worker execution.</p>
         </div>
 
         {/* Stage Container */}
