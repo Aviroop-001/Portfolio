@@ -96,7 +96,7 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 250vh scroll track height: snappy, interactive & responsive
+  // 250vh scroll track height: responsive and interactive
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -104,24 +104,34 @@ export default function AgenticSystemVisualizer() {
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
-  // SVG Roots (Always visible, draws quickly from 0.00 to 0.15)
+  // SVG Roots (draws quickly from 0.00 to 0.15)
   const rootPathGrowth = useTransform(smoothProgress, [0.00, 0.15], [0.2, 1]);
 
-  // Synchronized Step & Progress calculation (0.05 to 0.82)
-  const stepStateTransform = useTransform(smoothProgress, (val) => {
+  // Motion value for progress fill width (updates DOM style directly without React re-renders)
+  const progressFillWidth = useTransform(smoothProgress, (val) => {
     const START = 0.05;
     const END = 0.82;
-    if (val < START) return { index: 0, progress: 0 };
-    if (val >= END) return { index: 4, progress: 100 };
+    if (val < START) return "0%";
+    if (val >= END) return "100%";
 
-    const fraction = (val - START) / (END - START); // 0.0 to 1.0
-    const scaled = fraction * 5; // 0.0 to 5.0
-    const index = Math.min(Math.floor(scaled), 4);
-    const progress = Math.min(Math.round((scaled - index) * 100), 100);
-    return { index, progress };
+    const fraction = (val - START) / (END - START);
+    const scaled = fraction * 5;
+    const stepIndex = Math.min(Math.floor(scaled), 4);
+    const stepProgress = Math.min(Math.round((scaled - stepIndex) * 100), 100);
+    return `${stepProgress}%`;
   });
 
-  // Outro transition (0.85 to 0.98)
+  // Motion value for active step index (0, 1, 2, 3, 4) - only updates state 4 times total across entire scroll
+  const activeStepIndexTransform = useTransform(smoothProgress, (val) => {
+    const START = 0.05;
+    const END = 0.82;
+    if (val < START) return 0;
+    if (val >= END) return 4;
+    const fraction = (val - START) / (END - START);
+    return Math.min(Math.floor(fraction * 5), 4);
+  });
+
+  // Outro stage transitions
   const activeStageScale = useTransform(smoothProgress, [0.85, 0.93], [1, 0.92]);
   const activeStageY = useTransform(smoothProgress, [0.85, 0.93], [0, -60]);
   const activeStageOpacity = useTransform(smoothProgress, [0.85, 0.93], [1, 0]);
@@ -131,15 +141,13 @@ export default function AgenticSystemVisualizer() {
   const outroY = useTransform(smoothProgress, [0.90, 0.97], [40, 0]);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [progressPct, setProgressPct] = useState(0);
 
   useEffect(() => {
-    const unsub = stepStateTransform.on("change", ({ index, progress }) => {
-      setCurrentStepIndex((prev) => (prev !== index ? index : prev));
-      setProgressPct((prev) => (prev !== progress ? progress : prev));
+    const unsub = activeStepIndexTransform.on("change", (latestIndex) => {
+      setCurrentStepIndex((prev) => (prev !== latestIndex ? latestIndex : prev));
     });
     return () => unsub();
-  }, [stepStateTransform]);
+  }, [activeStepIndexTransform]);
 
   const currentAgent = subAgentsData[currentStepIndex];
 
@@ -193,7 +201,7 @@ export default function AgenticSystemVisualizer() {
               </svg>
             </div>
 
-            {/* 5 Sub-Agents Pipeline Bar (Always Visible Immediately) */}
+            {/* 5 Sub-Agents Pipeline Bar */}
             <div className="subagents-pipeline-grid">
               {subAgentsData.map((agent, idx) => {
                 const isActive = currentStepIndex === idx;
@@ -216,15 +224,18 @@ export default function AgenticSystemVisualizer() {
                       <span className="agent-subrole">{agent.role}</span>
                     </div>
 
-                    {/* Progress indicator */}
+                    {/* Progress indicator driven directly by motion value */}
                     <div className="node-status-bar">
                       {isActive && (
-                        <div className="active-progress-fill" style={{ width: `${progressPct}%` }} />
+                        <motion.div 
+                          className="active-progress-fill" 
+                          style={{ width: progressFillWidth }} 
+                        />
                       )}
                     </div>
 
                     <div className="node-pill">
-                      {isDone ? 'DONE ✓' : isActive ? `RUNNING ${progressPct}%` : 'QUEUED'}
+                      {isDone ? 'DONE ✓' : isActive ? 'RUNNING' : 'QUEUED'}
                     </div>
                   </div>
                 );
@@ -253,7 +264,7 @@ export default function AgenticSystemVisualizer() {
                       {currentAgent.name} ➔ {currentAgent.graphic.title}
                     </span>
                     <span className="terminal-status-tag">
-                      {progressPct < 100 ? 'EXECUTION IN PROGRESS' : 'TASK COMPLETED'}
+                      {currentStepIndex === 4 ? 'FINAL CHECKPOINT' : 'EXECUTION IN PROGRESS'}
                     </span>
                   </div>
 
