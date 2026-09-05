@@ -135,8 +135,8 @@ export default function AgenticSystemVisualizer() {
 
   useEffect(() => {
     const unsub = stepStateTransform.on("change", ({ index, progress }) => {
-      setCurrentStepIndex(index);
-      setProgressPct(progress);
+      setCurrentStepIndex((prev) => (prev !== index ? index : prev));
+      setProgressPct((prev) => (prev !== progress ? progress : prev));
     });
     return () => unsub();
   }, [stepStateTransform]);

@@ -50,14 +50,15 @@ function App() {
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top >= -200 && rect.top <= window.innerHeight / 2) {
-            setActiveSection(section);
+            setActiveSection(prev => (prev !== section ? section : prev));
+            break;
           }
         }
       }
     };
     
     handleScroll();
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
