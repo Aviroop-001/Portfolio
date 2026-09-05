@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { 
   IoGitNetworkOutline, 
   IoSearchOutline, 
-  IoBrainOutline, 
+  IoHardwareChipOutline, 
   IoCodeSlashOutline, 
   IoFlaskOutline, 
   IoShieldCheckmarkOutline 
@@ -26,7 +26,7 @@ const subAgents = [
     role: 'Root Cause Inference',
     status: 'Analyzing stack trace...',
     badge: 'SUB-AGENT #2',
-    icon: <IoBrainOutline />,
+    icon: <IoHardwareChipOutline />,
     logs: 'Inferred unhandled null payload during async event dispatch'
   },
   {
