@@ -66,13 +66,13 @@
     gap: 1.5rem;
     background: transparent;
 
-    // Hero Title (Plus Jakarta Sans 5rem, bold 700, line-height 1.25 to prevent descender clipping)
+    // Hero Title (Plus Jakarta Sans 5rem, bold 700, subtle emerald accent tip)
     .name-text {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 5rem;
       font-weight: 700;
       color: var(--title-color);
-      background: linear-gradient(135deg, var(--name-gradient-start) 0%, var(--name-gradient-end) 60%, rgba(16, 185, 129, 0.9) 100%);
+      background: linear-gradient(135deg, var(--name-gradient-start) 0%, var(--name-gradient-end) 78%, rgba(16, 185, 129, 0.6) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
@@ -80,7 +80,7 @@
       letter-spacing: -2px;
       padding-top: 2rem;
       padding-bottom: 0.25em;
-      filter: drop-shadow(0 0 30px rgba(16, 185, 129, 0.2));
+      filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.12));
 
       @include mobile {
         font-size: 2.8rem !important;
