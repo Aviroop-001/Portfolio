@@ -102,4 +102,43 @@
     padding-top: 65px;
     width: 100%;
   }
+
+  .playground-end-footer {
+    width: 100%;
+    padding: 3rem 1rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #060709;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 100;
+    position: relative;
+
+    .end-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 30px;
+      color: #10b981;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25 ease;
+
+      &:hover {
+        background: #10b981;
+        color: #000000;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .arrow-icon {
+        font-size: 1.2rem;
+      }
+    }
+  }
 }

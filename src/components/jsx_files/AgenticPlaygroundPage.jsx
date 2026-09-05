@@ -45,6 +45,14 @@ export default function AgenticPlaygroundPage({ onBack }) {
       <div className="playground-body">
         <AgenticSystemVisualizer />
       </div>
+
+      {/* Bottom Completion Footer */}
+      <div className="playground-end-footer">
+        <button className="end-back-btn" onClick={handleBack}>
+          <FiArrowLeft className="arrow-icon" />
+          <span>Return to Portfolio (Experience)</span>
+        </button>
+      </div>
     </div>
   );
 }

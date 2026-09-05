@@ -1,21 +1,21 @@
 @import "../../global.scss";
 
-// 550vh Scroll Container
+// Scroll Container
 .agentic-scroll-wrapper {
   position: relative;
   width: 100%;
-  min-height: 500vh;
+  min-height: 300vh;
   box-sizing: border-box;
 
   @include mobile {
     min-height: auto;
   }
 
-  // Sticky Canvas Viewport (100vh)
+  // Sticky Canvas Viewport (100vh - 65px header offset)
   .agentic-sticky-canvas {
     position: sticky;
-    top: 0;
-    height: 100vh;
+    top: 65px;
+    height: calc(100vh - 65px);
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1.5rem;
     box-sizing: border-box;
     overflow: hidden;
     background: radial-gradient(circle at 50% 35%, rgba(16, 185, 129, 0.07) 0%, rgba(6, 7, 9, 0) 70%);

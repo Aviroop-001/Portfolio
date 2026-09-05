@@ -321,13 +321,6 @@ function App() {
           </motion.div>
         </section>
       </main>
-
-      {/* Modern Minimalist Footer */}
-      <footer className="modern-footer">
-        <div className="footer-content">
-          <p>© {new Date().getFullYear()} Aviroop Banerjee. Architected for scale & reliability.</p>
-        </div>
-      </footer>
     </div>
   );
 }
