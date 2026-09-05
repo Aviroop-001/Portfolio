@@ -4,7 +4,7 @@
 .agentic-scroll-wrapper {
   position: relative;
   width: 100%;
-  min-height: 350vh;
+  min-height: 500vh;
   box-sizing: border-box;
 
   @include mobile {
@@ -208,10 +208,10 @@
 
         .agent-pipeline-node {
           position: relative;
-          background: #0d0e12;
-          border: 1px solid var(--border-color);
-          border-radius: 12px;
-          padding: 0.8rem;
+          background: #0b0e12;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 1.1rem;
           display: flex;
           flex-direction: column;
           gap: 0.4rem;
@@ -224,41 +224,43 @@
             justify-content: space-between;
 
             .node-icon-wrapper {
-              width: 32px;
-              height: 32px;
-              border-radius: 8px;
-              background: rgba(255, 255, 255, 0.05);
-              border: 1px solid var(--border-color);
+              width: 44px;
+              height: 44px;
+              border-radius: 12px;
+              background: rgba(255, 255, 255, 0.06);
+              border: 1px solid rgba(255, 255, 255, 0.12);
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 1rem;
-              color: var(--title-color);
+              font-size: 1.35rem;
+              color: #ffffff;
+              transition: all 0.3s ease;
 
               .check-icon {
                 color: #22c55e;
-                font-size: 1.2rem;
+                font-size: 1.4rem;
               }
             }
 
             .step-num {
               font-family: 'JetBrains Mono', monospace;
-              font-size: 0.75rem;
+              font-size: 0.85rem;
               font-weight: 700;
-              color: var(--muted-text);
+              color: #71717a;
             }
           }
 
           .agent-text {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
+            margin-top: 0.4rem;
 
             .agent-title {
               font-family: 'Space Grotesk', sans-serif;
-              font-size: 0.82rem;
+              font-size: 0.96rem;
               font-weight: 700;
-              color: var(--title-color);
+              color: #ffffff;
               margin: 0;
               white-space: nowrap;
               overflow: hidden;
@@ -267,8 +269,8 @@
 
             .agent-subrole {
               font-family: 'JetBrains Mono', monospace;
-              font-size: 0.63rem;
-              color: var(--subtext-color);
+              font-size: 0.7rem;
+              color: #a1a1aa;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -277,40 +279,47 @@
 
           .node-status-bar {
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 2px;
+            border-radius: 4px;
             overflow: hidden;
-            margin-top: 4px;
+            margin: 0.7rem 0 0.5rem 0;
 
             .active-progress-fill {
               height: 100%;
               background: #10b981;
-              box-shadow: 0 0 8px #10b981;
-              transition: width 0.1s linear;
+              box-shadow: 0 0 12px #10b981;
+            }
+
+            .static-fill {
+              height: 100%;
+              &.done-fill {
+                width: 100%;
+                background: #22c55e;
+              }
             }
           }
 
           .node-pill {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.58rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            color: var(--muted-text);
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.04);
+            color: #71717a;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
             align-self: flex-start;
           }
 
           &.active {
             border-color: #10b981;
-            background: rgba(16, 185, 129, 0.08);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, 0.06);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
             transform: translateY(-2px);
 
             .node-icon-wrapper {
               background: #10b981;
-              color: #000;
+              color: #000000;
               border-color: #10b981;
             }
 
@@ -325,7 +334,7 @@
 
             .node-pill {
               color: #22c55e;
-              background: rgba(34, 197, 94, 0.12);
+              background: rgba(34, 197, 94, 0.14);
             }
           }
         }

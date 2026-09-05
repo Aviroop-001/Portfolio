@@ -96,7 +96,7 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 350vh scroll track length for cinematic choreography
+  // 500vh scroll track length for extended reading time on GitHub PR Dispatched outro
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -105,27 +105,27 @@ export default function AgenticSystemVisualizer() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
   // Phase 1 -> Phase 2: Supervisor & Roots
-  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.24 to 0.34)
-  const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.22, 0.32], [1, 1, 0]);
-  const supervisorY = useTransform(smoothProgress, [0.22, 0.32], [0, -60]);
+  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.16 to 0.24)
+  const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.16, 0.24], [1, 1, 0]);
+  const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -60]);
 
-  // SVG Roots emerge downwards from Supervisor (0.10 to 0.24), then fade out with Supervisor (0.26 to 0.32)
-  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.24], [0, 1]);
-  const rootOpacity = useTransform(smoothProgress, [0.08, 0.16, 0.26, 0.32], [0, 1, 1, 0]);
+  // SVG Roots emerge downwards from Supervisor (0.06 to 0.18), then fade out (0.20 to 0.24)
+  const rootPathGrowth = useTransform(smoothProgress, [0.06, 0.18], [0, 1]);
+  const rootOpacity = useTransform(smoothProgress, [0.05, 0.12, 0.20, 0.24], [0, 1, 1, 0]);
 
   // Phase 2 -> Phase 3: Subagents reveal & take stage
-  const subAgentsOpacity = useTransform(smoothProgress, [0.18, 0.28], [0, 1]);
-  const subAgentsY = useTransform(smoothProgress, [0.18, 0.28], [40, 0]);
-  const subAgentsScale = useTransform(smoothProgress, [0.18, 0.28], [0.95, 1]);
+  const subAgentsOpacity = useTransform(smoothProgress, [0.14, 0.22], [0, 1]);
+  const subAgentsY = useTransform(smoothProgress, [0.14, 0.22], [40, 0]);
+  const subAgentsScale = useTransform(smoothProgress, [0.14, 0.22], [0.95, 1]);
 
-  // Terminal Output Window Entrance (0.26 to 0.34)
-  const terminalOpacity = useTransform(smoothProgress, [0.26, 0.34], [0, 1]);
-  const terminalY = useTransform(smoothProgress, [0.26, 0.34], [30, 0]);
+  // Terminal Output Window Entrance (0.18 to 0.25)
+  const terminalOpacity = useTransform(smoothProgress, [0.18, 0.25], [0, 1]);
+  const terminalY = useTransform(smoothProgress, [0.18, 0.25], [30, 0]);
 
-  // Phase 3: Motion value for active progress fill width
+  // Phase 3: Active progress fill width (0.22 to 0.65)
   const progressFillWidth = useTransform(smoothProgress, (val) => {
-    const START = 0.30;
-    const END = 0.84;
+    const START = 0.22;
+    const END = 0.65;
     if (val < START) return "0%";
     if (val >= END) return "100%";
 
@@ -136,24 +136,25 @@ export default function AgenticSystemVisualizer() {
     return `${stepProgress}%`;
   });
 
-  // Motion value for active step index (0, 1, 2, 3, 4) - only updates state when step transitions
+  // Active step index (0, 1, 2, 3, 4)
   const activeStepIndexTransform = useTransform(smoothProgress, (val) => {
-    const START = 0.30;
-    const END = 0.84;
+    const START = 0.22;
+    const END = 0.65;
     if (val < START) return 0;
     if (val >= END) return 4;
     const fraction = (val - START) / (END - START);
     return Math.min(Math.floor(fraction * 5), 4);
   });
 
-  // Phase 4: Outro Stage Transitions (0.84 to 0.98)
-  const activeStageScale = useTransform(smoothProgress, [0.84, 0.92], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.84, 0.92], [0, -60]);
-  const activeStageOpacity = useTransform(smoothProgress, [0.84, 0.92], [1, 0]);
+  // Phase 4: Extended Outro Stage Transitions (0.65 to 1.00)
+  const activeStageScale = useTransform(smoothProgress, [0.65, 0.72], [1, 0.92]);
+  const activeStageY = useTransform(smoothProgress, [0.65, 0.72], [0, -60]);
+  const activeStageOpacity = useTransform(smoothProgress, [0.65, 0.72], [1, 0]);
 
-  const outroOpacity = useTransform(smoothProgress, [0.90, 0.97], [0, 1]);
-  const outroScale = useTransform(smoothProgress, [0.90, 0.97], [0.9, 1]);
-  const outroY = useTransform(smoothProgress, [0.90, 0.97], [40, 0]);
+  // Outro emerges early (0.70 to 0.76) and STAYS PINNED until 1.00 for long scroll viewing
+  const outroOpacity = useTransform(smoothProgress, [0.70, 0.76], [0, 1]);
+  const outroScale = useTransform(smoothProgress, [0.70, 0.76], [0.92, 1]);
+  const outroY = useTransform(smoothProgress, [0.70, 0.76], [40, 0]);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
@@ -193,7 +194,7 @@ export default function AgenticSystemVisualizer() {
               scale: activeStageScale
             }}
           >
-            {/* Phase 1 & 2: Supervisor Node (Animates out as workers take stage) */}
+            {/* Supervisor Node (Lands first, then transitions out) */}
             <motion.div 
               className="mother-supervisor-node"
               style={{ opacity: supervisorOpacity, y: supervisorY }}
@@ -208,7 +209,7 @@ export default function AgenticSystemVisualizer() {
               </div>
             </motion.div>
 
-            {/* Emerging SVG Roots (Emerges from Supervisor down to Subagents) */}
+            {/* Emerging SVG Roots */}
             <motion.div className="svg-roots-container" style={{ opacity: rootOpacity }}>
               <svg viewBox="0 0 1000 90" preserveAspectRatio="none" className="roots-svg">
                 <motion.path d="M 500 0 C 500 45, 100 45, 100 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
@@ -219,7 +220,7 @@ export default function AgenticSystemVisualizer() {
               </svg>
             </motion.div>
 
-            {/* Phase 2 & 3: 5 Sub-Agents Pipeline Bar (Reveals as roots grow, then executes) */}
+            {/* 5 Sub-Agents Pipeline Grid (Concise Layout with Big Icon + Name + Role + Progress + Status Pill) */}
             <motion.div 
               className="subagents-pipeline-grid"
               style={{ 
@@ -237,6 +238,7 @@ export default function AgenticSystemVisualizer() {
                     key={agent.id}
                     className={`agent-pipeline-node ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
                   >
+                    {/* Top Row: Big Icon + Step Number */}
                     <div className="agent-top">
                       <div className="node-icon-wrapper">
                         {isDone ? <IoCheckmarkCircle className="check-icon" /> : agent.icon}
@@ -244,21 +246,25 @@ export default function AgenticSystemVisualizer() {
                       <span className="step-num">{agent.step}</span>
                     </div>
 
+                    {/* Middle: Agent Title + Role */}
                     <div className="agent-text">
                       <h4 className="agent-title">{agent.name}</h4>
                       <span className="agent-subrole">{agent.role}</span>
                     </div>
 
-                    {/* Progress indicator */}
+                    {/* Progress Bar Track */}
                     <div className="node-status-bar">
-                      {isActive && (
+                      {isActive ? (
                         <motion.div 
                           className="active-progress-fill" 
                           style={{ width: progressFillWidth }} 
                         />
+                      ) : (
+                        <div className={`static-fill ${isDone ? 'done-fill' : ''}`} />
                       )}
                     </div>
 
+                    {/* Status Pill Badge */}
                     <div className="node-pill">
                       {isDone ? 'DONE ✓' : isActive ? 'RUNNING' : 'QUEUED'}
                     </div>
@@ -352,7 +358,7 @@ export default function AgenticSystemVisualizer() {
 
           </motion.div>
 
-          {/* Outro Impact Metrics Stage */}
+          {/* Outro Impact Metrics Stage (Pinned for extended reading time) */}
           <motion.div 
             className="outro-impact-view"
             style={{ 
