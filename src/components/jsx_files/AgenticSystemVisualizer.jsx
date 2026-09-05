@@ -100,21 +100,21 @@ export default function AgenticSystemVisualizer() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
   // Phase 1 -> Phase 2: Supervisor & Roots
+  // Supervisor Node is visible on landing, then cleanly fades out in place without sliding up into header text
   const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.16, 0.24], [1, 1, 0]);
-  const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -50]);
 
   // SVG Roots emerge downwards from Supervisor (0.06 to 0.18), then fade out (0.20 to 0.24)
   const rootPathGrowth = useTransform(smoothProgress, [0.06, 0.18], [0, 1]);
   const rootOpacity = useTransform(smoothProgress, [0.05, 0.12, 0.20, 0.24], [0, 1, 1, 0]);
 
-  // Phase 2 -> Phase 3: Subagents reveal & glide UPWARDS to fill vacant space when supervisor leaves (0.22 to 0.32)
+  // Phase 2 -> Phase 3: Subagents & Terminal fade/scale in gracefully below header (No negative Y shifts!)
   const subAgentsOpacity = useTransform(smoothProgress, [0.14, 0.22], [0, 1]);
-  const subAgentsY = useTransform(smoothProgress, [0.14, 0.22, 0.32], [40, 0, -110]);
-  const subAgentsScale = useTransform(smoothProgress, [0.14, 0.22], [0.95, 1]);
+  const subAgentsY = useTransform(smoothProgress, [0.14, 0.22], [20, 0]);
+  const subAgentsScale = useTransform(smoothProgress, [0.14, 0.22], [0.96, 1]);
 
-  // Terminal Output Window Entrance & shift up into vacant space
+  // Terminal Output Window Entrance below subagents
   const terminalOpacity = useTransform(smoothProgress, [0.18, 0.25], [0, 1]);
-  const terminalY = useTransform(smoothProgress, [0.18, 0.25, 0.32], [20, 0, -110]);
+  const terminalY = useTransform(smoothProgress, [0.18, 0.25], [20, 0]);
 
   // Active progress fill height for icon box (fills bottom-to-top 0% to 100% as step executes)
   const iconFillHeight = useTransform(smoothProgress, (val) => {
@@ -140,15 +140,15 @@ export default function AgenticSystemVisualizer() {
     return Math.min(Math.floor(fraction * 5), 4);
   });
 
-  // Phase 4: Extended Outro Stage Transitions (0.65 to 1.00)
-  const activeStageScale = useTransform(smoothProgress, [0.65, 0.72], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.65, 0.72], [-110, -170]);
+  // Phase 4: Outro Stage Transitions (0.65 to 1.00)
+  const activeStageScale = useTransform(smoothProgress, [0.65, 0.72], [1, 0.94]);
+  const activeStageY = useTransform(smoothProgress, [0.65, 0.72], [0, -40]);
   const activeStageOpacity = useTransform(smoothProgress, [0.65, 0.72], [1, 0]);
 
   // Outro emerges early (0.70 to 0.76) and STAYS PINNED until 1.00 for long scroll viewing
   const outroOpacity = useTransform(smoothProgress, [0.70, 0.76], [0, 1]);
   const outroScale = useTransform(smoothProgress, [0.70, 0.76], [0.92, 1]);
-  const outroY = useTransform(smoothProgress, [0.70, 0.76], [40, 0]);
+  const outroY = useTransform(smoothProgress, [0.70, 0.76], [30, 0]);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
@@ -188,10 +188,10 @@ export default function AgenticSystemVisualizer() {
               scale: activeStageScale
             }}
           >
-            {/* Supervisor Node (Lands first, then transitions out) */}
+            {/* Supervisor Node (Lands first, then cleanly fades out) */}
             <motion.div 
               className="mother-supervisor-node"
-              style={{ opacity: supervisorOpacity, y: supervisorY }}
+              style={{ opacity: supervisorOpacity }}
             >
               <div className="node-glow-ring" />
               <div className="mother-content">
@@ -306,7 +306,7 @@ export default function AgenticSystemVisualizer() {
                     )}
 
                     {currentAgent.graphic.type === 'diff' && (
-                      <div className="graphic-block diff-block">
+                      <div className="diff-view-box">
                         {currentAgent.graphic.diff.map((d, i) => (
                           <div key={i} className={`diff-line ${d.type}`}>
                             {d.line}
