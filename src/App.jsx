@@ -24,7 +24,6 @@ import ScrambleText from './components/jsx_files/ScrambleText';
 import CommandPalette from './components/jsx_files/CommandPalette';
 
 function App() {
-  const [showResumeModal, setShowResumeModal] = useState(false);
   const [activeSection, setActiveSection] = useState('intro');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
@@ -80,14 +79,6 @@ function App() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
 
-  const handlePreviewResume = () => {
-    if (window.innerWidth <= 768) {
-      window.open("https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link", "_blank");
-    } else {
-      setShowResumeModal(true);
-    }
-  };
-
   return (
     <div className="App modern-theme">
       <CustomCursor />
@@ -133,7 +124,7 @@ function App() {
             <span className="kb-shortcut">⌘K Search</span>
           </button>
           <a 
-            href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+            href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="resume-btn"
@@ -161,7 +152,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             variants={sectionVariants}
           >
-            <Intro onPreviewResume={handlePreviewResume} />
+            <Intro />
           </motion.div>
         </section>
 
@@ -281,27 +272,6 @@ function App() {
         <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noreferrer" title="LinkedIn"><FiLinkedin /></a>
         <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noreferrer" title="LeetCode"><FiCode /></a>
       </div>
-
-      {/* Resume Modal */}
-      {showResumeModal && (
-        <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
-          <div className="resume-modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="resume-modal-header">
-              <span className="modal-title">Resume Preview</span>
-              <button className="close-btn" onClick={() => setShowResumeModal(false)}>✕</button>
-            </div>
-            <div className="resume-modal-body">
-              <iframe
-                src="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/preview"
-                width="100%"
-                height="100%"
-                title="Aviroop Banerjee Resume Preview"
-                frameBorder="0"
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

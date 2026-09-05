@@ -1,8 +1,6 @@
 import "../styling_files/intro.scss";
 import { 
-  IoEyeOutline, 
-  IoDownloadOutline,
-  
+  IoDocumentTextOutline
 } from 'react-icons/io5';
 import { Box, Text } from "@chakra-ui/react";
 import ScrambleText from "./ScrambleText";
@@ -30,25 +28,17 @@ export default function Intro({ onPreviewResume }) {
             </Text>
           </Box>
 
-          {/* CTA Action Buttons */}
+          {/* CTA Action Button */}
           <Box className="cta-buttons">
             <a
-              href="https://drive.google.com/file/d/13n1yMqtzusGvOnR6oipaYFaROGStBXGJ/view?usp=share_link"
+              href="/resume.pdf"
               className="glass-button primary-cta"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <IoDownloadOutline className="button-icon" />
-              <span>DOWNLOAD RESUME</span>
+              <IoDocumentTextOutline className="button-icon" />
+              <span>VIEW RÉSUMÉ ↗</span>
             </a>
-            
-            <button
-              onClick={onPreviewResume}
-              className="glass-button preview-button"
-            >
-              <IoEyeOutline className="button-icon" />
-              <span>PREVIEW RESUME</span>
-            </button>
           </Box>
         </Box>
       </Box>
