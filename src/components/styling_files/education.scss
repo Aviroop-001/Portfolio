@@ -1,122 +1,82 @@
 @import "../../global.scss";
 
-.education-modern-container {
+.education-compact-container {
   width: 100%;
 
-  .education-grid {
+  .education-compact-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
 
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
     }
   }
 
-  .education-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 24px;
+  .edu-compact-card {
+    background: rgba(18, 20, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    backdrop-filter: blur(12px);
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.25s ease;
 
     &:hover {
-      border-color: var(--border-strong);
+      border-color: rgba(16, 185, 129, 0.3);
       transform: translateY(-2px);
     }
 
-    .card-header {
+    .edu-card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
+      gap: 10px;
 
-      .icon-wrapper {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.05);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.25rem;
-        color: var(--title-color);
-        border: 1px solid var(--border-color);
+      .edu-degree {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffffff;
+        line-height: 1.35;
       }
 
-      .grade-badge {
+      .edu-cgpa-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #10b981;
         background: rgba(16, 185, 129, 0.1);
-        color: var(--accent-green);
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        font-family: var(--font-mono);
-        border: 1px solid rgba(16, 185, 129, 0.2);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        padding: 3px 9px;
+        border-radius: 12px;
+        white-space: nowrap;
       }
     }
 
-    .card-body {
-      flex: 1;
+    .edu-card-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
 
-      .degree-title {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--title-color);
-        margin: 0 0 8px 0;
-        line-height: 1.4;
-      }
-
-      .school-name {
-        font-size: 0.95rem;
-        color: var(--subtext-color);
-        margin: 0 0 12px 0;
-      }
-
-      .date-row {
-        display: flex;
-        align-items: center;
-        gap: 6px;
+      .edu-school {
+        font-family: 'Inter', sans-serif;
         font-size: 0.85rem;
-        color: var(--muted-text);
-        font-family: var(--font-mono);
-        margin-bottom: 20px;
+        color: #a1a1aa;
       }
-    }
 
-    .coursework-section {
-      border-top: 1px dashed var(--border-color);
-      padding-top: 20px;
-      margin-top: auto;
-
-      .coursework-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-
-        .course-tag {
-          font-size: 0.75rem;
-          color: var(--text-color);
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid var(--border-color);
-          padding: 4px 10px;
-          border-radius: 4px;
-        }
+      .edu-year {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        color: #71717a;
+        white-space: nowrap;
       }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .education-container {
-    .education-grid {
-      grid-template-columns: 1fr;
     }
   }
 }
