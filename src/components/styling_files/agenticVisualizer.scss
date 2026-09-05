@@ -1,291 +1,357 @@
 @import "../../global.scss";
 
-.workos-agentic-flow {
-  width: 100%;
-  max-width: 900px;
-  margin: 3.5rem auto 0;
+// Tall Apple Pin Scroll Track
+.apple-agentic-pin-container {
   position: relative;
+  width: 100%;
+  min-height: 260vh; // Long scroll track
   box-sizing: border-box;
 
   @include mobile {
-    margin-top: 2rem;
+    min-height: auto;
   }
 
-  // Section Header
-  .flow-header {
-    text-align: center;
-    margin-bottom: 3.5rem;
+  // Sticky Canvas
+  .apple-sticky-canvas {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
 
-    .flow-badge {
+    @include mobile {
+      position: relative;
+      height: auto;
+      top: auto;
+      padding: 1rem 0;
+    }
+  }
+
+  // Header
+  .apple-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .supervisor-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--card-bg);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 9999px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
       font-weight: 700;
-      color: var(--accent-green);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 0.6rem;
-      display: block;
+      color: #10b981;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+
+      .hub-icon {
+        font-size: 1.1rem;
+      }
     }
 
-    .flow-title {
+    .apple-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 800;
       color: var(--title-color);
-      margin: 0 0 0.6rem 0;
+      margin: 0 0 0.5rem 0;
       letter-spacing: -0.8px;
 
       @include mobile {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
     }
 
-    .flow-subtitle {
+    .apple-subtitle {
+      font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
       color: var(--subtext-color);
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
+      margin: 0;
     }
   }
 
-  // Bare Background Canvas
-  .flow-canvas-container {
-    position: relative;
-    padding: 1rem 0;
+  // 2-Column Interactive Stage
+  .apple-stage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    align-items: center;
 
-    // Supervisor Hub Node
-    .supervisor-hub-node {
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    // Left Column: Timeline & Steps
+    .timeline-column {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 0.9rem 1.6rem;
-      background: var(--card-bg);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 9999px; // Pill
-      width: fit-content;
-      margin: 0 auto 3rem auto;
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+      gap: 1.5rem;
       position: relative;
-      z-index: 2;
 
-      .hub-pulse-ring {
-        position: absolute;
-        inset: -4px;
-        border-radius: 9999px;
-        border: 1px solid rgba(16, 185, 129, 0.3);
-        animation: hubPulse 2.5s ease-in-out infinite alternate;
-        z-index: -1;
+      .timeline-track {
+        width: 3px;
+        background: var(--border-color);
+        border-radius: 3px;
+        position: relative;
+        overflow: hidden;
+
+        .timeline-progress-bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background: #10b981;
+          box-shadow: 0 0 10px #10b981;
+          border-radius: 3px;
+        }
       }
 
-      .hub-icon-box {
-        font-size: 1.3rem;
-        color: #10b981;
-        display: flex;
-      }
-
-      .hub-text {
+      .steps-list {
         display: flex;
         flex-direction: column;
+        gap: 1.6rem;
 
-        .hub-label {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.85rem;
-          font-weight: 800;
-          color: var(--title-color);
-          letter-spacing: 0.5px;
-        }
-
-        .hub-status {
-          font-family: 'JetBrains Mono', monospace;
-          font-size: 0.68rem;
-          color: var(--muted-text);
-        }
-      }
-    }
-
-    // Scroll-Driven Line Canvas
-    .flow-connecting-line {
-      position: absolute;
-      top: 50px;
-      bottom: 20px;
-      left: 36px;
-      width: 2px;
-      z-index: 1;
-
-      @include mobile {
-        left: 24px;
-      }
-
-      .flow-svg {
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-
-        .base-line {
-          stroke: var(--border-color);
-          stroke-width: 2px;
-        }
-
-        .active-beam {
-          stroke: #10b981;
-          stroke-width: 3px;
-          filter: drop-shadow(0 0 6px #10b981);
-        }
-      }
-    }
-
-    // Bare Rows List (Directly on Background)
-    .flow-nodes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2.2rem;
-      position: relative;
-      z-index: 2;
-
-      .bare-flow-row {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding-left: 12px;
-
-        @include mobile {
-          padding-left: 0;
-          gap: 1rem;
-        }
-
-        .row-left {
+        .step-item {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 1rem;
-          min-width: 80px;
+          opacity: 0.35;
+          transition: opacity 0.3s ease;
 
           .step-num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--muted-text);
           }
 
-          .node-icon-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
+          .step-text {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            color: var(--title-color);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-card);
-            flex-shrink: 0;
-          }
-        }
+            flex-direction: column;
 
-        .row-content {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 0.25rem;
-
-          .content-top {
-            display: flex;
-            align-items: baseline;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-
-            .node-name {
+            .step-name {
               font-family: 'Space Grotesk', sans-serif;
-              font-size: 1.1rem;
+              font-size: 1.05rem;
               font-weight: 700;
               color: var(--title-color);
-              margin: 0;
+              margin: 0 0 0.2rem 0;
             }
 
-            .node-role {
+            .step-role {
               font-family: 'JetBrains Mono', monospace;
               font-size: 0.72rem;
-              color: var(--accent-green);
-              background: rgba(16, 185, 129, 0.1);
-              padding: 2px 8px;
-              border-radius: 4px;
-              font-weight: 600;
+              color: var(--subtext-color);
             }
           }
 
-          .node-detail {
+          &.active {
+            opacity: 1;
+
+            .step-num {
+              color: #10b981;
+            }
+
+            .step-name {
+              color: var(--title-color);
+            }
+
+            .step-role {
+              color: #10b981;
+            }
+          }
+        }
+      }
+    }
+
+    // Right Column: Apple Preview Card
+    .preview-stage-column {
+      width: 100%;
+
+      .apple-preview-card {
+        background: #09090b;
+        border: 1px solid #27272a;
+        border-radius: 16px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        box-sizing: border-box;
+
+        .card-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1rem 1.4rem;
+          background: #121215;
+          border-bottom: 1px solid #27272a;
+
+          .window-dots {
+            display: flex;
+            gap: 6px;
+
+            .dot {
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              &.red { background: #ef4444; }
+              &.yellow { background: #eab308; }
+              &.green { background: #22c55e; }
+            }
+          }
+
+          .card-type-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #10b981;
+            text-transform: uppercase;
+          }
+        }
+
+        .card-body {
+          padding: 1.5rem;
+
+          .step-desc-text {
             font-family: 'Inter', sans-serif;
-            font-size: 0.88rem;
-            color: var(--subtext-color);
-            margin: 0;
-            line-height: 1.4;
+            font-size: 0.95rem;
+            color: #d4d4d8;
+            line-height: 1.5;
+            margin: 0 0 1.5rem 0;
           }
-        }
 
-        .row-right {
-          .live-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            display: block;
+          // Code Block
+          .code-preview-block {
+            background: #18181b;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #38bdf8;
+            overflow-x: auto;
+
+            pre {
+              margin: 0;
+            }
           }
-        }
 
-        &:hover {
-          .node-icon-circle {
-            background: #10b981;
-            color: #000;
-            border-color: #10b981;
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.5);
-            transform: scale(1.1);
+          // Matrix Block
+          .matrix-preview-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+
+            .matrix-row {
+              display: flex;
+              justify-content: space-between;
+              padding: 0.6rem 0.8rem;
+              background: #18181b;
+              border-radius: 6px;
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 0.82rem;
+
+              .lbl { color: #a1a1aa; }
+              .val { color: #10b981; font-weight: 700; }
+            }
           }
-        }
-      }
-    }
-  }
 
-  // WorkOS Minimal Impact Bar
-  .flow-metrics-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-    flex-wrap: wrap;
+          // Diff Block
+          .diff-preview-block {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
 
-    .metric-pill {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+            .diff-line {
+              padding: 0.5rem 0.8rem;
+              border-radius: 6px;
 
-      .val {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.3rem;
-        font-weight: 800;
-        color: var(--title-color);
-        margin-bottom: 0.2rem;
-      }
+              &.remove {
+                background: rgba(239, 68, 68, 0.15);
+                color: #fca5a5;
+              }
+              &.add {
+                background: rgba(34, 197, 94, 0.15);
+                color: #86efac;
+                font-weight: 700;
+              }
+            }
+          }
 
-      .lbl {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        color: var(--muted-text);
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-    }
-  }
-}
+          // Eval Block
+          .eval-preview-block {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
 
-@keyframes hubPulse {
-  0% { transform: scale(1); opacity: 0.3; }
-  100% { transform: scale(1.08); opacity: 0.7; }
+            .test-row {
+              display: flex;
+              align-items: center;
+              gap: 0.8rem;
+              padding: 0.6rem 0.8rem;
+              background: #18181b;
+              border-radius: 6px;
+
+              .check-icon {
+                color: #22c55e;
+                font-size: 1.2rem;
+              }
+
+              .t-name {
+                font-family: 'Inter', sans-serif;
+                font-size: 0.88rem;
+                color: #f4f4f5;
+                font-weight: 600;
+              }
+
+              .t-detail {
+                margin-left: auto;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.75rem;
+                color: #22c55e;
+                font-weight: 700;
+              }
+            }
+          }
+
+          // PR Block
+          .pr-preview-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #18181b;
+            border-radius: 10px;
+            gap: 0.8rem;
+            text-align: center;
+
+            .pr-impact-tag {
+              font-family: 'Space Grotesk', sans-serif;
+              font-size: 1.4rem;
+              font-weight: 800;
+              color: #10b981;
+            }
+
+            .pr-status-badge {
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 0.78rem;
+              font-weight: 700;
+              color: #22c55e;
+              background: rgba(34, 197, 94, 0.15);
+              padding: 4px 12px;
+              border-radius: 20px;
+            }
+          }
+        </div>
+      </motion.div>
+    </div>
+  </div>
 }

@@ -1,166 +1,234 @@
 import React, { useRef } from 'react';
 import '../styling_files/agenticVisualizer.scss';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { 
   IoGitNetworkOutline, 
   IoSearchOutline, 
   IoHardwareChipOutline, 
   IoCodeSlashOutline, 
   IoFlaskOutline, 
-  IoShieldCheckmarkOutline 
+  IoShieldCheckmarkOutline,
+  IoCheckmarkCircle
 } from 'react-icons/io5';
 
-const agentNodes = [
+const agentSteps = [
   {
-    id: 'explorer',
+    id: 'step-1',
     step: '01',
     name: 'Code Explorer Agent',
-    role: 'AST & Call-Graph Localizer',
-    detail: 'Traverses 2,400+ files ➔ Fault isolated at SyncPipeline.ts:142',
-    icon: <IoSearchOutline />
+    role: 'AST & Call-Graph Search',
+    desc: 'Scans dependency graph & stack trace to pinpoint exact failure line.',
+    icon: <IoSearchOutline />,
+    graphic: {
+      type: 'code',
+      title: 'SyncPipeline.ts',
+      code: `140  const dispatchEvent = async (event) => {\n141    // AST Fault Localized (Confidence: 98%)\n142    if (!event.payload) throw new NullError();\n143  }`,
+      highlightLine: 142
+    }
   },
   {
-    id: 'reasoner',
-    name: 'Reasoning Engine',
+    id: 'step-2',
     step: '02',
+    name: 'Reasoning Engine',
     role: 'Root Cause Inference',
-    detail: 'Inferred unhandled null payload during async event dispatch',
-    icon: <IoHardwareChipOutline />
+    desc: 'Analyzes unhandled null payload during high-concurrency event dispatch.',
+    icon: <IoHardwareChipOutline />,
+    graphic: {
+      type: 'reasoning',
+      title: 'Fault Analysis Matrix',
+      metrics: [
+        { label: 'Fault Origin', val: 'SyncPipeline.ts:142' },
+        { label: 'Cause', val: 'Unhandled null payload' },
+        { label: 'Risk Score', val: 'Low (Isolated)' }
+      ]
+    }
   },
   {
-    id: 'patcher',
-    name: 'Patch Synthesizer',
+    id: 'step-3',
     step: '03',
+    name: 'Patch Synthesizer',
     role: 'LLM Fix & Test Generator',
-    detail: 'Synthesized 1-line null-guard patch + unit test spec',
-    icon: <IoCodeSlashOutline />
+    desc: 'Synthesizes safe null-guard patch + automated Jest unit test spec.',
+    icon: <IoCodeSlashOutline />,
+    graphic: {
+      type: 'diff',
+      title: 'Synthesized Patch',
+      diff: [
+        { type: 'remove', line: '-  return await handleDispatch(event.payload);' },
+        { type: 'add', line: '+  if (!event?.payload) return await handleRetry(event);' }
+      ]
+    }
   },
   {
-    id: 'tester',
-    name: 'Eval & Safety Runner',
+    id: 'step-4',
     step: '04',
-    role: 'Automated Regression Evals',
-    detail: '100% test pass rate across microservice ecosystem',
-    icon: <IoFlaskOutline />
+    name: 'Eval & Safety Runner',
+    role: 'Regression Testing',
+    desc: 'Executes automated eval suite across 50+ microservice endpoints.',
+    icon: <IoFlaskOutline />,
+    graphic: {
+      type: 'eval',
+      title: 'Automated Safety Suite',
+      tests: [
+        { name: 'Unit Test Coverage', pass: true, detail: '100% Passed' },
+        { name: 'API Regression Guard', pass: true, detail: '0 Breaking Changes' },
+        { name: 'Faithfulness & Safety Score', pass: true, detail: '1.0 Score' }
+      ]
+    }
   },
   {
-    id: 'dispatch',
-    name: 'Human Checkpoint',
+    id: 'step-5',
     step: '05',
+    name: 'Human Checkpoint & PR',
     role: 'GitHub PR Dispatch',
-    detail: 'SDE Approved ➔ Dispatched PR #392 (Triage 5h ➔ 20m)',
-    icon: <IoShieldCheckmarkOutline />
+    desc: 'Dispatches PR behind SDE approval checkpoint. Triage time cut from 5 hrs to 20 min.',
+    icon: <IoShieldCheckmarkOutline />,
+    graphic: {
+      type: 'pr',
+      title: 'GitHub PR #392 Created',
+      impact: '5 hrs ➔ 20 min (15× Speedup)',
+      status: 'APPROVED & MERGED'
+    }
   }
 ];
 
 export default function AgenticSystemVisualizer() {
-  const targetRef = useRef(null);
-  
-  // Track scroll progress within this specific section container
+  const containerRef = useRef(null);
+
+  // Apple-style tall scroll pin
   const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "end start"]
+    target: containerRef,
+    offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
-  const pathLength = useTransform(smoothProgress, [0.15, 0.85], [0, 1]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
+  const progressHeight = useTransform(smoothProgress, [0.05, 0.95], ["0%", "100%"]);
+  
+  // Transform scroll progress into active step index (0 to 4)
+  const activeIndex = useTransform(smoothProgress, [0.05, 0.25, 0.5, 0.72, 0.95], [0, 1, 2, 3, 4]);
+  const [currentStepIndex, setCurrentStepIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const unsubscribe = activeIndex.on("change", (latest) => {
+      const rounded = Math.min(Math.max(Math.round(latest), 0), agentSteps.length - 1);
+      setCurrentStepIndex(rounded);
+    });
+    return () => unsubscribe();
+  }, [activeIndex]);
+
+  const currentStep = agentSteps[currentStepIndex];
 
   return (
-    <div className="workos-agentic-flow" ref={targetRef}>
-      {/* Section Header */}
-      <div className="flow-header">
-        <span className="flow-badge">WORKOS-STYLE SYSTEM ARCHITECTURE</span>
-        <h3 className="flow-title">LangGraph Multi-Agent Fault Localization</h3>
-        <p className="flow-subtitle">
-          Scroll to simulate real-time agent spawning, fault localization, and automated PR generation.
-        </p>
-      </div>
-
-      {/* Bare Background Vector Canvas */}
-      <div className="flow-canvas-container">
-        {/* Supervisor Hub */}
-        <motion.div 
-          className="supervisor-hub-node"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="hub-pulse-ring" />
-          <div className="hub-icon-box">
-            <IoGitNetworkOutline />
+    <div className="apple-agentic-pin-container" ref={containerRef}>
+      {/* Sticky Fullscreen Canvas */}
+      <div className="apple-sticky-canvas">
+        {/* Title Header */}
+        <div className="apple-header">
+          <div className="supervisor-pill">
+            <IoGitNetworkOutline className="hub-icon" />
+            <span>LANGGRAPH SUPERVISOR</span>
           </div>
-          <div className="hub-text">
-            <span className="hub-label">LANGGRAPH SUPERVISOR</span>
-            <span className="hub-status">Multi-Agent Orchestrator</span>
+          <h3 className="apple-title">Multi-Agent Fault Localization Pipeline</h3>
+          <p className="apple-subtitle">Scroll down to experience real-time sub-agent execution & verification.</p>
+        </div>
+
+        {/* Apple 2-Column Interactive Stage */}
+        <div className="apple-stage-grid">
+          {/* Left Column: Vertical Timeline & Step Progress */}
+          <div className="timeline-column">
+            <div className="timeline-track">
+              <motion.div className="timeline-progress-bar" style={{ height: progressHeight }} />
+            </div>
+
+            <div className="steps-list">
+              {agentSteps.map((step, idx) => {
+                const isActive = currentStepIndex === idx;
+                return (
+                  <div key={step.id} className={`step-item ${isActive ? 'active' : ''}`}>
+                    <span className="step-num">{step.step}</span>
+                    <div className="step-text">
+                      <h4 className="step-name">{step.name}</h4>
+                      <span className="step-role">{step.role}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </motion.div>
 
-        {/* Scroll-Driven Connecting Beam Path */}
-        <div className="flow-connecting-line">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="flow-svg">
-            <line x1="50" y1="0" x2="50" y2="100" className="base-line" />
-            <motion.line 
-              x1="50" 
-              y1="0" 
-              x2="50" 
-              y2="100" 
-              className="active-beam" 
-              style={{ pathLength }}
-            />
-          </svg>
-        </div>
-
-        {/* Dynamic Nodes Rendered Directly on Bare Background */}
-        <div className="flow-nodes-list">
-          {agentNodes.map((node, index) => (
-            <motion.div 
-              key={node.id} 
-              className="bare-flow-row"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.4 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              {/* Left Side: Step & Icon */}
-              <div className="row-left">
-                <span className="step-num">{node.step}</span>
-                <div className="node-icon-circle">
-                  {node.icon}
+          {/* Right Column: Dynamic Apple Visual Preview Stage */}
+          <div className="preview-stage-column">
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={currentStep.id}
+                className="apple-preview-card"
+                initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.96 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="card-header">
+                  <div className="window-dots">
+                    <span className="dot red" />
+                    <span className="dot yellow" />
+                    <span className="dot green" />
+                  </div>
+                  <span className="card-type-title">{currentStep.graphic.title}</span>
                 </div>
-              </div>
 
-              {/* Node Main Content */}
-              <div className="row-content">
-                <div className="content-top">
-                  <h4 className="node-name">{node.name}</h4>
-                  <span className="node-role">{node.role}</span>
+                <div className="card-body">
+                  <p className="step-desc-text">{currentStep.desc}</p>
+
+                  {/* Render Graphic Preview based on step type */}
+                  {currentStep.graphic.type === 'code' && (
+                    <div className="code-preview-block">
+                      <pre><code>{currentStep.graphic.code}</code></pre>
+                    </div>
+                  )}
+
+                  {currentStep.graphic.type === 'reasoning' && (
+                    <div className="matrix-preview-block">
+                      {currentStep.graphic.metrics.map((m, i) => (
+                        <div key={i} className="matrix-row">
+                          <span className="lbl">{m.label}:</span>
+                          <span className="val">{m.val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {currentStep.graphic.type === 'diff' && (
+                    <div className="diff-preview-block">
+                      {currentStep.graphic.diff.map((d, i) => (
+                        <div key={i} className={`diff-line ${d.type}`}>
+                          {d.line}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {currentStep.graphic.type === 'eval' && (
+                    <div className="eval-preview-block">
+                      {currentStep.graphic.tests.map((t, i) => (
+                        <div key={i} className="test-row">
+                          <IoCheckmarkCircle className="check-icon" />
+                          <span className="t-name">{t.name}</span>
+                          <span className="t-detail">{t.detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {currentStep.graphic.type === 'pr' && (
+                    <div className="pr-preview-block">
+                      <div className="pr-impact-tag">{currentStep.graphic.impact}</div>
+                      <div className="pr-status-badge">{currentStep.graphic.status}</div>
+                    </div>
+                  )}
                 </div>
-                <p className="node-detail">{node.detail}</p>
-              </div>
-
-              {/* Status Indicator */}
-              <div className="row-right">
-                <span className="live-dot" />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Impact Metric Callout Bar */}
-      <div className="flow-metrics-bar">
-        <div className="metric-pill">
-          <span className="val">5 hrs ➔ 20 min</span>
-          <span className="lbl">Bug Triage Speedup</span>
-        </div>
-        <div className="metric-pill">
-          <span className="val">23+ Tickets</span>
-          <span className="lbl">Auto-Localized & Fixed</span>
-        </div>
-        <div className="metric-pill">
-          <span className="val">100% Guarded</span>
-          <span className="lbl">Human Checkpoint Approvals</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>
