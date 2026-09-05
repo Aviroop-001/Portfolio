@@ -1,181 +1,204 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../styling_files/agenticVisualizer.scss';
+import { motion, useInView } from 'framer-motion';
 import { 
-  IoPlayOutline, 
-  IoBugOutline, 
+  IoGitNetworkOutline, 
   IoSearchOutline, 
+  IoBrainOutline, 
   IoCodeSlashOutline, 
-  IoShieldCheckmarkOutline, 
-  IoGitPullRequestOutline 
+  IoFlaskOutline, 
+  IoShieldCheckmarkOutline 
 } from 'react-icons/io5';
 
-const agentNodes = [
+const subAgents = [
   {
-    id: 1,
-    step: 'Node 01',
-    label: 'Jira Stack Trace Ingestion',
-    subtext: 'Parser & AST Extractor',
-    icon: <IoBugOutline />,
-    logs: [
-      { text: '[Ingress] Ingested Jira Ticket #COMM-8492 with Java/Node.js stack trace.', prefix: 'INPUT' },
-      { text: 'Extracted target symbols: SyncPipeline.ts:142 and KafkaConsumer.java:88', highlight: 'SyncPipeline.ts:142' }
-    ]
-  },
-  {
-    id: 2,
-    step: 'Node 02',
-    label: 'Lexical & Call-Graph Search',
-    subtext: 'AST Fault Localization',
+    id: 'explorer',
+    name: 'Code Explorer Agent',
+    role: 'AST & Call-Graph Search',
+    status: 'Exploring dependencies...',
+    badge: 'SUB-AGENT #1',
     icon: <IoSearchOutline />,
-    logs: [
-      { text: '[LangGraph Agent 1] Traversed codebase dependency graph (2,400+ files).', prefix: 'SEARCH' },
-      { text: 'Localized root cause: Unhandled null payload in async event dispatcher.', metric: '98% confidence' }
-    ]
+    logs: 'Indexed 2,400 files ➔ Isolated fault at SyncPipeline.ts:142'
   },
   {
-    id: 3,
-    step: 'Node 03',
-    label: 'Candidate Fix Synthesizer',
-    subtext: 'LLM Patch & Test Generator',
+    id: 'reasoner',
+    name: 'Reasoning Agent',
+    role: 'Root Cause Inference',
+    status: 'Analyzing stack trace...',
+    badge: 'SUB-AGENT #2',
+    icon: <IoBrainOutline />,
+    logs: 'Inferred unhandled null payload during async event dispatch'
+  },
+  {
+    id: 'patcher',
+    name: 'Code Patch Agent',
+    role: 'Synthesize Fix & Tests',
+    status: 'Synthesizing patch...',
+    badge: 'SUB-AGENT #3',
     icon: <IoCodeSlashOutline />,
-    logs: [
-      { text: '[LangGraph Agent 2] Synthesized 1-line null-guard patch + Jest test case.', prefix: 'GENERATE' },
-      { text: 'Generated patch: if (!event?.payload) return await handleRetry(event);', highlight: 'null-guard' }
-    ]
+    logs: 'Generated 1-line null-guard patch + unit test spec'
   },
   {
-    id: 4,
-    step: 'Node 04',
-    label: 'Eval & Guardrails Check',
-    subtext: 'Regression & Safety Evals',
+    id: 'tester',
+    name: 'Test & Eval Agent',
+    role: 'Regression & Safety',
+    status: 'Running test suite...',
+    badge: 'SUB-AGENT #4',
+    icon: <IoFlaskOutline />,
+    logs: '100% test pass rate across 50 microservices'
+  },
+  {
+    id: 'guardrail',
+    name: 'Human Guardrail',
+    role: 'PR Checkpoint & Dispatch',
+    status: 'Awaiting human signoff...',
+    badge: 'CHECKPOINT',
     icon: <IoShieldCheckmarkOutline />,
-    logs: [
-      { text: '[Guardrails] Running regression eval suite across 50+ microservices...', prefix: 'EVAL' },
-      { text: 'Eval Results: 100% test pass rate, 0 breaking API changes.', metric: 'PASSED' }
-    ]
-  },
-  {
-    id: 5,
-    step: 'Node 05',
-    label: 'Human Checkpoint & PR',
-    subtext: 'GitHub PR Dispatch',
-    icon: <IoGitPullRequestOutline />,
-    logs: [
-      { text: '[Checkpoint] Human approval checkpoint reached. SDE reviewer approved.', prefix: 'DISPATCH' },
-      { text: 'SUCCESS: Opened GitHub PR #392 behind approval checkpoint!', metric: 'Triage 5 hrs ➔ 20 min' }
-    ]
+    logs: 'Human approved ➔ Dispatched GitHub PR #392 (Triage 5h ➔ 20m)'
   }
 ];
 
 export default function AgenticSystemVisualizer() {
-  const [activeStep, setActiveStep] = useState(1);
-  const [isSimulating, setIsSimulating] = useState(false);
-  const [consoleLogs, setConsoleLogs] = useState(agentNodes[0].logs);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
+  
+  const [activeAgentIndex, setActiveAgentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const selectNode = (nodeId) => {
-    if (isSimulating) return;
-    setActiveStep(nodeId);
-    const node = agentNodes.find(n => n.id === nodeId);
-    if (node) setConsoleLogs(node.logs);
-  };
+  // Auto-cycle through multi-agent orchestration steps when scrolled into view
+  useEffect(() => {
+    if (!isInView || !isAutoPlaying) return;
 
-  const handleSimulateTriage = () => {
-    if (isSimulating) return;
-    setIsSimulating(true);
-    setActiveStep(1);
-    setConsoleLogs([agentNodes[0].logs[0]]);
+    const timer = setInterval(() => {
+      setActiveAgentIndex((prev) => (prev + 1) % subAgents.length);
+    }, 2200);
 
-    let current = 1;
-    const interval = setInterval(() => {
-      current++;
-      if (current <= agentNodes.length) {
-        setActiveStep(current);
-        const node = agentNodes.find(n => n.id === current);
-        if (node) {
-          setConsoleLogs(prev => [...prev, ...node.logs]);
-        }
-      } else {
-        clearInterval(interval);
-        setIsSimulating(false);
-      }
-    }, 1200);
-  };
+    return () => clearInterval(timer);
+  }, [isInView, isAutoPlaying]);
+
+  const activeAgent = subAgents[activeAgentIndex];
 
   return (
-    <div className="agentic-visualizer-container">
-      {/* Header & Simulation Action */}
+    <div className="agentic-visualizer-container" ref={containerRef}>
+      {/* Header */}
       <div className="visualizer-header">
         <div className="header-info">
-          <span className="header-tag">Interactive Architecture Flex</span>
-          <h3 className="header-title">LangGraph Multi-Agent Fault Localization</h3>
+          <span className="header-tag">Live Multi-Agent Orchestration</span>
+          <h3 className="header-title">LangGraph Supervisor & Dynamic Sub-Agent Spawning</h3>
         </div>
 
-        <div className="header-actions">
+        <div className="header-controls">
+          <span className="live-status-pill">
+            <span className="pulse-dot" />
+            {isAutoPlaying ? 'AUTO-PLAYING ORCHESTRATION' : 'PAUSED'}
+          </span>
           <button 
-            className="simulate-btn"
-            onClick={handleSimulateTriage}
-            disabled={isSimulating}
+            className="toggle-auto-btn"
+            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
           >
-            <IoPlayOutline className="play-icon" />
-            <span>{isSimulating ? 'Simulating Agentic Pipeline...' : 'Simulate Ticket Triage Run'}</span>
+            {isAutoPlaying ? 'Pause Loop' : 'Resume Autoplay'}
           </button>
         </div>
       </div>
 
-      {/* 5-Node Interactive Grid */}
-      <div className="visualizer-nodes-grid">
-        {agentNodes.map(node => (
-          <div 
-            key={node.id}
-            className={`agent-node-card ${activeStep === node.id ? 'active' : ''} ${activeStep === node.id ? 'selected' : ''}`}
-            onClick={() => selectNode(node.id)}
-          >
-            <span className="node-step-badge">{node.step}</span>
-            <div className="node-icon-wrapper">
-              {node.icon}
-            </div>
-            <h4 className="node-label">{node.label}</h4>
-            <span className="node-subtext">{node.subtext}</span>
+      {/* Orchestrator Center Core & Sub-Agent Radial/Branching Layout */}
+      <div className="agentic-orchestration-canvas">
+        {/* Supervisor Central Node */}
+        <div className="supervisor-core-node">
+          <div className="core-icon-ring">
+            <IoGitNetworkOutline className="core-icon" />
           </div>
-        ))}
+          <div className="core-info">
+            <span className="core-title">LANGGRAPH SUPERVISOR</span>
+            <span className="core-status">Spawning & Routing Sub-Agents</span>
+          </div>
+        </div>
+
+        {/* Sub-Agent Nodes Row */}
+        <div className="sub-agents-grid">
+          {subAgents.map((agent, index) => {
+            const isActive = activeAgentIndex === index;
+            return (
+              <motion.div
+                key={agent.id}
+                className={`sub-agent-card ${isActive ? 'active' : ''}`}
+                onClick={() => {
+                  setIsAutoPlaying(false);
+                  setActiveAgentIndex(index);
+                }}
+                animate={{
+                  scale: isActive ? 1.04 : 1,
+                  y: isActive ? -4 : 0
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <div className="card-top-bar">
+                  <span className="agent-badge">{agent.badge}</span>
+                  <span className={`status-indicator ${isActive ? 'active' : ''}`}>
+                    {isActive ? 'ACTIVE' : 'IDLE'}
+                  </span>
+                </div>
+
+                <div className="agent-icon-box">
+                  {agent.icon}
+                </div>
+
+                <h4 className="agent-name">{agent.name}</h4>
+                <span className="agent-role">{agent.role}</span>
+
+                {/* Active Pulsing Beam indicator */}
+                {isActive && (
+                  <motion.div 
+                    className="active-beam" 
+                    layoutId="activeAgentBeam"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Live Agent Console */}
-      <div className="visualizer-console">
-        <div className="console-bar">
-          <div className="console-dots">
-            <span className="dot-red" />
-            <span className="dot-yellow" />
-            <span className="dot-green" />
+      {/* Live Agent Reasoning & Log Streamer */}
+      <div className="agent-reasoning-terminal">
+        <div className="terminal-header">
+          <div className="terminal-dots">
+            <span className="dot red" />
+            <span className="dot yellow" />
+            <span className="dot green" />
           </div>
-          <span className="console-title">Live Agent Execution Output (Node 0{activeStep})</span>
+          <span className="terminal-title">
+            SUPERVISOR LOGS ➔ [{activeAgent.name.toUpperCase()}]
+          </span>
         </div>
 
-        <div className="console-logs">
-          {consoleLogs.map((log, index) => (
-            <div key={index} className={`log-line ${log.metric === 'Triage 5 hrs ➔ 20 min' ? 'log-success' : ''}`}>
-              {log.prefix && <span className="log-prefix">[{log.prefix}]</span>}
-              <span>{log.text}</span>
-              {log.highlight && <span className="log-highlight"> ({log.highlight})</span>}
-              {log.metric && <span className="log-metric"> [{log.metric}]</span>}
-            </div>
-          ))}
+        <div className="terminal-content">
+          <div className="log-row">
+            <span className="time-tag">[00:04.{activeAgentIndex * 12}]</span>
+            <span className="agent-tag">[{activeAgent.name}]</span>
+            <span className="log-status">{activeAgent.status}</span>
+          </div>
+          <div className="log-result-row">
+            <span className="arrow">➔</span>
+            <span className="result-text">{activeAgent.logs}</span>
+          </div>
         </div>
       </div>
 
-      {/* Impact Metrics Summary */}
-      <div className="visualizer-impact-metrics">
-        <div className="metric-card">
-          <div className="metric-num">5 hrs ➔ 20 min</div>
-          <div className="metric-label">Bug Triage-to-PR Speedup</div>
+      {/* Impact Metric Footer */}
+      <div className="orchestrator-metrics">
+        <div className="metric-box">
+          <span className="num">5 Sub-Agents</span>
+          <span className="lbl">Parallel Reasoning & Tool Use</span>
         </div>
-        <div className="metric-card">
-          <div className="metric-num">23+ Tickets</div>
-          <div className="metric-label">Auto-Localized & Fixed</div>
+        <div className="metric-box">
+          <span className="num">5 hrs ➔ 20 min</span>
+          <span className="lbl">Automated Bug Triage Speedup</span>
         </div>
-        <div className="metric-card">
-          <div className="metric-num">100% Human Checkpoints</div>
-          <div className="metric-label">Zero Unguarded PR Dispatches</div>
+        <div className="metric-box">
+          <span className="num">100% Guarded</span>
+          <span className="lbl">Human Approval Checkpoints</span>
         </div>
       </div>
     </div>

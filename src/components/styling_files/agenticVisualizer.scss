@@ -2,12 +2,12 @@
 
 .agentic-visualizer-container {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1080px;
   margin: 3rem auto 0;
-  padding: 2rem;
+  padding: 2.2rem;
   background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-color);
   border-radius: 20px;
   box-shadow: var(--shadow-card);
@@ -15,10 +15,10 @@
 
   @include mobile {
     padding: 1.25rem 1rem;
-    margin-top: 2rem;
+    margin-top: 1.8rem;
   }
 
-  // Header & Controls
+  // Header Bar
   .visualizer-header {
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@
     .header-info {
       .header-tag {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 700;
         color: var(--accent-green);
         text-transform: uppercase;
@@ -41,7 +41,7 @@
 
       .header-title {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.5rem;
+        font-size: 1.45rem;
         font-weight: 800;
         color: var(--title-color);
         margin: 0;
@@ -49,214 +49,291 @@
       }
     }
 
-    .header-actions {
+    .header-controls {
       display: flex;
       align-items: center;
       gap: 1rem;
 
-      .simulate-btn {
+      .live-status-pill {
         display: inline-flex;
         align-items: center;
-        gap: 0.6rem;
-        padding: 0.75rem 1.4rem;
-        background: rgba(16, 185, 129, 0.15);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        border-radius: 10px;
-        color: #10b981;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.9rem;
+        gap: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
         font-weight: 700;
+        color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        padding: 4px 10px;
+        border-radius: 20px;
+
+        .pulse-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981;
+          animation: statusPulse 1.5s infinite;
+        }
+      }
+
+      .toggle-auto-btn {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.2s ease;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
 
-        &:hover:not(:disabled) {
-          background: rgba(16, 185, 129, 0.25);
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
-        }
-
-        &:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-
-        .play-icon {
-          font-size: 1.1rem;
+        &:hover {
+          background: var(--secondary-bg);
+          border-color: var(--border-strong);
         }
       }
     }
   }
 
-  // Node Diagram Canvas
-  .visualizer-nodes-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    position: relative;
+  // Orchestration Canvas
+  .agentic-orchestration-canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
     margin-bottom: 2rem;
 
-    @media (max-width: 900px) {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .agent-node-card {
-      background: var(--secondary-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.2rem 1rem;
+    // Supervisor Core
+    .supervisor-core-node {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      position: relative;
-      cursor: pointer;
-      transition: all 0.25s ease;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem 1.8rem;
+      background: var(--secondary-bg);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+      width: fit-content;
+      margin: 0 auto;
 
-      .node-step-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: var(--muted-text);
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-      }
-
-      .node-icon-wrapper {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
+      .core-icon-ring {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(16, 185, 129, 0.15);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.25rem;
-        color: var(--title-color);
-        margin-bottom: 0.8rem;
-        transition: all 0.2s ease;
-      }
 
-      .node-label {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.88rem;
-        font-weight: 700;
-        color: var(--title-color);
-        line-height: 1.25;
-        margin-bottom: 0.4rem;
-      }
-
-      .node-subtext {
-        font-size: 0.72rem;
-        color: var(--subtext-color);
-        line-height: 1.3;
-      }
-
-      // Active / Executing state
-      &.active {
-        border-color: #10b981;
-        background: rgba(16, 185, 129, 0.08);
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
-        transform: translateY(-3px);
-
-        .node-icon-wrapper {
-          background: #10b981;
-          color: #000;
-          border-color: #10b981;
-          box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
-        }
-
-        .node-step-badge {
+        .core-icon {
+          font-size: 1.3rem;
           color: #10b981;
+          animation: spinIcon 10s linear infinite;
         }
       }
 
-      // Selected state
-      &.selected {
-        border-color: var(--accent-green);
+      .core-info {
+        display: flex;
+        flex-direction: column;
+
+        .core-title {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 800;
+          color: var(--title-color);
+          letter-spacing: 0.5px;
+        }
+
+        .core-status {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.72rem;
+          color: var(--muted-text);
+        }
+      }
+    }
+
+    // Sub-Agents Grid
+    .sub-agents-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.9rem;
+
+      @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+      }
+
+      .sub-agent-card {
+        background: var(--secondary-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 1.2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        box-sizing: border-box;
+
+        .card-top-bar {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 0.8rem;
+
+          .agent-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--muted-text);
+            text-transform: uppercase;
+          }
+
+          .status-indicator {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: var(--muted-text);
+
+            &.active {
+              color: #10b981;
+            }
+          }
+        }
+
+        .agent-icon-box {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: var(--card-bg);
+          border: 1px solid var(--border-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.3rem;
+          color: var(--title-color);
+          margin-bottom: 0.8rem;
+          transition: all 0.2s ease;
+        }
+
+        .agent-name {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.88rem;
+          font-weight: 700;
+          color: var(--title-color);
+          margin: 0 0 0.3rem 0;
+          line-height: 1.25;
+        }
+
+        .agent-role {
+          font-size: 0.72rem;
+          color: var(--subtext-color);
+          line-height: 1.3;
+        }
+
+        .active-beam {
+          position: absolute;
+          bottom: 0;
+          left: 15%;
+          right: 15%;
+          height: 3px;
+          background: #10b981;
+          border-radius: 3px 3px 0 0;
+          box-shadow: 0 0 10px #10b981;
+        }
+
+        &.active {
+          border-color: #10b981;
+          background: rgba(16, 185, 129, 0.06);
+          box-shadow: 0 8px 25px -5px rgba(16, 185, 129, 0.2);
+
+          .agent-icon-box {
+            background: #10b981;
+            color: #000;
+            border-color: #10b981;
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
+          }
+
+          .card-top-bar .agent-badge {
+            color: #10b981;
+          }
+        }
       }
     }
   }
 
-  // Active Node Details & Live Terminal Output
-  .visualizer-console {
+  // Reasoning Terminal
+  .agent-reasoning-terminal {
     background: #09090b;
     border: 1px solid #27272a;
     border-radius: 12px;
-    padding: 1.25rem 1.5rem;
+    padding: 1.2rem 1.5rem;
     font-family: 'JetBrains Mono', monospace;
-    box-sizing: border-box;
 
-    .console-bar {
+    .terminal-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      padding-bottom: 0.8rem;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.6rem;
       border-bottom: 1px solid #18181b;
 
-      .console-dots {
+      .terminal-dots {
         display: flex;
         gap: 6px;
 
-        span {
-          width: 10px;
-          height: 10px;
+        .dot {
+          width: 9px;
+          height: 9px;
           border-radius: 50%;
-          &.dot-red { background: #ef4444; }
-          &.dot-yellow { background: #eab308; }
-          &.dot-green { background: #22c55e; }
+          &.red { background: #ef4444; }
+          &.yellow { background: #eab308; }
+          &.green { background: #22c55e; }
         }
       }
 
-      .console-title {
-        font-size: 0.75rem;
-        color: #a1a1aa;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+      .terminal-title {
+        font-size: 0.72rem;
+        color: #10b981;
+        font-weight: 700;
+        letter-spacing: 0.5px;
       }
     }
 
-    .console-logs {
+    .terminal-content {
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.4rem;
       font-size: 0.82rem;
-      min-height: 110px;
-      max-height: 200px;
-      overflow-y: auto;
 
-      .log-line {
-        line-height: 1.5;
-        color: #d4d4d8;
+      .log-row {
+        display: flex;
+        gap: 0.6rem;
+        color: #a1a1aa;
 
-        .log-prefix {
-          color: #10b981;
-          font-weight: 700;
-          margin-right: 0.5rem;
-        }
+        .time-tag { color: #71717a; }
+        .agent-tag { color: #38bdf8; font-weight: 600; }
+        .log-status { color: #facc15; }
+      }
 
-        .log-highlight {
-          color: #38bdf8;
-          font-weight: 600;
-        }
+      .log-result-row {
+        display: flex;
+        gap: 0.6rem;
+        color: #4ade80;
+        font-weight: 600;
 
-        .log-metric {
-          color: #facc15;
-          font-weight: 700;
-        }
-
-        &.log-success {
-          color: #4ade80;
-          font-weight: 600;
-        }
+        .arrow { color: #10b981; }
+        .result-text { color: #e4e4e7; }
       }
     }
   }
 
-  // Summary Metrics Footer
-  .visualizer-impact-metrics {
+  // Metrics Footer
+  .orchestrator-metrics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
@@ -266,25 +343,37 @@
       grid-template-columns: 1fr;
     }
 
-    .metric-card {
+    .metric-box {
       background: var(--secondary-bg);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 1rem;
       text-align: center;
+      display: flex;
+      flex-direction: column;
 
-      .metric-num {
+      .num {
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         font-weight: 800;
         color: var(--accent-green);
         margin-bottom: 0.2rem;
       }
 
-      .metric-label {
+      .lbl {
         font-size: 0.75rem;
         color: var(--subtext-color);
       }
     }
   }
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes spinIcon {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
