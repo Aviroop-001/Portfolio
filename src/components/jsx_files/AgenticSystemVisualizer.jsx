@@ -15,8 +15,7 @@ const subAgentsData = [
   {
     id: 'explorer',
     step: '01',
-    name: 'Code Explorer Agent',
-    role: 'AST & Call-Graph Search',
+    name: 'Explorer Agent',
     desc: 'Scans dependency graph & stack trace to pinpoint exact fault origin line.',
     icon: <IoSearchOutline />,
     graphic: {
@@ -28,8 +27,7 @@ const subAgentsData = [
   {
     id: 'reasoner',
     step: '02',
-    name: 'Reasoning Engine',
-    role: 'Root Cause Inference',
+    name: 'Reasoning Agent',
     desc: 'Analyzes unhandled null payload during high-concurrency event dispatch.',
     icon: <IoHardwareChipOutline />,
     graphic: {
@@ -46,8 +44,7 @@ const subAgentsData = [
   {
     id: 'patcher',
     step: '03',
-    name: 'Patch Synthesizer',
-    role: 'LLM Fix & Test Generator',
+    name: 'Patch Agent',
     desc: 'Synthesizes safe null-guard patch + automated Jest unit test spec.',
     icon: <IoCodeSlashOutline />,
     graphic: {
@@ -63,8 +60,7 @@ const subAgentsData = [
   {
     id: 'tester',
     step: '04',
-    name: 'Eval & Safety Runner',
-    role: 'Automated Regression Suite',
+    name: 'Safety Agent',
     desc: 'Executes automated safety evals across 50+ microservice endpoints.',
     icon: <IoFlaskOutline />,
     graphic: {
@@ -80,8 +76,7 @@ const subAgentsData = [
   {
     id: 'dispatch',
     step: '05',
-    name: 'Human Checkpoint',
-    role: 'GitHub PR Dispatcher',
+    name: 'Dispatch Agent',
     desc: 'Dispatches PR behind SDE approval checkpoint. Cuts triage from 5 hrs to 20 min.',
     icon: <IoShieldCheckmarkOutline />,
     graphic: {
@@ -105,7 +100,6 @@ export default function AgenticSystemVisualizer() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
   // Phase 1 -> Phase 2: Supervisor & Roots
-  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.16 to 0.24)
   const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.16, 0.24], [1, 1, 0]);
   const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -60]);
 
@@ -220,7 +214,7 @@ export default function AgenticSystemVisualizer() {
               </svg>
             </motion.div>
 
-            {/* 5 Sub-Agents Pipeline Grid (Concise Layout with Big Icon + Name + Role + Progress + Status Pill) */}
+            {/* 5 Sub-Agents Pipeline Grid */}
             <motion.div 
               className="subagents-pipeline-grid"
               style={{ 
@@ -246,10 +240,9 @@ export default function AgenticSystemVisualizer() {
                       <span className="step-num">{agent.step}</span>
                     </div>
 
-                    {/* Middle: Agent Title + Role */}
+                    {/* Middle: Agent Title */}
                     <div className="agent-text">
                       <h4 className="agent-title">{agent.name}</h4>
-                      <span className="agent-subrole">{agent.role}</span>
                     </div>
 
                     {/* Progress Bar Track */}
@@ -358,7 +351,7 @@ export default function AgenticSystemVisualizer() {
 
           </motion.div>
 
-          {/* Outro Impact Metrics Stage (Pinned for extended reading time) */}
+          {/* Outro Impact Metrics Stage */}
           <motion.div 
             className="outro-impact-view"
             style={{ 
