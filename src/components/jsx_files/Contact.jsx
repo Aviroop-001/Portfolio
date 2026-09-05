@@ -72,7 +72,7 @@ export default function Contact() {
             Whether you have a question, a project idea, or just want to say hi, I'll try my best to get back to you!
           </p>
           
-          <div className="email-box" onClick={copyToClipboard}>
+          <div className="email-box" onClick={copyToClipboard} role="button" tabIndex={0}>
             <div className="email-icon">
               <IoMailOutline />
             </div>

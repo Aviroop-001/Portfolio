@@ -149,8 +149,8 @@
       }
 
       .submit-btn {
-        background: var(--title-color);
-        color: #000;
+        background: var(--accent-primary);
+        color: var(--btn-text-on-accent);
         border: none;
         padding: 16px;
         border-radius: 8px;
@@ -165,9 +165,9 @@
         margin-top: 10px;
 
         &:hover {
-          background: #fff;
+          opacity: 0.9;
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+          box-shadow: var(--shadow-elevated);
         }
 
         &:active {

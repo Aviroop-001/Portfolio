@@ -22,7 +22,18 @@ export default function CustomCursor() {
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.tab-btn')) {
+      const target = e.target;
+      if (
+        target.closest('a') || 
+        target.closest('button') || 
+        target.closest('.tab-btn') ||
+        target.closest('.email-box') ||
+        target.closest('[role="button"]') ||
+        target.closest('.blog-card') ||
+        target.closest('.project-card') ||
+        target.closest('.cmd-k-hint') ||
+        target.closest('.theme-toggle-btn')
+      ) {
         setIsPointer(true);
       } else {
         setIsPointer(false);
