@@ -502,3 +502,101 @@
     }
   }
 }
+
+// Light theme overrides for Projects Cards
+[data-theme="light"] {
+  .projects-showcase-container {
+    .projects-bento-grid {
+      .project-bento-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+
+        &:hover {
+          border-color: rgba(5, 150, 105, 0.4);
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-preview-container {
+          background: #f4f4f5;
+
+          .live-status-pill {
+            color: #059669;
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(5, 150, 105, 0.3);
+
+            .pulse-dot {
+              background: #059669;
+              box-shadow: 0 0 6px #059669;
+            }
+          }
+        }
+
+        .card-content {
+          .card-top-row {
+            .project-card-title {
+              color: #09090b;
+            }
+
+            .metric-pill {
+              color: #059669;
+              background: rgba(5, 150, 105, 0.08);
+              border-color: rgba(5, 150, 105, 0.2);
+            }
+          }
+
+          .project-card-desc {
+            color: #52525b;
+          }
+
+          .tech-badges-group {
+            .tech-badge {
+              color: #27272a;
+              background: #f4f4f5;
+              border-color: #e4e4e7;
+            }
+          }
+
+          .project-action-btns {
+            .glass-button {
+              &.primary-btn {
+                background: rgba(5, 150, 105, 0.1);
+                border-color: rgba(5, 150, 105, 0.3);
+                color: #059669;
+
+                &:hover {
+                  background: #059669;
+                  color: #ffffff;
+                }
+              }
+
+              &.secondary-btn {
+                background: #f4f4f5;
+                border-color: #e4e4e7;
+                color: #27272a;
+
+                &:hover {
+                  background: #e4e4e7;
+                  color: #09090b;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .projects-expand-wrapper {
+      .projects-toggle-btn {
+        background: rgba(5, 150, 105, 0.08);
+        border-color: rgba(5, 150, 105, 0.3);
+        color: #059669;
+
+        &:hover {
+          background: #059669;
+          color: #ffffff;
+          box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
+        }
+      }
+    }
+  }
+}

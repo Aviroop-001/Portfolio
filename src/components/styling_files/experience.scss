@@ -278,3 +278,60 @@
     }
   }
 }
+
+// Light theme overrides for Experience Section
+[data-theme="light"] {
+  .experience-container.modern-ux {
+    .tabs-column {
+      .tab-btn {
+        &:hover {
+          background: rgba(0, 0, 0, 0.04);
+        }
+
+        &.active {
+          background: rgba(0, 0, 0, 0.06);
+        }
+      }
+    }
+
+    .content-column {
+      .experience-details {
+        .role-highlight-banner {
+          .highlight-pill {
+            color: #059669;
+            background: rgba(5, 150, 105, 0.08);
+            border-color: rgba(5, 150, 105, 0.25);
+          }
+        }
+
+        .impact-list {
+          li {
+            .bullet-content-wrap {
+              .inline-playground-wrapper {
+                .inline-playground-link-btn {
+                  background: rgba(5, 150, 105, 0.08);
+                  border-color: rgba(5, 150, 105, 0.3);
+                  color: #059669;
+
+                  &:hover {
+                    background: #059669;
+                    color: #ffffff;
+                    box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .tech-tags {
+          .tech-tag {
+            background: #f4f4f5;
+            border-color: #e4e4e7;
+            color: #27272a;
+          }
+        }
+      }
+    }
+  }
+}

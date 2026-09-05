@@ -84,3 +84,44 @@
     }
   }
 }
+
+// Light theme overrides for Education Cards
+[data-theme="light"] {
+  .education-compact-container {
+    .edu-compact-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+
+      &:hover {
+        border-color: rgba(5, 150, 105, 0.4);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      }
+
+      .edu-card-top {
+        .edu-degree {
+          color: #09090b;
+        }
+
+        .edu-grade-row {
+          .edu-cgpa-badge {
+            color: #059669;
+            background: rgba(5, 150, 105, 0.08);
+            border-color: rgba(5, 150, 105, 0.25);
+          }
+        }
+      }
+
+      .edu-card-details {
+        border-top-color: rgba(0, 0, 0, 0.06);
+
+        .edu-school {
+          color: #52525b;
+        }
+
+        .edu-year {
+          color: #71717a;
+        }
+      }
+    }
+  }
+}

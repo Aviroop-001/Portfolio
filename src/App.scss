@@ -442,3 +442,48 @@ body {
     }
   }
 }
+
+// Light mode overrides for About Me Bento Grid
+[data-theme="light"] {
+  .about-bento-grid {
+    .bento-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+
+      &:hover {
+        border-color: rgba(5, 150, 105, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .card-badge {
+        color: #059669;
+      }
+    }
+
+    .bento-hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+
+      .hero-title {
+        color: #09090b;
+      }
+
+      .hero-desc {
+        color: #52525b;
+      }
+    }
+
+    .bento-metrics {
+      .metrics-bento-grid {
+        .m-item {
+          .m-val {
+            color: #059669;
+          }
+
+          .m-lbl {
+            color: #52525b;
+          }
+        }
+      }
+    }
+  }
+}
