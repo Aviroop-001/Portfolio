@@ -206,11 +206,63 @@ function App() {
             variants={sectionVariants}
           >
             <ScrambleText as="h2" text="About Me" className="section-title" />
-            <p className="about-text">
-              Software Engineer specializing in highly scalable distributed backends, LLM-powered multi-agent architectures, and resilient microservices. 
-              I architect robust event-driven data pipelines (AWS, Kafka, PostgreSQL) and build full-stack generative AI solutions using frameworks like LangGraph and LangChain. 
-              My core focus is designing fault-tolerant foundation libraries and automating complex enterprise workflows to drive measurable impact.
-            </p>
+            
+            {/* Modern 4-Card Bento Grid */}
+            <div className="about-bento-grid">
+              {/* Card 1: Core Focus (Spans 2 cols) */}
+              <div className="bento-card bento-hero">
+                <div className="bento-card-header">
+                  <span className="card-badge">ENGINEERING PHILOSOPHY</span>
+                </div>
+                <h3 className="hero-title">Architecting Resilient Distributed Systems & LLM Multi-Agents</h3>
+                <p className="hero-desc">
+                  Software Engineer specializing in highly scalable backends, multi-agent LLM workflows (LangGraph), and high-throughput event-driven data pipelines. Core focus on designing fault-tolerant foundation libraries that automate complex triage workflows and drive measurable enterprise impact.
+                </p>
+              </div>
+
+              {/* Card 2: Live Status */}
+              <div className="bento-card bento-status">
+                <div className="status-indicator">
+                  <span className="pulse-dot" />
+                  <span className="status-label">CURRENTLY BUILDING</span>
+                </div>
+                <h4 className="status-title">Multi-Agent Triage Workflows</h4>
+                <p className="status-org">@ CommerceIQ</p>
+                <div className="status-tag">LangGraph • Python • NestJS</div>
+              </div>
+
+              {/* Card 3: Key Engineering Impact Metrics */}
+              <div className="bento-card bento-metrics">
+                <div className="bento-card-header">
+                  <span className="card-badge">IMPACT METRICS</span>
+                </div>
+                <div className="metrics-bento-grid">
+                  <div className="m-item">
+                    <span className="m-val">15×</span>
+                    <span className="m-lbl">Triage Speedup</span>
+                  </div>
+                  <div className="m-item">
+                    <span className="m-val">23+</span>
+                    <span className="m-lbl">Tickets Resolved</span>
+                  </div>
+                  <div className="m-item">
+                    <span className="m-val">100%</span>
+                    <span className="m-lbl">SDE Guarded</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 4: Location & Scope */}
+              <div className="bento-card bento-location">
+                <div className="bento-card-header">
+                  <span className="card-badge">LOCATION & SCOPE</span>
+                </div>
+                <div className="loc-content">
+                  <span className="loc-pin">📍 Bangalore, India</span>
+                  <p className="loc-sub">Distributed Backends • AI Agents • Event Pipelines</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </section>
 

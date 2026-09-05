@@ -96,7 +96,25 @@
         gap: 8px;
         font-size: 0.9rem;
         color: var(--muted-text);
-        margin-bottom: 24px;
+        margin-bottom: 16px;
+      }
+
+      .role-highlight-banner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        .highlight-pill {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.76rem;
+          font-weight: 600;
+          color: #10b981;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          padding: 5px 12px;
+          border-radius: 16px;
+        }
       }
 
       .impact-list {

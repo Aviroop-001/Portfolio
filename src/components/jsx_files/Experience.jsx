@@ -13,6 +13,28 @@ export default function Experience() {
     window.dispatchEvent(new Event('popstate'));
   };
 
+  const roleMetricsMap = {
+    "CommerceIQ": [
+      "⚡ 15× Bug Triage Speedup",
+      "🛡️ OpenTelemetry Golden Path",
+      "☁️ S3 + AWS Lambda Event Pipeline"
+    ],
+    "Airbook": [
+      "⚡ DuckDB High-Efficiency ETL",
+      "🤖 CodeLlama NLQ-to-SQL",
+      "📊 Multi-Warehouse Pipeline"
+    ],
+    "Listed": [
+      "👥 11M User Recommendation Engine",
+      "🎙️ Whisper Speech-to-Text Ads",
+      "🔗 BERT Semantic Link Engine"
+    ],
+    "Fi Ellements": [
+      "⚡ Responsive UI Modules",
+      "🎨 Fintech State Workflows"
+    ]
+  };
+
   return (
     <Box className="experience-container modern-ux">
       <Box className="experience-layout">
@@ -40,6 +62,15 @@ export default function Experience() {
               <div className="date-badge">
                 <FiCalendar /> {timelineData[activeTab].date}
               </div>
+
+              {/* Role Highlight Metrics Banner */}
+              {roleMetricsMap[timelineData[activeTab].org] && (
+                <div className="role-highlight-banner">
+                  {roleMetricsMap[timelineData[activeTab].org].map((m, i) => (
+                    <span key={i} className="highlight-pill">{m}</span>
+                  ))}
+                </div>
+              )}
 
               <ul className="impact-list">
                 {timelineData[activeTab].bullets && timelineData[activeTab].bullets.map((desc, i) => (
