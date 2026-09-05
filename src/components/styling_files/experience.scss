@@ -138,6 +138,65 @@
           font-family: var(--font-mono);
         }
       }
+
+      .architecture-showcase-wrapper {
+        margin-top: 2rem;
+        width: 100%;
+
+        .architecture-toggle-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 20px;
+          background: rgba(16, 185, 129, 0.08);
+          border: 1px solid rgba(16, 185, 129, 0.4);
+          border-radius: 12px;
+          color: #10b981;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.92rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+
+          &:hover, &.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.25);
+            transform: translateY(-1px);
+          }
+
+          .btn-zap-icon {
+            font-size: 1.1rem;
+            color: #10b981;
+          }
+
+          .btn-text {
+            color: var(--title-color);
+          }
+
+          .btn-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 6px;
+          }
+
+          .arrow-icon {
+            margin-left: 4px;
+            font-size: 1rem;
+          }
+        }
+
+        .embedded-visualizer-container {
+          margin-top: 1.5rem;
+          width: 100%;
+          overflow: hidden;
+        }
+      }
     }
   }
 
