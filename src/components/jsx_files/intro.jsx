@@ -2,6 +2,7 @@ import "../styling_files/intro.scss";
 import { 
   IoDocumentTextOutline
 } from 'react-icons/io5';
+import { FiArrowUpRight } from 'react-icons/fi';
 import { Box, Text } from "@chakra-ui/react";
 import ScrambleText from "./ScrambleText";
 
@@ -37,7 +38,8 @@ export default function Intro({ onPreviewResume }) {
               rel="noopener noreferrer"
             >
               <IoDocumentTextOutline className="button-icon" />
-              <span>VIEW RÉSUMÉ ↗</span>
+              <span>View Résumé</span>
+              <FiArrowUpRight className="arrow-icon" />
             </a>
           </Box>
         </Box>

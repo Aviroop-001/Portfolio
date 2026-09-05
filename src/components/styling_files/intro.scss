@@ -144,52 +144,53 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      padding: 0.95rem 2.1rem;
-      background-color: var(--accent-yellow);
-      border: 1px solid var(--border-strong);
-      border-radius: 12px;
-      color: var(--btn-text-on-yellow);
-      font-size: 0.85rem;
-      font-weight: 700;
+      padding: 0.85rem 1.8rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      color: var(--title-color);
+      font-size: 0.95rem;
+      font-weight: 600;
       font-family: 'Inter', sans-serif;
       text-decoration: none;
-      letter-spacing: 0.8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      transition: all 0.18s ease;
+      letter-spacing: 0.2px;
+      box-shadow: var(--shadow-card);
+      transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
       cursor: pointer;
-      text-transform: uppercase;
       box-sizing: border-box;
 
       .button-icon {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
+        color: var(--accent-green);
       }
 
-      &.preview-button {
-        background-color: var(--card-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: var(--text-color);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      .arrow-icon {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease, color 0.2s ease;
+        color: var(--muted-text);
       }
 
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(2, 79, 55, 0.25);
+        border-color: rgba(16, 185, 129, 0.4);
+        background: var(--secondary-bg);
+        box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
 
-        &.preview-button {
-          background-color: var(--secondary-bg);
-          color: var(--text-color);
+        .arrow-icon {
+          transform: translate(2px, -2px);
+          color: var(--accent-green);
         }
       }
 
       &:active {
-        transform: translateY(1px);
+        transform: translateY(0);
       }
 
       @include mobile {
         padding: 0.8rem 1.4rem;
-        font-size: 0.82rem;
+        font-size: 0.85rem;
         width: 100%;
         justify-content: center;
       }
