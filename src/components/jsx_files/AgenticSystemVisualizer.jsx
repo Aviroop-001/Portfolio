@@ -100,7 +100,6 @@ export default function AgenticSystemVisualizer() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
   // Phase 1 -> Phase 2: Supervisor & Roots
-  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.16 to 0.24)
   const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.16, 0.24], [1, 1, 0]);
   const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -50]);
 
@@ -117,8 +116,8 @@ export default function AgenticSystemVisualizer() {
   const terminalOpacity = useTransform(smoothProgress, [0.18, 0.25], [0, 1]);
   const terminalY = useTransform(smoothProgress, [0.18, 0.25, 0.32], [20, 0, -110]);
 
-  // Phase 3: Active progress fill width (0.22 to 0.65)
-  const progressFillWidth = useTransform(smoothProgress, (val) => {
+  // Active progress fill height for icon box (fills bottom-to-top 0% to 100% as step executes)
+  const iconFillHeight = useTransform(smoothProgress, (val) => {
     const START = 0.22;
     const END = 0.65;
     if (val < START) return "0%";
@@ -215,9 +214,9 @@ export default function AgenticSystemVisualizer() {
               </svg>
             </motion.div>
 
-            {/* 5 Sub-Agents Pipeline Grid (Glides up into vacant supervisor space) */}
+            {/* 5 Bare Sub-Agent Nodes (No Cards, Icon fills up as progress proceeds) */}
             <motion.div 
-              className="subagents-pipeline-grid"
+              className="subagents-bare-pipeline"
               style={{ 
                 opacity: subAgentsOpacity, 
                 y: subAgentsY,
@@ -231,43 +230,32 @@ export default function AgenticSystemVisualizer() {
                 return (
                   <div 
                     key={agent.id}
-                    className={`agent-pipeline-node ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
+                    className={`agent-bare-node ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
                   >
-                    {/* Top Row: Big Icon + Step Number */}
-                    <div className="agent-top">
-                      <div className="node-icon-wrapper">
+                    {/* Icon Container (Fills up with green on progress) */}
+                    <div className="icon-fill-box">
+                      {/* Active Progress Fill Layer */}
+                      {isActive && (
+                        <motion.div 
+                          className="icon-fill-layer" 
+                          style={{ height: iconFillHeight }} 
+                        />
+                      )}
+
+                      {/* Foreground Icon */}
+                      <div className="icon-symbol">
                         {isDone ? <IoCheckmarkCircle className="check-icon" /> : agent.icon}
                       </div>
-                      <span className="step-num">{agent.step}</span>
                     </div>
 
-                    {/* Middle: Agent Title */}
-                    <div className="agent-text">
-                      <h4 className="agent-title">{agent.name}</h4>
-                    </div>
-
-                    {/* Progress Bar Track */}
-                    <div className="node-status-bar">
-                      {isActive ? (
-                        <motion.div 
-                          className="active-progress-fill" 
-                          style={{ width: progressFillWidth }} 
-                        />
-                      ) : (
-                        <div className={`static-fill ${isDone ? 'done-fill' : ''}`} />
-                      )}
-                    </div>
-
-                    {/* Status Pill Badge */}
-                    <div className="node-pill">
-                      {isDone ? 'DONE ✓' : isActive ? 'RUNNING' : 'QUEUED'}
-                    </div>
+                    {/* Agent Name Below */}
+                    <span className="agent-bare-name">{agent.name}</span>
                   </div>
                 );
               })}
             </motion.div>
 
-            {/* Dynamic Code Terminal / Workspace Window (Glides up into vacant supervisor space) */}
+            {/* Dynamic Code Terminal / Workspace Window */}
             <motion.div 
               className="workspace-output-container"
               style={{ opacity: terminalOpacity, y: terminalY }}
