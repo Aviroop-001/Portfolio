@@ -14,6 +14,7 @@ import AgenticPlaygroundPage from './components/jsx_files/AgenticPlaygroundPage'
 import { 
   FiGithub, 
   FiLinkedin,
+  FiCode,
   FiMoon,
   FiSun
 } from 'react-icons/fi';
@@ -172,23 +173,6 @@ function App() {
           </button>
           
           <a 
-            href="https://github.com/Aviroop-001" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="social-icon-btn"
-          >
-            <FiGithub />
-          </a>
-          <a 
-            href="https://www.linkedin.com/in/aviroop-banerjee-0775a621b/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="social-icon-btn"
-          >
-            <FiLinkedin />
-          </a>
-          
-          <a 
             href="/resume.pdf" 
             target="_blank" 
             rel="noopener noreferrer"
@@ -321,6 +305,13 @@ function App() {
           </motion.div>
         </section>
       </main>
+
+      {/* Floating Socials Pill */}
+      <div className="floating-socials-pill">
+        <a href="https://github.com/Aviroop-001" target="_blank" rel="noreferrer" title="GitHub"><FiGithub /></a>
+        <a href="https://www.linkedin.com/in/aviroop-banerjee-0775a621b/" target="_blank" rel="noreferrer" title="LinkedIn"><FiLinkedin /></a>
+        <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noreferrer" title="LeetCode"><FiCode /></a>
+      </div>
     </div>
   );
 }
