@@ -185,8 +185,11 @@ function App() {
           >
             <ScrambleText as="h2" text="Experience" className="section-title" />
             <Experience />
-            <AgenticSystemVisualizer />
           </motion.div>
+        </section>
+
+        <section id="agentic-architecture" className="agentic-page-section">
+          <AgenticSystemVisualizer />
         </section>
 
         <section id="skills" className="page-section">

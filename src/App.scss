@@ -141,6 +141,12 @@ body {
   }
 }
 
+.agentic-page-section {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+}
+
 #intro {
   min-height: 100vh;
   border-bottom: none;

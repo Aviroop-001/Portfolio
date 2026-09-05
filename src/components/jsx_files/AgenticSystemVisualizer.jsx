@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import '../styling_files/agenticVisualizer.scss';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { 
@@ -8,8 +8,7 @@ import {
   IoCodeSlashOutline, 
   IoFlaskOutline, 
   IoShieldCheckmarkOutline,
-  IoCheckmarkCircle,
-  IoCheckmarkDoneCircle
+  IoCheckmarkCircle
 } from 'react-icons/io5';
 
 const subAgentsData = [
@@ -18,12 +17,12 @@ const subAgentsData = [
     step: '01',
     name: 'Code Explorer Agent',
     role: 'AST & Call-Graph Search',
-    desc: 'Scans dependency graph & stack trace to pinpoint exact failure line.',
+    desc: 'Scans dependency graph & stack trace to pinpoint exact fault origin line.',
     icon: <IoSearchOutline />,
     graphic: {
       type: 'code',
-      title: 'SyncPipeline.ts',
-      code: `140  const dispatchEvent = async (event) => {\n141    // AST Fault Localized (Confidence: 98%)\n142    if (!event.payload) throw new NullError();\n143  }`
+      title: 'SyncPipeline.ts:142',
+      code: `// Stack Trace: Unhandled Null Pointer Exception\nconst dispatchEvent = async (event) => {\n  // AST Localized Fault (Confidence: 98.4%)\n  const payload = event.payload;\n  return await handleDispatch(payload); // <-- THROWS NULL POINTER\n};`
     }
   },
   {
@@ -37,9 +36,10 @@ const subAgentsData = [
       type: 'reasoning',
       title: 'Fault Analysis Matrix',
       metrics: [
-        { label: 'Fault Origin', val: 'SyncPipeline.ts:142' },
-        { label: 'Cause', val: 'Unhandled null payload' },
-        { label: 'Risk Score', val: 'Low (Isolated)' }
+        { label: 'Localized File', val: 'SyncPipeline.ts:142' },
+        { label: 'Failure Cause', val: 'Missing payload null check' },
+        { label: 'Severity Risk', val: 'Low (Isolated microservice)' },
+        { label: 'Confidence Score', val: '98.4%' }
       ]
     }
   },
@@ -52,10 +52,11 @@ const subAgentsData = [
     icon: <IoCodeSlashOutline />,
     graphic: {
       type: 'diff',
-      title: 'Synthesized Patch',
+      title: 'Synthesized Git Patch',
       diff: [
-        { type: 'remove', line: '-  return await handleDispatch(event.payload);' },
-        { type: 'add', line: '+  if (!event?.payload) return await handleRetry(event);' }
+        { type: 'remove', line: '- return await handleDispatch(event.payload);' },
+        { type: 'add', line: '+ if (!event?.payload) return await handleRetry(event);' },
+        { type: 'add', line: '+ return await handleDispatch(event.payload);' }
       ]
     }
   },
@@ -63,16 +64,16 @@ const subAgentsData = [
     id: 'tester',
     step: '04',
     name: 'Eval & Safety Runner',
-    role: 'Automated Regression Evals',
-    desc: 'Executes automated eval suite across 50+ microservice endpoints.',
+    role: 'Automated Regression Suite',
+    desc: 'Executes automated safety evals across 50+ microservice endpoints.',
     icon: <IoFlaskOutline />,
     graphic: {
       type: 'eval',
-      title: 'Automated Safety Suite',
+      title: 'Automated Safety Eval Suite',
       tests: [
-        { name: 'Unit Test Coverage', pass: true, detail: '100% Passed' },
+        { name: 'Unit Test Spec (Jest)', pass: true, detail: '100% Passed (14/14)' },
         { name: 'API Regression Guard', pass: true, detail: '0 Breaking Changes' },
-        { name: 'Faithfulness Score', pass: true, detail: '1.0 Score' }
+        { name: 'LLM Faithfulness Score', pass: true, detail: '1.0 / 1.0 Score' }
       ]
     }
   },
@@ -80,14 +81,14 @@ const subAgentsData = [
     id: 'dispatch',
     step: '05',
     name: 'Human Checkpoint',
-    role: 'GitHub PR Dispatch',
-    desc: 'Dispatches PR behind SDE approval checkpoint. Triage time cut from 5 hrs to 20 min.',
+    role: 'GitHub PR Dispatcher',
+    desc: 'Dispatches PR behind SDE approval checkpoint. Cuts triage from 5 hrs to 20 min.',
     icon: <IoShieldCheckmarkOutline />,
     graphic: {
       type: 'pr',
-      title: 'GitHub PR #392 Created',
-      impact: '5 hrs ➔ 20 min (15× Speedup)',
-      status: 'APPROVED & MERGED'
+      title: 'GitHub Pull Request #392',
+      impact: 'Triage Speedup: 5 hrs ➔ 20 min (15×)',
+      status: 'APPROVED & MERGED TO MAIN'
     }
   }
 ];
@@ -95,260 +96,271 @@ const subAgentsData = [
 export default function AgenticSystemVisualizer() {
   const containerRef = useRef(null);
 
-  // 400vh long scroll pin track
+  // 550vh scroll track length for ultra-smooth scroll progression
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 22 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-  // Phase Transforms:
-  // Root Emerging (0.1 to 0.25)
-  const rootHeight = useTransform(smoothProgress, [0.1, 0.25], ["0%", "100%"]);
-  const rootsOpacity = useTransform(smoothProgress, [0.08, 0.2], [0, 1]);
+  // Phase 1 -> 2: Emerging SVG Roots (0.10 to 0.30)
+  const rootPathGrowth = useTransform(smoothProgress, [0.10, 0.30], [0, 1]);
+  const rootOpacity = useTransform(smoothProgress, [0.08, 0.18], [0, 1]);
 
-  // Sub-Agent Active Step (0.25 to 0.8)
-  const activeStepTransform = useTransform(smoothProgress, [0.25, 0.38, 0.52, 0.65, 0.78], [0, 1, 2, 3, 4]);
+  // Sub-agents entrance (0.28 to 0.38)
+  const subAgentsOpacity = useTransform(smoothProgress, [0.28, 0.36], [0, 1]);
+  const subAgentsY = useTransform(smoothProgress, [0.28, 0.36], [30, 0]);
 
-  // Sub-Agent Progress % per step (0% to 100%)
-  const stepSubProgress = useTransform(smoothProgress, (val) => {
-    if (val < 0.25) return 0;
-    if (val > 0.8) return 100;
-    const normalized = (val - 0.25) / 0.55; // 0 to 1
-    const currentStepFraction = (normalized * 5) % 1;
-    return Math.round(currentStepFraction * 100);
+  // Step calculations (0.34 to 0.84)
+  const activeStepFloat = useTransform(smoothProgress, [0.34, 0.46, 0.58, 0.70, 0.82], [0, 1, 2, 3, 4]);
+
+  // Sub-progress % calculation inside active agent (0% -> 100%)
+  const subProgressPercentage = useTransform(smoothProgress, (val) => {
+    if (val < 0.34) return 0;
+    if (val > 0.84) return 100;
+    const normalized = (val - 0.34) / 0.50; // 0 to 1 across 5 steps
+    const stepFraction = (normalized * 5) % 1;
+    return Math.min(Math.round(stepFraction * 100), 100);
   });
 
-  // Final Results Exit (0.8 to 1.0)
-  const isFinalPhase = useTransform(smoothProgress, [0.82, 0.88], [false, true]);
+  // Phase 4: Stage Fade Out & Outro Entrance (0.84 to 0.98)
+  const activeStageScale = useTransform(smoothProgress, [0.84, 0.92], [1, 0.92]);
+  const activeStageY = useTransform(smoothProgress, [0.84, 0.92], [0, -80]);
+  const activeStageOpacity = useTransform(smoothProgress, [0.84, 0.92], [1, 0]);
 
-  const [currentStepIndex, setCurrentStepIndex] = React.useState(0);
-  const [subProgressVal, setSubProgressVal] = React.useState(0);
-  const [showFinalMetrics, setShowFinalMetrics] = React.useState(false);
+  const outroOpacity = useTransform(smoothProgress, [0.90, 0.97], [0, 1]);
+  const outroScale = useTransform(smoothProgress, [0.90, 0.97], [0.9, 1]);
+  const outroY = useTransform(smoothProgress, [0.90, 0.97], [50, 0]);
 
-  React.useEffect(() => {
-    const unsubStep = activeStepTransform.on("change", (latest) => {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [progressPct, setProgressPct] = useState(0);
+
+  useEffect(() => {
+    const unsubStep = activeStepFloat.on("change", (latest) => {
       const rounded = Math.min(Math.max(Math.round(latest), 0), subAgentsData.length - 1);
       setCurrentStepIndex(rounded);
     });
-    const unsubProg = stepSubProgress.on("change", (latest) => {
-      setSubProgressVal(latest);
-    });
-    const unsubFinal = isFinalPhase.on("change", (latest) => {
-      setShowFinalMetrics(latest);
+    const unsubProg = subProgressPercentage.on("change", (latest) => {
+      setProgressPct(latest);
     });
     return () => {
       unsubStep();
       unsubProg();
-      unsubFinal();
     };
-  }, [activeStepTransform, stepSubProgress, isFinalPhase]);
+  }, [activeStepFloat, subProgressPercentage]);
 
   const currentAgent = subAgentsData[currentStepIndex];
 
   return (
-    <div className="mother-agent-pin-container" ref={containerRef}>
-      {/* Sticky Fullscreen Canvas */}
-      <div className="mother-sticky-canvas">
-        
-        {/* Header */}
-        <div className="canvas-header">
-          <h3 className="system-title">LangGraph Multi-Agent Fault Localization</h3>
-          <p className="system-subtitle">
-            {showFinalMetrics 
-              ? "All sub-agents completed execution. PR dispatched behind human checkpoint." 
-              : "Scroll to watch Supervisor spawn worker roots and execute multi-agent fault triage."}
-          </p>
-        </div>
+    <div className="agentic-scroll-wrapper" ref={containerRef}>
+      {/* Sticky Fullscreen WorkOS-Style Canvas */}
+      <div className="agentic-sticky-canvas">
 
-        {/* Phase 1 & 2: Top Mother Supervisor & Emerging Roots */}
-        <div className="mother-supervisor-hub">
-          <div className="hub-core-card">
-            <IoGitNetworkOutline className="hub-icon" />
-            <div className="hub-info">
-              <span className="hub-badge">LANGGRAPH SUPERVISOR</span>
-              <span className="hub-name">Orchestrator Node</span>
-            </div>
+        {/* Top Header */}
+        <div className="canvas-header-block">
+          <div className="badge-pill">
+            <span className="dot" />
+            <span>LANGGRAPH MULTI-AGENT ORCHESTRATION</span>
           </div>
-
-          {/* Emerging Roots SVG */}
-          <motion.div className="emerging-roots-wrapper" style={{ opacity: rootsOpacity }}>
-            <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="roots-svg">
-              <motion.path 
-                d="M 50 0 L 50 100 M 50 30 L 15 100 M 50 30 L 85 100 M 50 60 L 32 100 M 50 60 L 68 100" 
-                className="root-line" 
-                style={{ pathLength: rootHeight }} 
-              />
-            </svg>
-          </motion.div>
+          <h2 className="main-headline">Automated System Fault Localization</h2>
+          <p className="sub-headline">Scroll to trigger Supervisor root branching & worker execution.</p>
         </div>
 
-        {/* Main Workspace Stage */}
-        <AnimatePresence mode="wait">
-          {showFinalMetrics ? (
-            /* Phase 4: Final Result & Impact Metrics Outro */
-            <motion.div 
-              key="final-outro"
-              className="final-outro-stage"
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="outro-card">
-                <IoCheckmarkDoneCircle className="outro-icon" />
-                <span className="outro-badge">TRIAGE COMPLETE & PR MERGED</span>
-                <h4 className="outro-title">GitHub PR #392 Dispatched</h4>
-                <p className="outro-desc">
-                  Fault localized at <code>SyncPipeline.ts:142</code>, candidate patch synthesized, 100% eval suite passed, and human SDE checkpoint approved.
-                </p>
+        {/* Stage Container */}
+        <div className="architecture-stage">
 
-                <div className="outro-metrics-grid">
-                  <div className="metric-cell">
-                    <span className="val">5 hrs ➔ 20 min</span>
-                    <span className="lbl">Bug Triage Speedup</span>
-                  </div>
-                  <div className="metric-cell">
-                    <span className="val">23+ Tickets</span>
-                    <span className="lbl">Resolved via Multi-Agents</span>
-                  </div>
-                  <div className="metric-cell">
-                    <span className="val">100% Guarded</span>
-                    <span className="lbl">Human Approval Checkpoint</span>
-                  </div>
+          {/* Active Execution Stage (Mother Agent + Roots + Subagents + Code Output) */}
+          <motion.div 
+            className="main-execution-view"
+            style={{ 
+              opacity: activeStageOpacity, 
+              y: activeStageY,
+              scale: activeStageScale
+            }}
+          >
+            {/* Top Mother Supervisor Node */}
+            <div className="mother-supervisor-node">
+              <div className="node-glow-ring" />
+              <div className="mother-content">
+                <IoGitNetworkOutline className="mother-icon" />
+                <div className="mother-info">
+                  <span className="m-label">SUPERVISOR NODE</span>
+                  <span className="m-title">LangGraph Orchestrator</span>
                 </div>
               </div>
+            </div>
+
+            {/* Emerging SVG Roots (5 Branch Lines from Mother to Subagents) */}
+            <motion.div className="svg-roots-container" style={{ opacity: rootOpacity }}>
+              <svg viewBox="0 0 1000 90" preserveAspectRatio="none" className="roots-svg">
+                {/* 5 Bezier Curves starting at (500, 0) and branching out to 5 positions: 100, 300, 500, 700, 900 */}
+                <motion.path d="M 500 0 C 500 45, 100 45, 100 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
+                <motion.path d="M 500 0 C 500 45, 300 45, 300 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
+                <motion.path d="M 500 0 C 500 45, 500 45, 500 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
+                <motion.path d="M 500 0 C 500 45, 700 45, 700 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
+                <motion.path d="M 500 0 C 500 45, 900 45, 900 90" className="branch-path" style={{ pathLength: rootPathGrowth }} />
+              </svg>
             </motion.div>
-          ) : (
-            /* Phase 3: Sub-Agents Execution Stage */
+
+            {/* 5 Sub-Agents Pipeline Bar */}
             <motion.div 
-              key="agents-stage"
-              className="agents-execution-stage"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4 }}
+              className="subagents-pipeline-grid"
+              style={{ opacity: subAgentsOpacity, y: subAgentsY }}
             >
-              <div className="stage-2col-layout">
-                {/* Left Column: Sliding Sub-Agent Worker List */}
-                <div className="subagents-sliding-list">
-                  {subAgentsData.map((agent, idx) => {
-                    const isActive = currentStepIndex === idx;
-                    const isDone = currentStepIndex > idx;
-                    return (
-                      <motion.div 
-                        key={agent.id} 
-                        className={`sliding-agent-card ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
-                        animate={{ x: isActive ? 8 : 0, scale: isActive ? 1.02 : 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                      >
-                        <div className="agent-icon-box">
-                          {isDone ? <IoCheckmarkCircle className="check-done" /> : agent.icon}
-                        </div>
+              {subAgentsData.map((agent, idx) => {
+                const isActive = currentStepIndex === idx;
+                const isDone = currentStepIndex > idx;
 
-                        <div className="agent-meta">
-                          <div className="meta-top">
-                            <span className="step-tag">{agent.step}</span>
-                            <h5 className="agent-name">{agent.name}</h5>
+                return (
+                  <div 
+                    key={agent.id}
+                    className={`agent-pipeline-node ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}`}
+                  >
+                    <div className="agent-top">
+                      <div className="node-icon-wrapper">
+                        {isDone ? <IoCheckmarkCircle className="check-icon" /> : agent.icon}
+                      </div>
+                      <span className="step-num">{agent.step}</span>
+                    </div>
+
+                    <div className="agent-text">
+                      <h4 className="agent-title">{agent.name}</h4>
+                      <span className="agent-subrole">{agent.role}</span>
+                    </div>
+
+                    {/* Progress indicator */}
+                    <div className="node-status-bar">
+                      {isActive && (
+                        <div className="active-progress-fill" style={{ width: `${progressPct}%` }} />
+                      )}
+                    </div>
+
+                    <div className="node-pill">
+                      {isDone ? 'DONE ✓' : isActive ? `RUNNING ${progressPct}%` : 'QUEUED'}
+                    </div>
+                  </div>
+                );
+              })}
+            </motion.div>
+
+            {/* Dynamic Code Terminal / Workspace Window */}
+            <div className="workspace-output-container">
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={currentAgent.id}
+                  className="bare-terminal-window"
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  {/* Top Window Bar */}
+                  <div className="terminal-header">
+                    <div className="window-dots">
+                      <span className="dot red" />
+                      <span className="dot yellow" />
+                      <span className="dot green" />
+                    </div>
+                    <span className="terminal-title">
+                      {currentAgent.name} ➔ {currentAgent.graphic.title}
+                    </span>
+                    <span className="terminal-status-tag">
+                      {progressPct < 100 ? 'EXECUTION IN PROGRESS' : 'TASK COMPLETED'}
+                    </span>
+                  </div>
+
+                  {/* Terminal Body Content */}
+                  <div className="terminal-content">
+                    <p className="agent-action-desc">{currentAgent.desc}</p>
+
+                    {currentAgent.graphic.type === 'code' && (
+                      <div className="code-snippet-box">
+                        <pre><code>{currentAgent.graphic.code}</code></pre>
+                      </div>
+                    )}
+
+                    {currentAgent.graphic.type === 'reasoning' && (
+                      <div className="matrix-results-box">
+                        {currentAgent.graphic.metrics.map((m, i) => (
+                          <div key={i} className="matrix-item">
+                            <span className="lbl">{m.label}:</span>
+                            <span className="val">{m.val}</span>
                           </div>
-                          <span className="agent-role">{agent.role}</span>
+                        ))}
+                      </div>
+                    )}
 
-                          {/* Progress Bar for Active Agent */}
-                          {isActive && (
-                            <div className="progress-bar-track">
-                              <div 
-                                className="progress-bar-fill" 
-                                style={{ width: `${subProgressVal}%` }} 
-                              />
-                            </div>
-                          )}
-                        </div>
+                    {currentAgent.graphic.type === 'diff' && (
+                      <div className="diff-view-box">
+                        {currentAgent.graphic.diff.map((d, i) => (
+                          <div key={i} className={`diff-line ${d.type}`}>
+                            {d.line}
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
-                        <div className="status-pill">
-                          {isDone ? 'COMPLETED ✓' : isActive ? `IN PROGRESS ${subProgressVal}%` : 'QUEUED'}
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+                    {currentAgent.graphic.type === 'eval' && (
+                      <div className="eval-results-box">
+                        {currentAgent.graphic.tests.map((t, i) => (
+                          <div key={i} className="eval-row">
+                            <IoCheckmarkCircle className="eval-icon" />
+                            <span className="t-title">{t.name}</span>
+                            <span className="t-status">{t.detail}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {currentAgent.graphic.type === 'pr' && (
+                      <div className="pr-dispatched-box">
+                        <div className="pr-impact-highlight">{currentAgent.graphic.impact}</div>
+                        <div className="pr-badge-status">{currentAgent.graphic.status}</div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+          </motion.div>
+
+          {/* Outro Impact Metrics Stage (Scales in when scroll reaches 0.90+) */}
+          <motion.div 
+            className="outro-impact-view"
+            style={{ 
+              opacity: outroOpacity, 
+              scale: outroScale,
+              y: outroY 
+            }}
+          >
+            <div className="outro-impact-card">
+              <IoCheckmarkCircle className="success-badge-icon" />
+              <span className="outro-eyebrow">ALL 5 SUB-AGENTS COMPLETE ➔ PR MERGED</span>
+              <h3 className="outro-heading">GitHub Pull Request #392 Dispatched</h3>
+              <p className="outro-summary">
+                Null-pointer fault localized at <code>SyncPipeline.ts:142</code>. Candidate patch synthesized, verified across 50+ safety evals, and approved by SDE checkpoint.
+              </p>
+
+              <div className="metrics-tri-grid">
+                <div className="metric-box">
+                  <span className="metric-value">5 hrs ➔ 20 min</span>
+                  <span className="metric-label">Bug Triage Speedup</span>
                 </div>
-
-                {/* Right Column: Dynamic Workspace Preview Card */}
-                <div className="workspace-preview-stage">
-                  <AnimatePresence mode="wait">
-                    <motion.div 
-                      key={currentAgent.id}
-                      className="workspace-window"
-                      initial={{ opacity: 0, x: 25 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -25 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className="window-bar">
-                        <div className="dots">
-                          <span className="dot red" />
-                          <span className="dot yellow" />
-                          <span className="dot green" />
-                        </div>
-                        <span className="window-title">{currentAgent.name} ➔ {currentAgent.graphic.title}</span>
-                      </div>
-
-                      <div className="window-body">
-                        <p className="desc">{currentAgent.desc}</p>
-
-                        {currentAgent.graphic.type === 'code' && (
-                          <div className="graphic-block code-block">
-                            <pre><code>{currentAgent.graphic.code}</code></pre>
-                          </div>
-                        )}
-
-                        {currentAgent.graphic.type === 'reasoning' && (
-                          <div className="graphic-block matrix-block">
-                            {currentAgent.graphic.metrics.map((m, i) => (
-                              <div key={i} className="matrix-row">
-                                <span className="lbl">{m.label}:</span>
-                                <span className="val">{m.val}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {currentAgent.graphic.type === 'diff' && (
-                          <div className="graphic-block diff-block">
-                            {currentAgent.graphic.diff.map((d, i) => (
-                              <div key={i} className={`diff-line ${d.type}`}>
-                                {d.line}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {currentAgent.graphic.type === 'eval' && (
-                          <div className="graphic-block eval-block">
-                            {currentAgent.graphic.tests.map((t, i) => (
-                              <div key={i} className="test-row">
-                                <IoCheckmarkCircle className="check-icon" />
-                                <span className="t-name">{t.name}</span>
-                                <span className="t-detail">{t.detail}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                        {currentAgent.graphic.type === 'pr' && (
-                          <div className="graphic-block pr-block">
-                            <div className="pr-impact">{currentAgent.graphic.impact}</div>
-                            <div className="pr-badge">{currentAgent.graphic.status}</div>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
+                <div className="metric-box">
+                  <span className="metric-value">23+ Tickets</span>
+                  <span className="metric-label">Resolved via Multi-Agents</span>
+                </div>
+                <div className="metric-box">
+                  <span className="metric-value">100% Guarded</span>
+                  <span className="metric-label">Human Checkpoint</span>
                 </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </div>
+          </motion.div>
+
+        </div>
 
       </div>
     </div>
