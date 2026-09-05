@@ -207,34 +207,34 @@ function App() {
           >
             <ScrambleText as="h2" text="About Me" className="section-title" />
             
-            {/* Modern 4-Card Bento Grid */}
+            {/* Modern Bento Grid */}
             <div className="about-bento-grid">
-              {/* Card 1: Core Focus (Spans 2 cols) */}
+              {/* Card 1: Scalability, Performant & Platform Architecture */}
               <div className="bento-card bento-hero">
                 <div className="bento-card-header">
                   <span className="card-badge">ENGINEERING PHILOSOPHY</span>
                 </div>
-                <h3 className="hero-title">Architecting Resilient Distributed Systems & LLM Multi-Agents</h3>
+                <h3 className="hero-title">Scalability, Performant & Platform Architecture</h3>
                 <p className="hero-desc">
-                  Software Engineer specializing in highly scalable backends, multi-agent LLM workflows (LangGraph), and high-throughput event-driven data pipelines. Core focus on designing fault-tolerant foundation libraries that automate complex triage workflows and drive measurable enterprise impact.
+                  Software Engineer focused on architecting highly scalable backends, performant microservices, and resilient platform infrastructure. I design standardized golden path foundation libraries, event-driven data pipelines (AWS Lambda, S3, Kafka), and multi-agent LLM systems engineered for predictable high-concurrency scale.
                 </p>
               </div>
 
-              {/* Card 2: Live Status */}
-              <div className="bento-card bento-status">
-                <div className="status-indicator">
-                  <span className="pulse-dot" />
-                  <span className="status-label">CURRENTLY BUILDING</span>
+              {/* Card 2: Location & Scope */}
+              <div className="bento-card bento-location">
+                <div className="bento-card-header">
+                  <span className="card-badge">LOCATION & SCOPE</span>
                 </div>
-                <h4 className="status-title">Multi-Agent Triage Workflows</h4>
-                <p className="status-org">@ CommerceIQ</p>
-                <div className="status-tag">LangGraph • Python • NestJS</div>
+                <div className="loc-content">
+                  <span className="loc-pin">📍 Bangalore, India</span>
+                  <p className="loc-sub">Distributed Backends • Platform Architecture • Performant Systems</p>
+                </div>
               </div>
 
-              {/* Card 3: Key Engineering Impact Metrics */}
+              {/* Card 3: 5 Key Resume Impact Metrics */}
               <div className="bento-card bento-metrics">
                 <div className="bento-card-header">
-                  <span className="card-badge">IMPACT METRICS</span>
+                  <span className="card-badge">RESUME IMPACT METRICS</span>
                 </div>
                 <div className="metrics-bento-grid">
                   <div className="m-item">
@@ -242,24 +242,21 @@ function App() {
                     <span className="m-lbl">Triage Speedup</span>
                   </div>
                   <div className="m-item">
-                    <span className="m-val">23+</span>
-                    <span className="m-lbl">Tickets Resolved</span>
+                    <span className="m-val">11M</span>
+                    <span className="m-lbl">Users Served</span>
+                  </div>
+                  <div className="m-item">
+                    <span className="m-val">&lt;150ms</span>
+                    <span className="m-lbl">API Response Latency</span>
                   </div>
                   <div className="m-item">
                     <span className="m-val">100%</span>
-                    <span className="m-lbl">SDE Guarded</span>
+                    <span className="m-lbl">Guarded Checkpoints</span>
                   </div>
-                </div>
-              </div>
-
-              {/* Card 4: Location & Scope */}
-              <div className="bento-card bento-location">
-                <div className="bento-card-header">
-                  <span className="card-badge">LOCATION & SCOPE</span>
-                </div>
-                <div className="loc-content">
-                  <span className="loc-pin">📍 Bangalore, India</span>
-                  <p className="loc-sub">Distributed Backends • AI Agents • Event Pipelines</p>
+                  <div className="m-item">
+                    <span className="m-val">23+</span>
+                    <span className="m-lbl">Production Tickets</span>
+                  </div>
                 </div>
               </div>
             </div>
