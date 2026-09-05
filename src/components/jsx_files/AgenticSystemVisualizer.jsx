@@ -100,21 +100,22 @@ export default function AgenticSystemVisualizer() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 26, restDelta: 0.001 });
 
   // Phase 1 -> Phase 2: Supervisor & Roots
+  // Supervisor Node is visible on landing (1.0), then transitions out as execution starts (0.16 to 0.24)
   const supervisorOpacity = useTransform(smoothProgress, [0.00, 0.16, 0.24], [1, 1, 0]);
-  const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -60]);
+  const supervisorY = useTransform(smoothProgress, [0.16, 0.24], [0, -50]);
 
   // SVG Roots emerge downwards from Supervisor (0.06 to 0.18), then fade out (0.20 to 0.24)
   const rootPathGrowth = useTransform(smoothProgress, [0.06, 0.18], [0, 1]);
   const rootOpacity = useTransform(smoothProgress, [0.05, 0.12, 0.20, 0.24], [0, 1, 1, 0]);
 
-  // Phase 2 -> Phase 3: Subagents reveal & take stage
+  // Phase 2 -> Phase 3: Subagents reveal & glide UPWARDS to fill vacant space when supervisor leaves (0.22 to 0.32)
   const subAgentsOpacity = useTransform(smoothProgress, [0.14, 0.22], [0, 1]);
-  const subAgentsY = useTransform(smoothProgress, [0.14, 0.22], [40, 0]);
+  const subAgentsY = useTransform(smoothProgress, [0.14, 0.22, 0.32], [40, 0, -110]);
   const subAgentsScale = useTransform(smoothProgress, [0.14, 0.22], [0.95, 1]);
 
-  // Terminal Output Window Entrance (0.18 to 0.25)
+  // Terminal Output Window Entrance & shift up into vacant space
   const terminalOpacity = useTransform(smoothProgress, [0.18, 0.25], [0, 1]);
-  const terminalY = useTransform(smoothProgress, [0.18, 0.25], [30, 0]);
+  const terminalY = useTransform(smoothProgress, [0.18, 0.25, 0.32], [20, 0, -110]);
 
   // Phase 3: Active progress fill width (0.22 to 0.65)
   const progressFillWidth = useTransform(smoothProgress, (val) => {
@@ -142,7 +143,7 @@ export default function AgenticSystemVisualizer() {
 
   // Phase 4: Extended Outro Stage Transitions (0.65 to 1.00)
   const activeStageScale = useTransform(smoothProgress, [0.65, 0.72], [1, 0.92]);
-  const activeStageY = useTransform(smoothProgress, [0.65, 0.72], [0, -60]);
+  const activeStageY = useTransform(smoothProgress, [0.65, 0.72], [-110, -170]);
   const activeStageOpacity = useTransform(smoothProgress, [0.65, 0.72], [1, 0]);
 
   // Outro emerges early (0.70 to 0.76) and STAYS PINNED until 1.00 for long scroll viewing
@@ -214,7 +215,7 @@ export default function AgenticSystemVisualizer() {
               </svg>
             </motion.div>
 
-            {/* 5 Sub-Agents Pipeline Grid */}
+            {/* 5 Sub-Agents Pipeline Grid (Glides up into vacant supervisor space) */}
             <motion.div 
               className="subagents-pipeline-grid"
               style={{ 
@@ -266,7 +267,7 @@ export default function AgenticSystemVisualizer() {
               })}
             </motion.div>
 
-            {/* Dynamic Code Terminal / Workspace Window */}
+            {/* Dynamic Code Terminal / Workspace Window (Glides up into vacant supervisor space) */}
             <motion.div 
               className="workspace-output-container"
               style={{ opacity: terminalOpacity, y: terminalY }}
@@ -317,7 +318,7 @@ export default function AgenticSystemVisualizer() {
                     )}
 
                     {currentAgent.graphic.type === 'diff' && (
-                      <div className="diff-view-box">
+                      <div className="graphic-block diff-block">
                         {currentAgent.graphic.diff.map((d, i) => (
                           <div key={i} className={`diff-line ${d.type}`}>
                             {d.line}
