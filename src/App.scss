@@ -444,7 +444,7 @@ body {
 }
 
 // Light mode overrides for About Me Bento Grid
-[data-theme="light"] {
+body[data-theme="light"] {
   .about-bento-grid {
     .bento-card {
       background: #ffffff;
