@@ -1,6 +1,6 @@
 import posthog from 'posthog-js';
 
-const POSTHOG_KEY = process.env.REACT_APP_POSTHOG_KEY;
+const POSTHOG_KEY = process.env.REACT_APP_POSTHOG_KEY || 'phc_rqyaFZE7xmpDDKAxpJYzcvNo7cSDfgxpP38A9dNCHDMD';
 const POSTHOG_HOST = process.env.REACT_APP_POSTHOG_HOST || 'https://us.i.posthog.com';
 
 let isInitialized = false;
