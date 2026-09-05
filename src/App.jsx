@@ -5,6 +5,7 @@ import Intro from "./components/jsx_files/intro";
 import CustomCursor from './components/jsx_files/CustomCursor';
 import Experience from './components/jsx_files/Experience';
 import Skills from './components/jsx_files/Skills';
+import GitHubHeatmap from './components/jsx_files/GitHubHeatmap';
 import Projects from './components/jsx_files/Projects';
 import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
@@ -197,6 +198,7 @@ function App() {
           >
             <ScrambleText as="h2" text="Skills" className="section-title" />
             <Skills />
+            <GitHubHeatmap username="Aviroop-001" />
           </motion.div>
         </section>
 

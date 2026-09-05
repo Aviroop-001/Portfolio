@@ -1,0 +1,199 @@
+@import "../../global.scss";
+
+.github-heatmap-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 2.5rem auto 0;
+  padding: 1.8rem 2rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+
+  @include mobile {
+    padding: 1.2rem 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .heatmap-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      .github-icon {
+        font-size: 1.5rem;
+        color: var(--title-color);
+      }
+
+      .heatmap-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--title-color);
+        margin: 0;
+      }
+
+      .username-tag {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--accent-green);
+        background: rgba(16, 185, 129, 0.1);
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+    }
+
+    .header-stats {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      @include mobile {
+        gap: 1rem;
+      }
+
+      .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        @include mobile {
+          align-items: flex-start;
+        }
+
+        .stat-value {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: var(--title-color);
+        }
+
+        .stat-label {
+          font-size: 0.7rem;
+          color: var(--muted-text);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+
+  // Scrollable Heatmap Body
+  .heatmap-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .heatmap-grid {
+      display: flex;
+      gap: 3px;
+      min-width: 780px;
+
+      .heatmap-column {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .heatmap-day-cell {
+        width: 11px;
+        height: 11px;
+        border-radius: 2px;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+        cursor: pointer;
+        position: relative;
+
+        &[data-level="0"] { background-color: var(--secondary-bg); border: 1px solid var(--border-color); }
+        &[data-level="1"] { background-color: #0e4429; }
+        &[data-level="2"] { background-color: #006d32; }
+        &[data-level="3"] { background-color: #26a641; }
+        &[data-level="4"] { background-color: #39d353; box-shadow: 0 0 6px rgba(57, 211, 83, 0.4); }
+
+        &:hover {
+          transform: scale(1.3);
+          z-index: 10;
+        }
+      }
+    }
+  }
+
+  // Heatmap Footer
+  .heatmap-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted-text);
+
+    .footer-left {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      .legend-cell {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+
+        &[data-level="0"] { background-color: var(--secondary-bg); border: 1px solid var(--border-color); }
+        &[data-level="1"] { background-color: #0e4429; }
+        &[data-level="2"] { background-color: #006d32; }
+        &[data-level="3"] { background-color: #26a641; }
+        &[data-level="4"] { background-color: #39d353; }
+      }
+    }
+  }
+
+  // Skeleton Loading
+  .heatmap-skeleton {
+    display: flex;
+    gap: 3px;
+    min-width: 780px;
+    opacity: 0.5;
+    animation: pulseSkeleton 1.5s infinite alternate;
+
+    .skeleton-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+
+      .skeleton-cell {
+        width: 11px;
+        height: 11px;
+        border-radius: 2px;
+        background-color: var(--secondary-bg);
+      }
+    }
+  }
+}
+
+@keyframes pulseSkeleton {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
