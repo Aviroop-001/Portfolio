@@ -7,9 +7,9 @@ import { FiCalendar, FiArrowRight, FiZap } from "react-icons/fi";
 export default function Experience() {
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleOpenPlayground = (e) => {
+  const handleOpenPlayground = (e, scenario = 'langgraph') => {
     e.preventDefault();
-    window.history.pushState({}, '', '/playground');
+    window.history.pushState({}, '', `/playground?scenario=${scenario}`);
     window.dispatchEvent(new Event('popstate'));
   };
 
@@ -82,10 +82,21 @@ export default function Experience() {
                         <div className="inline-playground-wrapper">
                           <button 
                             className="inline-playground-link-btn"
-                            onClick={handleOpenPlayground}
+                            onClick={(e) => handleOpenPlayground(e, 'langgraph')}
                           >
                             <FiZap className="btn-zap-icon" />
                             <span>⚡ Open Interactive LangGraph Multi-Agent Playground ↗</span>
+                          </button>
+                        </div>
+                      )}
+                      {activeTab === 2 && i === 0 && (
+                        <div className="inline-playground-wrapper">
+                          <button 
+                            className="inline-playground-link-btn"
+                            onClick={(e) => handleOpenPlayground(e, 'duckdb')}
+                          >
+                            <FiZap className="btn-zap-icon" />
+                            <span>⚡ Open Interactive DuckDB Vectorized ETL Playground ↗</span>
                           </button>
                         </div>
                       )}
