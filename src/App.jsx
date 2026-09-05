@@ -10,10 +10,10 @@ import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
 import Blogs from './components/jsx_files/Blogs';
 import Contact from './components/jsx_files/Contact';
+import AgenticPlaygroundPage from './components/jsx_files/AgenticPlaygroundPage';
 import { 
   FiGithub, 
   FiLinkedin,
-  FiCode,
   FiMoon,
   FiSun
 } from 'react-icons/fi';
@@ -26,11 +26,39 @@ import CommandPalette from './components/jsx_files/CommandPalette';
 function App() {
   const [activeSection, setActiveSection] = useState('intro');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Always default strictly to dark mode on initial load
   const [theme, setTheme] = useState('dark');
 
-  // Apply theme to HTML root and body elements
+  // URL Path / Hash Router
+  const [route, setRoute] = useState(() => {
+    const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+    return (path.includes('playground') || hash.includes('playground')) ? 'playground' : 'home';
+  });
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      setRoute((path.includes('playground') || hash.includes('playground')) ? 'playground' : 'home');
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('hashchange', handleRouteChange);
+    };
+  }, []);
+
+  const navigateToHome = () => {
+    window.history.pushState({}, '', '/#experience');
+    setRoute('home');
+    setTimeout(() => {
+      const el = document.getElementById('experience');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
@@ -42,6 +70,8 @@ function App() {
   };
 
   useEffect(() => {
+    if (route !== 'home') return;
+
     const handleScroll = () => {
       const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
       for (const section of sections) {
@@ -59,7 +89,7 @@ function App() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [route]);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -79,6 +109,18 @@ function App() {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
   };
+
+  // If on /playground route, render dedicated AgenticPlaygroundPage
+  if (route === 'playground') {
+    return (
+      <div className="App modern-theme">
+        <CustomCursor />
+        <CommandPalette />
+        <SpeedInsights />
+        <AgenticPlaygroundPage onBack={navigateToHome} />
+      </div>
+    );
+  }
 
   return (
     <div className="App modern-theme">
@@ -101,9 +143,9 @@ function App() {
         </button>
 
         <div className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          {navLinks.map(link => (
-            <button 
-              key={link.id} 
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
               className={`nav-btn ${activeSection === link.id ? 'active' : ''}`}
               onClick={() => {
                 scrollToSection(link.id);
@@ -113,33 +155,47 @@ function App() {
               {link.name}
             </button>
           ))}
+          
           <button 
             className="cmd-k-hint"
             onClick={() => {
-              setIsMobileMenuOpen(false);
-              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
-              window.dispatchEvent(event);
+              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true });
+              document.dispatchEvent(event);
             }}
           >
-            <span className="search-icon">🔍</span>
-            <span className="kb-shortcut">⌘K Search</span>
+            <span>Search</span>
+            <span className="kb-shortcut">⌘K</span>
           </button>
+
+          <button className="theme-toggle-btn" onClick={toggleTheme} title="Toggle theme">
+            {theme === 'dark' ? <FiSun /> : <FiMoon />}
+          </button>
+          
           <a 
-            href="/resume.pdf"
-            target="_blank"
+            href="https://github.com/Aviroop-001" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="social-icon-btn"
+          >
+            <FiGithub />
+          </a>
+          <a 
+            href="https://www.linkedin.com/in/aviroop-banerjee-0775a621b/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="social-icon-btn"
+          >
+            <FiLinkedin />
+          </a>
+          
+          <a 
+            href="/resume.pdf" 
+            target="_blank" 
             rel="noopener noreferrer"
             className="resume-btn"
           >
             Résumé
           </a>
-          <button 
-            className="theme-toggle-btn"
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            title="Toggle Dark/Light Mode"
-          >
-            {theme === 'dark' ? <FiMoon /> : <FiSun />}
-          </button>
         </div>
       </nav>
 
@@ -173,7 +229,6 @@ function App() {
             </p>
           </motion.div>
         </section>
-        
 
         <section id="experience" className="page-section">
           <motion.div 
@@ -227,7 +282,6 @@ function App() {
           </motion.div>
         </section>
 
-
         <section id="testimonials" className="page-section">
           <motion.div 
             className="section-container"
@@ -247,7 +301,9 @@ function App() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={sectionVariants}
+            className="section-container"
           >
+            <ScrambleText as="h2" text="Blogs" className="section-title" />
             <Blogs />
           </motion.div>
         </section>
@@ -264,15 +320,14 @@ function App() {
             <Contact />
           </motion.div>
         </section>
-
       </main>
 
-      {/* Floating Socials Pill */}
-      <div className="floating-socials-pill">
-        <a href="https://github.com/Aviroop-001" target="_blank" rel="noreferrer" title="GitHub"><FiGithub /></a>
-        <a href="https://www.linkedin.com/in/aviroopbanerjee/" target="_blank" rel="noreferrer" title="LinkedIn"><FiLinkedin /></a>
-        <a href="https://leetcode.com/Aviroop_01/" target="_blank" rel="noreferrer" title="LeetCode"><FiCode /></a>
-      </div>
+      {/* Modern Minimalist Footer */}
+      <footer className="modern-footer">
+        <div className="footer-content">
+          <p>© {new Date().getFullYear()} Aviroop Banerjee. Architected for scale & reliability.</p>
+        </div>
+      </footer>
     </div>
   );
 }
