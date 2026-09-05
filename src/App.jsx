@@ -23,11 +23,17 @@ import { motion } from 'framer-motion';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrambleText from './components/jsx_files/ScrambleText';
 import CommandPalette from './components/jsx_files/CommandPalette';
+import { initPostHog, trackSectionView } from './utils/posthog';
 
 function App() {
   const [activeSection, setActiveSection] = useState('intro');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
+
+  // Initialize PostHog Analytics on App mount
+  useEffect(() => {
+    initPostHog();
+  }, []);
 
   // URL Path / Hash Router
   const [route, setRoute] = useState(() => {
@@ -50,6 +56,13 @@ function App() {
       window.removeEventListener('hashchange', handleRouteChange);
     };
   }, []);
+
+  // Track section views when activeSection changes
+  useEffect(() => {
+    if (activeSection) {
+      trackSectionView(activeSection);
+    }
+  }, [activeSection]);
 
   const navigateToHome = () => {
     window.history.pushState({}, '', '/#experience');
@@ -74,7 +87,7 @@ function App() {
     if (route !== 'home') return;
 
     const handleScroll = () => {
-      const sections = ['intro', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
+      const sections = ['intro', 'about', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
