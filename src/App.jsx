@@ -220,18 +220,7 @@ function App() {
                 </p>
               </div>
 
-              {/* Card 2: Location & Scope */}
-              <div className="bento-card bento-location">
-                <div className="bento-card-header">
-                  <span className="card-badge">LOCATION & SCOPE</span>
-                </div>
-                <div className="loc-content">
-                  <span className="loc-pin">📍 Bangalore, India</span>
-                  <p className="loc-sub">Distributed Backends • Platform Architecture • Performant Systems</p>
-                </div>
-              </div>
-
-              {/* Card 3: 5 Key Resume Impact Metrics */}
+              {/* Card 2: 5 Key Resume Impact Metrics */}
               <div className="bento-card bento-metrics">
                 <div className="bento-card-header">
                   <span className="card-badge">RESUME IMPACT METRICS</span>

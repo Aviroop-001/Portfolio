@@ -379,7 +379,7 @@ body {
   }
 
   .bento-hero {
-    grid-column: span 2;
+    grid-column: span 3;
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(18, 20, 26, 0.75) 100%);
 
     @media (max-width: 900px) {
@@ -401,58 +401,6 @@ body {
       color: #a1a1aa;
       line-height: 1.6;
       margin: 0;
-    }
-  }
-
-  .bento-status {
-    grid-column: span 1;
-    border-color: rgba(16, 185, 129, 0.2);
-
-    .status-indicator {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0.6rem;
-
-      .pulse-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #10b981;
-        box-shadow: 0 0 8px #10b981;
-      }
-
-      .status-label {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.68rem;
-        font-weight: 700;
-        color: #10b981;
-      }
-    }
-
-    .status-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin: 0;
-    }
-
-    .status-org {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      color: #a1a1aa;
-      margin: 0.2rem 0 0.8rem;
-    }
-
-    .status-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: #10b981;
-      background: rgba(16, 185, 129, 0.1);
-      padding: 4px 10px;
-      border-radius: 12px;
-      width: fit-content;
     }
   }
 
@@ -490,30 +438,6 @@ body {
           color: #a1a1aa;
           margin-top: 2px;
         }
-      }
-    }
-  }
-
-  .bento-location {
-    grid-column: span 1;
-
-    .loc-content {
-      margin-top: 0.6rem;
-
-      .loc-pin {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: #ffffff;
-        display: block;
-      }
-
-      .loc-sub {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.82rem;
-        color: #a1a1aa;
-        margin-top: 0.4rem;
-        line-height: 1.4;
       }
     }
   }
