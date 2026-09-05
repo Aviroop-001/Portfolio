@@ -9,9 +9,11 @@ export default function Education() {
       <div className="education-compact-grid">
         {educationData.map((edu, idx) => (
           <div key={idx} className="edu-compact-card">
-            <div className="edu-card-header">
-              <span className="edu-degree">{edu.position}</span>
-              <span className="edu-cgpa-badge">{edu.text}</span>
+            <div className="edu-card-top">
+              <div className="edu-degree">{edu.position}</div>
+              <div className="edu-grade-row">
+                <span className="edu-cgpa-badge">{edu.text}</span>
+              </div>
             </div>
             
             <div className="edu-card-details">

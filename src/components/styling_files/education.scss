@@ -30,10 +30,9 @@
       transform: translateY(-2px);
     }
 
-    .edu-card-header {
+    .edu-card-top {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex-direction: column;
       gap: 10px;
 
       .edu-degree {
@@ -44,16 +43,21 @@
         line-height: 1.35;
       }
 
-      .edu-cgpa-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: #10b981;
-        background: rgba(16, 185, 129, 0.1);
-        border: 1px solid rgba(16, 185, 129, 0.25);
-        padding: 3px 9px;
-        border-radius: 12px;
-        white-space: nowrap;
+      .edu-grade-row {
+        display: flex;
+        align-items: center;
+
+        .edu-cgpa-badge {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: #10b981;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.25);
+          padding: 4px 10px;
+          border-radius: 12px;
+          display: inline-block;
+        }
       }
     }
 
