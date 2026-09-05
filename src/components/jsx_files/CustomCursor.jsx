@@ -8,7 +8,7 @@ export default function CustomCursor() {
   
   const mouse = useRef({ x: 0, y: 0 });
   const points = useRef([]);
-  const segments = 25; // Number of points in the trail
+  const segments = 12; // Shorter trail length
 
   useEffect(() => {
     // Initialize points for the trail
@@ -47,12 +47,10 @@ export default function CustomCursor() {
     const animate = () => {
       let pts = points.current;
       
-      // Shift historical points to follow the EXACT path taken
+      // Shift historical points faster for a snappy, shorter trail
       for (let i = segments - 1; i > 0; i--) {
-        // Easing the history points towards the previous point creates a snake that 
-        // follows the exact path, and elegantly retracts when the mouse stops.
-        pts[i].x += (pts[i - 1].x - pts[i].x) * 0.5;
-        pts[i].y += (pts[i - 1].y - pts[i].y) * 0.5;
+        pts[i].x += (pts[i - 1].x - pts[i].x) * 0.68;
+        pts[i].y += (pts[i - 1].y - pts[i].y) * 0.68;
       }
       pts[0].x = mouse.current.x;
       pts[0].y = mouse.current.y;
