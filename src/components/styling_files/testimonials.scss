@@ -131,13 +131,13 @@
       position: relative;
       width: 380px;
       flex-shrink: 0;
-      background: rgba(20, 20, 20, 0.6);
+      background: var(--card-bg);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 2.2rem 1.8rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-card);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       display: flex;
       flex-direction: column;
@@ -150,7 +150,7 @@
 
       &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(16, 185, 129, 0.1);
+        box-shadow: var(--shadow-elevated);
         border-color: rgba(16, 185, 129, 0.3);
       }
 
@@ -165,7 +165,7 @@
           align-items: center;
           justify-content: center;
           font-size: 1.5rem;
-          box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1);
         }
       }
 
@@ -173,7 +173,7 @@
         flex-grow: 1;
         font-family: 'Inter', sans-serif;
         font-size: 0.95rem;
-        color: #e5e7eb; // Light text
+        color: var(--text-color);
         line-height: 1.6;
         font-weight: 400;
         margin: 0 0 2rem 0;
@@ -199,7 +199,7 @@
         .signature-font {
           font-family: 'Caveat', cursive;
           font-size: 1.8rem;
-          color: #ffffff; // White signature
+          color: var(--title-color);
           line-height: 1;
           margin-bottom: 0.3rem;
           transform: rotate(-2deg); // Slight tilt for authenticity
@@ -209,7 +209,7 @@
           font-family: 'Inter', sans-serif;
           font-size: 0.75rem;
           font-weight: 500;
-          color: #9ca3af; // Grey role
+          color: var(--subtext-color);
         }
       }
     }
