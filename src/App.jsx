@@ -124,8 +124,8 @@ function App() {
   ];
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
   };
 
   // If on /playground route, render dedicated AgenticPlaygroundPage
@@ -211,7 +211,7 @@ function App() {
             className="section-container"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
             <Intro />
@@ -223,7 +223,7 @@ function App() {
             className="section-container about-container"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
             <ScrambleText as="h2" text="About Me" className="section-title" />
@@ -317,7 +317,7 @@ function App() {
             className="section-container"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
             <ScrambleText as="h2" text="Education" className="section-title" />
@@ -330,7 +330,7 @@ function App() {
             className="section-container"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
             <ScrambleText as="h2" text="Testimonials" className="section-title" />
@@ -342,7 +342,7 @@ function App() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
             className="section-container"
           >
@@ -356,7 +356,7 @@ function App() {
             className="section-container"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
             <ScrambleText as="h2" text="Contact" className="section-title" />

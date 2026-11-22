@@ -21,12 +21,22 @@ export default function CustomCursor() {
       points.current.push({ x: -100, y: -100 });
     }
 
+    let isLoopRunning = false;
+    let animId = null;
+
+    const startAnimationLoop = () => {
+      if (isLoopRunning) return;
+      isLoopRunning = true;
+      animId = requestAnimationFrame(animate);
+    };
+
     const handleMouseMove = (e) => {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
       if (cursorDotRef.current) {
         cursorDotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
       }
+      startAnimationLoop();
     };
 
     let isPointerActive = false;
@@ -50,7 +60,6 @@ export default function CustomCursor() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseover', handleMouseOver, { passive: true });
 
-    let animId;
     const animate = () => {
       const pts = points.current;
 
@@ -80,15 +89,24 @@ export default function CustomCursor() {
         cursorGlowRef.current.style.transform = `translate3d(${glow.current.x}px, ${glow.current.y}px, 0) translate(-50%, -50%)`;
       }
 
+      // If trail and glow have fully settled at current mouse position, sleep loop to save 100% CPU/GPU cycles during scroll
+      const glowDiff = Math.abs(mouse.current.x - glow.current.x) + Math.abs(mouse.current.y - glow.current.y);
+      const tailDiff = Math.abs(mouse.current.x - pts[segments - 1].x) + Math.abs(mouse.current.y - pts[segments - 1].y);
+
+      if (glowDiff < 0.2 && tailDiff < 0.5) {
+        isLoopRunning = false;
+        return;
+      }
+
       animId = requestAnimationFrame(animate);
     };
 
-    animId = requestAnimationFrame(animate);
+    startAnimationLoop();
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
-      cancelAnimationFrame(animId);
+      if (animId) cancelAnimationFrame(animId);
     };
   }, []);
 
