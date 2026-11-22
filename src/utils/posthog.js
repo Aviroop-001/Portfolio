@@ -6,26 +6,32 @@ const POSTHOG_HOST = process.env.REACT_APP_POSTHOG_HOST || 'https://us.i.posthog
 let isInitialized = false;
 
 export const initPostHog = () => {
-  if (isInitialized) return;
-  if (!POSTHOG_KEY) {
-    return;
-  }
+  if (isInitialized || !POSTHOG_KEY) return;
 
-  try {
-    posthog.init(POSTHOG_KEY, {
-      api_host: POSTHOG_HOST,
-      person_profiles: 'identified_only',
-      capture_pageview: true,
-      capture_pageleave: true,
-      autocapture: true,
-      disable_session_recording: false,
-      loaded: () => {
-        // Analytics active without UI blocking
-      }
-    });
-    isInitialized = true;
-  } catch (err) {
-    // Graceful error handling
+  const start = () => {
+    try {
+      posthog.init(POSTHOG_KEY, {
+        api_host: POSTHOG_HOST,
+        person_profiles: 'identified_only',
+        capture_pageview: true,
+        capture_pageleave: true,
+        autocapture: true,
+        disable_session_recording: false,
+        session_recording: {
+          recordCrossOriginIframes: false,
+        },
+      });
+      isInitialized = true;
+    } catch (err) {
+      // Graceful error handling
+    }
+  };
+
+  // Run asynchronously during browser idle time so initial FCP is never delayed
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    window.requestIdleCallback(start, { timeout: 2000 });
+  } else {
+    setTimeout(start, 500);
   }
 };
 

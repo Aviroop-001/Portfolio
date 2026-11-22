@@ -11,7 +11,7 @@ export const projectsData = [
       "Developed an ensemble ML pipeline (RandomForest, LightGBM, Logistic Regression) with TF-IDF feature engineering & SMOTE for transaction classification. Automates reporting and goal-based spend optimization using GitHub Actions, Gemini, and Gmail API.",
     repo: "https://github.com/Aviroop-001",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=650&q=75",
   },
   {
     id: "1",
@@ -21,7 +21,7 @@ export const projectsData = [
     liveLink: "https://aviroop-blog-client-aviroop-001.vercel.app/",
     repo: "https://github.com/Aviroop-001/Blogetra",
     image:
-      "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "https://images.unsplash.com/photo-1432821596592-e2c18b78144f?auto=format&fit=crop&w=650&q=75",
   },
   {
     id: "5",
@@ -30,7 +30,7 @@ export const projectsData = [
       "Designed a real-time collaborative document editing platform with the ability to track active users. The project had 100+ registered users, boasting REST API response times under 150 milliseconds",
     liveLink: "https://collab-io-lovat.vercel.app/",
     image:
-      "https://www.computerhardwareinc.com/wp-content/uploads/2019/04/collaborate-with-colleagues-in-google-docs.jpg",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=650&q=75",
   },
   {
     id: "2",
@@ -40,7 +40,7 @@ export const projectsData = [
     liveLink: "https://radius-seven.vercel.app/",
     repo: "https://github.com/Aviroop-001/Radius",
     image:
-      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=650&q=75",
   },
   {
     id: "3",
@@ -51,7 +51,7 @@ export const projectsData = [
       "https://expo.dev/@aviroop/socialApp?serviceType=classic&distribution=expo-go",
     repo: "https://github.com/Aviroop-001/Intelligram",
     image:
-      "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?auto=format&fit=crop&w=650&q=75",
   },
   {
     id: "4",
@@ -61,7 +61,7 @@ export const projectsData = [
     liveLink: "https://user-dashboard-phi.vercel.app/",
     repo: "https://github.com/Aviroop-001/User_Dashboard",
     image:
-      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80",
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=650&q=75",
   },
 ];
 

@@ -48,6 +48,8 @@ export default function Projects() {
                 src={project.image} 
                 alt={project.title}
                 className="card-img"
+                loading="lazy"
+                decoding="async"
               />
               <span className="live-status-pill">
                 <span className="pulse-dot" /> {project.liveLink ? 'LIVE APP' : 'OPEN SOURCE'}

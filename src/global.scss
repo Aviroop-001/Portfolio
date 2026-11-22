@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');
-
+// Fonts are loaded non-blocking in index.html to prevent render-blocking FCP delays
 $mobile: 768px;
 
 @mixin mobile {

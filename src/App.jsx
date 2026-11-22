@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import './global.scss';
 import './App.scss';
 import Intro from "./components/jsx_files/intro";
@@ -10,7 +10,6 @@ import Education from './components/jsx_files/Education';
 import Testimonials from './components/jsx_files/Testimonials';
 import Blogs from './components/jsx_files/Blogs';
 import Contact from './components/jsx_files/Contact';
-import AgenticPlaygroundPage from './components/jsx_files/AgenticPlaygroundPage';
 import { 
   FiGithub, 
   FiLinkedin,
@@ -22,8 +21,11 @@ import {
 import { motion } from 'framer-motion';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import ScrambleText from './components/jsx_files/ScrambleText';
-import CommandPalette from './components/jsx_files/CommandPalette';
 import { initPostHog, trackSectionView } from './utils/posthog';
+
+// Code-split heavy interactive modules so initial landing payload is lightweight (<0.5s FCP)
+const AgenticPlaygroundPage = lazy(() => import('./components/jsx_files/AgenticPlaygroundPage'));
+const CommandPalette = lazy(() => import('./components/jsx_files/CommandPalette'));
 
 function App() {
   const [activeSection, setActiveSection] = useState('intro');
@@ -83,26 +85,28 @@ function App() {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
 
+  // Zero-overhead native IntersectionObserver replaces synchronous scroll reflow
   useEffect(() => {
     if (route !== 'home') return;
 
-    const handleScroll = () => {
-      const sections = ['intro', 'about', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top >= -200 && rect.top <= window.innerHeight / 2) {
-            setActiveSection(prev => (prev !== section ? section : prev));
-            break;
-          }
-        }
+    const sections = ['intro', 'about', 'experience', 'skills', 'projects', 'education', 'testimonials', 'blogs', 'contact'];
+    const elements = sections.map(id => document.getElementById(id)).filter(Boolean);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const intersecting = entries.filter(e => e.isIntersecting);
+      if (intersecting.length > 0) {
+        intersecting.sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
+        setActiveSection(intersecting[0].target.id);
       }
-    };
-    
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    }, {
+      rootMargin: '-10% 0px -40% 0px',
+      threshold: [0, 0.25]
+    });
+
+    elements.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, [route]);
 
   const scrollToSection = (id) => {
@@ -129,9 +133,11 @@ function App() {
     return (
       <div className="App modern-theme">
         <CustomCursor />
-        <CommandPalette />
+        <Suspense fallback={null}>
+          <CommandPalette />
+          <AgenticPlaygroundPage onBack={navigateToHome} />
+        </Suspense>
         <SpeedInsights />
-        <AgenticPlaygroundPage onBack={navigateToHome} />
       </div>
     );
   }
@@ -139,7 +145,9 @@ function App() {
   return (
     <div className="App modern-theme">
       <CustomCursor />
-      <CommandPalette />
+      <Suspense fallback={null}>
+        <CommandPalette />
+      </Suspense>
       <SpeedInsights />
 
       {/* Modern Sticky Navbar */}

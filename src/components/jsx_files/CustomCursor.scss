@@ -1,14 +1,20 @@
 .custom-cursor {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 12px;
   height: 12px;
   background-color: #10b981; /* Neon emerald green */
   border-radius: 50%;
   pointer-events: none;
   z-index: 999999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, background-color 0.2s, border 0.2s;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              height 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.2s, 
+              border 0.2s;
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  will-change: transform;
 
   &.pointer {
     width: 40px;
@@ -21,17 +27,20 @@
 
 .custom-cursor-glow {
   position: fixed;
-  width: 500px;
-  height: 500px;
+  top: 0;
+  left: 0;
+  width: 450px;
+  height: 450px;
   background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent 60%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 999997;
-  transform: translate(-50%, -50%);
-  transition: left 0.15s ease-out, top 0.15s ease-out, background 0.2s; /* Lag effect */
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transition: background 0.2s ease;
+  will-change: transform;
   
   &.pointer {
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.25), transparent 60%);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.22), transparent 60%);
   }
 }
 
@@ -55,12 +64,14 @@
   filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
 }
 
-/* Hide default cursor on body */
-body {
-  cursor: none !important;
-}
-a, button, .tab-btn {
-  cursor: none !important;
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none !important;
+  }
+  a, button, .tab-btn, [role="button"] {
+    cursor: none !important;
+  }
 }
 
 /* Hide custom cursor entirely on mobile/touch devices */
@@ -71,7 +82,7 @@ a, button, .tab-btn {
     display: none !important;
   }
   
-  body, a, button, .tab-btn {
+  body, a, button, .tab-btn, [role="button"] {
     cursor: auto !important;
   }
 }
