@@ -161,7 +161,7 @@ export default function Testimonials() {
         <div className="reviews-toolbar">
           <div className="status-pills">
             <span className="pill badge-pill">
-              ⭐ 5 Verified Recommendations
+              ⭐ {testimonialsData.length} Verified Recommendations
             </span>
           </div>
 
