@@ -207,15 +207,9 @@ function App() {
       {/* Main Scrolling Content */}
       <main className="scrolling-content">
         <section id="intro" className="page-section">
-          <motion.div 
-            className="section-container"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={sectionVariants}
-          >
+          <div className="section-container">
             <Intro />
-          </motion.div>
+          </div>
         </section>
 
         <section id="about" className="page-section">

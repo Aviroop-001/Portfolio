@@ -4,7 +4,6 @@ import {
 } from 'react-icons/io5';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { Box, Text } from "@chakra-ui/react";
-import ScrambleText from "./ScrambleText";
 
 
 export default function Intro({ onPreviewResume }) {
@@ -16,11 +15,9 @@ export default function Intro({ onPreviewResume }) {
 
         {/* Hero Title & Bio */}
         <Box className="hero-content">
-          <ScrambleText 
-            as="h1" 
-            text="Aviroop Banerjee" 
-            className="name-text" 
-          />
+          <h1 className="name-text">
+            Aviroop Banerjee
+          </h1>
 
           <Box className="subtitle-wrapper">
             {/* <DesktopCatPet /> Disabled for now per request */}
