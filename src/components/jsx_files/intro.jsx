@@ -22,7 +22,7 @@ export default function Intro({ onPreviewResume }) {
           <Box className="subtitle-wrapper">
             {/* <DesktopCatPet /> Disabled for now per request */}
             <Text className="subtitle-text">
-              Software Engineer with <strong>2+ years of experience</strong> building AI agents, LLM systems, distributed backend infrastructure, and platform-level software.
+              Software Development Engineer II with <strong>3+ years of experience</strong> building AI agents, LLM systems, distributed backend infrastructure, and platform-level software.
             </Text>
           </Box>
 

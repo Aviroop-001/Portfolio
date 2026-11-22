@@ -67,43 +67,60 @@ export const projectsData = [
 
 export const timelineData = [
   {
-    text: "Multi-Agent Fault Localization, Event-Driven Sync & Foundation Libraries",
+    text: "Auth-Platform Performance Overhaul & Outage Resiliency",
     bullets: [
-      "Built a multi-agent fault localization system using LangGraph with specialized sub-agents that isolate errors from Jira stack traces via lexical + call-graph search, generate candidate fixes, and open PRs behind human approval checkpoints.",
-      "Replaced a legacy polling pipeline with an event-driven sync layer using S3 event triggers and AWS Lambda.",
-      "Spearheaded the design of a JSON-driven, PostgreSQL-backed template service for AllyAI to assemble dashboards from reusable widgets.",
-      "Architected a standardized 'Golden Path' Node.js foundation library adopted across the microservice ecosystem, integrating OpenTelemetry and circuit-breaker patterns."
+      "Led an end-to-end auth-platform performance overhaul (design, planning, delivery): moved user claims into signed JWTs, cutting session-check p50 from 224 ms to 2.4 ms, eliminating 1M+ identity-provider API calls/day and speeding up core APIs by 30–88%.",
+      "Removed a per-member identity-provider fan-out that was stalling auth-service, cutting user-details p95 from 19.1 s to 0.62 s and rate-limit errors from 73K to 0 per 3 hrs; made auth outage-resilient (retryable 503s), cutting outage-driven logouts from 100% to 0."
     ],
-    date: "July 2024 – Present",
-    position: "Software Development Engineer",
+    date: "Oct 2026 – Present",
+    position: "Software Development Engineer II",
     org: "CommerceIQ",
     icon: commerceiqLogo,
-    skills: "LangGraph, Node.js, NestJS, AWS Lambda, PostgreSQL, OpenTelemetry, TypeScript",
+    skills: "JWT, Auth Systems, Distributed Systems, Performance Optimization, Node.js, Spring Boot, Microservices",
     category: {
       tag: "Full-time",
       color: "#0f4c3a",
     },
   },
   {
-    text: "RBAC Microservice & Component Provisioning",
+    text: "Multi-Agent Fault Localization, Golden Path Library & SKU Alerts",
     bullets: [
-      "Built a NestJS RBAC microservice automating component rendering and role provisioning across internal engineering teams."
+      "Cut bug triage-to-PR time from 5 hrs to 20 min with a LangGraph multi-agent system that localizes faults from stack traces (call-graph search), generates fixes and opens PRs behind human approval; 80%+ of 23+ PRs merged.",
+      "Proposed and led a platform-wide “Golden Path” Node.js foundation library (OpenTelemetry, circuit breakers, standard config), designing the architecture and guiding 2 engineers; adopted by 11 microservices, cutting new-service setup from 2 days to 3 hrs.",
+      "Launched an Amazon-marketplace SKU alert service (Spring Boot + Kafka fan-out) that notifies Fortune 500 consumer brands of price, stock, Buy Box, rank and badge changes, delivering 1K+ alerts/day across 75K+ SKUs within 10 min of each batch run.",
+      "Reduced report-build time from 24 hrs to 5 hrs by designing a JSON-driven, PostgreSQL-backed template service for the AllyAI reporting platform that assembles dashboards from reusable widgets."
     ],
-    date: "Jan 2024 – July 2024",
+    date: "Jul 2024 – Oct 2026",
+    position: "Software Development Engineer I",
+    org: "CommerceIQ",
+    icon: commerceiqLogo,
+    skills: "LangGraph, Node.js, Spring Boot, Kafka, AWS Lambda, PostgreSQL, OpenTelemetry, TypeScript",
+    category: {
+      tag: "Full-time",
+      color: "#0f4c3a",
+    },
+  },
+  {
+    text: "RBAC Microservice & RAG Campaign Pipeline",
+    bullets: [
+      "Implemented a NestJS RBAC microservice automating component rendering and role provisioning, cutting bulk user onboarding from 4 hrs to under 10 min (24× faster) across 5+ internal teams.",
+      "Built a RAG pipeline (LangChain + pgvector) over 500+ brand campaigns (50K ad documents), cutting hallucination from 22% to 14% (−35%, 200-query eval set); its budget-allocation recommendations were adopted by the ads team."
+    ],
+    date: "Jan 2024 – Jul 2024",
     position: "Software Development Engineer Intern",
     org: "CommerceIQ",
     icon: commerceiqLogo,
-    skills: "NestJS, TypeScript, Node.js, RBAC, Software Architecture",
+    skills: "NestJS, TypeScript, LangChain, pgvector, RAG, Node.js, RBAC",
     category: {
       tag: "Internship",
       color: "#180959",
     },
   },
   {
-    text: "ETL Pipelines & NLQ-to-SQL System",
+    text: "DuckDB Vectorized ETL Pipelines & NLQ-to-SQL System",
     bullets: [
-      "Integrated DuckDB and orchestrated high-efficiency ETL pipelines across BigQuery, Redshift, and Supabase.",
-      "Developed a Natural Language Query (NLQ) to SQL system utilizing t5-base and Meta CodeLlama-13B-Instruct."
+      "Sped up data-processing time 67% and query latency 40% on multi-million-row datasets by adding DuckDB as an in-process analytics engine to ETL pipelines pulling from BigQuery, Redshift and Supabase.",
+      "Shipped an NLQ-to-SQL system (t5-base, CodeLlama-13B-Instruct) reaching 74.6% accuracy on benchmark queries, driving a 7× increase in query usage."
     ],
     date: "Sep 2023 – Jan 2024",
     position: "Software Engineer Intern",

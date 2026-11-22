@@ -224,42 +224,46 @@ function App() {
             
             {/* Modern Bento Grid */}
             <div className="about-bento-grid">
-              {/* Card 1: Scalability, Performant & Platform Architecture */}
+              {/* Card 1: Scalability, Performance & Platform Architecture */}
               <div className="bento-card bento-hero">
                 <div className="bento-card-header">
                   <span className="card-badge">ENGINEERING PHILOSOPHY</span>
                 </div>
-                <h3 className="hero-title">Scalability, Performant & Platform Architecture</h3>
+                <h3 className="hero-title">Scalability, Performance & Platform Architecture</h3>
                 <p className="hero-desc">
-                  Software Engineer focused on architecting highly scalable backends, performant microservices, and resilient platform infrastructure. I design standardized golden path foundation libraries, event-driven data pipelines (AWS Lambda, S3, Kafka), and multi-agent LLM systems engineered for predictable high-concurrency scale.
+                  Software Development Engineer II focused on architecting highly scalable distributed backends, resilient auth platforms, and high-concurrency microservices. I design platform-wide golden path foundation libraries, event-driven streaming pipelines (Kafka, AWS Lambda, S3), and multi-agent LLM systems engineered for mission-critical production scale.
                 </p>
               </div>
 
-              {/* Card 2: 5 Key Resume Impact Metrics */}
+              {/* Card 2: 6 Key Production Impact Metrics */}
               <div className="bento-card bento-metrics">
                 <div className="bento-card-header">
-                  <span className="card-badge">RESUME IMPACT METRICS</span>
+                  <span className="card-badge">PRODUCTION IMPACT METRICS</span>
                 </div>
                 <div className="metrics-bento-grid">
                   <div className="m-item">
+                    <span className="m-val">2.4ms</span>
+                    <span className="m-lbl">Session p50 (from 224ms)</span>
+                  </div>
+                  <div className="m-item">
+                    <span className="m-val">1M+</span>
+                    <span className="m-lbl">Auth Calls Saved/Day</span>
+                  </div>
+                  <div className="m-item">
                     <span className="m-val">15×</span>
-                    <span className="m-lbl">Triage Speedup</span>
+                    <span className="m-lbl">Bug Triage Speedup</span>
+                  </div>
+                  <div className="m-item">
+                    <span className="m-val">0.62s</span>
+                    <span className="m-lbl">User Details p95 (from 19s)</span>
                   </div>
                   <div className="m-item">
                     <span className="m-val">11M</span>
                     <span className="m-lbl">Users Served</span>
                   </div>
                   <div className="m-item">
-                    <span className="m-val">&lt;150ms</span>
-                    <span className="m-lbl">API Response Latency</span>
-                  </div>
-                  <div className="m-item">
-                    <span className="m-val">100%</span>
-                    <span className="m-lbl">Guarded Checkpoints</span>
-                  </div>
-                  <div className="m-item">
-                    <span className="m-val">23+</span>
-                    <span className="m-lbl">Production Tickets</span>
+                    <span className="m-val">0%</span>
+                    <span className="m-lbl">Outage-Driven Logouts</span>
                   </div>
                 </div>
               </div>

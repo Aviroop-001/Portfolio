@@ -48,10 +48,40 @@ export default function CommandPalette() {
       target: 'about'
     },
     {
+      id: 'about-metric-auth-p50',
+      label: 'Metric: 2.4ms Session Check p50 (from 224ms)',
+      snippet: 'End-to-end auth platform overhaul moving user claims into signed JWTs, speeding up core APIs by 30-88%.',
+      keywords: '2.4ms session check p50 auth jwt performance overhaul commerceiq',
+      category: 'About Me',
+      icon: <FiZap />,
+      type: 'scroll',
+      target: 'about'
+    },
+    {
+      id: 'about-metric-auth-calls',
+      label: 'Metric: 1M+ Auth API Calls Eliminated/Day',
+      snippet: 'Auth architecture overhaul eliminating per-member identity provider fan-out and rate-limit errors.',
+      keywords: '1M+ auth api calls identity provider signed jwts rate limit errors',
+      category: 'About Me',
+      icon: <FiZap />,
+      type: 'scroll',
+      target: 'about'
+    },
+    {
       id: 'about-metric-1',
       label: 'Metric: 15× Bug Triage Speedup',
       snippet: 'Automated multi-agent root-cause fault localization system utilizing LangGraph & LangChain.',
       keywords: '15x triage speedup bug root cause langgraph langchain',
+      category: 'About Me',
+      icon: <FiZap />,
+      type: 'scroll',
+      target: 'about'
+    },
+    {
+      id: 'about-metric-p95',
+      label: 'Metric: 0.62s User Details p95 (from 19.1s)',
+      snippet: 'Eliminated identity provider fan-out stalls, cutting rate-limit errors from 73K to 0 per 3 hrs.',
+      keywords: '0.62s 19.1s user details p95 latency rate limit auth service',
       category: 'About Me',
       icon: <FiZap />,
       type: 'scroll',
@@ -68,30 +98,10 @@ export default function CommandPalette() {
       target: 'about'
     },
     {
-      id: 'about-metric-3',
-      label: 'Metric: <150ms API Response Latency',
-      snippet: 'High-performance REST API services and real-time collaboration platforms.',
-      keywords: '150ms latency response time collab io real time docs',
-      category: 'About Me',
-      icon: <FiZap />,
-      type: 'scroll',
-      target: 'about'
-    },
-    {
-      id: 'about-metric-4',
-      label: 'Metric: 100% Guarded Checkpoints',
-      snippet: 'Automated safety eval suites across 50+ microservice endpoints behind SDE review checkpoints.',
-      keywords: '100% guarded human checkpoints safety eval pr review',
-      category: 'About Me',
-      icon: <FiZap />,
-      type: 'scroll',
-      target: 'about'
-    },
-    {
-      id: 'about-metric-5',
-      label: 'Metric: 23+ Production Tickets Resolved',
-      snippet: 'Production bug resolutions via autonomous multi-agent triage system.',
-      keywords: '23+ production tickets resolved multi-agent',
+      id: 'about-metric-outage',
+      label: 'Metric: 0% Outage-Driven Logouts (from 100%)',
+      snippet: 'Outage-resilient auth architecture with retryable 503 handling preventing user session drops.',
+      keywords: '0% outage logouts retryable 503s resilient auth',
       category: 'About Me',
       icon: <FiZap />,
       type: 'scroll',

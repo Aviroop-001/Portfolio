@@ -14,15 +14,27 @@ export default function Experience() {
   };
 
   const roleMetricsMap = {
-    "CommerceIQ": [
+    "Software Development Engineer II @ CommerceIQ": [
+      "⚡ 2.4ms Session p50 (from 224ms)",
+      "🛡️ 1M+ Auth Calls Eliminated/Day",
+      "🚀 19.1s → 0.62s p95 Latency",
+      "🔒 0% Outage-Driven Logouts"
+    ],
+    "Software Development Engineer I @ CommerceIQ": [
       "⚡ 15× Bug Triage Speedup",
-      "🛡️ OpenTelemetry Golden Path",
-      "☁️ S3 + AWS Lambda Event Pipeline"
+      "🛡️ 11 Microservices Golden Path",
+      "📢 1K+ Alerts/Day (75K+ SKUs)",
+      "📊 24h → 5h Report Build Time"
+    ],
+    "Software Development Engineer Intern @ CommerceIQ": [
+      "⚡ 24× Onboarding Speedup (<10 min)",
+      "🧠 -35% RAG Hallucination Drop",
+      "🎯 500+ Brand Campaigns"
     ],
     "Airbook": [
-      "⚡ DuckDB High-Efficiency ETL",
-      "🤖 CodeLlama NLQ-to-SQL",
-      "📊 Multi-Warehouse Pipeline"
+      "⚡ 67% Faster ETL Processing",
+      "🤖 CodeLlama NLQ-to-SQL (74.6% Acc)",
+      "📈 7× Query Usage Growth"
     ],
     "Listed": [
       "👥 11M User Recommendation Engine",
@@ -64,9 +76,9 @@ export default function Experience() {
               </div>
 
               {/* Role Highlight Metrics Banner */}
-              {roleMetricsMap[timelineData[activeTab].org] && (
+              {(roleMetricsMap[`${timelineData[activeTab].position} @ ${timelineData[activeTab].org}`] || roleMetricsMap[timelineData[activeTab].org]) && (
                 <div className="role-highlight-banner">
-                  {roleMetricsMap[timelineData[activeTab].org].map((m, i) => (
+                  {(roleMetricsMap[`${timelineData[activeTab].position} @ ${timelineData[activeTab].org}`] || roleMetricsMap[timelineData[activeTab].org]).map((m, i) => (
                     <span key={i} className="highlight-pill">{m}</span>
                   ))}
                 </div>
@@ -78,7 +90,7 @@ export default function Experience() {
                     <FiArrowRight className="bullet-icon"/> 
                     <div className="bullet-content-wrap">
                       <span>{desc}</span>
-                      {activeTab === 0 && i === 0 && (
+                      {desc.includes('LangGraph') && (
                         <div className="inline-playground-wrapper">
                           <button 
                             className="inline-playground-link-btn"
@@ -89,7 +101,7 @@ export default function Experience() {
                           </button>
                         </div>
                       )}
-                      {activeTab === 2 && i === 0 && (
+                      {desc.includes('DuckDB') && (
                         <div className="inline-playground-wrapper">
                           <button 
                             className="inline-playground-link-btn"
